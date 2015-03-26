@@ -26,6 +26,7 @@ public class JBattleships {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				System.out.println("etst");
 			}
 		});
 	}
