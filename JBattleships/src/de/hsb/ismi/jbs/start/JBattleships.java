@@ -27,6 +27,7 @@ public class JBattleships {
 					e.printStackTrace();
 				}
 				System.out.println("etst");
+				System.out.println("etst");
 			}
 		});
 	}
