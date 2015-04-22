@@ -7,6 +7,8 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
+import de.hsb.ismi.jbs.gui.JBSGUI;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
@@ -23,8 +25,7 @@ public class JBattleships {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //ALWAYS SET BEFORE CREATING THE FRAME!
-					//new UOIGUI();
-					System.out.println("TEST OUTPUT"); // A Simple Testcomment
+					new JBSGUI();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
