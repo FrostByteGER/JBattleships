@@ -13,7 +13,7 @@ public class JBSGUI{
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Create the frame and its components.
 	 */
 	public JBSGUI() {
 		mainFrame = new JFrame("JBattleships ALPHA");
@@ -28,6 +28,9 @@ public class JBSGUI{
 		
 	}
 	
+	/**
+	 * Inits GUI
+	 */
 	public void initGUI(){
 		
 	}
