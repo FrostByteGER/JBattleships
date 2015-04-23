@@ -18,14 +18,6 @@ public class LocalizationParser extends DataParser implements InputInterface {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param ignoredSymbols
-	 */
-	public LocalizationParser(String[] ignoredSymbols) {
-		super(ignoredSymbols);
-		// TODO Auto-generated constructor stub
-	}
-
 	/* (non-Javadoc)
 	 * @see de.hsb.ismi.jbs.engine.io.InputInterface#load()
 	 */
