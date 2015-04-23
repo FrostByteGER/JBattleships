@@ -18,14 +18,6 @@ public class ProfileParser extends DataParser implements IOInterface {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param ignoredSymbols
-	 */
-	public ProfileParser(String[] ignoredSymbols) {
-		super(ignoredSymbols);
-		// TODO Auto-generated constructor stub
-	}
-
 	/* (non-Javadoc)
 	 * @see de.hsb.ismi.jbs.engine.io.OutputInterface#save()
 	 */

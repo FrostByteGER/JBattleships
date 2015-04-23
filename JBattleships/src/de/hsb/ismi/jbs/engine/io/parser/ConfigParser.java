@@ -18,14 +18,6 @@ public class ConfigParser extends DataParser implements InputInterface {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param ignoredSymbols
-	 */
-	public ConfigParser(String[] ignoredSymbols) {
-		super(ignoredSymbols);
-		// TODO Auto-generated constructor stub
-	}
-
 	/* (non-Javadoc)
 	 * @see de.hsb.ismi.jbs.engine.io.InputInterface#load()
 	 */
