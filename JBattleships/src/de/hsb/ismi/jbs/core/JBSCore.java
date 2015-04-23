@@ -14,7 +14,10 @@ public class JBSCore {
 
 	public static MessageLogger msgLogger;
 	public static final String DATA_PATH = "/Data";
+	/** Enables debug functionality and the MessageLogger */
 	public static final boolean DEBUG = true;
+	/** Game-Resolutions <br>TODO: Change to Dimension-class */
+	public static final int[][] resolutions = {{800, 600},{1024, 768},{1280, 720}};
 	
 	/**
 	 * 

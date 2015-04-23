@@ -24,6 +24,8 @@ public class JBattleships {
 	 */
 	public static void main(String[] args) {
 		JBSCore.msgLogger = new MessageLogger(JBSCore.DEBUG);
+		// Sets the Position so the MessageLogger is a bit better visible
+		JBSCore.msgLogger.getFrame().setLocation(10, 10);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
