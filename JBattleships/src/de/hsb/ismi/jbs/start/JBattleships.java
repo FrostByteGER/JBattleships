@@ -7,6 +7,8 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
+import de.frostbyteger.messagelogger.MessageLogger;
+import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 
 /**
@@ -21,6 +23,7 @@ public class JBattleships {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		JBSCore.msgLogger = new MessageLogger(JBSCore.DEBUG);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

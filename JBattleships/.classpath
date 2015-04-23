@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="Lib/Swing Messagelogger-v1.03.jar">
+	<classpathentry kind="lib" path="Lib/Swing Messagelogger-v1.05.jar" sourcepath="Lib/Swing Messagelogger-v1.05.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/JBattleships/Lib/Swing%20Messagelogger-v1.03.jar!/doc"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/JBattleships/Lib/Swing%20Messagelogger-v1.05.jar!/doc"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>

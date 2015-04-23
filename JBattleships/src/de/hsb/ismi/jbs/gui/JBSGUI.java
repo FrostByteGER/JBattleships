@@ -5,6 +5,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * The core GUI-class, everything starts here.
+ * @author Kevin Kuegler
+ * @version 1.00
+ */
 public class JBSGUI{
 
 	private JFrame mainFrame;
