@@ -47,7 +47,7 @@ public class JBSGUI{
 		mainPanel = new MainPanel(this);
 		optionsPanel = new OptionsPanel2(this);
 		//TODO: Remove add call
-		contentPane.add(mainPanel,BorderLayout.CENTER);
+		contentPane.add(new OptionsPanel2(this),BorderLayout.CENTER);
 		mainFrame.setContentPane(contentPane);
 		
 
