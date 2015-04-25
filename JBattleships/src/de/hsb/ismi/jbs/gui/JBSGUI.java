@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.util.Stack;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -19,6 +20,9 @@ public class JBSGUI{
 	private JFrame mainFrame;
 	private JPanel contentPane;
 	private Stack<JPanel> panelStack;
+	
+	// Shared Elements
+	private JLabel headerLbl;
 
 	/**
 	 * Create the frame and its components.
