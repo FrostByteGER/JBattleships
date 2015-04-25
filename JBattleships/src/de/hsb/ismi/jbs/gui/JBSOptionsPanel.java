@@ -266,7 +266,8 @@ public class JBSOptionsPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("back")){
 					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + JBSOptionsPanel.this.getClass());
-					JBSOptionsPanel.this.parent.restorePrevContainer();
+					JBSOptionsPanel.this.parent.swapContainer(new JPanel());
+					//JBSOptionsPanel.this.parent.restorePrevContainer();
 				}
 			}
 		});
