@@ -19,7 +19,7 @@ public class JBSGUI{
 	private JFrame mainFrame;
 	private JPanel contentPane;
 	private Stack<JPanel> panelStack;
-	private int x;
+	private int x;// Penis
 	
 	/**
 	 * Create the frame and its components.
