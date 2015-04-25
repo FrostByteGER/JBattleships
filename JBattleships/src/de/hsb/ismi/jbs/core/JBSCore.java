@@ -17,7 +17,7 @@ public class JBSCore {
 	/** Enables debug functionality and the MessageLogger */
 	public static final boolean DEBUG = true;
 	/** Allows to resize the game window */
-	public static final boolean RESIZABLE = false;
+	public static final boolean RESIZABLE = true;
 	/** Game-Resolutions <br>TODO: Change to Dimension-class */
 	public static final int[][] resolutions = {{800, 600},{1024, 768},{1280, 720}};
 

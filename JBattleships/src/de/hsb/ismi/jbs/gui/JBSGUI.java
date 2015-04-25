@@ -3,7 +3,10 @@ package de.hsb.ismi.jbs.gui;
 import java.awt.BorderLayout;
 import java.util.Stack;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -21,6 +24,10 @@ public class JBSGUI{
 	private Stack<JPanel> panelStack;
 	private int x;// Penis
 	
+	// Shared Elements
+	private JPanel headerPanel;
+	private JLabel headerLbl;
+
 	/**
 	 * Create the frame and its components.
 	 */
