@@ -290,7 +290,7 @@ public class JBSOptionsPanel extends JPanel{
 		networkPanel.setLayout(gbl_networkPanel);
 
 		GridBagConstraints gbc_rigidArea_4 = new GridBagConstraints();
-		gbc_rigidArea_4.fill = GridBagConstraints.HORIZONTAL;
+		gbc_rigidArea_4.fill = GridBagConstraints.BOTH;
 		gbc_rigidArea_4.insets = new Insets(0, 0, 5, 0);
 		gbc_rigidArea_4.gridx = 0;
 		gbc_rigidArea_4.gridy = 0;
