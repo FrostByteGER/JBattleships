@@ -27,6 +27,9 @@ public class JBSGUI{
 	// Shared Elements
 	private JPanel headerPanel;
 	private JLabel headerLbl;
+	
+	private MainPanel mainPanel;
+	private OptionsPanel2 optionsPanel;
 
 	/**
 	 * Create the frame and its components.
@@ -41,8 +44,10 @@ public class JBSGUI{
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
+		mainPanel = new MainPanel(this);
+		optionsPanel = new OptionsPanel2(this);
 		//TODO: Remove add call
-		contentPane.add(new MainPanel(this),BorderLayout.CENTER);
+		contentPane.add(mainPanel,BorderLayout.CENTER);
 		mainFrame.setContentPane(contentPane);
 		
 
@@ -74,8 +79,6 @@ public class JBSGUI{
 	 * @param container
 	 */
 	public void swapContainer(JPanel container){
-		//TODO: Check if remove works!
-		panelStack.push((JPanel) ((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
 		contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
 		contentPane.add(container,BorderLayout.CENTER);
 		container.updateUI();
@@ -83,14 +86,16 @@ public class JBSGUI{
 	}
 	
 	/**
-	 * Restores the previous JPanel that was visible before a new one was called.
+	 * @deprecated
+	 * <br>Restores the previous JPanel that was visible before a new one was called.
 	 */
 	public void restorePrevContainer(){
+		JBSCore.msgLogger.addMessage("DEPRECATED METHOD, DO NOT USE!");
 		if(!panelStack.empty()){
-			swapContainer(panelStack.pop());
-			JBSCore.msgLogger.addMessage("Restored previous JPanel!");
+			//swapContainer(panelStack.pop());
+			//JBSCore.msgLogger.addMessage("Restored previous JPanel!");
 		}else{
-			JBSCore.msgLogger.addMessage("Stack is Empty!");
+			//JBSCore.msgLogger.addMessage("Stack is Empty!");
 		}
 	}
 
@@ -99,6 +104,20 @@ public class JBSGUI{
 	 */
 	public final JPanel getHeaderPanel() {
 		return headerPanel;
+	}
+
+	/**
+	 * @return the mainPanel
+	 */
+	public final MainPanel getMainPanel() {
+		return mainPanel;
+	}
+
+	/**
+	 * @return the optionsPanel
+	 */
+	public final OptionsPanel2 getOptionsPanel() {
+		return optionsPanel;
 	}
 
 }

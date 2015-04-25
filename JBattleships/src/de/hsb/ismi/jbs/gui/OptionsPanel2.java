@@ -310,8 +310,8 @@ public class OptionsPanel2 extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("back")){
 					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
-					OptionsPanel2.this.parent.swapContainer(new JPanel());
-					//OptionsPanel.this.parent.restorePrevContainer();
+					OptionsPanel2.this.parent.swapContainer(OptionsPanel2.this.parent.getMainPanel());
+					System.out.println("");
 				}
 			}
 		});

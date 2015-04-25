@@ -115,6 +115,14 @@ public class MainPanel extends JPanel {
 		buttonPanel.add(btnProfiles, gbc_btnProfiles);
 		
 		btnOptions = new JButton("Options");
+		btnOptions.setActionCommand("options");
+		btnOptions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("options")){
+					parent.swapContainer(parent.getOptionsPanel());
+				}
+			}
+		});
 		GridBagConstraints gbc_btnOptions = new GridBagConstraints();
 		gbc_btnOptions.insets = new Insets(0, 0, 5, 0);
 		gbc_btnOptions.fill = GridBagConstraints.HORIZONTAL;
