@@ -1,5 +1,6 @@
 package de.hsb.ismi.jbs.gui;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -22,7 +23,6 @@ public class GameFieldContainder extends JPanel {
 	public GameFieldContainder(Game game) {
 		
 		this.game = game;
-		
 		init();
 	}
 	
@@ -36,11 +36,6 @@ public class GameFieldContainder extends JPanel {
 		uperSiedPanel.setBackground(Color.BLUE);
 		
 		splitPane.setRightComponent(uperSiedPanel);
-		uperSiedPanel.setLayout(new BorderLayout(0, 0));
-		
-		lowerSidePanel = new JPanel();
-		lowerSidePanel.setBackground(Color.RED);
-		uperSiedPanel.add(lowerSidePanel, BorderLayout.SOUTH);
 		
 		uperMainPanel = new GameFieldPanel();
 		splitPane.setLeftComponent(uperMainPanel);
@@ -53,9 +48,12 @@ public class GameFieldContainder extends JPanel {
 	
 	
 	
-	
-	
-	
+	public static void main(String[] args) {
+		JFrame f = new JFrame();
+		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		f.setContentPane(new GameFieldContainder(null));
+		f.setVisible(true);
+	}
 	
 	
 	

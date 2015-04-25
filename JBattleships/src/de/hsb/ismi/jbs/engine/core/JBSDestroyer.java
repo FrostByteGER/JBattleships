@@ -13,20 +13,9 @@ public class JBSDestroyer extends JBSShip {
 	 * 
 	 */
 	public JBSDestroyer() {
-		super(3, 0, 5);
+		super(3, 0, 5, DamageType.DAMAGE_SMALL);
 		setName("Destroyer");
 		setHealth(5);
-		setLength(5);
-	}
-
-	/**
-	 * @param cooldownLimit
-	 * @param cooldown
-	 * @param damageType
-	 */
-	public JBSDestroyer(int cooldownLimit, int cooldown, DamageType damageType) {
-		super(cooldownLimit, cooldown, damageType);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

@@ -33,7 +33,7 @@ public class JBSShip extends JBSActor {
 		this.cooldownLimit = cooldownLimit;
 		this.cooldown = cooldown;
 		this.damageType = damageType;
-		
+		this.length = length;
 	}
 
 	/**
@@ -50,20 +50,19 @@ public class JBSShip extends JBSActor {
 	public final int getCooldown() {
 		return cooldown;
 	}
+	
+	/**
+	 * @param cooldown the cooldown to set
+	 */
+	public void setCooldown(int cooldown) {
+		this.cooldown = cooldown;
+	}
 
 	/**
 	 * @return the cooldownLimit
 	 */
 	public final int getCooldownLimit() {
 		return cooldownLimit;
-	}
-
-	
-	/**
-	 * @param cooldownLimit the cooldownLimit to set
-	 */
-	public void setCooldownLimit(int cooldownLimit) {
-		this.cooldownLimit = cooldownLimit;
 	}
 
 	/**
