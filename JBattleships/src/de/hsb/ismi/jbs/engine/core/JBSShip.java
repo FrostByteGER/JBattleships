@@ -11,14 +11,16 @@ public class JBSShip extends JBSActor {
 
 	private int cooldownLimit;
 	private int cooldown;
+	private int length;
+
 	private DamageType damageType;
-	
+	private String name;
 
 	/**
 	 * 
 	 */
 	public JBSShip() {
-		// TODO Auto-generated constructor stub
+		name = "unknown";
 	}
 	
 	/**
@@ -26,13 +28,13 @@ public class JBSShip extends JBSActor {
 	 * @param cooldown
 	 * @param damageType
 	 */
-	public JBSShip(int cooldownLimit, int cooldown, DamageType damageType) {
+	public JBSShip(int cooldownLimit, int cooldown, int length, DamageType damageType) {
 		super();
 		this.cooldownLimit = cooldownLimit;
 		this.cooldown = cooldown;
 		this.damageType = damageType;
+		this.length = length;
 	}
-
 
 	/**
 	 * @param replicated
@@ -48,11 +50,11 @@ public class JBSShip extends JBSActor {
 	public final int getCooldown() {
 		return cooldown;
 	}
-
+	
 	/**
 	 * @param cooldown the cooldown to set
 	 */
-	public final void setCooldown(int cooldown) {
+	public void setCooldown(int cooldown) {
 		this.cooldown = cooldown;
 	}
 
@@ -69,5 +71,26 @@ public class JBSShip extends JBSActor {
 	public final DamageType getDamageType() {
 		return damageType;
 	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the length
+	 */
+	public int getLength() {
+		return length;
+	}
+	
 }

@@ -20,10 +20,15 @@ public class JBSGUI{
 	private JFrame mainFrame;
 	private JPanel contentPane;
 	private Stack<JPanel> panelStack;
+<<<<<<< HEAD
 	
 	// Shared Elements
 	private JLabel headerLbl;
 
+=======
+	private int x;
+	
+>>>>>>> branch 'master' of https://github.com/FrostByteGER/JBattleships.git
 	/**
 	 * Create the frame and its components.
 	 */
@@ -41,6 +46,7 @@ public class JBSGUI{
 		mainFrame.setContentPane(contentPane);
 		mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
 		mainFrame.setVisible(true); // Call always at the end!
+		
 		
 	}
 	
@@ -74,6 +80,6 @@ public class JBSGUI{
 		}else{
 			JBSCore.msgLogger.addMessage("Stack is Empty!");
 		}
-	}
+	}//TEst
 
 }
