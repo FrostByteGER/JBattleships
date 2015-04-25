@@ -72,6 +72,6 @@ public class JBSGUI{
 		}else{
 			JBSCore.msgLogger.addMessage("Stack is Empty!");
 		}
-	}
+	}//TEst
 
 }
