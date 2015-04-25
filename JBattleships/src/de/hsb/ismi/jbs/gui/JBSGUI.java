@@ -56,6 +56,7 @@ public class JBSGUI{
 		panelStack.push((JPanel) ((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
 		contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
 		contentPane.add(container,BorderLayout.CENTER);
+		container.updateUI();
 		JBSCore.msgLogger.addMessage("Swapped JPanel!");
 	}
 	
