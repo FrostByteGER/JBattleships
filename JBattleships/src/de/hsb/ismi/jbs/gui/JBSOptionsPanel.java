@@ -11,12 +11,9 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
-import javax.swing.SwingUtilities;
-
 import java.awt.Component;
 
 import javax.swing.Box;
@@ -38,9 +35,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JSlider;
 
 import de.hsb.ismi.jbs.core.JBSCore;
-import java.awt.FlowLayout;
 import javax.swing.JTextField;
-import javax.swing.JSeparator;
 
 /**
  * @author Kevin Kuegler
@@ -71,10 +66,8 @@ public class JBSOptionsPanel extends JPanel{
 	private JSlider sliderMusic;
 	private JLabel lblMusic;
 	private JPanel networkPanel;
-	private Component rigidArea;
 	private JLabel lblIP;
-	private JComboBox ipBox;
-	private Component rigidArea_1;
+	private JComboBox<Object> ipBox;
 	private JLabel lblPort;
 	private JTextField portField;
 	
@@ -304,7 +297,7 @@ public class JBSOptionsPanel extends JPanel{
 		gbc_lblIP.gridy = 1;
 		networkPanel.add(lblIP, gbc_lblIP);
 		
-		ipBox = new JComboBox();
+		ipBox = new JComboBox<Object>(); //TODO: Change type!
 		GridBagConstraints gbc_ipBox = new GridBagConstraints();
 		gbc_ipBox.insets = new Insets(0, 0, 5, 0);
 		gbc_ipBox.fill = GridBagConstraints.HORIZONTAL;
