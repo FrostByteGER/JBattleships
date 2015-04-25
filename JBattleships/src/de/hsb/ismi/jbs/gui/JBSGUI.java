@@ -1,8 +1,11 @@
 package de.hsb.ismi.jbs.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.util.Stack;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +25,7 @@ public class JBSGUI{
 	private Stack<JPanel> panelStack;
 	
 	// Shared Elements
+	private JPanel headerPanel;
 	private JLabel headerLbl;
 
 	/**
@@ -33,12 +37,26 @@ public class JBSGUI{
 		mainFrame.setResizable(JBSCore.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 100, JBSCore.resolutions[0][0], JBSCore.resolutions[0][1]);
+		headerPanel = new JPanel();
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		//TODO: Remove add call
-		contentPane.add(new JBSOptionsPanel(this),BorderLayout.CENTER);
+		contentPane.add(new MainPanel(this),BorderLayout.CENTER);
 		mainFrame.setContentPane(contentPane);
+		
+
+		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
+		
+		headerPanel.add(Box.createVerticalStrut(20));
+		
+		headerLbl = new JLabel("JBattleships");
+		headerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+		headerPanel.add(headerLbl);
+		
+		headerPanel.add(Box.createVerticalStrut(20));
+		
+		mainFrame.setUndecorated(false);
 		mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
 		mainFrame.setVisible(true); // Call always at the end!
 		
@@ -74,6 +92,13 @@ public class JBSGUI{
 		}else{
 			JBSCore.msgLogger.addMessage("Stack is Empty!");
 		}
+	}
+
+	/**
+	 * @return the headerPanel
+	 */
+	public final JPanel getHeaderPanel() {
+		return headerPanel;
 	}
 
 }

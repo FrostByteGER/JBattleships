@@ -41,11 +41,9 @@ import javax.swing.JTextField;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class JBSOptionsPanel extends JPanel{
+public class OptionsPanel2 extends JPanel{
 	
 	private JBSGUI parent;
-	private JPanel headerPanel;
-	private JLabel lblJbattleships;
 	private JPanel centerPanel;
 	private JPanel gfxPanel;
 	private JPanel sfxPanel;
@@ -74,25 +72,15 @@ public class JBSOptionsPanel extends JPanel{
 	/**
 	 * 
 	 */
-	public JBSOptionsPanel(JBSGUI parent) {
+	public OptionsPanel2(JBSGUI parent) {
 		this.parent = parent;
 		setLayout(new BorderLayout(0, 0));
 		
-		headerPanel = new JPanel();
-		add(headerPanel, BorderLayout.NORTH);
-		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-		
-		headerPanel.add(Box.createVerticalStrut(20));
-		
-		lblJbattleships = new JLabel("JBattleships");
-		lblJbattleships.setAlignmentX(Component.CENTER_ALIGNMENT);
-		headerPanel.add(lblJbattleships);
-		
-		headerPanel.add(Box.createVerticalStrut(20));
+		add(parent.getHeaderPanel(), BorderLayout.NORTH);
 		
 		centerPanel = new JPanel();
 		add(centerPanel, BorderLayout.CENTER);
-		centerPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		centerPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		
 		gfxPanel = new JPanel();
 		centerPanel.add(gfxPanel);
@@ -232,48 +220,6 @@ public class JBSOptionsPanel extends JPanel{
 		centerPanel.add(otherPanel);
 		otherPanel.setLayout(new BorderLayout(0, 0));
 		
-		buttonPanel = new JPanel();
-		otherPanel.add(buttonPanel, BorderLayout.SOUTH);
-		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		resetButton = new JButton("Reset to Default");
-		resetButton.setActionCommand("reset");
-		resetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("reset")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + JBSOptionsPanel.this.getClass());
-				}
-			}
-		});
-		resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonPanel.add(resetButton);
-		
-		saveButton = new JButton("Save Settings");
-		saveButton.setActionCommand("save");
-		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("save")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + JBSOptionsPanel.this.getClass());
-				}
-			}
-		});
-		saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonPanel.add(saveButton);
-		
-		backButton = new JButton("Back");
-		backButton.setActionCommand("back");
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("back")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + JBSOptionsPanel.this.getClass());
-					JBSOptionsPanel.this.parent.swapContainer(new JPanel());
-					//JBSOptionsPanel.this.parent.restorePrevContainer();
-				}
-			}
-		});
-		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonPanel.add(backButton);
-		
 		networkPanel = new JPanel();
 		otherPanel.add(networkPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_networkPanel = new GridBagLayout();
@@ -329,5 +275,47 @@ public class JBSOptionsPanel extends JPanel{
 		gbc_portField.gridy = 5;
 		networkPanel.add(portField, gbc_portField);
 		portField.setColumns(10);
+		
+		buttonPanel = new JPanel();
+		centerPanel.add(buttonPanel);
+		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		resetButton = new JButton("Reset to Default");
+		resetButton.setActionCommand("reset");
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("reset")){
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+				}
+			}
+		});
+		resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonPanel.add(resetButton);
+		
+		saveButton = new JButton("Save Settings");
+		saveButton.setActionCommand("save");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("save")){
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+				}
+			}
+		});
+		saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonPanel.add(saveButton);
+		
+		backButton = new JButton("Back");
+		backButton.setActionCommand("back");
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("back")){
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+					OptionsPanel2.this.parent.swapContainer(new JPanel());
+					//OptionsPanel.this.parent.restorePrevContainer();
+				}
+			}
+		});
+		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonPanel.add(backButton);
 	}
 }
