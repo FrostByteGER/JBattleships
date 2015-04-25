@@ -19,7 +19,7 @@ public class JBSGUI{
 	private JFrame mainFrame;
 	private JPanel contentPane;
 	private Stack<JPanel> panelStack;
-
+	
 	/**
 	 * Create the frame and its components.
 	 */
@@ -37,6 +37,9 @@ public class JBSGUI{
 		mainFrame.setContentPane(contentPane);
 		mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
 		mainFrame.setVisible(true); // Call always at the end!
+		
+		// Bulshit
+		
 		
 	}
 	
