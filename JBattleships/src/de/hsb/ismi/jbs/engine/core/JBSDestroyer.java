@@ -13,7 +13,7 @@ public class JBSDestroyer extends JBSShip {
 	 * 
 	 */
 	public JBSDestroyer() {
-		super(3, 0, 5, DamageType.DAMAGE_SMALL);
+		super(3, 0, 5, JBSDamageType.DAMAGE_SMALL);
 		setName("Destroyer");
 		setHealth(5);
 	}

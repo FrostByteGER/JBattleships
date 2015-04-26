@@ -13,7 +13,7 @@ public class JBSFrigate extends JBSShip {
 	 * 
 	 */
 	public JBSFrigate() {
-		super(2, 0, 4, DamageType.DAMAGE_SMALL);
+		super(2, 0, 4, JBSDamageType.DAMAGE_SMALL);
 		setName("Frigate");
 		setHealth(4);
 	}

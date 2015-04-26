@@ -13,7 +13,7 @@ public class JBSSubmarine extends JBSShip {
 	 * 
 	 */
 	public JBSSubmarine() {
-		super(1, 0, 2, DamageType.DAMAGE_SMALL);
+		super(1, 0, 2, JBSDamageType.DAMAGE_SMALL);
 		setName("Submarine");
 		setHealth(2);
 	}

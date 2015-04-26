@@ -13,7 +13,7 @@ public class JBSCorvette extends JBSShip {
 	 * 
 	 */
 	public JBSCorvette() {
-		super(1, 0, 3, DamageType.DAMAGE_SMALL);
+		super(1, 0, 3, JBSDamageType.DAMAGE_SMALL);
 		setName("Corvette");
 		setHealth(3);	
 	}

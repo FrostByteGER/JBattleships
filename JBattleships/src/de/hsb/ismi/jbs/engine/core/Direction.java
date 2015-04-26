@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.utility;
+package de.hsb.ismi.jbs.engine.core;
 
 /**
  * @author Kevin Kuegler

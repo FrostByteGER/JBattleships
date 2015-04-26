@@ -6,7 +6,6 @@ package de.hsb.ismi.jbs.engine.core;
 import java.awt.Graphics;
 
 import de.hsb.ismi.jbs.engine.rendering.RenderInterface;
-import de.hsb.ismi.jbs.engine.utility.Direction;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
@@ -15,7 +14,7 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
  */
 public class JBSActor extends JBSObject implements RenderInterface{
 	
-	private Player player;
+	private JBSPlayer player;
 	private Vector2i location;
 	private Direction rotation;
 	private int health;
@@ -45,7 +44,7 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	 * @param health
 	 * @param visibility
 	 */
-	public JBSActor(Player player, Vector2i location, Direction rotation, int health, boolean visibility, JBSActorComponent[] components) {
+	public JBSActor(JBSPlayer player, Vector2i location, Direction rotation, int health, boolean visibility, JBSActorComponent[] components) {
 		super();
 		this.player = player;
 		this.location = location;
@@ -71,14 +70,14 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	/**
 	 * @return the player
 	 */
-	public final Player getPlayer() {
+	public final JBSPlayer getPlayer() {
 		return player;
 	}
 
 	/**
 	 * @param player the player to set
 	 */
-	public final void setPlayer(Player player) {
+	public final void setPlayer(JBSPlayer player) {
 		this.player = player;
 	}
 

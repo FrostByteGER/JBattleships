@@ -13,7 +13,7 @@ public class JBSShip extends JBSActor {
 	private int cooldown;
 	private int length;
 
-	private DamageType damageType;
+	private JBSDamageType damageType;
 	private String name;
 
 	/**
@@ -28,7 +28,7 @@ public class JBSShip extends JBSActor {
 	 * @param cooldown
 	 * @param damageType
 	 */
-	public JBSShip(int cooldownLimit, int cooldown, int length, DamageType damageType) {
+	public JBSShip(int cooldownLimit, int cooldown, int length, JBSDamageType damageType) {
 		super();
 		this.cooldownLimit = cooldownLimit;
 		this.cooldown = cooldown;
@@ -68,7 +68,7 @@ public class JBSShip extends JBSActor {
 	/**
 	 * @return the damageType
 	 */
-	public final DamageType getDamageType() {
+	public final JBSDamageType getDamageType() {
 		return damageType;
 	}
 	

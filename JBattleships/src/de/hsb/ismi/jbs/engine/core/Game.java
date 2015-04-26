@@ -11,7 +11,7 @@ public class Game {
 	
 	private JBSGameType gameType;
 	private JBSGameField gameField;
-	private Player[] players;
+	private JBSPlayer[] players;
 	private int activPlayer;
 
 	/**
@@ -26,7 +26,7 @@ public class Game {
 	 * @param gameField
 	 * @param players
 	 */
-	public Game(JBSGameType gameType, JBSGameField gameField, Player[] players) {
+	public Game(JBSGameType gameType, JBSGameField gameField, JBSPlayer[] players) {
 		super();
 		this.gameType = gameType;
 		this.gameField = gameField;
@@ -65,14 +65,14 @@ public class Game {
 	/**
 	 * @return the players
 	 */
-	public final Player[] getPlayers() {
+	public final JBSPlayer[] getPlayers() {
 		return players;
 	}
 
 	/**
 	 * @param players the players to set
 	 */
-	public final void setPlayers(Player[] players) {
+	public final void setPlayers(JBSPlayer[] players) {
 		this.players = players;
 	}
 

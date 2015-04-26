@@ -17,7 +17,7 @@ import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.core.JBSFrigate;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
-import de.hsb.ismi.jbs.engine.core.Player;
+import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 
 public class GameFieldContainer extends JPanel {
 	
@@ -78,9 +78,9 @@ public class GameFieldContainer extends JPanel {
 		
 		Game game = new Game();
 		
-		Player[] players = new Player[2];
+		JBSPlayer[] players = new JBSPlayer[2];
 		
-		players[0] = new Player();
+		players[0] = new JBSPlayer();
 		players[0].addShip(new JBSDestroyer());
 		players[0].addShip(new JBSCorvette());
 		players[0].addShip(new JBSFrigate());

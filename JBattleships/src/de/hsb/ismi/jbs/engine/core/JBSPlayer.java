@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class Player {
+public class JBSPlayer {
 	
 	private ArrayList<JBSShip> ships;
 	
@@ -17,7 +17,7 @@ public class Player {
 	/**
 	 * 
 	 */
-	public Player() {
+	public JBSPlayer() {
 		ships = new ArrayList<JBSShip>();
 	}
 	
