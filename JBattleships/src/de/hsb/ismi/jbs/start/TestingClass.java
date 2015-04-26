@@ -29,8 +29,8 @@ public class TestingClass {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		OptionsManager om = new OptionsManager("Data");
-		
+		OptionsManager om = new OptionsManager();
+		om.loadOptions();
 		/*
 		OptionsParser op = new OptionsParser();
 		ArrayList<String> data;

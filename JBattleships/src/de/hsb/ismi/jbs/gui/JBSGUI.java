@@ -35,7 +35,7 @@ public class JBSGUI{
 		mainFrame = new JFrame("JBattleships ALPHA");
 		mainFrame.setResizable(JBSCore.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 100, JBSCore.RESOLUTIONS[0][0], JBSCore.RESOLUTIONS[0][1]);
+		mainFrame.setBounds(100, 100, JBSCore.RESOLUTIONS[2].getX(), JBSCore.RESOLUTIONS[2].getY());
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		

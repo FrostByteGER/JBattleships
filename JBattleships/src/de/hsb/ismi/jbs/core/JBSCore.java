@@ -4,10 +4,14 @@
 package de.hsb.ismi.jbs.core;
 
 import java.awt.EventQueue;
+import java.util.HashMap;
 
 import javax.swing.UIManager;
 
 import de.frostbyteger.messagelogger.MessageLogger;
+import de.hsb.ismi.jbs.engine.io.manager.DataManager;
+import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
+import de.hsb.ismi.jbs.engine.utility.Resolution;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 
 /**
@@ -18,15 +22,16 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
 public class JBSCore {
 
 	public static MessageLogger msgLogger;
-	public static final String DATA_PATH = "/Data";
+	public static final String DATA_PATH = "Data/";
 	/** Enables debug functionality and the MessageLogger */
 	public static final boolean DEBUG = true;
 	/** Allows to resize the game window */
 	public static final boolean RESIZABLE = true;
 	/** Game-Resolutions <br>TODO: Change to Dimension-class */
-	public static final int[][] RESOLUTIONS = {{800, 600},{1024, 768},{1280, 720}};
+	public static final Resolution[] RESOLUTIONS = {new Resolution(800, 600),new Resolution(1024, 768),new Resolution(1280, 768)};
 	
 	private JBSGUI mainGUI;
+	private DataManager dataManager;
 
 	
 	/**
@@ -41,6 +46,7 @@ public class JBSCore {
 	 * @return
 	 */
 	public boolean initGame(){
+		dataManager = new DataManager();
 		initResources();
 		initProfiles();
 		initConfigs();
@@ -63,6 +69,38 @@ public class JBSCore {
 	 * @return
 	 */
 	public boolean initResources(){
+		return true;
+	}
+	
+	/**
+	 * Initializes the game-settings.
+	 * @return
+	 */
+	public boolean initSettings(){
+		OptionsManager om = dataManager.getOptionsManager();
+		if(om.loadOptions() == null){
+			return false;
+		}
+		String[] gfx = om.getGraphicsData();
+		if(gfx.length > 0){
+			
+		}else{
+			return false;
+		}
+		
+		String[] sfx = om.getAudioData();
+		if(sfx.length > 0){
+			
+		}else{
+			return false;
+		}
+		
+		String[] nt = om.getNetworkData();
+		if(nt.length > 0){
+			
+		}else{
+			return false;
+		}
 		return true;
 	}
 	

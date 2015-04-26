@@ -8,7 +8,7 @@ package de.hsb.ismi.jbs.engine.utility;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public final class Vector2i {
+public class Vector2i {
 	
 	/** X-Coordinate */
 	private int x;

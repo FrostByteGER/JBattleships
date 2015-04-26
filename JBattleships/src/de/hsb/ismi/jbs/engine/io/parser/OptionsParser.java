@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.engine.io.JBSParserException;
 
 
 /**
@@ -32,11 +33,11 @@ public class OptionsParser extends DataParser{
 	 * @return The Array containing the parsed data. Null if error occured
 	 * @throws FileNotFoundException
 	 * @throws IOException
+	 * @throws JBSParserException 
 	 */
-	public ArrayList<String> parseOptions(String path) throws FileNotFoundException, IOException{
+	public ArrayList<String> parseOptions(String path) throws FileNotFoundException, IOException, JBSParserException{
 		ArrayList<String> parsedData = new ArrayList<>(0);
 		ArrayList<String> data = parseFile(path);
-		try{
 			for(String line : data){
 				line = line.replaceAll("\\s", "");
 				if(line.startsWith(String.valueOf(DELIMITERS[0])) && line.endsWith(String.valueOf(DELIMITERS[1]))){
@@ -44,17 +45,35 @@ public class OptionsParser extends DataParser{
 					parsedData.add(cat);
 				}else if(!line.startsWith(COMMENT) && !line.trim().isEmpty()){
 					String[] splitted = line.split(String.valueOf(ASSIGNMENT),2);
+					if(splitted.length == 1){
+						throw new JBSParserException("Parsing settings.cfg failed!");
+					}
 					parsedData.add(splitted[0]);
 					parsedData.add(splitted[1]);					
 				}
 			}
-		}catch(Exception e){ //TODO: Maybe change Exception to something more specific!
-			System.out.println("Parsing Options file failed!");
-			e.printStackTrace();
-			//JBSCore.msgLogger.addException(e);
-			throw e;
-		}
 		return parsedData;
+	}
+
+	/**
+	 * @return the delimiters
+	 */
+	public final char[] getDelimiters() {
+		return DELIMITERS;
+	}
+
+	/**
+	 * @return the assignmentoperator
+	 */
+	public final char getAssignmentOperator() {
+		return ASSIGNMENT;
+	}
+
+	/**
+	 * @return the commentoperator
+	 */
+	public final String getCommentOperator() {
+		return COMMENT;
 	}
 
 }
