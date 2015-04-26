@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.swing.JSplitPane;
 
+import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSActor;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
@@ -73,6 +74,7 @@ public class GameFieldContainder extends JPanel {
 	
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
+		f.setBounds(100, 100, 600, 500);
 		
 		Game game = new Game();
 		
@@ -94,8 +96,9 @@ public class GameFieldContainder extends JPanel {
 		
 		game.setPlayers(players);
 		
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setContentPane(new GameFieldContainder(game));
+		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 	}
 	
