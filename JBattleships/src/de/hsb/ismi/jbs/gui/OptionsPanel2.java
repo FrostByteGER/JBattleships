@@ -75,9 +75,7 @@ public class OptionsPanel2 extends JPanel{
 	public OptionsPanel2(JBSGUI parent) {
 		this.parent = parent;
 		setLayout(new BorderLayout(0, 0));
-		
-		add(parent.getHeaderPanel(), BorderLayout.NORTH);
-		
+		add(parent.generateHeader(), BorderLayout.NORTH);
 		centerPanel = new JPanel();
 		add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new GridLayout(2, 0, 0, 0));
@@ -311,7 +309,6 @@ public class OptionsPanel2 extends JPanel{
 				if(e.getActionCommand().equals("back")){
 					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
 					OptionsPanel2.this.parent.swapContainer(OptionsPanel2.this.parent.getMainPanel());
-					System.out.println("");
 				}
 			}
 		});

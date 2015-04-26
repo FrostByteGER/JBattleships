@@ -24,10 +24,6 @@ public class JBSGUI{
 	private JPanel contentPane;
 	private Stack<JPanel> panelStack;
 	
-	// Shared Elements
-	private JPanel headerPanel;
-	private JLabel headerLbl;
-	
 	private MainPanel mainPanel;
 	private OptionsPanel2 optionsPanel;
 
@@ -39,27 +35,16 @@ public class JBSGUI{
 		mainFrame = new JFrame("JBattleships ALPHA");
 		mainFrame.setResizable(JBSCore.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 100, JBSCore.resolutions[0][0], JBSCore.resolutions[0][1]);
-		headerPanel = new JPanel();
+		mainFrame.setBounds(100, 100, JBSCore.RESOLUTIONS[0][0], JBSCore.RESOLUTIONS[0][1]);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		mainPanel = new MainPanel(this);
+		
 		optionsPanel = new OptionsPanel2(this);
+		mainPanel = new MainPanel(this);
 		//TODO: Remove add call
 		contentPane.add(mainPanel,BorderLayout.CENTER);
 		mainFrame.setContentPane(contentPane);
-		
 
-		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-		
-		headerPanel.add(Box.createVerticalStrut(20));
-		
-		headerLbl = new JLabel("JBattleships");
-		headerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-		headerPanel.add(headerLbl);
-		
-		headerPanel.add(Box.createVerticalStrut(20));
 		
 		mainFrame.setUndecorated(false);
 		mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
@@ -98,11 +83,20 @@ public class JBSGUI{
 			//JBSCore.msgLogger.addMessage("Stack is Empty!");
 		}
 	}
-
+	
 	/**
-	 * @return the headerPanel
+	 * Generates a new Header
+	 * @return The new Header
 	 */
-	public final JPanel getHeaderPanel() {
+	public JPanel generateHeader(){
+		JPanel headerPanel = new JPanel();
+		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
+		headerPanel.add(Box.createVerticalStrut(20));
+		JLabel headerLbl = new JLabel("JBattleships");
+		headerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+		headerPanel.add(headerLbl);
+		headerPanel.add(Box.createVerticalStrut(20));
+		headerPanel.setOpaque(false);
 		return headerPanel;
 	}
 

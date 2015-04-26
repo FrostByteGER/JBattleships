@@ -30,6 +30,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import javax.swing.border.TitledBorder;
 
 /**
  * @author Kevin Kuegler
@@ -59,8 +60,8 @@ public class MainPanel extends JPanel {
 	public MainPanel(JBSGUI parent) {
 		this.parent = parent;
 		setLayout(new BorderLayout(0, 0));
-		add(parent.getHeaderPanel(),BorderLayout.NORTH);
-		parent.getHeaderPanel().setOpaque(false);
+		add(parent.generateHeader(), BorderLayout.NORTH);
+		
 		
 		buttonPanel = new JPanel();
 		buttonPanel.setOpaque(false);
@@ -170,7 +171,6 @@ public class MainPanel extends JPanel {
 		try {
 			bg = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
