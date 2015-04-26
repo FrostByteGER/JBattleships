@@ -19,7 +19,7 @@ import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.Player;
 
-public class GameFieldContainder extends JPanel {
+public class GameFieldContainer extends JPanel {
 	
 	private GameSidePanel uperSiedPanel;
 	private JPanel lowerSidePanel;
@@ -29,7 +29,7 @@ public class GameFieldContainder extends JPanel {
 	private Game game;
 	
 	
-	public GameFieldContainder(Game game) {
+	public GameFieldContainer(Game game) {
 		
 		this.game = game;
 		init();
@@ -97,7 +97,7 @@ public class GameFieldContainder extends JPanel {
 		game.setPlayers(players);
 		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setContentPane(new GameFieldContainder(game));
+		f.setContentPane(new GameFieldContainer(game));
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 	}
