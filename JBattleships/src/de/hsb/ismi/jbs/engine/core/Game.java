@@ -12,6 +12,7 @@ public class Game {
 	private JBSGameType gameType;
 	private JBSGameField gameField;
 	private Player[] players;
+	private int activPlayer;
 
 	/**
 	 * 
@@ -30,6 +31,7 @@ public class Game {
 		this.gameType = gameType;
 		this.gameField = gameField;
 		this.players = players;
+		this.activPlayer = 0;//TODO may change
 	}
 
 	/**
@@ -73,5 +75,21 @@ public class Game {
 	public final void setPlayers(Player[] players) {
 		this.players = players;
 	}
+
+	/**
+	 * @return the activPlayer
+	 */
+	public int getActivPlayer() {
+		return activPlayer;
+	}
+
+	/**
+	 * @param activPlayer the activPlayer to set
+	 */
+	public void setActivPlayer(int activPlayer) {
+		this.activPlayer = activPlayer;
+	}
+	
+	
 
 }

@@ -27,7 +27,7 @@ public class GameSidePanel extends JPanel {
 	private void init() {
 		
 		//TODO test
-		
+		/*
 		JBSFrigate f = new JBSFrigate();
 		f.setCooldown(f.getCooldownLimit());
 		JBSDestroyer f2 = new JBSDestroyer();
@@ -45,6 +45,17 @@ public class GameSidePanel extends JPanel {
 		add(new ShipButton(f4));
 		add(new ShipButton(f5));
 		add(new ShipButton(f6));
+		*/
+		setLayout(new GridLayout(0,1));
+		
+	}
+	
+	public void addShip(JBSShip ship){
+		add(new ShipButton(ship));
+	}
+	
+	public void removeShips(){
+		removeAll();
 	}
 	
 	public class ShipButton extends JPanel {
