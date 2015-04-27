@@ -33,7 +33,6 @@ public abstract class DataParser {
 		ArrayList<String> lines = new ArrayList<String>(0);
 		try(BufferedReader reader = new BufferedReader(new FileReader(path))){
 			String temp;
-			
 			while((temp = reader.readLine()) != null ){
 				lines.add(temp);
 			}
