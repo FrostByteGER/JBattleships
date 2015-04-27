@@ -10,6 +10,7 @@ package de.hsb.ismi.jbs.engine.io.manager;
 public class DataManager {
 	
 	private OptionsManager optionsM;
+	private ConfigManager configM;
 
 	/**
 	 * 
@@ -23,6 +24,13 @@ public class DataManager {
 	 */
 	public final OptionsManager getOptionsManager() {
 		return optionsM;
+	}
+
+	/**
+	 * @return the configM
+	 */
+	public final ConfigManager getConfigManager() {
+		return configM;
 	}
 
 }
