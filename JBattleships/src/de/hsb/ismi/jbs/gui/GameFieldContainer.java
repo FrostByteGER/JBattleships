@@ -78,21 +78,25 @@ public class GameFieldContainer extends JPanel {
 		
 		Game game = new Game();
 		
+		System.out.println(game.getDataManager());
+		System.out.println(game.getDataManager().getLocalizationManager());
+		System.out.println(game.getDataManager().getLocalizationManager());
+		
 		JBSPlayer[] players = new JBSPlayer[2];
 		
 		players[0] = new JBSPlayer();
-		players[0].addShip(new JBSDestroyer());
-		players[0].addShip(new JBSCorvette());
-		players[0].addShip(new JBSFrigate());
-		players[0].addShip(new JBSSubmarine());
-		players[0].addShip(new JBSDestroyer());
-		players[0].addShip(new JBSCorvette());
-		players[0].addShip(new JBSFrigate());
-		players[0].addShip(new JBSSubmarine());
-		players[0].addShip(new JBSDestroyer());
-		players[0].addShip(new JBSCorvette());
-		players[0].addShip(new JBSFrigate());
-		players[0].addShip(new JBSSubmarine());
+		players[0].addShip(new JBSDestroyer(game));
+		players[0].addShip(new JBSCorvette(game));
+		players[0].addShip(new JBSFrigate(game));
+		players[0].addShip(new JBSSubmarine(game));
+		players[0].addShip(new JBSDestroyer(game));
+		players[0].addShip(new JBSCorvette(game));
+		players[0].addShip(new JBSFrigate(game));
+		players[0].addShip(new JBSSubmarine(game));
+		players[0].addShip(new JBSDestroyer(game));
+		players[0].addShip(new JBSCorvette(game));
+		players[0].addShip(new JBSFrigate(game));
+		players[0].addShip(new JBSSubmarine(game));
 		
 		game.setPlayers(players);
 		

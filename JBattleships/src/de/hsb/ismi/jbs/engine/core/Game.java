@@ -3,7 +3,7 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
-import de.hsb.ismi.jbs.engine.io.manager.LocalizationManager;
+import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
  * @author Kevin Kuegler
@@ -11,9 +11,7 @@ import de.hsb.ismi.jbs.engine.io.manager.LocalizationManager;
  */
 public class Game {
 	
-	public LocalizationManager localizaltinManager;
-	
-	
+	public DataManager DataM;
 	private JBSGameType gameType;
 	private JBSGameField[] gameFields;
 	private JBSPlayer[] players;
@@ -23,7 +21,7 @@ public class Game {
 	 * 
 	 */
 	public Game() {
-		// TODO Auto-generated constructor stub
+		DataM = new DataManager();
 	}
 
 	/**
@@ -37,6 +35,7 @@ public class Game {
 		this.gameFields = gameField;
 		this.players = players;
 		this.activPlayer = 0;//TODO may change
+		
 	}
 
 	/**
@@ -95,6 +94,8 @@ public class Game {
 		this.activPlayer = activPlayer;
 	}
 	
-	
+	public final DataManager getDataManager(){
+		return DataM;
+	}
 
 }

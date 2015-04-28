@@ -12,9 +12,11 @@ public class JBSDestroyer extends JBSShip {
 	/**
 	 * 
 	 */
-	public JBSDestroyer() {
+	public JBSDestroyer(Game game) {
 		super(3, 0, 5, JBSDamageType.DAMAGE_SMALL);
-		setName("Destroyer");
+		setName(game.getDataManager()
+				.getLocalizationManager()
+				.getWord("Destroyer"));
 		addShipPart(new JBSActor());
 		addShipPart(new JBSActor());
 		addShipPart(new JBSActor());

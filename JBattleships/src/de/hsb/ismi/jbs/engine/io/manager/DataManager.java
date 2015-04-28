@@ -46,4 +46,8 @@ public class DataManager {
 		return localizationM;
 	}
 	
+	public final ResourceManager getResourceManager(){
+		return ResourceM;
+	}
+	
 }
