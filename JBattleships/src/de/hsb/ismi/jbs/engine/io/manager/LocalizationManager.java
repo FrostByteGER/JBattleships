@@ -22,7 +22,7 @@ public class LocalizationManager {
 		aktiveLanguageName = language;
 		aktiv = new HashMap<String, String>();
 		paser = new LocalizationParser();
-		paser.loadLanguage(LANGUAGE_PATH+aktiveLanguageName, aktiv);
+		paser.loadLanguage(LANGUAGE_PATH+aktiveLanguageName+".txt", aktiv);
 	}
 	
 	public String getWord(String key){
@@ -35,7 +35,7 @@ public class LocalizationManager {
 	
 	public void changeAktivLanguage(String language){
 		if(language != aktiveLanguageName){
-			paser.loadLanguage(LANGUAGE_PATH+language, aktiv);
+			paser.loadLanguage(LANGUAGE_PATH+language+".txt", aktiv);
 		}
 		
 		
