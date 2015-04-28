@@ -42,6 +42,7 @@ public class JBSShip {
 		this.damageType = damageType;
 		this.length = length;
 		this.health = length;
+		this.shipActors = new ArrayList<JBSActor>();
 	}
 	
 	public void addShipPart(JBSActor part) {
@@ -106,6 +107,19 @@ public class JBSShip {
 		this.health = health;
 	}
 	
+	public void checkHealth() {
+		
+		health = length;
+		
+		for(JBSActor actor : this.shipActors){
+			if(actor.isHit()){
+				this.health--;
+			}
+		}
+	}
 	
+	public boolean isAlife(){
+		return (health > 0);
+	}
 	
 }
