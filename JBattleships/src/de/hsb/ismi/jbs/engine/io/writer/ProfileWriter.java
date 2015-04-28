@@ -3,7 +3,7 @@
  */
 package de.hsb.ismi.jbs.engine.io.writer;
 
-import de.hsb.ismi.jbs.engine.core.Profile;
+import de.hsb.ismi.jbs.engine.core.JBSProfile;
 
 /**
  * @author Kevin Kuegler
@@ -18,7 +18,7 @@ public class ProfileWriter extends DataWriter {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public boolean writeProfile(Profile p){
+	public boolean writeProfile(JBSProfile p){
 		
 		return false;
 	}
