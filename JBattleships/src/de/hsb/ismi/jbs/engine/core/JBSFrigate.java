@@ -15,15 +15,9 @@ public class JBSFrigate extends JBSShip {
 	public JBSFrigate() {
 		super(2, 0, 4, JBSDamageType.DAMAGE_SMALL);
 		setName("Frigate");
-		setHealth(4);
+		addShipPart(new JBSActor());
+		addShipPart(new JBSActor());
+		addShipPart(new JBSActor());
+		addShipPart(new JBSActor());
 	}
-
-	/**
-	 * @param replicated
-	 */
-	public JBSFrigate(boolean replicated) {
-		super(replicated);
-		// TODO Auto-generated constructor stub
-	}
-
 }

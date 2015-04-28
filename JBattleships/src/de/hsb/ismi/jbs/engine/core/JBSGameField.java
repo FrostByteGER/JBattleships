@@ -14,11 +14,18 @@ public class JBSGameField {
 	private JBSActor[] fields;
 	private int size;
 	
+	public JBSActor water;
+	public JBSActor water_hit;
+	
 	/**
 	 * 
 	 */
 	public JBSGameField() {
-		// TODO Auto-generated constructor stub
+		water = new JBSActor();
+		water_hit = new JBSActor();
+		
+		water.setHit(false);
+		water_hit.setHit(true);
 	}
 	
 	/**
