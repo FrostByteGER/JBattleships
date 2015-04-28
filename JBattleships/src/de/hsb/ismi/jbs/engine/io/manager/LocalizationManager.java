@@ -15,22 +15,27 @@ public class LocalizationManager {
 	
 	private LocalizationParser paser;
 	private HashMap<String, String> aktiv;
-	private final String LANGUAGE_PATH = "Lang/";
+	private final String LANGUAGE_PATH = "Data/Lang/";
 	private String aktiveLanguageName;
 	
 	public LocalizationManager(String language) {
 		aktiveLanguageName = language;
-		
-		paser.loadLanguage(aktiveLanguageName, aktiv);
+		aktiv = new HashMap<String, String>();
+		paser = new LocalizationParser();
+		paser.loadLanguage(LANGUAGE_PATH+aktiveLanguageName, aktiv);
 	}
 	
 	public String getWord(String key){
-		return aktiv.get(key);
+		
+		if(aktiv.containsKey(key)){
+			return aktiv.get(key);
+		}
+		return key;
 	}
 	
 	public void changeAktivLanguage(String language){
 		if(language != aktiveLanguageName){
-			paser.loadLanguage(language, aktiv);
+			paser.loadLanguage(LANGUAGE_PATH+language, aktiv);
 		}
 		
 		

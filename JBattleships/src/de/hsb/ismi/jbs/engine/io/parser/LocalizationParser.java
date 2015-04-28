@@ -25,11 +25,7 @@ public class LocalizationParser extends DataParser{
 		
 		try {
 			ArrayList<String> lines = parseFile(fileName);
-			
-			System.out.println("start");
-			
 			for(String line : lines){
-				System.out.println(line);
 				String[] temp = line.split("=");
 				map.put(temp[0], temp[1]);
 			}
