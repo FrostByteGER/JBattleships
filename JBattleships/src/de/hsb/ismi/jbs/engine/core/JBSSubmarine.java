@@ -12,18 +12,11 @@ public class JBSSubmarine extends JBSShip {
 	/**
 	 * 
 	 */
-	public JBSSubmarine() {
+	public JBSSubmarine(Game game) {
 		super(1, 0, 2, JBSDamageType.DAMAGE_SMALL);
-		setName("Submarine");
-		setHealth(2);
-	}
-
-	/**
-	 * @param replicated
-	 */
-	public JBSSubmarine(boolean replicated) {
-		super(replicated);
-		// TODO Auto-generated constructor stub
+		setName(game.getDataManager().getLocalizationManager().getWord("Submarine"));
+		addShipPart(new JBSActor());
+		addShipPart(new JBSActor());
 	}
 
 }

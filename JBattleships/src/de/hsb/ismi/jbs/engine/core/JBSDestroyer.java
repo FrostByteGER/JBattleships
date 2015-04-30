@@ -12,18 +12,15 @@ public class JBSDestroyer extends JBSShip {
 	/**
 	 * 
 	 */
-	public JBSDestroyer() {
+	public JBSDestroyer(Game game) {
 		super(3, 0, 5, JBSDamageType.DAMAGE_SMALL);
-		setName("Destroyer");
-		setHealth(5);
+		setName(game.getDataManager()
+				.getLocalizationManager()
+				.getWord("Destroyer"));
+		addShipPart(new JBSActor());
+		addShipPart(new JBSActor());
+		addShipPart(new JBSActor());
+		addShipPart(new JBSActor());
+		addShipPart(new JBSActor());
 	}
-
-	/**
-	 * @param replicated
-	 */
-	public JBSDestroyer(boolean replicated) {
-		super(replicated);
-		// TODO Auto-generated constructor stub
-	}
-
 }

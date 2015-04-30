@@ -3,11 +3,13 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import java.util.ArrayList;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class JBSShip extends JBSActor {
+public class JBSShip {
 
 	private int cooldownLimit;
 	private int cooldown;
@@ -15,12 +17,17 @@ public class JBSShip extends JBSActor {
 
 	private JBSDamageType damageType;
 	private String name;
-
+	
+	private int health;
+	
+	private ArrayList<JBSActor> shipActors;
+	
 	/**
 	 * 
 	 */
 	public JBSShip() {
 		name = "unknown";
+		shipActors = new ArrayList<JBSActor>();
 	}
 	
 	/**
@@ -34,16 +41,15 @@ public class JBSShip extends JBSActor {
 		this.cooldown = cooldown;
 		this.damageType = damageType;
 		this.length = length;
+		this.health = length;
+		this.shipActors = new ArrayList<JBSActor>();
 	}
-
-	/**
-	 * @param replicated
-	 */
-	public JBSShip(boolean replicated) {
-		super(replicated);
-		// TODO Auto-generated constructor stub
+	
+	public void addShipPart(JBSActor part) {
+		shipActors.add(part);
 	}
-
+	
+	
 	/**
 	 * @return the cooldown
 	 */
@@ -91,6 +97,29 @@ public class JBSShip extends JBSActor {
 	 */
 	public int getLength() {
 		return length;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	
+	public void checkHealth() {
+		
+		health = length;
+		
+		for(JBSActor actor : this.shipActors){
+			if(actor.isHit()){
+				this.health--;
+			}
+		}
+	}
+	
+	public boolean isAlife(){
+		return (health > 0);
 	}
 	
 }

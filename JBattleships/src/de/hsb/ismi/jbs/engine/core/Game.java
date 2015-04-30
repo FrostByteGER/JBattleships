@@ -3,22 +3,25 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import de.hsb.ismi.jbs.engine.io.manager.DataManager;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
 public class Game {
 	
+	public DataManager DataM;
 	private JBSGameType gameType;
-	private JBSGameField gameField;
+	private JBSGameField[] gameFields;
 	private JBSPlayer[] players;
 	private int activPlayer;
-
+	
 	/**
 	 * 
 	 */
 	public Game() {
-		// TODO Auto-generated constructor stub
+		DataM = new DataManager();
 	}
 
 	/**
@@ -26,12 +29,13 @@ public class Game {
 	 * @param gameField
 	 * @param players
 	 */
-	public Game(JBSGameType gameType, JBSGameField gameField, JBSPlayer[] players) {
+	public Game(JBSGameType gameType, JBSGameField[] gameField, JBSPlayer[] players) {
 		super();
 		this.gameType = gameType;
-		this.gameField = gameField;
+		this.gameFields = gameField;
 		this.players = players;
 		this.activPlayer = 0;//TODO may change
+		
 	}
 
 	/**
@@ -51,15 +55,15 @@ public class Game {
 	/**
 	 * @return the gameField
 	 */
-	public final JBSGameField getGameField() {
-		return gameField;
+	public final JBSGameField[] getGameField() {
+		return gameFields;
 	}
 
 	/**
 	 * @param gameField the gameField to set
 	 */
-	public final void setGameField(JBSGameField gameField) {
-		this.gameField = gameField;
+	public final void setGameField(JBSGameField[] gameField) {
+		this.gameFields = gameField;
 	}
 
 	/**
@@ -90,6 +94,8 @@ public class Game {
 		this.activPlayer = activPlayer;
 	}
 	
-	
+	public final DataManager getDataManager(){
+		return DataM;
+	}
 
 }

@@ -17,7 +17,9 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	private JBSPlayer player;
 	private Vector2i location;
 	private Direction rotation;
-	private int health;
+	
+	private boolean ishit;
+	
 	private boolean visibility;
 	private JBSActorComponent[] components;
 	
@@ -26,7 +28,7 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	 * 
 	 */
 	public JBSActor() {
-		// TODO Auto-generated constructor stub
+		ishit = false;
 	}
 
 	/**
@@ -49,7 +51,6 @@ public class JBSActor extends JBSObject implements RenderInterface{
 		this.player = player;
 		this.location = location;
 		this.rotation = rotation;
-		this.health = health;
 		this.visibility = visibility;
 		this.components = components;
 	}
@@ -65,6 +66,14 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	
 	public boolean isControlledByPlayer(){
 		return false;
+	}
+
+	public boolean isHit() {
+		return ishit;
+	}
+
+	public void setHit(boolean isHit) {
+		this.ishit = isHit;
 	}
 
 	/**
@@ -107,20 +116,6 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	 */
 	public final void setRotation(Direction rotation) {
 		this.rotation = rotation;
-	}
-
-	/**
-	 * @return the health
-	 */
-	public final int getHealth() {
-		return health;
-	}
-
-	/**
-	 * @param health the health to set
-	 */
-	public final void setHealth(int health) {
-		this.health = health;
 	}
 
 	/**
