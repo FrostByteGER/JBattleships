@@ -25,7 +25,6 @@ public class GameFieldContainer extends JPanel {
 	private JPanel lowerSidePanel;
 	private JPanel uperMainPanel;
 	private JPanel lowerMainPanel;
-	
 	private Game game;
 	
 	
@@ -58,7 +57,6 @@ public class GameFieldContainer extends JPanel {
 	
 	public void loadShips(){
 		
-		// TODO need Activ player
 		for(JBSShip ship : game.getPlayers()[game.getActivPlayer()].getShips()){
 			uperSiedPanel.addShip(ship);
 		}
@@ -66,7 +64,6 @@ public class GameFieldContainer extends JPanel {
 	
 	public void loadShips(int player){
 		
-		// TODO need Activ player
 		for(JBSShip ship : game.getPlayers()[player].getShips()){
 			uperSiedPanel.addShip(ship);
 		}
@@ -78,14 +75,16 @@ public class GameFieldContainer extends JPanel {
 		
 		Game game = new Game();
 		
-		System.out.println(game.getDataManager());
-		System.out.println(game.getDataManager().getLocalizationManager());
-		System.out.println(game.getDataManager().getLocalizationManager());
-		
 		JBSPlayer[] players = new JBSPlayer[2];
 		
 		players[0] = new JBSPlayer();
-		players[0].addShip(new JBSDestroyer(game));
+		
+		JBSShip s = new JBSDestroyer(game);
+		
+		s.setHealth(3);
+		s.setCooldown(2);
+		
+		players[0].addShip(s);
 		players[0].addShip(new JBSCorvette(game));
 		players[0].addShip(new JBSFrigate(game));
 		players[0].addShip(new JBSSubmarine(game));

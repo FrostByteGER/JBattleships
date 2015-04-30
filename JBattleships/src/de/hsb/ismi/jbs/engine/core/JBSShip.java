@@ -5,6 +5,8 @@ package de.hsb.ismi.jbs.engine.core;
 
 import java.util.ArrayList;
 
+import de.hsb.ismi.jbs.engine.utility.Vector2i;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
@@ -14,13 +16,12 @@ public class JBSShip {
 	private int cooldownLimit;
 	private int cooldown;
 	private int length;
-
 	private JBSDamageType damageType;
 	private String name;
-	
 	private int health;
-	
 	private ArrayList<JBSActor> shipActors;
+	private Vector2i positon;
+	private Direction direction;
 	
 	/**
 	 * 
@@ -28,6 +29,7 @@ public class JBSShip {
 	public JBSShip() {
 		name = "unknown";
 		shipActors = new ArrayList<JBSActor>();
+		direction = Direction.NORTH;
 	}
 	
 	/**
@@ -43,6 +45,7 @@ public class JBSShip {
 		this.length = length;
 		this.health = length;
 		this.shipActors = new ArrayList<JBSActor>();
+		this.positon = new Vector2i();
 	}
 	
 	public void addShipPart(JBSActor part) {
@@ -121,5 +124,44 @@ public class JBSShip {
 	public boolean isAlife(){
 		return (health > 0);
 	}
+	
+	public void setPositon(int x, int y, Direction direction) {
+		this.positon.setX(x);
+		this.positon.setY(y);
+		
+		for(int i = 0 ; i < shipActors.size() ; i++){
+			if(direction == Direction.NORTH){
+				shipActors.get(i).getLocation().setX(x);
+				shipActors.get(i).getLocation().setY(y+i);
+			}else if(direction == Direction.EAST){
+				shipActors.get(i).getLocation().setX(x-i);
+				shipActors.get(i).getLocation().setY(y);
+			}else if(direction == Direction.SOUTH){
+				shipActors.get(i).getLocation().setX(x);
+				shipActors.get(i).getLocation().setY(y-i);
+			}else if(direction == Direction.WEST){
+				shipActors.get(i).getLocation().setX(x+i);
+				shipActors.get(i).getLocation().setY(y);
+			}			
+		}
+	}
+	
+	public Vector2i getPositon() {
+		return positon;
+	}
+	
+	public ArrayList<JBSActor> getShipActors() {
+		return shipActors;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+	
+	
 	
 }

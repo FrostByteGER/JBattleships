@@ -37,9 +37,5 @@ public class LocalizationParser extends DataParser{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
-	
-
 }
