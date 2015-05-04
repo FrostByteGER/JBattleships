@@ -125,6 +125,10 @@ public class JBSShip {
 		return (health > 0);
 	}
 	
+	public boolean canShot(){
+		return isAlife()&&cooldown==0;
+	}
+	
 	public void setPositon(int x, int y, Direction direction) {
 		this.positon.setX(x);
 		this.positon.setY(y);
