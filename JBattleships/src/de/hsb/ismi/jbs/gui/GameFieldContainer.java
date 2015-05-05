@@ -18,6 +18,7 @@ import de.hsb.ismi.jbs.engine.core.JBSFrigate;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 public class GameFieldContainer extends JPanel {
 	
@@ -75,27 +76,29 @@ public class GameFieldContainer extends JPanel {
 		
 		Game game = new Game();
 		
+		DataManager dm = game.getDataManager();
+		
 		JBSPlayer[] players = new JBSPlayer[2];
 		
 		players[0] = new JBSPlayer();
 		
-		JBSShip s = new JBSDestroyer(game);
+		JBSShip s = new JBSDestroyer(dm);
 		
 		s.setHealth(3);
 		s.setCooldown(2);
 		
 		players[0].addShip(s);
-		players[0].addShip(new JBSCorvette(game));
-		players[0].addShip(new JBSFrigate(game));
-		players[0].addShip(new JBSSubmarine(game));
-		players[0].addShip(new JBSDestroyer(game));
-		players[0].addShip(new JBSCorvette(game));
-		players[0].addShip(new JBSFrigate(game));
-		players[0].addShip(new JBSSubmarine(game));
-		players[0].addShip(new JBSDestroyer(game));
-		players[0].addShip(new JBSCorvette(game));
-		players[0].addShip(new JBSFrigate(game));
-		players[0].addShip(new JBSSubmarine(game));
+		players[0].addShip(new JBSCorvette(dm));
+		players[0].addShip(new JBSFrigate(dm));
+		players[0].addShip(new JBSSubmarine(dm));
+		players[0].addShip(new JBSDestroyer(dm));
+		players[0].addShip(new JBSCorvette(dm));
+		players[0].addShip(new JBSFrigate(dm));
+		players[0].addShip(new JBSSubmarine(dm));
+		players[0].addShip(new JBSDestroyer(dm));
+		players[0].addShip(new JBSCorvette(dm));
+		players[0].addShip(new JBSFrigate(dm));
+		players[0].addShip(new JBSSubmarine(dm));
 		
 		game.setPlayers(players);
 		

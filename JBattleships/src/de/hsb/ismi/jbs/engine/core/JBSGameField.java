@@ -73,7 +73,16 @@ public class JBSGameField {
 	public final void setFields(JBSActor[][] fields) {
 		this.fields = fields;
 	}
-
+	
+	public void shootField(int x,int y){
+		if(fields[x][y] == water){
+			fields[x][y] = water_hit;
+		}else if(fields[x][y] == water_hit){	
+		}else{
+			fields[x][y].setHit(true);;
+		}
+	}
+	
 	/**
 	 * @return the size
 	 */
@@ -122,5 +131,20 @@ public class JBSGameField {
 		return false;
 	}
 	
+	// DEBUG
+	public void printField(){
+		for(int i = 0 ; i < fields.length ; i++){
+			for(int j = 0 ; j < fields[i].length ; j++){
+				if(fields[i][j] == water){
+					System.out.print("W");
+				}else if(fields[i][j] == water_hit){
+					System.out.print("H");
+				}else{
+					System.out.print("B");
+				}
+			}
+			System.out.println();
+		}
+	}
 	
 }
