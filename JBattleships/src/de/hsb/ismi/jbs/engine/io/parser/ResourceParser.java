@@ -25,17 +25,12 @@ public class ResourceParser extends DataParser{
 	
 	private static final String COMMENT = "//";
 
-	/**
-	 * 
-	 */
 	public ResourceParser() {
-		// TODO Auto-generated constructor stub
 	}
 	
-	
 	/**
-	 * Loads and returns the ResourceTable
-	 * @param path
+	 * Parses a ResourceTable
+	 * @param path The ResourceTable path
 	 * @return The ResourceTable
 	 * @throws FileNotFoundException
 	 * @throws IOException
@@ -44,14 +39,22 @@ public class ResourceParser extends DataParser{
 		ArrayList<String> parsedData = new ArrayList<String>(0);
 		ArrayList<String> data = parseFile(path);
 		for(String line : data){
-			if(!line.startsWith(COMMENT) && !line.trim().isEmpty()){
-				line = line.trim();
+			line = line.trim();
+			if(!line.startsWith(COMMENT) && !line.isEmpty()){
 				parsedData.add(line);
 			}
 		}
 		return parsedData;
 	}
 	
+	/**
+	 * Parses an AudioFile
+	 * @param f The AudioFile
+	 * @return The parsed audiofile
+	 * @throws UnsupportedAudioFileException
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 */
 	public Clip parseAudioFile(File f) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
 		AudioInputStream ais = AudioSystem.getAudioInputStream(f);
 		Clip c = AudioSystem.getClip();
@@ -59,8 +62,40 @@ public class ResourceParser extends DataParser{
 		return c;
 	}
 	
+	/**
+	 * Parses an AudioFile
+	 * @param path The AudioPath
+	 * @return The parsed audiofile
+	 * @throws UnsupportedAudioFileException
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 */
+	public Clip parseAudioFile(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+		AudioInputStream ais = AudioSystem.getAudioInputStream(new File(path));
+		Clip c = AudioSystem.getClip();
+		c.open(ais);
+		return c;
+	}
+	
+	/**
+	 * Parses an Image
+	 * @param f the ImageFile
+	 * @return The parsed image
+	 * @throws IOException
+	 */
 	public BufferedImage parseImage(File f) throws IOException{
 		BufferedImage bi = ImageIO.read(f);
+		return bi;
+	}
+	
+	/**
+	 * Parses an Image
+	 * @param path The ImagePath
+	 * @return The parsed image
+	 * @throws IOException
+	 */
+	public BufferedImage parseImage(String path) throws IOException{
+		BufferedImage bi = ImageIO.read(new File(path));
 		return bi;
 	}
 

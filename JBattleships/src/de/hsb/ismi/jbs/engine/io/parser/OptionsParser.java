@@ -17,8 +17,8 @@ import de.hsb.ismi.jbs.engine.io.JBSParserException;
  */
 public class OptionsParser extends DataParser{
 
-	private static final char[] DELIMITERS = {'[',']'};
-	private static final char ASSIGNMENT = '=';
+	private static final String[] DELIMITERS = {"[","]"};
+	private static final String ASSIGNMENT = "=";
 	private static final String COMMENT = "//";
 	
 	/**
@@ -40,16 +40,19 @@ public class OptionsParser extends DataParser{
 		ArrayList<String> data = parseFile(path);
 			for(String line : data){
 				line = line.replaceAll("\\s", "");
-				if(line.startsWith(String.valueOf(DELIMITERS[0])) && line.endsWith(String.valueOf(DELIMITERS[1]))){
-					String cat = line.substring(1, line.length()-1);
-					parsedData.add(cat);
-				}else if(!line.startsWith(COMMENT) && !line.trim().isEmpty()){
-					String[] splitted = line.split(String.valueOf(ASSIGNMENT),2);
-					if(splitted.length == 1){
-						throw new JBSParserException("Parsing settings.cfg failed!");
+				line = line.trim();
+				if(!line.startsWith(COMMENT) && !line.isEmpty()){
+					if(line.startsWith(String.valueOf(DELIMITERS[0])) && line.endsWith(String.valueOf(DELIMITERS[1]))){
+						String cat = line.substring(1, line.length()-1);
+						parsedData.add(cat);
+					}else{
+						String[] splitted = line.split(String.valueOf(ASSIGNMENT),2);
+						if(splitted.length == 1){
+							throw new JBSParserException("Parsing settings.cfg failed!");
+						}
+						parsedData.add(splitted[0]);
+						parsedData.add(splitted[1]);					
 					}
-					parsedData.add(splitted[0]);
-					parsedData.add(splitted[1]);					
 				}
 			}
 		return parsedData;

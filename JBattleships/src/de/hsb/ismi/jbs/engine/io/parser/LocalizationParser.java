@@ -15,6 +15,9 @@ import java.util.HashMap;
  */
 public class LocalizationParser extends DataParser{
 
+	private static final String ASSIGNMENT = "=";
+	private static final String COMMENT = ";";
+	
 	/**
 	 * 
 	 */
@@ -26,7 +29,7 @@ public class LocalizationParser extends DataParser{
 		try {
 			ArrayList<String> lines = parseFile(fileName);
 			for(String line : lines){
-				String[] temp = line.split("=");
+				String[] temp = line.split(ASSIGNMENT);
 				map.put(temp[0], temp[1]);
 			}
 			
