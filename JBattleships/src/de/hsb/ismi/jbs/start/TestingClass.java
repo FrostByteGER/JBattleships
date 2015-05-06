@@ -6,8 +6,18 @@ package de.hsb.ismi.jbs.start;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import de.hsb.ismi.jbs.engine.core.Direction;
+import de.hsb.ismi.jbs.engine.core.Game;
+import de.hsb.ismi.jbs.engine.core.JBSActor;
+import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
+import de.hsb.ismi.jbs.engine.core.JBSGameField;
+import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.core.JBSShip;
+import de.hsb.ismi.jbs.engine.io.manager.LocalizationManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
+import de.hsb.ismi.jbs.engine.io.parser.LocalizationParser;
 import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
 
 /**
@@ -21,7 +31,7 @@ public class TestingClass {
 	 * 
 	 */
 	public TestingClass() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	/**
@@ -29,8 +39,49 @@ public class TestingClass {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		OptionsManager om = new OptionsManager();
-		om.loadOptions();
+		Game g = new Game();
+		
+		JBSGameField f = new JBSGameField(new JBSPlayer(),16);
+		
+		JBSDestroyer ship = new JBSDestroyer(g.getDataManager());
+		
+		ship.setPositon(0, 0, Direction.EAST);
+		
+		System.out.println(f.shipCanBePlaced(ship));
+		
+		System.out.println(f.setShip(ship));
+		
+		ship.checkHealth();
+		System.out.println(ship.getHealth());
+		
+		for(int i = 0  ; i < 10 ; i++){
+			f.shootField(4, i);
+		}
+		
+		ship.checkHealth();
+		System.out.println(ship.getHealth());
+		
+		f.printField();
+		
+		
+		
+		
+		/*
+		Game g = new Game();
+		
+		JBSGameField field = new JBSGameField(new JBSPlayer(),10);
+		
+		JBSDestroyer d = new JBSDestroyer(g.getDataManager());
+		
+		d.setPositon(0, 0, Direction.NORTH);
+		
+		System.out.println(field.setShip(d));
+		*/
+		//LocalizationManager ma = new LocalizationManager("default.txt");			
+		
+		//OptionsManager om = new OptionsManager();
+		//om.loadOptions();
+		
 		/*
 		OptionsParser op = new OptionsParser();
 		ArrayList<String> data;
