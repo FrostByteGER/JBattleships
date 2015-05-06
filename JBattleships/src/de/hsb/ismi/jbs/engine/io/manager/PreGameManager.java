@@ -29,7 +29,7 @@ public class PreGameManager {
 	}
 	
 	public void addPlayer(JBSPlayer player){
-		fields.add(new JBSGameField(player));
+		fields.add(new JBSGameField(player,16)); // TODO
 		players.add(player);
 	}
 	

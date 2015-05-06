@@ -10,11 +10,13 @@ import java.util.UUID;
 import javax.swing.JSplitPane;
 
 import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSActor;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.core.JBSFrigate;
+import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
@@ -36,6 +38,23 @@ public class GameFieldContainer extends JPanel {
 	}
 	
 	private void init() {
+		
+		// TEST TODO
+		
+		JBSGameField fild = new JBSGameField(new JBSPlayer(),8);
+		fild.shootField(4, 4);
+		
+		
+		
+		JBSDestroyer d = new JBSDestroyer(new DataManager());
+		d.setPositon(0, 0, Direction.NORTH);		
+		
+		fild.setShip(d);
+		
+		fild.shootField(0, 0);
+		
+		//TEST
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -45,7 +64,7 @@ public class GameFieldContainer extends JPanel {
 		
 		splitPane.setRightComponent(uperSiedPanel);
 		
-		uperMainPanel = new GameFieldPanel(16);
+		uperMainPanel = new GameFieldPanel(fild,50);
 		splitPane.setLeftComponent(uperMainPanel);
 		uperMainPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -72,7 +91,7 @@ public class GameFieldContainer extends JPanel {
 	
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
-		f.setBounds(100, 100, 600, 500);
+		f.setBounds(100, 100, 1000, 800);
 		
 		Game game = new Game();
 		
