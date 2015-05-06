@@ -97,7 +97,7 @@ public class OptionsManager {
 	 * 
 	 * @return
 	 */
-	public String[] getGraphicsData(){
+	public HashMap<String, String> getGraphicsData(){
 		return data.get(CATEGORIES[0]);
 	}
 	
@@ -105,7 +105,7 @@ public class OptionsManager {
 	 * 
 	 * @return
 	 */
-	public String[] getAudioData(){
+	public HashMap<String, String> getAudioData(){
 		return data.get(CATEGORIES[1]);
 	}
 	
@@ -113,7 +113,7 @@ public class OptionsManager {
 	 * 
 	 * @return
 	 */
-	public String[] getNetworkData(){
+	public HashMap<String, String> getNetworkData(){
 		return data.get(CATEGORIES[2]);
 	}
 
