@@ -75,6 +75,7 @@ public class GameFieldPanel extends JPanel {
 				if(fild.getField(i, j).isHit()){
 					g.setColor(Color.RED);
 					g.drawLine(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize*(i+1)+xofset-1, gridSize*(j+1)+yofset-1);
+					g.drawLine(gridSize*i+xofset+1, gridSize*(j+1)+yofset+1, gridSize*(i+1)+xofset-1, gridSize*j+yofset-1);
 				}
 				
 			}
