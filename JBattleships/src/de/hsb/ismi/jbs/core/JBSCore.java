@@ -12,6 +12,7 @@ import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.utility.Resolution;
+import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 
 /**
@@ -21,7 +22,11 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
  */
 public class JBSCore {
 
+	
 	public static MessageLogger msgLogger;
+	
+	public static SHA256Generator shaGenerator;
+	
 	public static final String DATA_PATH = "Data/";
 	/** Enables debug functionality and the MessageLogger */
 	public static final boolean DEBUG = true;
@@ -38,7 +43,7 @@ public class JBSCore {
 	 * 
 	 */
 	public JBSCore() {
-		// TODO Auto-generated constructor stub
+		shaGenerator = new SHA256Generator();
 	}
 	
 	/**

@@ -3,22 +3,11 @@
  */
 package de.hsb.ismi.jbs.start;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.JBSActor;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
-import de.hsb.ismi.jbs.engine.core.JBSShip;
-import de.hsb.ismi.jbs.engine.io.manager.LocalizationManager;
-import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
-import de.hsb.ismi.jbs.engine.io.parser.LocalizationParser;
-import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
 
 /**
  * This Class may be used to test anything you like.
@@ -81,7 +70,7 @@ public class TestingClass {
 		
 		//OptionsManager om = new OptionsManager();
 		//om.loadOptions();
-		
+
 		/*
 		OptionsParser op = new OptionsParser();
 		ArrayList<String> data;
