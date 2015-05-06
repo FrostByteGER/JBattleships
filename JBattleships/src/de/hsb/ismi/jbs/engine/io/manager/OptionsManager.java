@@ -20,8 +20,8 @@ import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
 public class OptionsManager {
 	
 	private OptionsParser parser;
-	private final String[] CATEGORIES = {"Graphics","Audio","Network"};
-	private HashMap<String, String[]> data;
+	private static final String[] CATEGORIES = {"Graphics","Audio","Network"};
+	private HashMap<String, HashMap<String, String>> data;
 	private static final String SETTINGS_PATH = "Config/";
 	private static final String SETTINGS_NAME = "Settings.cfg";
 
@@ -37,25 +37,33 @@ public class OptionsManager {
 	 * 
 	 * @return The parsed and sorted data. Null if error encountered.
 	 */
-	public HashMap<String, String[]> loadOptions(){
+	public HashMap<String, HashMap<String, String>> loadOptions(){
 		ArrayList<String> raw = new ArrayList<>(0);
 		ArrayList<String> currentData = new ArrayList<>(0);
-		HashMap<String, String[]> data = new HashMap<>();
+		HashMap<String, HashMap<String, String>> data = new HashMap<>(0);
 		String currentCategory = "";
 		try {
 			raw = parser.parseOptions(JBSCore.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME);
 			for(String s : raw){
 				if(s.equals(CATEGORIES[0]) || s.equals(CATEGORIES[1]) || s.equals(CATEGORIES[2])){
 					if(!currentCategory.equals(s) && !currentCategory.isEmpty()){
-						data.put(currentCategory, currentData.toArray(new String[currentData.size()]));
+						HashMap<String, String> temp = new HashMap<String, String>(0);
+						for(int i = 0;i<currentData.size();i+=2){
+							temp.put(currentData.get(i), currentData.get(i+1));
+						}
+						data.put(currentCategory, temp);
 						currentData = new ArrayList<>(0);
 					}
 					currentCategory = s;
-				}else if(raw.get(raw.size() - 1).equals(s)){
-					currentData.add(s);
-					data.put(currentCategory, currentData.toArray(new String[currentData.size()]));
 				}else{
 					currentData.add(s);
+					if(raw.get(raw.size() - 1).equals(s)){
+						HashMap<String, String> temp = new HashMap<String, String>(0);
+						for(int i = 0;i<currentData.size();i+=2){
+							temp.put(currentData.get(i), currentData.get(i+1));
+						}
+						data.put(currentCategory, temp);
+					}
 				}
 			}
 		} catch (FileNotFoundException fnfe) {
