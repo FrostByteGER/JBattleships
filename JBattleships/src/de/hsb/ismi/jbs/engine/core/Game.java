@@ -16,13 +16,6 @@ public class Game {
 	private JBSGameField[] gameFields;
 	private JBSPlayer[] players;
 	private int activPlayer;
-	
-	/**
-	 * 
-	 */
-	public Game() {
-		DataM = new DataManager();
-	}
 
 	/**
 	 * @param gameType
@@ -31,6 +24,7 @@ public class Game {
 	 */
 	public Game(JBSGameType gameType, JBSGameField[] gameField, JBSPlayer[] players) {
 		super();
+		DataM = new DataManager();
 		this.gameType = gameType;
 		this.gameFields = gameField;
 		this.players = players;

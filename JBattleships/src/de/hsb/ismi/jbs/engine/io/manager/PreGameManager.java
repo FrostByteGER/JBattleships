@@ -7,6 +7,7 @@ import de.hsb.ismi.jbs.engine.core.JBSCorvette;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.core.JBSFrigate;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
+import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 
@@ -19,7 +20,6 @@ public class PreGameManager {
 	private DataManager datam;
 	
 	public PreGameManager(DataManager manager) {
-		game = new Game();
 		fields = new ArrayList<JBSGameField>();
 		players = new ArrayList<JBSPlayer>();
 		shipcount = new int[]{0,0,0,0};	
@@ -29,7 +29,7 @@ public class PreGameManager {
 	}
 	
 	public void addPlayer(JBSPlayer player){
-		fields.add(new JBSGameField(player));
+		fields.add(new JBSGameField(player,16)); // TODO
 		players.add(player);
 	}
 	
@@ -51,7 +51,7 @@ public class PreGameManager {
 	}
 
 	
-	public Game createGame(){
+	public Game createGame(JBSGameType type){
 		
 		JBSGameField[] tfields = new JBSGameField[fields.size()];
 		JBSPlayer[] tplayers = new JBSPlayer[players.size()];
@@ -76,8 +76,7 @@ public class PreGameManager {
 			}
 		}
 		
-		game.setGameField(tfields);
-		game.setPlayers(tplayers);
+		game = new Game(type, tfields, tplayers);
 		
 		return game;
 	}

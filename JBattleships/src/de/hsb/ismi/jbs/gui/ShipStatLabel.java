@@ -25,7 +25,6 @@ public class ShipStatLabel extends JLabel {
 	public ShipStatLabel(JBSShip ship) {
 		this.ship =ship;
 		
-		System.out.println(getHealthP()+" ");
 		health = new Color(1F-getHealthP(), getHealthP(), 0F);
 		coodown = new Color(1F-getCooldownP(),1F-getCooldownP(),1F);
 	}
