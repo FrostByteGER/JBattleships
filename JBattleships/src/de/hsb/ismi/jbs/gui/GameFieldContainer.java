@@ -17,6 +17,7 @@ import de.hsb.ismi.jbs.engine.core.JBSCorvette;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.core.JBSFrigate;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
+import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
@@ -93,9 +94,13 @@ public class GameFieldContainer extends JPanel {
 		JFrame f = new JFrame();
 		f.setBounds(100, 100, 1000, 800);
 		
-		Game game = new Game();
+		JBSPlayer[] p = new JBSPlayer[1];
+		p[0] = new JBSPlayer();
 		
-		DataManager dm = game.getDataManager();
+		JBSGameField[] fi = new JBSGameField[1];
+		fi[0] = new JBSGameField(p[0],16);
+		
+		DataManager dm = new DataManager();
 		
 		JBSPlayer[] players = new JBSPlayer[2];
 		
@@ -119,7 +124,7 @@ public class GameFieldContainer extends JPanel {
 		players[0].addShip(new JBSFrigate(dm));
 		players[0].addShip(new JBSSubmarine(dm));
 		
-		game.setPlayers(players);
+		Game game = new Game(JBSGameType.GAME_LAN, fi, players);
 		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setContentPane(new GameFieldContainer(game));
