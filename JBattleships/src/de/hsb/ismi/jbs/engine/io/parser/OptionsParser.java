@@ -17,9 +17,9 @@ import de.hsb.ismi.jbs.engine.io.JBSParserException;
  */
 public class OptionsParser extends DataParser{
 
-	private final char[] DELIMITERS = {'[',']'};
-	private final char ASSIGNMENT = '=';
-	private final String COMMENT = "//";
+	private static final char[] DELIMITERS = {'[',']'};
+	private static final char ASSIGNMENT = '=';
+	private static final String COMMENT = "//";
 	
 	/**
 	 * 
@@ -53,27 +53,6 @@ public class OptionsParser extends DataParser{
 				}
 			}
 		return parsedData;
-	}
-
-	/**
-	 * @return the delimiters
-	 */
-	public final char[] getDelimiters() {
-		return DELIMITERS;
-	}
-
-	/**
-	 * @return the assignmentoperator
-	 */
-	public final char getAssignmentOperator() {
-		return ASSIGNMENT;
-	}
-
-	/**
-	 * @return the commentoperator
-	 */
-	public final String getCommentOperator() {
-		return COMMENT;
 	}
 
 }

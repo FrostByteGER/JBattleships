@@ -3,12 +3,7 @@
  */
 package de.hsb.ismi.jbs.start;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
-import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
+import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
 
 /**
  * This Class may be used to test anything you like.
@@ -29,8 +24,11 @@ public class TestingClass {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		OptionsManager om = new OptionsManager();
-		om.loadOptions();
+		ResourceManager rm = new ResourceManager();
+		rm.initResourceTable();
+		rm.loadResources();
+		//OptionsManager om = new OptionsManager();
+		//om.loadOptions();
 		/*
 		OptionsParser op = new OptionsParser();
 		ArrayList<String> data;
