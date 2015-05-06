@@ -45,7 +45,7 @@ public class GameFieldContainer extends JPanel {
 		
 		splitPane.setRightComponent(uperSiedPanel);
 		
-		uperMainPanel = new GameFieldPanel();
+		uperMainPanel = new GameFieldPanel(16);
 		splitPane.setLeftComponent(uperMainPanel);
 		uperMainPanel.setLayout(new BorderLayout(0, 0));
 		
