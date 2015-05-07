@@ -8,6 +8,7 @@ import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.console.ConsoleUserInterface;
 
 /**
  * This Class may be used to test anything you like.
@@ -28,6 +29,8 @@ public class TestingClass {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		/*
 		Game g = new Game();
 		
 		JBSGameField f = new JBSGameField(new JBSPlayer(),16);
@@ -51,9 +54,9 @@ public class TestingClass {
 		System.out.println(ship.getHealth());
 		
 		f.printField();
+		*/
 		
-		
-		
+		ConsoleUserInterface cui = new ConsoleUserInterface();
 		
 		/*
 		Game g = new Game();
