@@ -3,7 +3,12 @@
  */
 package de.hsb.ismi.jbs.start;
 
-import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
+import de.hsb.ismi.jbs.engine.core.Direction;
+import de.hsb.ismi.jbs.engine.core.Game;
+import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
+import de.hsb.ismi.jbs.engine.core.JBSGameField;
+import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.console.ConsoleUserInterface;
 
 /**
  * This Class may be used to test anything you like.
@@ -16,7 +21,7 @@ public class TestingClass {
 	 * 
 	 */
 	public TestingClass() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	/**
@@ -24,11 +29,51 @@ public class TestingClass {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ResourceManager rm = new ResourceManager();
-		rm.initResourceTable();
-		rm.loadResources();
+		
+		/*
+		Game g = new Game();
+		
+		JBSGameField f = new JBSGameField(new JBSPlayer(),16);
+		
+		JBSDestroyer ship = new JBSDestroyer(g.getDataManager());
+		
+		ship.setPositon(0, 0, Direction.EAST);
+		
+		System.out.println(f.shipCanBePlaced(ship));
+		
+		System.out.println(f.setShip(ship));
+		
+		ship.checkHealth();
+		System.out.println(ship.getHealth());
+		
+		for(int i = 0  ; i < 10 ; i++){
+			f.shootField(4, i);
+		}
+		
+		ship.checkHealth();
+		System.out.println(ship.getHealth());
+		
+		f.printField();
+		*/
+		
+		ConsoleUserInterface cui = new ConsoleUserInterface();
+		
+		/*
+		Game g = new Game();
+		
+		JBSGameField field = new JBSGameField(new JBSPlayer(),10);
+		
+		JBSDestroyer d = new JBSDestroyer(g.getDataManager());
+		
+		d.setPositon(0, 0, Direction.NORTH);
+		
+		System.out.println(field.setShip(d));
+		*/
+		//LocalizationManager ma = new LocalizationManager("default.txt");			
+		
 		//OptionsManager om = new OptionsManager();
 		//om.loadOptions();
+
 		/*
 		OptionsParser op = new OptionsParser();
 		ArrayList<String> data;

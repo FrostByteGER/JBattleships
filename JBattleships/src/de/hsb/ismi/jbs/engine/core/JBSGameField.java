@@ -73,11 +73,14 @@ public class JBSGameField {
 	}
 	
 	public void shootField(int x,int y){
-		if(fields[x][y] == water){
-			fields[x][y] = water_hit;
-		}else if(fields[x][y] == water_hit){
+		if(x > size || y > size){
 		}else{
-			fields[x][y].setHit(true);;
+			if(fields[x][y] == water){
+				fields[x][y] = water_hit;
+			}else if(fields[x][y] == water_hit){
+			}else{
+				fields[x][y].setHit(true);;
+			}
 		}
 	}
 	
