@@ -17,6 +17,7 @@ public class JBSShip {
 	private int cooldown;
 	private int length;
 	private JBSDamageType damageType;
+	private int shotpower;
 	private String name;
 	private int health;
 	private ArrayList<JBSActor> shipActors;
@@ -46,6 +47,14 @@ public class JBSShip {
 		this.health = length;
 		this.shipActors = new ArrayList<JBSActor>();
 		this.positon = new Vector2i();
+		if(JBSDamageType.DAMAGE_SMALL == damageType){
+			shotpower = 1;
+		}else if(JBSDamageType.DAMAGE_MEDIUM == damageType){
+			shotpower = 2;
+		}else if(JBSDamageType.DAMAGE_LARGE == damageType){
+			shotpower = 3;
+		}
+		
 	}
 	
 	public void addShipPart(JBSActor part) {
@@ -127,6 +136,24 @@ public class JBSShip {
 	
 	public boolean canShot(){
 		return isAlife()&&cooldown==0;
+	}
+	
+	public void shot(int x, int y, Direction direction, JBSGameField field){
+		
+		for(int i = 0 ; i < shotpower ; i++){
+			if(direction == Direction.NORTH){				
+				field.shootField(x, y+i);
+			}else if(direction == Direction.EAST){
+				field.shootField(x-i, y);
+			}else if(direction == Direction.SOUTH){
+				field.shootField(x, y-i);
+			}else if(direction == Direction.WEST){
+				field.shootField(x+i, y);
+			}			
+		}
+		
+		
+		
 	}
 	
 	public void setPositon(int x, int y, Direction direction) {

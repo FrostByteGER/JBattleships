@@ -4,15 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.util.UUID;
-
 import javax.swing.JSplitPane;
-
-import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.JBSActor;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.core.JBSFrigate;
@@ -45,14 +39,14 @@ public class GameFieldContainer extends JPanel {
 		JBSGameField fild = new JBSGameField(new JBSPlayer(),8);
 		fild.shootField(4, 4);
 		
-		
-		
 		JBSDestroyer d = new JBSDestroyer(new DataManager());
 		d.setPositon(0, 0, Direction.NORTH);		
 		
 		fild.setShip(d);
 		
-		fild.shootField(0, 0);
+		d.shot(3, 3, Direction.EAST, fild);
+		
+		//fild.shootField(0, 0);
 		
 		//TEST
 		

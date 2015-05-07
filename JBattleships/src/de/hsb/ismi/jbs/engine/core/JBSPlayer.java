@@ -12,12 +12,14 @@ import java.util.ArrayList;
 public class JBSPlayer {
 	
 	private ArrayList<JBSShip> ships;
+	private boolean isAlive;
 	
 	/**
 	 * 
 	 */
 	public JBSPlayer() {
 		ships = new ArrayList<JBSShip>();
+		isAlive = true;
 	}
 	
 	public void setShips(ArrayList<JBSShip> ships){
@@ -35,6 +37,16 @@ public class JBSPlayer {
 	public void removeShips(){
 		ships.clear();
 	}
+
+	public boolean isAlive() {
+		return isAlive;
+	}
+
+	public void setAlive(boolean isAlive) {
+		this.isAlive = isAlive;
+	}
+	
+	
 	
 	
 }

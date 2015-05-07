@@ -4,7 +4,6 @@
 package de.hsb.ismi.jbs.engine.core;
 
 import java.awt.Graphics;
-
 import de.hsb.ismi.jbs.engine.rendering.RenderInterface;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 

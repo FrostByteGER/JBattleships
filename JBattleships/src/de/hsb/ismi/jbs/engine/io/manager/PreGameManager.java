@@ -29,7 +29,6 @@ public class PreGameManager {
 	}
 	
 	public void addPlayer(JBSPlayer player){
-		fields.add(new JBSGameField(player,16)); // TODO
 		players.add(player);
 	}
 	
@@ -51,7 +50,11 @@ public class PreGameManager {
 	}
 
 	
-	public Game createGame(JBSGameType type){
+	public Game createGame(JBSGameType type ,int fieldsize){
+		
+		for(JBSPlayer p : players){
+			fields.add(new JBSGameField(p, fieldsize));
+		}
 		
 		JBSGameField[] tfields = new JBSGameField[fields.size()];
 		JBSPlayer[] tplayers = new JBSPlayer[players.size()];
