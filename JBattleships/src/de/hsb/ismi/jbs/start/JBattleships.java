@@ -24,6 +24,5 @@ public class JBattleships {
 		JBSCore game = new JBSCore();
 		game.initGame();
 	}
-
 }
 
