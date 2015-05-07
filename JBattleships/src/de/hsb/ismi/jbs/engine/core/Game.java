@@ -88,6 +88,32 @@ public class Game {
 		this.activPlayer = activPlayer;
 	}
 	
+	public boolean isGameOver(){
+		
+		int amount = 0;
+		
+		for(JBSPlayer p : players){
+			for(JBSShip ship : p.getShips()){
+				ship.checkHealth();
+			}
+		}
+		// TODO CAHNGE!!!
+		for(JBSPlayer p : players){
+			p.setAlive(false);
+			for(JBSShip ship : p.getShips()){
+				if(ship.isAlife()){
+					p.setAlive(true);
+					amount++;
+					break;
+				}
+			}
+			if(amount>1){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public final DataManager getDataManager(){
 		return DataM;
 	}
