@@ -83,7 +83,7 @@ public class ConsoleUserInterface {
 				
 				do {
 					System.out.println("Player "+i);
-					game.getGameField()[i].printField();
+					game.getGameField()[i].printField(true);
 					System.out.println("Shiptype: "+ship.getName());
 					readInt("Ship x");
 					x = intinput;
@@ -91,6 +91,7 @@ public class ConsoleUserInterface {
 					y = intinput;
 					
 					while(true){
+						printDirections();
 						System.out.println("Ship Direction (n,o,s,w) type: "+ship.getName());
 						readString();
 						switch (stringinput) {
@@ -111,10 +112,12 @@ public class ConsoleUserInterface {
 				} while (!game.getGameField()[i].shipCanBePlaced(ship));
 				game.getGameField()[i].setShip(ship);
 			}
+			game.getGameField()[i].printField(true);
 		}
 	}
 	
 	private void round(int player){
+		
 		printShips(player);
 		
 		int shootat = 0;
@@ -125,35 +128,39 @@ public class ConsoleUserInterface {
 		
 		Direction direction;
 		
-		while(stringinput == "y"){
+		while(!stringinput.equals("y")){
+			
+			stringinput = "";
+			
 			do {
 				for(int i = 0 ; i < game.getPlayers().length ; i++){
-					if(game.getPlayers()[i].isAlive()){
-						System.out.println(i+" Player is Alive"+game.getPlayers()[i].isAlive());
+					if(game.getPlayers()[i].isAlive()&& i != player){
+						System.out.println(i+" Player is Alive "+game.getPlayers()[i].isAlive());
 					}
 				}
 				readInt("shoot at");
 				
-			} while (!game.getPlayers()[intinput].isAlive());
+			} while (!game.getPlayers()[intinput].isAlive() || (intinput == player));
 			
 			shootat = intinput;
 			
-			game.getGameField()[shootat].printField();
+			game.getGameField()[shootat].printField(false);
 			
-			while(stringinput == "y" || stringinput == "n"){
+			while(!(stringinput.equals("y") || stringinput.endsWith("n"))){
 				System.out.println("Do you want to shoot him? y/n");
 				readString();
 			}
 		}
 		
 		do {
+			printShips(player);
 			readInt("shot with");
 		} while (!game.getPlayers()[player].getShips().get(intinput).isAlife() &&
 				game.getPlayers()[player].getShips().get(intinput).getCooldown() > 0);
 		
 		ship = game.getPlayers()[player].getShips().get(intinput);
 		
-		while(!(xshoot < fieldsize && xshoot > 0 && yshoot < fieldsize && yshoot > 0)){
+		while(!(xshoot < fieldsize && xshoot >= 0 && yshoot < fieldsize && yshoot >= 0)){
 			
 			readInt("shoot at X");
 			xshoot = intinput;
@@ -162,6 +169,7 @@ public class ConsoleUserInterface {
 		}
 		
 		while(true){
+			printDirections();
 			System.out.println("shoot in Direction (n,o,s,w) type: "+ship.getName());
 			readString();
 			switch (stringinput) {
@@ -176,6 +184,12 @@ public class ConsoleUserInterface {
 		}
 		
 		ship.shot(xshoot, yshoot, direction, game.getGameField()[shootat]);
+	}
+	
+	private void printDirections(){
+		System.out.println("  w");
+		System.out.println("n + s");
+		System.out.println("  o");
 	}
 	
 	private void printShips(int player){

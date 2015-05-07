@@ -133,15 +133,30 @@ public class JBSGameField {
 	}
 	
 	// DEBUG
-	public void printField(){
+	public void printField(boolean visible){
+		System.out.print("x/y");
+		for(int i = 0 ; i < fields.length ;i++){
+			System.out.print(i%10);
+		}
+		System.out.println();
 		for(int i = 0 ; i < fields.length ; i++){
+			if(i < 10){
+				System.out.print(i+"  ");
+			}else{
+				System.out.print(i+" ");
+			}
 			for(int j = 0 ; j < fields[i].length ; j++){
+				
 				if(fields[i][j] == water){
-					System.out.print("W");
+					System.out.print("-");
 				}else if(fields[i][j] == water_hit){
-					System.out.print("H");
-				}else{
+					System.out.print("X");
+				}else if(visible){
 					System.out.print("B");
+				}else if(fields[i][j].isHit()){
+					System.out.print("O");
+				}else{
+					System.out.print("-");
 				}
 			}
 			System.out.println();
