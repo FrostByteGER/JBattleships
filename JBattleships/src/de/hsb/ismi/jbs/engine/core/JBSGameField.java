@@ -16,20 +16,6 @@ public class JBSGameField {
 	private JBSPlayer player;
 	public JBSActor water;
 	public JBSActor water_hit;
-	
-	/**
-	 * 
-	 */
-	public JBSGameField(JBSPlayer player) {
-		
-		this.player = player;
-		
-		water = new JBSActor();
-		water_hit = new JBSActor();
-		
-		water.setHit(false);
-		water_hit.setHit(true);
-	}
 
 	/**
 	 * @param fields
@@ -66,7 +52,19 @@ public class JBSGameField {
 	public final JBSActor[][] getFields() {
 		return fields;
 	}
-
+	
+	public JBSActor getField(int x,int y){
+		return fields[x][y];
+	}
+	
+	public boolean isFieldWater(int x ,int y){
+		return(fields[x][y]==water);
+	}
+	
+	public boolean isFieldWaterHit(int x ,int y){
+		return(fields[x][y]==water_hit);
+	}
+	
 	/**
 	 * @param fields the fields to set
 	 */
@@ -77,7 +75,7 @@ public class JBSGameField {
 	public void shootField(int x,int y){
 		if(fields[x][y] == water){
 			fields[x][y] = water_hit;
-		}else if(fields[x][y] == water_hit){	
+		}else if(fields[x][y] == water_hit){
 		}else{
 			fields[x][y].setHit(true);;
 		}

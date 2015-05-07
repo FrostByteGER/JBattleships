@@ -86,22 +86,22 @@ public class JBSCore {
 		if(om.loadOptions() == null){
 			return false;
 		}
-		String[] gfx = om.getGraphicsData();
-		if(gfx.length > 0){
+		HashMap<String, String> gfx = om.getGraphicsData();
+		if(gfx.size() > 0){
 			
 		}else{
 			return false;
 		}
 		
-		String[] sfx = om.getAudioData();
-		if(sfx.length > 0){
+		HashMap<String, String> sfx = om.getAudioData();
+		if(sfx.size() > 0){
 			
 		}else{
 			return false;
 		}
 		
-		String[] nt = om.getNetworkData();
-		if(nt.length > 0){
+		HashMap<String, String> nt = om.getNetworkData();
+		if(nt.size() > 0){
 			
 		}else{
 			return false;
