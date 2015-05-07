@@ -12,6 +12,7 @@ import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.utility.Resolution;
+import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 
 /**
@@ -21,7 +22,11 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
  */
 public class JBSCore {
 
+	
 	public static MessageLogger msgLogger;
+	
+	public static SHA256Generator shaGenerator;
+	
 	public static final String DATA_PATH = "Data/";
 	/** Enables debug functionality and the MessageLogger */
 	public static final boolean DEBUG = true;
@@ -38,7 +43,7 @@ public class JBSCore {
 	 * 
 	 */
 	public JBSCore() {
-		// TODO Auto-generated constructor stub
+		shaGenerator = new SHA256Generator();
 	}
 	
 	/**
@@ -81,22 +86,22 @@ public class JBSCore {
 		if(om.loadOptions() == null){
 			return false;
 		}
-		String[] gfx = om.getGraphicsData();
-		if(gfx.length > 0){
+		HashMap<String, String> gfx = om.getGraphicsData();
+		if(gfx.size() > 0){
 			
 		}else{
 			return false;
 		}
 		
-		String[] sfx = om.getAudioData();
-		if(sfx.length > 0){
+		HashMap<String, String> sfx = om.getAudioData();
+		if(sfx.size() > 0){
 			
 		}else{
 			return false;
 		}
 		
-		String[] nt = om.getNetworkData();
-		if(nt.length > 0){
+		HashMap<String, String> nt = om.getNetworkData();
+		if(nt.size() > 0){
 			
 		}else{
 			return false;

@@ -30,7 +30,19 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+
 import javax.swing.border.TitledBorder;
+
+import de.hsb.ismi.jbs.engine.core.Game;
+import de.hsb.ismi.jbs.engine.core.JBSCorvette;
+import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
+import de.hsb.ismi.jbs.engine.core.JBSFrigate;
+import de.hsb.ismi.jbs.engine.core.JBSGameField;
+import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.core.JBSShip;
+import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
+import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
  * @author Kevin Kuegler
@@ -74,6 +86,49 @@ public class MainPanel extends JPanel {
 		buttonPanel.setLayout(gbl_buttonPanel);
 		
 		btnLocal = new JButton("Local");
+		btnLocal.setActionCommand("local");
+		btnLocal.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("local")){
+					
+					JBSPlayer[] p = new JBSPlayer[1];
+					p[0] = new JBSPlayer();
+					
+					JBSGameField[] fi = new JBSGameField[1];
+					fi[0] = new JBSGameField(p[0],16);
+					
+					DataManager dm = new DataManager();
+					
+					JBSPlayer[] players = new JBSPlayer[2];
+					
+					players[0] = new JBSPlayer();
+					
+					JBSShip s = new JBSDestroyer(dm);
+					
+					s.setHealth(3);
+					s.setCooldown(2);
+					
+					players[0].addShip(s);
+					players[0].addShip(new JBSCorvette(dm));
+					players[0].addShip(new JBSFrigate(dm));
+					players[0].addShip(new JBSSubmarine(dm));
+					players[0].addShip(new JBSDestroyer(dm));
+					players[0].addShip(new JBSCorvette(dm));
+					players[0].addShip(new JBSFrigate(dm));
+					players[0].addShip(new JBSSubmarine(dm));
+					players[0].addShip(new JBSDestroyer(dm));
+					players[0].addShip(new JBSCorvette(dm));
+					players[0].addShip(new JBSFrigate(dm));
+					players[0].addShip(new JBSSubmarine(dm));
+					
+					Game game = new Game(JBSGameType.GAME_LAN, fi, players);
+					
+					parent.swapContainer(new GameFieldContainer(game));
+				}
+				
+			}
+		});
 		btnLocal.setAlignmentX(Component.CENTER_ALIGNMENT);
 		GridBagConstraints gbc_btnLocal = new GridBagConstraints();
 		gbc_btnLocal.fill = GridBagConstraints.HORIZONTAL;

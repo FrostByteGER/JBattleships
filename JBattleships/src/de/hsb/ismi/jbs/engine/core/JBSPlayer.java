@@ -13,7 +13,6 @@ public class JBSPlayer {
 	
 	private ArrayList<JBSShip> ships;
 	
-	
 	/**
 	 * 
 	 */

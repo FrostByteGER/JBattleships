@@ -29,6 +29,7 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	 */
 	public JBSActor() {
 		ishit = false;
+		location = new Vector2i();
 	}
 
 	/**
@@ -103,7 +104,7 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	public final void setLocation(Vector2i location) {
 		this.location = location;
 	}
-
+	
 	/**
 	 * @return the rotation
 	 */
