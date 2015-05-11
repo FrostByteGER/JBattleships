@@ -3,10 +3,12 @@ package de.hsb.ismi.jbs.console;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.io.manager.*;
 import de.hsb.ismi.jbs.engine.core.*;
+import de.hsb.ismi.jbs.engine.core.manager.PreGameManager;
 
 public class ConsoleUserInterface {
 	

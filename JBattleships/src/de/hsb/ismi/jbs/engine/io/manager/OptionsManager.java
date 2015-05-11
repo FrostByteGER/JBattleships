@@ -19,9 +19,10 @@ import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
  */
 public class OptionsManager {
 	
+	//TODO: Add Game Category with Language Data and Debug Bool
 	private OptionsParser parser;
-	private static final String[] CATEGORIES = {"Graphics","Audio","Network"};
 	private HashMap<String, HashMap<String, String>> data;
+	private static final String[] CATEGORIES = {"Graphics","Audio","Network"};
 	private static final String SETTINGS_PATH = "Config/";
 	private static final String SETTINGS_NAME = "Settings.cfg";
 

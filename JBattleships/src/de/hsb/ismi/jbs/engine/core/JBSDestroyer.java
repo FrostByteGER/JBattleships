@@ -18,7 +18,7 @@ public class JBSDestroyer extends JBSShip {
 		super(3, 0, 5, JBSDamageType.DAMAGE_LARGE);
 		setName(manager
 				.getLocalizationManager()
-				.getWord("Destroyer"));
+				.getLocalization("Destroyer"));
 		addShipPart(new JBSActor());
 		addShipPart(new JBSActor());
 		addShipPart(new JBSActor());
