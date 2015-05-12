@@ -46,7 +46,7 @@ public class OptionsManager {
 		try {
 			raw = parser.parseOptions(JBSCore.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME);
 			for(String s : raw){
-				if(s.equals(CATEGORIES[0]) || s.equals(CATEGORIES[1]) || s.equals(CATEGORIES[2])){
+				if(s.equals(CATEGORIES[0]) || s.equals(CATEGORIES[1]) || s.equals(CATEGORIES[2]) || s.equals(CATEGORIES[3])){
 					if(!currentCategory.equals(s) && !currentCategory.isEmpty()){
 						HashMap<String, String> temp = new HashMap<String, String>(0);
 						for(int i = 0;i<currentData.size();i+=2){
