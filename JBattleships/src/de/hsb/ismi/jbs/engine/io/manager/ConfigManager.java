@@ -34,7 +34,7 @@ public class ConfigManager {
 	 * 
 	 * @return The parsed and sorted data. Null if error encountered.
 	 */
-	public HashMap<String, HashMap<String, String>> loadConfig(){
+	public boolean loadConfig(){
 		HashMap<String, HashMap<String, String>> data = new HashMap<>(0);
 		try {
 			ArrayList<String> raw = parser.parseConfig(JBSCore.DATA_PATH + CONFIG_PATH + CONFIG_NAME);
@@ -65,10 +65,10 @@ public class ConfigManager {
 		} catch (IOException | JBSParserException e) {
 			e.printStackTrace();
 			//JBSCore.msgLogger.addException(e);
-			return null;
+			return false;
 		}
 		this.data = data;
-		return data;
+		return true;
 	}
 
 	/**
