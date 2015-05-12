@@ -46,7 +46,7 @@ public class ConsoleUserInterface {
 		cls();
 		System.out.println("Fieldsze "+fieldsize);
 		System.out.println("Playeramount "+playeramount);
-		} while (!readStringYN("Are the information correct?y/n"));
+		} while (!readStringYN("Are the information correct? y/n"));
 		
 		
 		
@@ -74,7 +74,7 @@ public class ConsoleUserInterface {
 			System.out.println("Frigateamount "+pm.getFrigateCount());
 			System.out.println("Submarineamount "+pm.getSubmarineCount());
 			
-		} while (!readStringYN("Are the information correct?y/n"));
+		} while (!readStringYN("Are the information correct? y/n"));
 		
 		game = pm.createGame(JBSGameType.GAME_LOCAL, fieldsize);
 		for(int i = 0 ; i < game.getPlayers().length ;i++){
@@ -83,7 +83,7 @@ public class ConsoleUserInterface {
 		
 		
 		while(!game.isGameOver()){
-			for(int i = 0 ; i < game.getPlayers().length ; i++){
+			for(int i = 0 ; i < game.getPlayers().length && !game.isGameOver() ; i++){
 				round(i);
 			}
 		}
@@ -103,7 +103,6 @@ public class ConsoleUserInterface {
 			
 			int x = 0;
 			int y = 0;
-			
 			
 			do {
 			game.getGameField()[playernumber].resetField();
@@ -139,7 +138,7 @@ public class ConsoleUserInterface {
 				game.getGameField()[playernumber].setShip(ship);
 			}
 			game.getGameField()[playernumber].printField(true);
-			} while (!readStringYN("Are the information correct?y/n"));
+			} while (!readStringYN("Are the information correct? y/n"));
 		
 	}
 	
@@ -150,24 +149,47 @@ public class ConsoleUserInterface {
 		int shootat = 0;
 		int xshoot = -1;
 		int yshoot = -1;
+		boolean candosomething = false;
 		
 		JBSShip ship;
 		
 		Direction direction;
 		stringinput = "";
 		
+		for(JBSShip s : game.getPlayers()[player].getShips()){
+			if(s.canShot()){
+				candosomething = true;
+			}else if(s.getCooldown() > 0){
+				s.setCooldown(s.getCooldown()-1);
+			}
+		}
+		
+		if(!candosomething){
+			cls();
+			System.out.println("You can´t do anything in this Round Player "+player);
+			readStringYN("continue y/n");
+			return;
+		}
 		
 		do{
 			do {
+				
 				cls();
+				
+				System.out.println(player+" Players turn");
+				
 				for(int i = 0 ; i < game.getPlayers().length ; i++){
 					if(game.getPlayers()[i].isAlive()&& i != player){
 						System.out.println(i+" Player is Alive "+game.getPlayers()[i].isAlive());
 					}
 				}
-				readIntMinMax("shoot at", 0, game.getPlayers().length-1);
+				readIntMinMax("Shoot at", 0, game.getPlayers().length-1);
 				
 			} while (!game.getPlayers()[intinput].isAlive() || (intinput == player));
+			
+			if(!candosomething){
+				break;
+			}
 			
 			shootat = intinput;
 			
@@ -179,7 +201,7 @@ public class ConsoleUserInterface {
 		do {
 			cls();
 			printShips(player);
-			readIntMinMax("shoot with", 0, game.getPlayers()[player].getShips().size()-1);
+			readIntMinMax("Shoot with", 0, game.getPlayers()[player].getShips().size()-1);
 		} while (!game.getPlayers()[player].getShips().get(intinput).isAlife() &&
 				game.getPlayers()[player].getShips().get(intinput).getCooldown() > 0);
 		
@@ -187,6 +209,7 @@ public class ConsoleUserInterface {
 		
 		cls();
 		
+		game.getGameField()[shootat].printField(false);
 		readIntMinMax("shoot at X 0-"+(game.getGameField()[player].getSize()-1), 0, game.getGameField()[player].getSize()-1);
 		xshoot = intinput;
 		readIntMinMax("shoot at Y 0-"+(game.getGameField()[player].getSize()-1), 0, game.getGameField()[player].getSize()-1);
@@ -224,8 +247,9 @@ public class ConsoleUserInterface {
 			System.out.println("WEST");
 		}
 		
-		}while(!readStringYN("Are the information correct?y/n"));
+		}while(!readStringYN("Are the information correct? y/n"));
 		ship.shot(xshoot, yshoot, direction, game.getGameField()[shootat]);
+		ship.setCooldown(ship.getCooldownLimit());
 	}
 	
 	private void printDirections(){
@@ -276,14 +300,14 @@ public class ConsoleUserInterface {
 	}
 	
 	private void readIntMinMax(String s, int min, int max){
-		int end = 0;
+		int end = min-1;
 					
 		do{
 			try {
 				System.out.println(s);
 				end = Integer.parseInt(read.readLine());
 			} catch (NumberFormatException e) {
-				System.out.print(" No Number");
+				System.out.println("No Number");
 				continue;
 			} catch (IOException e) {
 				e.printStackTrace();
