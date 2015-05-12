@@ -1,4 +1,4 @@
-package de.hsb.ismi.jbs.engine.io.manager;
+package de.hsb.ismi.jbs.engine.core.manager;
 
 import java.util.ArrayList;
 
@@ -10,6 +10,7 @@ import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
+import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 public class PreGameManager {
 	
@@ -48,7 +49,19 @@ public class PreGameManager {
 	public void setCorvetteCount(int size){
 		shipcount[3] = size;
 	}
-
+	
+	public int getDestroyerCount(){
+		return shipcount[0];
+	}
+	public int getFrigateCount(){
+		return shipcount[1];
+	}
+	public int getSubmarineCount(){
+		return shipcount[2];
+	}
+	public int getCorvetteCount(){
+		return shipcount[3];
+	}
 	
 	public Game createGame(JBSGameType type ,int fieldsize){
 		

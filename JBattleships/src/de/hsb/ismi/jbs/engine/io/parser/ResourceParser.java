@@ -23,7 +23,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class ResourceParser extends DataParser{
 	
-	private static final String COMMENT = "//";
+	private static final String COMMENT = ";";
 
 	public ResourceParser() {
 	}

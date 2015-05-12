@@ -16,7 +16,7 @@ public class JBSSubmarine extends JBSShip {
 	 */
 	public JBSSubmarine(DataManager manager) {
 		super(1, 0, 2, JBSDamageType.DAMAGE_SMALL);
-		setName(manager.getLocalizationManager().getWord("Submarine"));
+		setName(manager.getLocalizationManager().getLocalization("Submarine"));
 		addShipPart(new JBSActor());
 		addShipPart(new JBSActor());
 	}

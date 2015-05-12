@@ -35,8 +35,8 @@ public class ResourceManager{
 	private ResourceParser parser;
 	
 	private String[] resourceTable;
-	private final String RESOURCE_TABLE_PATH = "Data/Resources.cfg";
-	private final String RESOURCE_TABLE_SHA = "AAAAA";
+	private static final String RESOURCE_TABLE_PATH = "Data/Resources.cfg";
+	private static final String RESOURCE_TABLE_SHA = "PLACEHOLDER";
 	
 	/**
 	 * @param path
@@ -57,8 +57,8 @@ public class ResourceManager{
 	public boolean initResourceTable(){
 		File f = new File(RESOURCE_TABLE_PATH);
 		if(f.exists()){
-			//JBSCore.shaGenerator.generateSHA256(f).equals(RESOURCE_TABLE_SHA);
-			if(true){
+			//TODO: Remove True
+			if(JBSCore.shaGenerator.generateSHA256(f).equals(RESOURCE_TABLE_SHA) || true){
 				try {
 					ArrayList<String> table = parser.parseResourceTable(RESOURCE_TABLE_PATH);
 					resourceTable = new String[table.size()];
@@ -86,7 +86,7 @@ public class ResourceManager{
 	 * Loads all Resources specified by the ResourceTable
 	 */
 	public boolean loadResources(){
-		boolean success = false;
+		boolean success = true;
 		for(String s : resourceTable){
 			File f = new File(s);
 			if(s.contains(texturePath)){
@@ -115,7 +115,7 @@ public class ResourceManager{
 				System.out.println("Ignored File: " + s);
 			}
 		}
-		return true;
+		return success;
 	}
 
 	/**

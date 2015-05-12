@@ -20,7 +20,7 @@ public class ProfileManager {
 		parser = new ProfileParser();
 		profileData = new HashMap<>();
 		
-		parser.loadProfile(Profile_PATH+"testProfile"+".txt", temp);
+		//parser.loadProfile(Profile_PATH+"testProfile"+".txt", temp);
 	}
 	
 
