@@ -27,7 +27,7 @@ public class LocalizationManager {
 	 * @param language
 	 */
 	public LocalizationManager() {
-		activeLanguage = null; //TODO: Maybe change to english or default, since it makes sense to have a default language loaded
+		activeLanguage = "english";
 		activeLanguageData = new HashMap<String, String>();
 		parser = new LocalizationParser();
 	}

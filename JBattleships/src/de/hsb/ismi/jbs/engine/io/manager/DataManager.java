@@ -53,24 +53,10 @@ public class DataManager {
 	}
 
 	/**
-	 * @param optionsM the optionsM to set
-	 */
-	public final void setOptionsManager(OptionsManager optionsManager) {
-		this.optionsM = optionsManager;
-	}
-
-	/**
 	 * @return the configM
 	 */
 	public final ConfigManager getConfigManager() {
 		return configM;
-	}
-
-	/**
-	 * @param configM the configM to set
-	 */
-	public final void setConfigManager(ConfigManager configManager) {
-		this.configM = configManager;
 	}
 
 	/**
@@ -81,25 +67,12 @@ public class DataManager {
 	}
 
 	/**
-	 * @param localizationM the localizationM to set
-	 */
-	public final void setLocalizationManager(LocalizationManager localizationManager) {
-		this.localizationM = localizationManager;
-	}
-
-	/**
 	 * @return the resourceM
 	 */
 	public final ResourceManager getResourceManager() {
 		return resourceM;
 	}
 
-	/**
-	 * @param resourceM the resourceM to set
-	 */
-	public final void setResourceManager(ResourceManager resourceManager) {
-		resourceM = resourceManager;
-	}
 
 	/**
 	 * @return the profileM
@@ -108,11 +81,4 @@ public class DataManager {
 		return profileM;
 	}
 
-	/**
-	 * @param profileM the profileM to set
-	 */
-	public final void setProfileManager(ProfileManager profileManager) {
-		this.profileM = profileManager;
-	}
-	
 }

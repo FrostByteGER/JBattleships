@@ -22,7 +22,7 @@ public class OptionsManager {
 	//TODO: Add Game Category with Language Data and Debug Bool
 	private OptionsParser parser;
 	private HashMap<String, HashMap<String, String>> data;
-	private static final String[] CATEGORIES = {"Graphics","Audio","Network"};
+	private static final String[] CATEGORIES = {"Graphics","Audio","Network","Game"};
 	private static final String SETTINGS_PATH = "Config/";
 	private static final String SETTINGS_NAME = "Settings.cfg";
 
@@ -38,7 +38,7 @@ public class OptionsManager {
 	 * 
 	 * @return The parsed and sorted data. Null if error encountered.
 	 */
-	public HashMap<String, HashMap<String, String>> loadOptions(){
+	public boolean loadOptions(){
 		ArrayList<String> raw = new ArrayList<>(0);
 		ArrayList<String> currentData = new ArrayList<>(0);
 		HashMap<String, HashMap<String, String>> data = new HashMap<>(0);
@@ -46,7 +46,7 @@ public class OptionsManager {
 		try {
 			raw = parser.parseOptions(JBSCore.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME);
 			for(String s : raw){
-				if(s.equals(CATEGORIES[0]) || s.equals(CATEGORIES[1]) || s.equals(CATEGORIES[2])){
+				if(s.equals(CATEGORIES[0]) || s.equals(CATEGORIES[1]) || s.equals(CATEGORIES[2]) || s.equals(CATEGORIES[3])){
 					if(!currentCategory.equals(s) && !currentCategory.isEmpty()){
 						HashMap<String, String> temp = new HashMap<String, String>(0);
 						for(int i = 0;i<currentData.size();i+=2){
@@ -67,22 +67,22 @@ public class OptionsManager {
 					}
 				}
 			}
+			//TODO: Combine catches?
 		} catch (FileNotFoundException fnfe) {
 			//JBSCore.msgLogger.addException(e);
 			fnfe.printStackTrace();
-			return null;
+			return false;
 		} catch (IOException ioe) {
 			//JBSCore.msgLogger.addException(e);
 			ioe.printStackTrace();
-			return null;
+			return false;
 		} catch(JBSParserException jpe){
-			
 			jpe.printStackTrace();
-			return null;
+			return false;
 		}
 		System.out.println("Parsing successfull!");
 		this.data = data;
-		return data;
+		return true;
 	}
 	
 	/**
@@ -116,6 +116,13 @@ public class OptionsManager {
 	 */
 	public HashMap<String, String> getNetworkData(){
 		return data.get(CATEGORIES[2]);
+	}
+
+	/**
+	 * @return the data
+	 */
+	public final HashMap<String, HashMap<String, String>> getData() {
+		return data;
 	}
 
 }

@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.engine.rendering.ResolutionMode;
+import de.hsb.ismi.jbs.engine.utility.Resolution;
 
 /**
  * The core GUI-class, everything starts here.
@@ -30,12 +32,12 @@ public class JBSGUI{
 	/**
 	 * Create the frame and its components.
 	 */
-	public JBSGUI() {
+	public JBSGUI(Resolution res, ResolutionMode mode) {
 		panelStack = new Stack<JPanel>();
 		mainFrame = new JFrame("JBattleships ALPHA");
 		mainFrame.setResizable(JBSCore.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 100, JBSCore.RESOLUTIONS[2].getX(), JBSCore.RESOLUTIONS[2].getY());
+		mainFrame.setBounds(100, 100, res.getX(), res.getY());
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
@@ -46,7 +48,17 @@ public class JBSGUI{
 		mainFrame.setContentPane(contentPane);
 
 		
-		mainFrame.setUndecorated(false);
+		switch(mode){
+		case MODE_FULLSCREEN:
+			mainFrame.setUndecorated(true);
+			break;
+		case MODE_BORDERLESS:
+			mainFrame.setUndecorated(true);
+			break;
+		case MODE_WINDOWED:
+			mainFrame.setUndecorated(false);
+			break;
+		}
 		mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
 		mainFrame.setVisible(true); // Call always at the end!
 		

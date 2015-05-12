@@ -35,8 +35,8 @@ public class ResourceManager{
 	private ResourceParser parser;
 	
 	private String[] resourceTable;
-	private final String RESOURCE_TABLE_PATH = "Data/Resources.cfg";
-	private final String RESOURCE_TABLE_SHA = "AAAAA";
+	private static final String RESOURCE_TABLE_PATH = "Data/Resources.cfg";
+	private static final String RESOURCE_TABLE_SHA = "PLACEHOLDER";
 	
 	/**
 	 * @param path
