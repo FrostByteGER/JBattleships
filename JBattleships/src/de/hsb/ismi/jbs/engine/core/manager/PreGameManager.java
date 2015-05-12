@@ -49,7 +49,19 @@ public class PreGameManager {
 	public void setCorvetteCount(int size){
 		shipcount[3] = size;
 	}
-
+	
+	public int getDestroyerCount(){
+		return shipcount[0];
+	}
+	public int getFrigateCount(){
+		return shipcount[1];
+	}
+	public int getSubmarineCount(){
+		return shipcount[2];
+	}
+	public int getCorvetteCount(){
+		return shipcount[3];
+	}
 	
 	public Game createGame(JBSGameType type ,int fieldsize){
 		

@@ -72,6 +72,14 @@ public class JBSGameField {
 		this.fields = fields;
 	}
 	
+	public void resetField(){
+		for(int i = 0 ; i < size ; i++){
+			for(int j = 0 ; j < size ; j++){
+				this.fields[i][j] = water;
+			}	
+		}
+	}
+	
 	public void shootField(int x,int y){
 		if(x > size || y > size){
 		}else{
@@ -136,7 +144,12 @@ public class JBSGameField {
 	public void printField(boolean visible){
 		System.out.print("x/y");
 		for(int i = 0 ; i < fields.length ;i++){
-			System.out.print(i%10);
+			
+			if(i < 10){
+				System.out.print(" "+i+" ");
+			}else{
+				System.out.print(i+" ");
+			}
 		}
 		System.out.println();
 		for(int i = 0 ; i < fields.length ; i++){
@@ -148,16 +161,17 @@ public class JBSGameField {
 			for(int j = 0 ; j < fields[i].length ; j++){
 				
 				if(fields[i][j] == water){
-					System.out.print("-");
+					System.out.print("--");
 				}else if(fields[i][j] == water_hit){
-					System.out.print("X");
+					System.out.print("XX");
 				}else if(visible){
-					System.out.print("B");
+					System.out.print("BB");
 				}else if(fields[i][j].isHit()){
-					System.out.print("O");
+					System.out.print("OO");
 				}else{
-					System.out.print("-");
+					System.out.print("--");
 				}
+				System.out.print(" ");
 			}
 			System.out.println();
 		}
