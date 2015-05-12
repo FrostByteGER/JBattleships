@@ -30,7 +30,6 @@ public class LocalizationManager {
 		activeLanguage = null; //TODO: Maybe change to english or default, since it makes sense to have a default language loaded
 		activeLanguageData = new HashMap<String, String>();
 		parser = new LocalizationParser();
-		initDefaultLanguageData(); //TODO: Remove
 	}
 	
 	/**
@@ -56,9 +55,10 @@ public class LocalizationManager {
 	 */
 	public boolean loadLanguage(String language){
 		if(!activeLanguage.toLowerCase().equals(language.toLowerCase())){
-			activeLanguage = language;
+			
 			try {
 				activeLanguageData = parser.loadLanguage(JBSCore.DATA_PATH + LANGUAGE_PATH+activeLanguage+".txt");
+				activeLanguage = language;
 			} catch (IOException | JBSParserException e) {
 				e.printStackTrace();
 				return false;
@@ -77,14 +77,6 @@ public class LocalizationManager {
 			return activeLanguageData.get(key);
 		}
 		return key; //TODO: Change to null?
-	}
-	
-	/**
-	 * TODO: Maybe move to JBSCore
-	 */
-	@Deprecated
-	private void initDefaultLanguageData(){
-		defaultLanguageData = new HashMap<>();
 	}
 
 	/**

@@ -30,14 +30,12 @@ public class LocalizationParser extends DataParser{
 		HashMap<String, String> data = new HashMap<>();
 		ArrayList<String> lines = parseFile(fileName);
 		for (String line : lines) {
-			line = line.replaceAll("\\s", "");
-			line = line.trim();
-			if (!line.startsWith(COMMENT) && !line.isEmpty()) {
+			if (!line.startsWith(COMMENT) && line.contains(ASSIGNMENT)) {
 				String[] temp = line.split(ASSIGNMENT, 2);
-				if (temp.length == 1) {
+				if (temp.length < 2) {
 					throw new JBSParserException("Parsing settings.cfg failed!");
 				}
-				data.put(temp[0], temp[1]);
+				data.put(temp[0].trim(), temp[1].trim());
 			}
 		}
 		return data;
