@@ -12,8 +12,9 @@ import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
-import de.hsb.ismi.jbs.engine.rendering.ResolutionMode;
-import de.hsb.ismi.jbs.engine.utility.Resolution;
+import de.hsb.ismi.jbs.engine.rendering.Resolution;
+import de.hsb.ismi.jbs.engine.rendering.ResolutionManager;
+import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 
@@ -27,18 +28,18 @@ public class JBSCore {
 	
 	public static MessageLogger msgLogger;
 	
-	public static SHA256Generator shaGenerator;
+	public static SHA256Generator shaGenerator = new SHA256Generator();
+	
+	public static ResolutionManager resolutionManager = new ResolutionManager();
 	
 	public static final String DATA_PATH = "Data/";
 	/** Enables debug functionality and the MessageLogger */
 	public static final boolean DEBUG = true;
 	/** Allows to resize the game window */
-	public static final boolean RESIZABLE = true;
-	/** Game-Resolutions <br>TODO: Change to Dimension-class */
-	public static final Resolution[] RESOLUTIONS = {new Resolution(800, 600),new Resolution(1024, 768),new Resolution(1280, 768)};
+	public static final boolean RESIZABLE = false;
 	
 	private Resolution currentResolution;
-	private ResolutionMode resMode;
+	private ScreenMode screenMode;
 	private int volume;
 	private int music;
 	private String ip;
@@ -53,10 +54,9 @@ public class JBSCore {
 	 * 
 	 */
 	public JBSCore() {
-		shaGenerator = new SHA256Generator();
 		dataManager = new DataManager();
 		currentResolution = null;
-		resMode = null;
+		screenMode = null;
 		volume = 0;
 		music = 0;
 		ip = "0.0.0.0";
@@ -80,7 +80,7 @@ public class JBSCore {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //ALWAYS SET BEFORE CREATING THE FRAME!
-					mainGUI = new JBSGUI(currentResolution, resMode);
+					mainGUI = new JBSGUI(currentResolution, screenMode);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -123,17 +123,14 @@ public class JBSCore {
 					int y = Integer.parseInt(gfx.get("resY"));
 					currentResolution = new Resolution(x, y);
 					String m = gfx.get("mode");
-					if (m.toLowerCase().equals(
-							ResolutionMode.MODE_FULLSCREEN.toString().toLowerCase())) {
-						resMode = ResolutionMode.MODE_FULLSCREEN;
-					} else if (m.toLowerCase().equals(
-							ResolutionMode.MODE_BORDERLESS.toString().toLowerCase())) {
-						resMode = ResolutionMode.MODE_BORDERLESS;
-					} else if (m.toLowerCase().equals(
-							ResolutionMode.MODE_WINDOWED.toString().toLowerCase())) {
-						resMode = ResolutionMode.MODE_WINDOWED;
+					if (m.equalsIgnoreCase(ScreenMode.MODE_FULLSCREEN.toString())) {
+						screenMode = ScreenMode.MODE_FULLSCREEN;
+					} else if (m.equalsIgnoreCase(ScreenMode.MODE_BORDERLESS.toString())) {
+						screenMode = ScreenMode.MODE_BORDERLESS;
+					} else if (m.equalsIgnoreCase(ScreenMode.MODE_WINDOWED.toString())) {
+						screenMode = ScreenMode.MODE_WINDOWED;
 					} else {
-						resMode = ResolutionMode.MODE_WINDOWED;
+						screenMode = ScreenMode.MODE_WINDOWED;
 					}
 
 				} catch (NumberFormatException nfe) {
@@ -199,6 +196,36 @@ public class JBSCore {
 	 */
 	public final JBSGUI getMainGUI() {
 		return mainGUI;
+	}
+	
+	public final void changeResolution(Resolution r){
+		mainGUI.changeFrameSize(r);
+	}
+	
+	public final void changeScreenMode(ScreenMode sm){
+		mainGUI.changeScreenMode(sm);
+		screenMode = sm;
+	}
+
+	/**
+	 * @return the currentResolution
+	 */
+	public final Resolution getCurrentResolution() {
+		return currentResolution;
+	}
+
+	/**
+	 * @return the screenMode
+	 */
+	public final ScreenMode getScreenMode() {
+		return screenMode;
+	}
+
+	/**
+	 * @return the dataManager
+	 */
+	public final DataManager getDataManager() {
+		return dataManager;
 	}
 
 }

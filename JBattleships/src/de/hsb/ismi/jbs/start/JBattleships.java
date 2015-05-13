@@ -13,6 +13,8 @@ import de.hsb.ismi.jbs.core.JBSCore;
  * Main entry point for the program.
  */
 public class JBattleships {
+	
+	public static JBSCore game;
 
 	/**
 	 * @param args
@@ -21,7 +23,7 @@ public class JBattleships {
 		JBSCore.msgLogger = new MessageLogger(JBSCore.DEBUG);
 		// Sets the Position so the MessageLogger is a bit better visible
 		JBSCore.msgLogger.getFrame().setLocation(10, 10);
-		JBSCore game = new JBSCore();
+		game = new JBSCore();
 		game.initGame();
 	}
 }

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.io.JBSParserException;
 import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
+import de.hsb.ismi.jbs.engine.io.writer.OptionsWriter;
 
 /**
  * @author Kevin Kuegler
@@ -19,8 +20,8 @@ import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
  */
 public class OptionsManager {
 	
-	//TODO: Add Game Category with Language Data and Debug Bool
 	private OptionsParser parser;
+	private OptionsWriter writer;
 	private HashMap<String, HashMap<String, String>> data;
 	private static final String[] CATEGORIES = {"Graphics","Audio","Network","Game"};
 	private static final String SETTINGS_PATH = "Config/";
@@ -31,6 +32,7 @@ public class OptionsManager {
 	 */
 	public OptionsManager() {
 		parser = new OptionsParser();
+		writer = new OptionsWriter();
 		data = new HashMap<>();
 	}
 	
@@ -91,7 +93,7 @@ public class OptionsManager {
 	 * @return
 	 */
 	public boolean saveOptions(HashMap<String,String[]> data){
-		return true;
+		return writer.writeOptions(JBSCore.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME + "2", data, CATEGORIES);
 	}
 	
 	/**

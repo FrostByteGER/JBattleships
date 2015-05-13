@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import de.hsb.ismi.jbs.core.JBSCore;
-import de.hsb.ismi.jbs.engine.rendering.ResolutionMode;
-import de.hsb.ismi.jbs.engine.utility.Resolution;
+import de.hsb.ismi.jbs.engine.rendering.Resolution;
+import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 
 /**
  * The core GUI-class, everything starts here.
@@ -32,7 +32,7 @@ public class JBSGUI{
 	/**
 	 * Create the frame and its components.
 	 */
-	public JBSGUI(Resolution res, ResolutionMode mode) {
+	public JBSGUI(Resolution res, ScreenMode mode) {
 		panelStack = new Stack<JPanel>();
 		mainFrame = new JFrame("JBattleships ALPHA");
 		mainFrame.setResizable(JBSCore.RESIZABLE);
@@ -47,18 +47,7 @@ public class JBSGUI{
 		contentPane.add(mainPanel,BorderLayout.CENTER);
 		mainFrame.setContentPane(contentPane);
 
-		
-		switch(mode){
-		case MODE_FULLSCREEN:
-			mainFrame.setUndecorated(true);
-			break;
-		case MODE_BORDERLESS:
-			mainFrame.setUndecorated(true);
-			break;
-		case MODE_WINDOWED:
-			mainFrame.setUndecorated(false);
-			break;
-		}
+		changeScreenMode(mode);
 		mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
 		mainFrame.setVisible(true); // Call always at the end!
 		
@@ -124,6 +113,27 @@ public class JBSGUI{
 	 */
 	public final OptionsPanel2 getOptionsPanel() {
 		return optionsPanel;
+	}
+	
+	public final void changeFrameSize(Resolution r){
+		mainFrame.setSize(r.getX(), r.getY());
+		mainFrame.setLocationRelativeTo(null);
+	}
+	
+	public final void changeScreenMode(ScreenMode sm){
+		mainFrame.dispose(); // Critical, otherwise, IllegalFrameStateException will b e thrown
+		switch(sm){
+		case MODE_FULLSCREEN:
+			mainFrame.setUndecorated(true);
+			break;
+		case MODE_BORDERLESS:
+			mainFrame.setUndecorated(true);
+			break;
+		case MODE_WINDOWED:
+			mainFrame.setUndecorated(false);
+			break;
+		}
+		mainFrame.setVisible(true); // Makes GUI visible again
 	}
 
 }

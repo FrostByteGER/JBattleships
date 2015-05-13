@@ -1,7 +1,9 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.utility;
+package de.hsb.ismi.jbs.engine.rendering;
+
+import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
  * @author Kevin Kuegler
@@ -29,7 +31,6 @@ public class Resolution extends Vector2i {
 	 */
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
 		return super.hashCode();
 	}
 	
@@ -47,7 +48,7 @@ public class Resolution extends Vector2i {
 	 */
 	@Override
 	public String toString() {
-		return super.toString();
+		return getX() + "x" + getY();
 	}
 	
 
