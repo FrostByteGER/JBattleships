@@ -29,11 +29,12 @@ public class OptionsWriter extends DataWriter {
 	 * TODO: Test this function!
 	 * @param path
 	 * @param data
-	 * @param categories
+	 * @param categories TODO: Change this to static access or something other
 	 * @return
 	 */
 	public boolean writeOptions(String path, HashMap<String, String[]> data, String[] categories){
 		ArrayList<String> raw = new ArrayList<>(0);
+		try{
 		for(String cat : categories){
 			String[] catdata = data.get(cat);
 			raw.add(DELIMITERS[0] + cat + DELIMITERS[1]);
@@ -41,6 +42,10 @@ public class OptionsWriter extends DataWriter {
 				raw.add(catdata[i] + " " + ASSIGNMENT + " " + catdata[i+1]);
 			}
 			raw.add(System.lineSeparator());
+		}
+		}catch(NullPointerException npe){
+			npe.printStackTrace();
+			return false;
 		}
 		return writeDataToFile(path, raw);
 	}

@@ -328,8 +328,9 @@ public class OptionsPanel2 extends JPanel{
 					}else if(rdbtnLess.isSelected()){
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_BORDERLESS);
 					}
-					//TODO: Doesn't work yet!
-					JBattleships.game.getDataManager().getOptionsManager().saveOptions(new HashMap<String, String[]>());
+					//TODO: Doesn't work fully yet!
+					boolean check = JBattleships.game.getDataManager().getOptionsManager().saveOptions(new HashMap<String, String[]>());
+					System.out.println("Saving was: " + check);
 				}
 			}
 		});
