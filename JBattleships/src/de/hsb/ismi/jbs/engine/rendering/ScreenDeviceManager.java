@@ -14,7 +14,7 @@ import java.util.LinkedHashSet;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class ResolutionManager {
+public class ScreenDeviceManager {
 
 	private GraphicsEnvironment ge;
 	private GraphicsDevice currentAdapter;
@@ -23,7 +23,7 @@ public class ResolutionManager {
 	/**
 	 * 
 	 */
-	public ResolutionManager() {
+	public ScreenDeviceManager() {
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		currentAdapter = ge.getDefaultScreenDevice();
 	}
@@ -96,9 +96,9 @@ public class ResolutionManager {
 		for(int i = 0; i < m.length; i++){
 			DisplayMode mode = m[i];
 			if(withRefresh){
-				stringModes[i] = ResolutionManager.DisplayModeToString(mode, true);
+				stringModes[i] = ScreenDeviceManager.DisplayModeToString(mode, true);
 			}else{
-				stringModes[i] = ResolutionManager.DisplayModeToString(mode, false);
+				stringModes[i] = ScreenDeviceManager.DisplayModeToString(mode, false);
 			}
 		}
 		return stringModes;
@@ -137,7 +137,7 @@ public class ResolutionManager {
 	}
 	
 	public static void main(String[] args) {
-		ResolutionManager rm = new ResolutionManager();
+		ScreenDeviceManager rm = new ScreenDeviceManager();
 		DisplayMode[] modes = rm.getSupportedDisplayModes(new int[]{60});
 		for(DisplayMode m : modes){
 			System.out.println(DisplayModeToString(m, true));

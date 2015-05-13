@@ -13,7 +13,7 @@ import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
-import de.hsb.ismi.jbs.engine.rendering.ResolutionManager;
+import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
 import de.hsb.ismi.jbs.gui.JBSGUI;
@@ -25,12 +25,12 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
  */
 public class JBSCore {
 
-	
+	/** The MessageLogger to log errors, exceptions and other stuff. */
 	public static MessageLogger msgLogger;
-	
+	/** The Checksumgenerator to generate checksums from various objects, Strings or such. */
 	public static SHA256Generator shaGenerator = new SHA256Generator();
-	
-	public static ResolutionManager resolutionManager = new ResolutionManager();
+	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
+	public static ScreenDeviceManager screenDeviceManager = new ScreenDeviceManager();
 	
 	public static final String DATA_PATH = "Data/";
 	/** Enables debug functionality and the MessageLogger */
@@ -109,7 +109,6 @@ public class JBSCore {
 	/**
 	 * Initializes the game-settings.
 	 * @return
-	 * @throws SettingsInvalidException 
 	 */
 	public boolean initSettings(){
 		OptionsManager om = dataManager.getOptionsManager();
@@ -198,10 +197,18 @@ public class JBSCore {
 		return mainGUI;
 	}
 	
+	/**
+	 * Changes the game resolution
+	 * @param r The new Resolution
+	 */
 	public final void changeResolution(Resolution r){
 		mainGUI.changeFrameSize(r);
 	}
 	
+	/**
+	 * Changes the screenMode of the game.
+	 * @param sm The new ScreenMode
+	 */
 	public final void changeScreenMode(ScreenMode sm){
 		mainGUI.changeScreenMode(sm);
 		screenMode = sm;

@@ -37,7 +37,7 @@ import javax.swing.JSlider;
 
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
-import de.hsb.ismi.jbs.engine.rendering.ResolutionManager;
+import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -113,8 +113,8 @@ public class OptionsPanel2 extends JPanel{
 		
 		
 		
-		String[] modes = ResolutionManager.DisplayModesToString(JBSCore.resolutionManager.getSupportedDisplayModes(new int[]{60}), false);
-		int index = ResolutionManager.findResolutionInDisplayModes(JBattleships.game.getCurrentResolution(), modes);
+		String[] modes = ScreenDeviceManager.DisplayModesToString(JBSCore.screenDeviceManager.getSupportedDisplayModes(new int[]{60}), false);
+		int index = ScreenDeviceManager.findResolutionInDisplayModes(JBattleships.game.getCurrentResolution(), modes);
 		
 		resBox = new JComboBox<String>(modes);
 		resBox.setSelectedIndex(index);
@@ -314,7 +314,7 @@ public class OptionsPanel2 extends JPanel{
 					
 					// If a custom resolution was set in the Settings.cfg, the resBox won't possibly have a match, this prevents a NullPointerException!
 					if(x == null){
-						x = ResolutionManager.DisplayModeToString(JBSCore.resolutionManager.getCurrentDisplayMode(),false);
+						x = ScreenDeviceManager.DisplayModeToString(JBSCore.screenDeviceManager.getCurrentDisplayMode(),false);
 						resBox.setSelectedItem(x); // Prevents that the JComboBox selection is still null!
 					}
 					
