@@ -4,7 +4,7 @@
 package de.hsb.ismi.jbs.core;
 
 /**
- * @author Kevin-Laptop Kuegler
+ * @author Kevin Kuegler
  * @version 1.00
  */
 public class SettingsInvalidException extends Exception {
