@@ -10,7 +10,6 @@ import javax.swing.UIManager;
 
 import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
-import de.hsb.ismi.jbs.engine.io.manager.LocalizationManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
 import de.hsb.ismi.jbs.engine.rendering.ResolutionMode;

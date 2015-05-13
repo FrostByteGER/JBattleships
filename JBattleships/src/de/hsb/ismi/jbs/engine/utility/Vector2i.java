@@ -60,5 +60,49 @@ public class Vector2i {
 	public final void setY(int y) {
 		this.y = y;
 	}
+	
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Vector2i)) {
+			return false;
+		}
+		Vector2i other = (Vector2i) obj;
+		if (x == other.x && y == other.y) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "X = " + x + " | Y = " + y;
+	}
 
 }

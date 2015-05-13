@@ -18,6 +18,9 @@ public class LocalizationManager {
 	
 	private LocalizationParser parser;
 	private HashMap<String, String> activeLanguageData;
+	
+	/** Contains standard localizations */
+	@Deprecated
 	private HashMap<String, String> defaultLanguageData;
 	private final String LANGUAGE_PATH = "Lang/";
 	private String activeLanguage;
@@ -76,7 +79,7 @@ public class LocalizationManager {
 		if(activeLanguageData.containsKey(key)){
 			return activeLanguageData.get(key);
 		}
-		return key; //TODO: Change to null?
+		return key;
 	}
 
 	/**
@@ -89,6 +92,7 @@ public class LocalizationManager {
 	/**
 	 * @return the defaultLanguageData
 	 */
+	@Deprecated
 	public final HashMap<String, String> getDefaultLanguageData() {
 		return defaultLanguageData;
 	}
