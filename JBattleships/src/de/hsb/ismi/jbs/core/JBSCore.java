@@ -61,7 +61,7 @@ public class JBSCore {
 		music = 0;
 		ip = "0.0.0.0";
 		port = 0;
-		language = "english";
+		language = "German";
 	}
 	
 	/**
@@ -72,10 +72,11 @@ public class JBSCore {
 		if(!initResources()){
 			return false;
 		}
-		System.out.println(initProfiles());
-		System.out.println(initSettings());
-		System.out.println(initConfigs());
-		System.out.println(initLocalization());
+		initSettings();
+		initLocalization();
+		initConfigs();
+		initProfiles();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -187,6 +188,7 @@ public class JBSCore {
 	 * @return
 	 */
 	public boolean initLocalization(){
+		dataManager.getLocalizationManager().loadLanguageTable();
 		return dataManager.getLocalizationManager().loadLanguage(language);
 	}
 
