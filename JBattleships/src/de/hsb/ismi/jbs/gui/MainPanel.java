@@ -92,6 +92,9 @@ public class MainPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("local")){
 					
+					parent.swapContainer(new PreGamePanel(parent));
+					
+					/**
 					JBSPlayer[] p = new JBSPlayer[1];
 					p[0] = new JBSPlayer();
 					
@@ -125,6 +128,7 @@ public class MainPanel extends JPanel {
 					Game game = new Game(JBSGameType.GAME_LAN, fi, players);
 					
 					parent.swapContainer(new GameFieldContainer(game));
+					*/
 				}
 				
 			}

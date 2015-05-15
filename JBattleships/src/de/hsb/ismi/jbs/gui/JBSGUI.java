@@ -45,6 +45,8 @@ public class JBSGUI{
 		mainPanel = new MainPanel(this);
 		//TODO: Remove add call
 		contentPane.add(mainPanel,BorderLayout.CENTER);
+		//contentPane.add(new PreGamePanel(this),BorderLayout.CENTER);
+		
 		mainFrame.setContentPane(contentPane);
 
 		changeScreenMode(mode);
