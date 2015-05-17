@@ -2,6 +2,7 @@ package de.hsb.ismi.jbs.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Font;
 import java.util.Stack;
 
 import javax.swing.Box;
@@ -96,6 +97,7 @@ public class JBSGUI{
 		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 		headerPanel.add(Box.createVerticalStrut(20));
 		JLabel headerLbl = new JLabel("JBattleships");
+		headerLbl.setFont(new Font("Tahoma", Font.BOLD, 40));
 		headerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 		headerPanel.add(headerLbl);
 		headerPanel.add(Box.createVerticalStrut(20));
