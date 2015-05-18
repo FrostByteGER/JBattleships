@@ -12,7 +12,7 @@ import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
-public class PreGameManager {
+public class GameManager {
 	
 	private Game game;
 	private ArrayList<JBSGameField> fields;
@@ -20,7 +20,7 @@ public class PreGameManager {
 	private int[] shipcount;
 	private DataManager datam;
 	
-	public PreGameManager(DataManager manager) {
+	public GameManager(DataManager manager) {
 		fields = new ArrayList<JBSGameField>();
 		players = new ArrayList<JBSPlayer>();
 		shipcount = new int[]{0,0,0,0};	
