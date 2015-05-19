@@ -3,6 +3,8 @@
  */
 package de.hsb.ismi.jbs.engine.rendering;
 
+import java.awt.DisplayMode;
+
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
@@ -49,6 +51,15 @@ public class Resolution extends Vector2i {
 	@Override
 	public String toString() {
 		return getX() + "x" + getY();
+	}
+	
+	/**
+	 * Converts a given DisplayMode to a Resolution object. 
+	 * @param m
+	 * @return The converted Resolution
+	 */
+	public static Resolution convertDisplayModeToResolution(DisplayMode m){
+		return new Resolution(m.getWidth(),m.getHeight());
 	}
 	
 

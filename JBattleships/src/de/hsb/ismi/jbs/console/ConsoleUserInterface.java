@@ -8,7 +8,7 @@ import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.io.manager.*;
 import de.hsb.ismi.jbs.engine.core.*;
-import de.hsb.ismi.jbs.engine.core.manager.PreGameManager;
+import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 
 public class ConsoleUserInterface {
 
@@ -28,7 +28,7 @@ public class ConsoleUserInterface {
 
 	private void startGame() {
 
-		PreGameManager pm = new PreGameManager(new DataManager());
+		GameManager pm = new GameManager(new DataManager());
 		JBSPlayer winner;
 
 		intinput = 0;

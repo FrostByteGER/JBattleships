@@ -26,6 +26,18 @@ public class LocalizationParser extends DataParser{
 	public LocalizationParser() {
 	}
 	
+	public String[] parseLanguageTable(String path) throws FileNotFoundException, IOException{
+		ArrayList<String> parsedData = new ArrayList<String>(0);
+		ArrayList<String> data = parseFile(path);
+		for(String line : data){
+			line = line.trim();
+			if(!line.startsWith(COMMENT) && !line.isEmpty()){
+				parsedData.add(line);
+			}
+		}
+		return parsedData.toArray(new String[parsedData.size()]);
+	}
+	
 	public HashMap<String, String> loadLanguage(String fileName) throws FileNotFoundException, IOException, JBSParserException{
 		HashMap<String, String> data = new HashMap<>();
 		ArrayList<String> lines = parseFile(fileName);
