@@ -2,6 +2,7 @@ package de.hsb.ismi.jbs.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;

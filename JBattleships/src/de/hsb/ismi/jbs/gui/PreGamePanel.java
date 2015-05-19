@@ -69,6 +69,7 @@ public class PreGamePanel extends JPanel {
 	private JSpinner fieldSizeSpinner;
 	private JCheckBox chckbxUseCannon;
 	private JCheckBox chckbxUseNavalMines;
+	private JBSButtonGroup btnGroup;
 	
 	/** The GameType of this Panel */
 	private JBSGameType gameType;
@@ -78,16 +79,24 @@ public class PreGamePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PreGamePanel(JBSGUI parent, JBSGameType type) {
+		btnGroup = new JBSButtonGroup();
 		playerPanels = new PreGamePlayerPanel[8];
 		for(int i = 0;i < playerPanels.length;i++){
-			playerPanels[i] = new PreGamePlayerPanel();
+			PreGamePlayerPanel pp = new PreGamePlayerPanel();
+			pp.setName("Player" + " #" + (i + 1));
+			btnGroup.add(pp.getCheckboxActive());
+			playerPanels[i] = pp;
 		}
+		playerPanels[0].setActiveSelected(true);
+		playerPanels[1].setActiveSelected(true);
 		
 		this.parent = parent;
 		gameType = type;
 		header = parent.generateHeader();
 		setLayout(new BorderLayout(0, 0));
 		add(header, BorderLayout.NORTH);
+		
+		
 		
 		centerPanel = new JPanel();
 		centerPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Main Settings", TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 25), new Color(0, 0, 0)));
@@ -169,7 +178,12 @@ public class PreGamePanel extends JPanel {
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
+					gm.createGame(gameType, fs);
+					JBSCore.msgLogger.addMessage("Created Game!");
 					JBSCore.msgLogger.addMessage(gm.toString());
+					
+					parent.swapContainer(new PreGameFieldsPanel(PreGamePanel.this.parent));
+					//parent.swapContainer(new ColorPickerPanel());
 				}
 			}
 		});
@@ -205,7 +219,7 @@ public class PreGamePanel extends JPanel {
 		otherPanel.add(lblFieldSize, gbc_lblFieldSize);
 		
 		fieldSizeSpinner = new JSpinner();
-		fieldSizeSpinner.setModel(new SpinnerNumberModel(new Integer(32), new Integer(0), null, new Integer(1)));
+		fieldSizeSpinner.setModel(new SpinnerNumberModel(new Integer(32), new Integer(32), null, new Integer(1)));
 		GridBagConstraints gbc_fieldSizeSpinner = new GridBagConstraints();
 		gbc_fieldSizeSpinner.insets = new Insets(0, 0, 5, 0);
 		gbc_fieldSizeSpinner.fill = GridBagConstraints.HORIZONTAL;
