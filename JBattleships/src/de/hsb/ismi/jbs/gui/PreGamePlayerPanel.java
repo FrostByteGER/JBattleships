@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
+ * Wrapper JPanel class that contains the elements for player
  * @author Kevin Kuegler
  * @version 1.00
  */
@@ -21,25 +22,40 @@ public class PreGamePlayerPanel extends JPanel {
 	private JCheckBox checkboxActive;
 	
 	/**
-	 * 
+	 * Creates a new PreGamePlayerPanel with a preset nameField String.
 	 */
 	public PreGamePlayerPanel() {
-		
 		lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(lblName);
 		
-		nameField = new JTextField();
+		nameField = new JTextField("undefined",10);
 		add(nameField);
-		nameField.setColumns(10);
 		
 		checkboxAI = new JCheckBox("AI?");
 		add(checkboxAI);
 		
 		checkboxActive = new JCheckBox("Active?");
 		add(checkboxActive);
+	}
+	
+	/**
+	 * Creates a new PreGamePlayerPanel with a given nameField String.
+	 * @param fieldContent The content of the nameField.
+	 */
+	public PreGamePlayerPanel(String fieldContent) {
+		lblName = new JLabel("Name:");
+		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
+		add(lblName);
 		
+		nameField = new JTextField(fieldContent, 10);
+		add(nameField);
 		
+		checkboxAI = new JCheckBox("AI?");
+		add(checkboxAI);
+		
+		checkboxActive = new JCheckBox("Active?");
+		add(checkboxActive);
 	}
 
 	/**
@@ -60,7 +76,7 @@ public class PreGamePlayerPanel extends JPanel {
 	 * 
 	 * @param text
 	 */
-	public final void getName(String text){
+	public final void setName(String text){
 		nameField.setText(text);
 	}
 

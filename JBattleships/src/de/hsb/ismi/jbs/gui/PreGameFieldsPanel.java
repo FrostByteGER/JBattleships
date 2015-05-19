@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
+import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.start.JBattleships;
@@ -16,6 +17,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JTabbedPane;
 
 /**
@@ -29,7 +31,7 @@ public class PreGameFieldsPanel extends JPanel {
 	private JPanel buttonPanel;
 	private JButton btnCancel;
 	private JButton btnContinue;
-	private JTabbedPane tabbedPane;
+	private GameFieldPanel fieldPanel;
 	
 	public PreGameFieldsPanel(JBSGUI parent) {
 		this.parent = parent;
@@ -62,9 +64,9 @@ public class PreGameFieldsPanel extends JPanel {
 			}
 		});
 		buttonPanel.add(btnContinue);
-		
-		tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
-		add(tabbedPane, BorderLayout.CENTER);
+		GameManager gm = JBattleships.game.getGameManager();
+		fieldPanel = new GameFieldPanel(new JBSGameField(gm.getPlayers().get(0), gm.getFieldSize()), gm.getFieldSize());
+		add(fieldPanel, BorderLayout.CENTER);
 		
 		
 		

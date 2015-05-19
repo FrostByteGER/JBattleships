@@ -104,5 +104,16 @@ public class GameManager {
 	public String toString() {
 		return "GameManager | Fields: " + fields.size() + " | Players: " + players.size() + " | ShipCount: " + shipcount.length;
 	}
+
+	/**
+	 * @return the players
+	 */
+	public final ArrayList<JBSPlayer> getPlayers() {
+		return players;
+	}
+	
+	public final int getFieldSize(){
+		return game.getGameField()[0].getSize(); //TODO: Change, could be null!
+	}
 	
 }
