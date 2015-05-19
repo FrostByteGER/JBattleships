@@ -8,7 +8,7 @@ import de.hsb.ismi.jbs.engine.core.JBSGameField;
 
 public class GameFieldPanel extends JPanel {
 	
-	private JBSGameField fild;
+	private JBSGameField gamefild;
 	
 	private int gridSize;
 	private int fildSize;
@@ -20,7 +20,7 @@ public class GameFieldPanel extends JPanel {
 	
 	public GameFieldPanel(JBSGameField fild ,int size) {
 		
-		this.fild = fild;
+		this.gamefild = fild;
 		
 		//TODO SIZE
 		setSize(new Dimension(size,size));
@@ -42,37 +42,37 @@ public class GameFieldPanel extends JPanel {
 	/**
 	 * @return the fild
 	 */
-	public JBSGameField getFild() {
-		return fild;
+	public JBSGameField getGamefild() {
+		return gamefild;
 	}
 
 	/**
 	 * @param fild the fild to set
 	 */
-	public void setFild(JBSGameField fild) {
-		this.fild = fild;
+	public void setGamefild(JBSGameField fild) {
+		this.gamefild = fild;
 	}
 
 	private void drawGrid(Graphics g){
 		
-		gridSize = fildSize/fild.getSize();
+		gridSize = fildSize/gamefild.getSize();
 		xofset = (getSize().width-fildSize)/2;
 		yofset = (getSize().height-fildSize)/2;
 		
-		for(int i = 0 ; i < fild.getSize() ; i++){
-			for(int j = 0 ; j < fild.getSize() ; j++ ){
-				if(fild.isFieldWater(i, j)){
+		for(int i = 0 ; i < gamefild.getSize() ; i++){
+			for(int j = 0 ; j < gamefild.getSize() ; j++ ){
+				if(gamefild.isFieldWater(i, j)){
 					g.setColor(Color.BLUE);				
 					g.fillRect(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize-1, gridSize-1);
 					
-				}else if(fild.isFieldWaterHit(i, j)){
+				}else if(gamefild.isFieldWaterHit(i, j)){
 					g.setColor(Color.BLUE);
 					g.fillRect(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize-1, gridSize-1);
 				}else{
 					g.setColor(Color.GRAY);
 					g.fillRect(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize-1, gridSize-1);
 				}
-				if(fild.getField(i, j).isHit()){
+				if(gamefild.getField(i, j).isHit()){
 					g.setColor(Color.RED);
 					g.drawLine(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize*(i+1)+xofset-1, gridSize*(j+1)+yofset-1);
 					g.drawLine(gridSize*i+xofset+1, gridSize*(j+1)+yofset+1, gridSize*(i+1)+xofset-1, gridSize*j+yofset-1);
@@ -83,7 +83,7 @@ public class GameFieldPanel extends JPanel {
 		
 		g.setColor(gridColor);
 		
-		for (int i = 0 ; i < fild.getSize()+1 ; i++){
+		for (int i = 0 ; i < gamefild.getSize()+1 ; i++){
 			g.drawLine(xofset, yofset+i*gridSize,xofset+fildSize, yofset+i*gridSize);
 			g.drawLine(xofset+i*gridSize, yofset, xofset+i*gridSize, yofset+fildSize);
 		}

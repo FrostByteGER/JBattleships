@@ -1,10 +1,17 @@
 package de.hsb.ismi.jbs.gui;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JSplitPane;
+
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
@@ -21,10 +28,13 @@ public class GameFieldContainer extends JPanel {
 	
 	private GameSidePanel uperSiedPanel;
 	private JPanel lowerSidePanel;
-	private JPanel uperMainPanel;
+	private GameFieldPanel mainPanel;
 	private JPanel lowerMainPanel;
+	private JPanel uperMainPanel;
 	private Game game;
+	private JLabel fieldNumber;
 	
+	private int selectedField;
 	
 	public GameFieldContainer(Game game) {
 		
@@ -50,6 +60,8 @@ public class GameFieldContainer extends JPanel {
 		
 		//TEST
 		
+		selectedField = 0;
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -59,12 +71,55 @@ public class GameFieldContainer extends JPanel {
 		
 		splitPane.setRightComponent(uperSiedPanel);
 		
-		uperMainPanel = new GameFieldPanel(fild,50);
-		splitPane.setLeftComponent(uperMainPanel);
-		uperMainPanel.setLayout(new BorderLayout(0, 0));
+		mainPanel = new GameFieldPanel(game.getGameField()[0],50);
+		splitPane.setLeftComponent(mainPanel);
+		mainPanel.setLayout(new BorderLayout(0, 0));
 		
 		lowerMainPanel = new JPanel();
-		uperMainPanel.add(lowerMainPanel, BorderLayout.SOUTH);
+		mainPanel.add(lowerMainPanel, BorderLayout.SOUTH);
+		
+		uperMainPanel = new JPanel();
+		uperMainPanel.setLayout(new FlowLayout());
+		
+		JButton pbut = new JButton();
+		pbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Plus"));
+		pbut.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {		
+				if(game.getGameField().length-1>selectedField){
+					selectedField++;
+					fieldNumber.setText(String.valueOf(selectedField));
+					
+					mainPanel.setGamefild(game.getGameField()[selectedField]);
+				}
+			}
+		});
+		
+		JButton mbut = new JButton();
+		mbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Minus"));
+		mbut.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(selectedField>0){
+					selectedField--;
+					fieldNumber.setText(String.valueOf(selectedField));
+					
+					mainPanel.setGamefild(game.getGameField()[selectedField]);
+				}			
+			}
+		});
+		
+		fieldNumber = new JLabel();
+		
+		fieldNumber.setText(String.valueOf(selectedField));
+		
+		uperMainPanel.add(mbut);
+		uperMainPanel.add(fieldNumber);
+		uperMainPanel.add(pbut);
+		
+		mainPanel.add(uperMainPanel,BorderLayout.NORTH);
 		
 		loadShips();
 		
