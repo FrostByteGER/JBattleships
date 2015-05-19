@@ -9,7 +9,7 @@ package de.hsb.ismi.jbs.engine.core;
  * @version 1.00
  */
 public enum JBSGameType {
-	GAME_SINGLEPLAYER,
+	GAME_SOLO,
 	GAME_LOCAL,
 	GAME_LAN,
 	GAME_ONLINE
