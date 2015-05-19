@@ -170,7 +170,7 @@ public class GameFieldPanel extends JPanel {
 			g.setColor(selectColor);		
 			g.fillRect(selectx*gridSize+xofset, selecty*gridSize+yofset, gridSize, gridSize);
 			
-			g.setColor(Color.BLACK);			
+			g.setColor(Color.WHITE);			
 			if(direction == Direction.NORTH){
 				g.drawString("^", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
 				panel.repaint();
