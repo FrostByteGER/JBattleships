@@ -18,8 +18,13 @@ import java.awt.event.ActionListener;
  * @author Kevin Kuegler
  * @version 1.00
  */
+@Deprecated
 public class ColorPickerPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -143893310294630029L;
 	private JButton btnColor;
 	private Color color;
 
@@ -53,6 +58,7 @@ public class ColorPickerPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("color")){
 					//TODO: Change this and create a custom JDialog with changeable language!
+					//TODO 2: Delete
 					ColorPickerPanel.this.color = JColorChooser.showDialog(ColorPickerPanel.this, "Choose a new Color", new Color(0));
 				}
 				
