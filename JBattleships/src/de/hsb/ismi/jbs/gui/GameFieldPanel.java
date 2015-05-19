@@ -3,7 +3,12 @@ package de.hsb.ismi.jbs.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
 import javax.swing.JPanel;
+
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 
 public class GameFieldPanel extends JPanel {
@@ -17,17 +22,27 @@ public class GameFieldPanel extends JPanel {
 	private int yofset;
 	
 	private Color gridColor;
+	private Color selectColor;
+	private boolean isSelected;
+	private int selectx;
+	private int selecty;
+	
+	private JPanel panel = this;
 	
 	public GameFieldPanel(JBSGameField fild ,int size) {
 		
 		this.gamefild = fild;
+		gridColor = Color.RED;
+		selectColor = new Color(100,100,100,100);
+		
+		isSelected = false;
+		selectx = 0;
+		selecty = 0;
 		
 		//TODO SIZE
 		setSize(new Dimension(size,size));
 		setMinimumSize(new Dimension(size,size) );
 		setBackground(Color.CYAN);
-		
-		gridColor = Color.RED;
 		
 		fildSize = 600;
 		xofset = 0;
@@ -35,6 +50,59 @@ public class GameFieldPanel extends JPanel {
 		
 		//TODO test
 		//TEST
+		
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				isSelected = false;
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				isSelected = true;				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				
+			}
+		});
+		
+		addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				if(isSelected){
+					if(selectx != ((e.getX()-xofset)-((e.getX()-xofset)%gridSize))/gridSize ||
+							selecty != ((e.getY()-yofset)-((e.getY()-yofset)%gridSize))/gridSize){
+						panel.repaint();
+					}
+					
+					if(((e.getX()-xofset)-((e.getX()-xofset)%gridSize))/gridSize < fild.getSize()){
+						selectx = ((e.getX()-xofset)-((e.getX()-xofset)%gridSize))/gridSize;
+					}
+					if(((e.getY()-yofset)-((e.getY()-yofset)%gridSize))/gridSize < fild.getSize()){
+						selecty = ((e.getY()-yofset)-((e.getY()-yofset)%gridSize))/gridSize;
+					}
+				}
+				
+			}
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+			}
+		});
+		
 	}
 	
 	
@@ -82,6 +150,11 @@ public class GameFieldPanel extends JPanel {
 			}
 		}
 		
+		if(isSelected){
+			g.setColor(selectColor);
+			g.fillRect(selectx*gridSize+xofset, selecty*gridSize+yofset, gridSize, gridSize);
+		}
+		
 		g.setColor(gridColor);
 		
 		for (int i = 0 ; i < gamefild.getSize()+1 ; i++){
@@ -112,7 +185,39 @@ public class GameFieldPanel extends JPanel {
 	public void setGridColor(Color gridColor) {
 		this.gridColor = gridColor;
 	}
-	
-	
-	
+
+	/**
+	 * @return the selectColor
+	 */
+	public Color getSelectColor() {
+		return selectColor;
+	}
+
+	/**
+	 * @param selectColor the selectColor to set
+	 */
+	public void setSelectColor(Color selectColor) {
+		this.selectColor = selectColor;
+	}
+
+	/**
+	 * @return the isSelected
+	 */
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	/**
+	 * @return the selectx
+	 */
+	public int getSelectx() {
+		return selectx;
+	}
+
+	/**
+	 * @return the selecty
+	 */
+	public int getSelecty() {
+		return selecty;
+	}
 }
