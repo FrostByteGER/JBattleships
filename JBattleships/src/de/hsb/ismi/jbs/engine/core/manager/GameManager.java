@@ -97,6 +97,12 @@ public class GameManager {
 		return game;
 	}
 	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GameManager | Fields: " + fields.size() + " | Players: " + players.size() + " | ShipCount: " + shipcount.length;
+	}
 	
 }

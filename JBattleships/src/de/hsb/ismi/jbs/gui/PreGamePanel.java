@@ -25,12 +25,16 @@ import javax.swing.JSpinner;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
 import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
+import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -51,36 +55,13 @@ public class PreGamePanel extends JPanel {
 	private JPanel mixed;
 	private JPanel shipPanel;
 	private JPanel playerPanel;
-	private JTextField nameField01;
-	private JCheckBox chckbxAI01;
-	private JCheckBox chckbxActive01;
-	private JTextField nameField02;
-	private JCheckBox chckbxAI02;
-	private JCheckBox chckbxActive02;
-	private JTextField nameField03;
-	private JCheckBox chckbxAI03;
-	private JCheckBox chckbxActive03;
-	private JTextField nameField04;
-	private JCheckBox chckbxAI04;
-	private JCheckBox chckbxActive04;
-	private JTextField nameField05;
-	private JCheckBox chckbxAI05;
-	private JCheckBox chckbxActive05;
-	private JTextField nameField06;
-	private JCheckBox chckbxAI06;
-	private JCheckBox chckbxActive06;
-	private JTextField nameField07;
-	private JCheckBox chckbxAI07;
-	private JCheckBox chckbxActive07;
-	private JTextField nameField08;
-	private JCheckBox chckbxAI08;
-	private JCheckBox chckbxActive08;
+	private PreGamePlayerPanel[] playerPanels;
 	private JLabel lblDestroyer;
 	private JSpinner destroyerSpinner;
 	private JLabel lblFrigate;
 	private JSpinner frigateSpinner;
 	private JLabel lblCorvette;
-	private JSpinner spinner_2;
+	private JSpinner corvetteSpinner;
 	private JLabel lblSubmarines;
 	private JSpinner subSpinner;
 	private JPanel otherPanel;
@@ -89,12 +70,21 @@ public class PreGamePanel extends JPanel {
 	private JCheckBox chckbxUseCannon;
 	private JCheckBox chckbxUseNavalMines;
 	
+	/** The GameType of this Panel */
+	private JBSGameType gameType;
+	
 	
 	/**
 	 * Create the panel.
 	 */
-	public PreGamePanel(JBSGUI parent) {
+	public PreGamePanel(JBSGUI parent, JBSGameType type) {
+		playerPanels = new PreGamePlayerPanel[8];
+		for(int i = 0;i < playerPanels.length;i++){
+			playerPanels[i] = new PreGamePlayerPanel();
+		}
+		
 		this.parent = parent;
+		gameType = type;
 		header = parent.generateHeader();
 		setLayout(new BorderLayout(0, 0));
 		add(header, BorderLayout.NORTH);
@@ -125,7 +115,63 @@ public class PreGamePanel extends JPanel {
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("continue")){
+					JBattleships.game.generateGame();
+					GameManager gm = JBattleships.game.getGameManager();
+					for(PreGamePlayerPanel pregpp : playerPanels){
+						//TODO: add various checks!
+						boolean active = pregpp.isActiveSelected();
+						if(active){
+							boolean ai = pregpp.isAISelected();
+							String name = pregpp.getName();
+							if(ai){
+								gm.addPlayer(new JBSAIPlayer(name));
+							}else{
+								gm.addPlayer(new JBSPlayer(name));
+							}
+						}
+					}
+					int dc = 1;
+					//destroyerSpinner.commitEdit(); TODO: Discard?
+					try{
+						dc = ((Integer)destroyerSpinner.getValue());
+					}catch(ClassCastException cce){
+						cce.printStackTrace();
+					}
+					gm.setDestroyerCount(dc);
 					
+					int fc = 1;
+					try{
+						fc = ((Integer)frigateSpinner.getValue());
+					}catch(ClassCastException cce){
+						cce.printStackTrace();
+					}
+					gm.setFrigateCount(fc);
+					
+					int cc = 1;
+					try{
+						cc = ((Integer)corvetteSpinner.getValue());
+					}catch(ClassCastException cce){
+						cce.printStackTrace();
+					}
+					gm.setCorvetteCount(cc);
+					
+					int sc = 1;
+					try{
+						sc = ((Integer)subSpinner.getValue());
+					}catch(ClassCastException cce){
+						cce.printStackTrace();
+					}
+					gm.setSubmarineCount(sc);
+					
+					int fs = 32;
+					try{
+						fs = ((Integer)fieldSizeSpinner.getValue());
+					}catch(ClassCastException cce){
+						cce.printStackTrace();
+					}
+					
+					gm.createGame(gameType, fs);
+					System.out.println(gm.toString());
 				}
 			}
 		});
@@ -189,119 +235,10 @@ public class PreGamePanel extends JPanel {
 		playerPanel = new JPanel();
 		playerPanel.setBorder(new TitledBorder(null, "Players", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		mixed.add(playerPanel);
-		playerPanel.setLayout(new GridLayout(0, 4, 20, 5));
-		
-		JLabel lblName01 = new JLabel("Name:");
-		lblName01.setHorizontalAlignment(SwingConstants.TRAILING);
-		playerPanel.add(lblName01);
-		
-		nameField01 = new JTextField();
-		playerPanel.add(nameField01);
-		nameField01.setColumns(10);
-		
-		chckbxAI01 = new JCheckBox("AI?");
-		playerPanel.add(chckbxAI01);
-		
-		chckbxActive01 = new JCheckBox("Active");
-		playerPanel.add(chckbxActive01);
-		
-		JLabel lblName02 = new JLabel("Name:");
-		lblName02.setHorizontalAlignment(SwingConstants.TRAILING);
-		playerPanel.add(lblName02);
-		
-		nameField02 = new JTextField();
-		nameField02.setColumns(10);
-		playerPanel.add(nameField02);
-		
-		chckbxAI02 = new JCheckBox("AI?");
-		playerPanel.add(chckbxAI02);
-		
-		chckbxActive02 = new JCheckBox("Active");
-		playerPanel.add(chckbxActive02);
-		
-		JLabel lblName03 = new JLabel("Name:");
-		lblName03.setHorizontalAlignment(SwingConstants.TRAILING);
-		playerPanel.add(lblName03);
-		
-		nameField03 = new JTextField();
-		nameField03.setColumns(10);
-		playerPanel.add(nameField03);
-		
-		chckbxAI03 = new JCheckBox("AI?");
-		playerPanel.add(chckbxAI03);
-		
-		chckbxActive03 = new JCheckBox("Active");
-		playerPanel.add(chckbxActive03);
-		
-		JLabel lblName04 = new JLabel("Name:");
-		lblName04.setHorizontalAlignment(SwingConstants.TRAILING);
-		playerPanel.add(lblName04);
-		
-		nameField04 = new JTextField();
-		nameField04.setColumns(10);
-		playerPanel.add(nameField04);
-		
-		chckbxAI04 = new JCheckBox("AI?");
-		playerPanel.add(chckbxAI04);
-		
-		chckbxActive04 = new JCheckBox("Active");
-		playerPanel.add(chckbxActive04);
-		
-		JLabel lblName05 = new JLabel("Name:");
-		lblName05.setHorizontalAlignment(SwingConstants.TRAILING);
-		playerPanel.add(lblName05);
-		
-		nameField05 = new JTextField();
-		nameField05.setColumns(10);
-		playerPanel.add(nameField05);
-		
-		chckbxAI05 = new JCheckBox("AI?");
-		playerPanel.add(chckbxAI05);
-		
-		chckbxActive05 = new JCheckBox("Active");
-		playerPanel.add(chckbxActive05);
-		
-		JLabel lblName06 = new JLabel("Name:");
-		lblName06.setHorizontalAlignment(SwingConstants.TRAILING);
-		playerPanel.add(lblName06);
-		
-		nameField06 = new JTextField();
-		nameField06.setColumns(10);
-		playerPanel.add(nameField06);
-		
-		chckbxAI06 = new JCheckBox("AI?");
-		playerPanel.add(chckbxAI06);
-		
-		chckbxActive06 = new JCheckBox("Active");
-		playerPanel.add(chckbxActive06);
-		
-		JLabel lblName07 = new JLabel("Name:");
-		lblName07.setHorizontalAlignment(SwingConstants.TRAILING);
-		playerPanel.add(lblName07);
-		
-		nameField07 = new JTextField();
-		nameField07.setColumns(10);
-		playerPanel.add(nameField07);
-		
-		chckbxAI07 = new JCheckBox("AI?");
-		playerPanel.add(chckbxAI07);
-		
-		chckbxActive07 = new JCheckBox("Active");
-		playerPanel.add(chckbxActive07);
-		
-		JLabel lblName08 = new JLabel("Name:");
-		lblName08.setHorizontalAlignment(SwingConstants.TRAILING);
-		playerPanel.add(lblName08);
-		
-		nameField08 = new JTextField();
-		nameField08.setColumns(10);
-		playerPanel.add(nameField08);
-		
-		chckbxAI08 = new JCheckBox("AI?");
-		playerPanel.add(chckbxAI08);
-		
-		chckbxActive08 = new JCheckBox("Active");
-		playerPanel.add(chckbxActive08);
+		playerPanel.setLayout(new GridLayout(8, 1, 0, 0));
+		for(PreGamePlayerPanel pgpp : playerPanels){
+			playerPanel.add(pgpp);
+		}
 		
 		shipPanel = new JPanel();
 		shipPanel.setBorder(new TitledBorder(null, "Ship Settings:", TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 18), null));
@@ -366,8 +303,8 @@ public class PreGamePanel extends JPanel {
 		gbc_lblCorvette.gridy = 2;
 		shipPanel.add(lblCorvette, gbc_lblCorvette);
 		
-		spinner_2 = new JSpinner();
-		spinner_2.setModel(new SpinnerNumberModel(new Integer(3), new Integer(0), null, new Integer(1)));
+		corvetteSpinner = new JSpinner();
+		corvetteSpinner.setModel(new SpinnerNumberModel(new Integer(3), new Integer(0), null, new Integer(1)));
 		GridBagConstraints gbc_spinner_2 = new GridBagConstraints();
 		gbc_spinner_2.weighty = 1.0;
 		gbc_spinner_2.weightx = 1.0;
@@ -375,7 +312,7 @@ public class PreGamePanel extends JPanel {
 		gbc_spinner_2.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner_2.gridx = 1;
 		gbc_spinner_2.gridy = 2;
-		shipPanel.add(spinner_2, gbc_spinner_2);
+		shipPanel.add(corvetteSpinner, gbc_spinner_2);
 		
 		lblSubmarines = new JLabel("Submarines:");
 		lblSubmarines.setFont(new Font("Tahoma", Font.PLAIN, 17));
