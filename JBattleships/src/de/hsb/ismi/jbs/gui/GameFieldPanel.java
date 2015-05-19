@@ -185,7 +185,39 @@ public class GameFieldPanel extends JPanel {
 	public void setGridColor(Color gridColor) {
 		this.gridColor = gridColor;
 	}
-	
-	
-	
+
+	/**
+	 * @return the selectColor
+	 */
+	public Color getSelectColor() {
+		return selectColor;
+	}
+
+	/**
+	 * @param selectColor the selectColor to set
+	 */
+	public void setSelectColor(Color selectColor) {
+		this.selectColor = selectColor;
+	}
+
+	/**
+	 * @return the isSelected
+	 */
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	/**
+	 * @return the selectx
+	 */
+	public int getSelectx() {
+		return selectx;
+	}
+
+	/**
+	 * @return the selecty
+	 */
+	public int getSelecty() {
+		return selecty;
+	}
 }
