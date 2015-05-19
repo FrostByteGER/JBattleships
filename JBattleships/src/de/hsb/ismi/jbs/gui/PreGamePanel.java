@@ -170,6 +170,7 @@ public class PreGamePanel extends JPanel {
 						cce.printStackTrace();
 					}
 					gm.createGame(gameType, fs);
+					JBSCore.msgLogger.addMessage("Created Game!");
 					JBSCore.msgLogger.addMessage(gm.toString());
 				}
 			}
