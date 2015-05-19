@@ -26,7 +26,7 @@ import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 public class GameFieldContainer extends JPanel {
 	
-	private GameSidePanel uperSiedPanel;
+	private GameSidePanel2 uperSiedPanel;
 	private JPanel lowerSidePanel;
 	private GameFieldPanel mainPanel;
 	private JPanel lowerMainPanel;
@@ -34,7 +34,8 @@ public class GameFieldContainer extends JPanel {
 	private Game game;
 	private JLabel fieldNumber;
 	
-	private int selectedField;
+	private int selectedGameField;
+	private int selectedShip;
 	
 	public GameFieldContainer(Game game) {
 		
@@ -44,30 +45,14 @@ public class GameFieldContainer extends JPanel {
 	
 	private void init() {
 		
-		// TEST TODO
-		
-		JBSGameField fild = new JBSGameField(new JBSPlayer(),8);
-		fild.shootField(4, 4);
-		
-		JBSDestroyer d = new JBSDestroyer(new DataManager());
-		d.setPositon(0, 0, Direction.NORTH);		
-		
-		fild.setShip(d);
-		
-		d.shot(3, 3, Direction.EAST, fild);
-		
-		//fild.shootField(0, 0);
-		
-		//TEST
-		
-		selectedField = 0;
+		selectedGameField = 0;
 		
 		setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPane = new JSplitPane();
 		add(splitPane);
 		
-		uperSiedPanel = new GameSidePanel();
+		uperSiedPanel = new GameSidePanel2(game.getPlayers()[0]);
 		
 		splitPane.setRightComponent(uperSiedPanel);
 		
@@ -87,11 +72,11 @@ public class GameFieldContainer extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {		
-				if(game.getGameField().length-1>selectedField){
-					selectedField++;
-					fieldNumber.setText(String.valueOf(selectedField));
+				if(game.getGameField().length-1>selectedGameField){
+					selectedGameField++;
+					fieldNumber.setText(String.valueOf(selectedGameField));
 					
-					mainPanel.setGamefild(game.getGameField()[selectedField]);
+					mainPanel.setGamefild(game.getGameField()[selectedGameField]);
 				}
 			}
 		});
@@ -102,18 +87,18 @@ public class GameFieldContainer extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(selectedField>0){
-					selectedField--;
-					fieldNumber.setText(String.valueOf(selectedField));
+				if(selectedGameField>0){
+					selectedGameField--;
+					fieldNumber.setText(String.valueOf(selectedGameField));
 					
-					mainPanel.setGamefild(game.getGameField()[selectedField]);
+					mainPanel.setGamefild(game.getGameField()[selectedGameField]);
 				}			
 			}
 		});
 		
 		fieldNumber = new JLabel();
 		
-		fieldNumber.setText(String.valueOf(selectedField));
+		fieldNumber.setText(String.valueOf(selectedGameField));
 		
 		uperMainPanel.add(mbut);
 		uperMainPanel.add(fieldNumber);
@@ -128,14 +113,14 @@ public class GameFieldContainer extends JPanel {
 	public void loadShips(){
 		
 		for(JBSShip ship : game.getPlayers()[game.getActivPlayer()].getShips()){
-			uperSiedPanel.addShip(ship);
+		//	uperSiedPanel.addShip(ship);
 		}
 	}
 	
 	public void loadShips(int player){
 		
 		for(JBSShip ship : game.getPlayers()[player].getShips()){
-			uperSiedPanel.addShip(ship);
+		//	uperSiedPanel.addShip(ship);
 		}
 	}
 	
@@ -143,37 +128,45 @@ public class GameFieldContainer extends JPanel {
 		JFrame f = new JFrame();
 		f.setBounds(100, 100, 1000, 800);
 		
-		JBSPlayer[] p = new JBSPlayer[1];
+		JBSPlayer[] p = new JBSPlayer[2];
 		p[0] = new JBSPlayer();
+		p[1] = new JBSPlayer();
 		
-		JBSGameField[] fi = new JBSGameField[1];
-		fi[0] = new JBSGameField(p[0],16);
+		JBSGameField[] fi = new JBSGameField[2];
+		fi[0] = new JBSGameField(p[0],12);
+		fi[1] = new JBSGameField(p[1],12);
 		
 		DataManager dm = new DataManager();
-		
-		JBSPlayer[] players = new JBSPlayer[2];
-		
-		players[0] = new JBSPlayer();
 		
 		JBSShip s = new JBSDestroyer(dm);
 		
 		s.setHealth(3);
 		s.setCooldown(2);
 		
-		players[0].addShip(s);
-		players[0].addShip(new JBSCorvette(dm));
-		players[0].addShip(new JBSFrigate(dm));
-		players[0].addShip(new JBSSubmarine(dm));
-		players[0].addShip(new JBSDestroyer(dm));
-		players[0].addShip(new JBSCorvette(dm));
-		players[0].addShip(new JBSFrigate(dm));
-		players[0].addShip(new JBSSubmarine(dm));
-		players[0].addShip(new JBSDestroyer(dm));
-		players[0].addShip(new JBSCorvette(dm));
-		players[0].addShip(new JBSFrigate(dm));
-		players[0].addShip(new JBSSubmarine(dm));
+		p[0].addShip(s);
+		p[0].addShip(new JBSCorvette(dm));
+		p[0].addShip(new JBSFrigate(dm));
+		p[0].addShip(new JBSSubmarine(dm));
+		p[0].addShip(new JBSDestroyer(dm));
+		p[0].addShip(new JBSCorvette(dm));
+		p[0].addShip(new JBSFrigate(dm));
+		p[0].addShip(new JBSSubmarine(dm));
+		p[0].addShip(new JBSDestroyer(dm));
+		p[0].addShip(new JBSCorvette(dm));
+		p[0].addShip(new JBSFrigate(dm));
+		p[0].addShip(new JBSSubmarine(dm));
 		
-		Game game = new Game(JBSGameType.GAME_LAN, fi, players);
+		p[1].addShip(new JBSCorvette(dm));
+		
+		p[0].getShips().get(0).setPositon(0, 0, Direction.NORTH);
+		
+		fi[0].setShip(p[0].getShips().get(0));
+		
+		p[1].getShips().get(0).setPositon(0, 0, Direction.WEST);
+		
+		fi[1].setShip(p[1].getShips().get(0));
+		
+		Game game = new Game(JBSGameType.GAME_LOCAL, fi, p);
 		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setContentPane(new GameFieldContainer(game));

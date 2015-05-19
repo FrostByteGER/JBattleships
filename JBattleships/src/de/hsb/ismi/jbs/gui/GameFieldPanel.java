@@ -50,6 +50,7 @@ public class GameFieldPanel extends JPanel {
 	 * @param fild the fild to set
 	 */
 	public void setGamefild(JBSGameField fild) {
+		this.repaint();
 		this.gamefild = fild;
 	}
 
