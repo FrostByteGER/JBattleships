@@ -390,7 +390,10 @@ public class OptionsPanel2 extends JPanel{
 					JBattleships.game.changeResolution(r);
 					
 					if(rdbtnFull.isSelected()){
+						r = Resolution.convertDisplayModeToResolution(JBSCore.screenDeviceManager.getCurrentDisplayMode());
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_FULLSCREEN);
+						JBattleships.game.changeResolution(r);
+						resBox.setSelectedItem(r);
 					}else if(rdbtnWin.isSelected()){
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_WINDOWED);
 					}else if(rdbtnLess.isSelected()){
