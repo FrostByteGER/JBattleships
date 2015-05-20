@@ -78,7 +78,6 @@ public class GameFieldPanel extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println(arg0.getButton());
 				if(arg0.getButton() == 3){
 					if(direction == Direction.NORTH){
 						direction = Direction.EAST;
