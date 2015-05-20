@@ -7,9 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import de.hsb.ismi.jbs.core.JBSCore;
-import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
-import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -18,18 +16,12 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTabbedPane;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 import java.awt.Font;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
 import net.miginfocom.swing.MigLayout;
 import java.awt.SystemColor;
 
@@ -62,7 +54,7 @@ public class PreGameFieldsPanel extends JPanel {
 	public PreGameFieldsPanel(JBSGUI parent) {
 		
 		GameManager gm = JBattleships.game.getGameManager();
-		fieldPanel = new GameFieldPanel(new JBSGameField(gm.getPlayers().get(0), gm.getFieldSize()), gm.getFieldSize());
+		fieldPanel = new GameFieldPanel(new JBSGameField(gm.getPlayers().get(0), gm.getFieldSize()), 400, gm.getFieldSize());
 		
 		this.parent = parent;
 		this.header = parent.generateHeader();
