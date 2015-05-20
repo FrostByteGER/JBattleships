@@ -16,8 +16,8 @@ public class GameFieldPanel extends JPanel {
 	
 	private JBSGameField gamefild;
 	
-	private int gridSize;
-	private int fildSize;
+	private int gridsize;
+	private int fildsize;
 	
 	private int xofset;
 	private int yofset;
@@ -32,7 +32,7 @@ public class GameFieldPanel extends JPanel {
 	
 	private JPanel panel = this;
 	
-	public GameFieldPanel(JBSGameField fild ,int size) {
+	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
 		
 		this.gamefild = fild;
 		gridColor = Color.RED;
@@ -49,7 +49,7 @@ public class GameFieldPanel extends JPanel {
 		setMinimumSize(new Dimension(size,size) );
 		setBackground(Color.CYAN);
 		
-		fildSize = 600;
+		this.fildsize = fieldsize;
 		xofset = 0;
 		yofset = 0;
 		
@@ -78,7 +78,6 @@ public class GameFieldPanel extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println(arg0.getButton());
 				if(arg0.getButton() == 3){
 					if(direction == Direction.NORTH){
 						direction = Direction.EAST;
@@ -99,16 +98,18 @@ public class GameFieldPanel extends JPanel {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				if(isSelected){
-					if(selectx != ((e.getX()-xofset)-((e.getX()-xofset)%gridSize))/gridSize ||
-							selecty != ((e.getY()-yofset)-((e.getY()-yofset)%gridSize))/gridSize){
+					if(selectx != ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize ||
+							selecty != ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize){
 						panel.repaint();
 					}
 					
-					if(((e.getX()-xofset)-((e.getX()-xofset)%gridSize))/gridSize < fild.getSize()){
-						selectx = ((e.getX()-xofset)-((e.getX()-xofset)%gridSize))/gridSize;
+					if(((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize < fild.getSize() && 
+							((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize >= 0){
+						selectx = ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize;
 					}
-					if(((e.getY()-yofset)-((e.getY()-yofset)%gridSize))/gridSize < fild.getSize()){
-						selecty = ((e.getY()-yofset)-((e.getY()-yofset)%gridSize))/gridSize;
+					if(((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize < fild.getSize() &&
+							((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize >= 0){
+						selecty = ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize;
 					}
 				}
 				
@@ -140,27 +141,27 @@ public class GameFieldPanel extends JPanel {
 
 	private void drawGrid(Graphics g){
 		
-		gridSize = fildSize/gamefild.getSize();
-		xofset = (getSize().width-fildSize)/2;
-		yofset = (getSize().height-fildSize)/2;
+		gridsize = fildsize/gamefild.getSize();
+		xofset = (getSize().width-fildsize)/2;
+		yofset = (getSize().height-fildsize)/2;
 		
 		for(int i = 0 ; i < gamefild.getSize() ; i++){
 			for(int j = 0 ; j < gamefild.getSize() ; j++ ){
 				if(gamefild.isFieldWater(i, j)){
 					g.setColor(Color.BLUE);				
-					g.fillRect(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize-1, gridSize-1);
+					g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 					
 				}else if(gamefild.isFieldWaterHit(i, j)){
 					g.setColor(Color.BLUE);
-					g.fillRect(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize-1, gridSize-1);
+					g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}else{
 					g.setColor(Color.GRAY);
-					g.fillRect(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize-1, gridSize-1);
+					g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}
 				if(gamefild.getField(i, j).isHit()){
 					g.setColor(Color.RED);
-					g.drawLine(gridSize*i+xofset+1, gridSize*j+yofset+1, gridSize*(i+1)+xofset-1, gridSize*(j+1)+yofset-1);
-					g.drawLine(gridSize*i+xofset+1, gridSize*(j+1)+yofset+1, gridSize*(i+1)+xofset-1, gridSize*j+yofset-1);
+					g.drawLine(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize*(i+1)+xofset-1, gridsize*(j+1)+yofset-1);
+					g.drawLine(gridsize*i+xofset+1, gridsize*(j+1)+yofset+1, gridsize*(i+1)+xofset-1, gridsize*j+yofset-1);
 				}
 				
 			}
@@ -168,20 +169,20 @@ public class GameFieldPanel extends JPanel {
 		
 		if(isSelected){
 			g.setColor(selectColor);		
-			g.fillRect(selectx*gridSize+xofset, selecty*gridSize+yofset, gridSize, gridSize);
+			g.fillRect(selectx*gridsize+xofset, selecty*gridsize+yofset, gridsize, gridsize);
 			
-			g.setColor(Color.BLACK);			
+			g.setColor(Color.WHITE);			
 			if(direction == Direction.NORTH){
-				g.drawString("^", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
+				g.drawString("^", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
 				panel.repaint();
 			}else if(direction == Direction.EAST){
-				g.drawString(">", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
+				g.drawString(">", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
 				panel.repaint();
 			}else if(direction == Direction.SOUTH){
-				g.drawString("v", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
+				g.drawString("v", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
 				panel.repaint();
 			}else if(direction == Direction.WEST){
-				g.drawString("<", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
+				g.drawString("<", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
 				panel.repaint();
 			}
 		}
@@ -189,8 +190,8 @@ public class GameFieldPanel extends JPanel {
 		g.setColor(gridColor);
 		
 		for (int i = 0 ; i < gamefild.getSize()+1 ; i++){
-			g.drawLine(xofset, yofset+i*gridSize,xofset+fildSize, yofset+i*gridSize);
-			g.drawLine(xofset+i*gridSize, yofset, xofset+i*gridSize, yofset+fildSize);
+			g.drawLine(xofset, yofset+i*gridsize,xofset+fildsize, yofset+i*gridsize);
+			g.drawLine(xofset+i*gridsize, yofset, xofset+i*gridsize, yofset+fildsize);
 		}
 		
 	}
