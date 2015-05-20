@@ -9,6 +9,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
+import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 
 public class GameFieldPanel extends JPanel {
@@ -27,6 +28,8 @@ public class GameFieldPanel extends JPanel {
 	private int selectx;
 	private int selecty;
 	
+	private Direction direction; 
+	
 	private JPanel panel = this;
 	
 	public GameFieldPanel(JBSGameField fild ,int size) {
@@ -38,6 +41,8 @@ public class GameFieldPanel extends JPanel {
 		isSelected = false;
 		selectx = 0;
 		selecty = 0;
+		
+		direction = Direction.NORTH;
 		
 		//TODO SIZE
 		setSize(new Dimension(size,size));
@@ -73,7 +78,18 @@ public class GameFieldPanel extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				System.out.println(arg0.getButton());
+				if(arg0.getButton() == 3){
+					if(direction == Direction.NORTH){
+						direction = Direction.EAST;
+					}else if(direction == Direction.EAST){
+						direction = Direction.SOUTH;
+					}else if(direction == Direction.SOUTH){
+						direction = Direction.WEST;
+					}else if(direction == Direction.WEST){
+						direction = Direction.NORTH;
+					}
+				}
 				
 			}
 		});
@@ -151,8 +167,23 @@ public class GameFieldPanel extends JPanel {
 		}
 		
 		if(isSelected){
-			g.setColor(selectColor);
+			g.setColor(selectColor);		
 			g.fillRect(selectx*gridSize+xofset, selecty*gridSize+yofset, gridSize, gridSize);
+			
+			g.setColor(Color.BLACK);			
+			if(direction == Direction.NORTH){
+				g.drawString("^", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
+				panel.repaint();
+			}else if(direction == Direction.EAST){
+				g.drawString(">", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
+				panel.repaint();
+			}else if(direction == Direction.SOUTH){
+				g.drawString("v", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
+				panel.repaint();
+			}else if(direction == Direction.WEST){
+				g.drawString("<", selectx*gridSize+xofset+gridSize/2, selecty*gridSize+yofset+gridSize/2);
+				panel.repaint();
+			}
 		}
 		
 		g.setColor(gridColor);
@@ -219,5 +250,12 @@ public class GameFieldPanel extends JPanel {
 	 */
 	public int getSelecty() {
 		return selecty;
+	}
+
+	/**
+	 * @return the direction
+	 */
+	public Direction getDirection() {
+		return direction;
 	}
 }
