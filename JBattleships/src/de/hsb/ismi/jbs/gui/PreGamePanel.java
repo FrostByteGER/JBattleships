@@ -172,7 +172,7 @@ public class PreGamePanel extends JPanel {
 					}
 					gm.setSubmarineCount(sc);
 					
-					int fs = 32;
+					int fs = 16;
 					try{
 						fs = ((Integer)fieldSizeSpinner.getValue());
 					}catch(ClassCastException cce){
@@ -219,7 +219,7 @@ public class PreGamePanel extends JPanel {
 		otherPanel.add(lblFieldSize, gbc_lblFieldSize);
 		
 		fieldSizeSpinner = new JSpinner();
-		fieldSizeSpinner.setModel(new SpinnerNumberModel(new Integer(32), new Integer(32), null, new Integer(1)));
+		fieldSizeSpinner.setModel(new SpinnerNumberModel(new Integer(16), new Integer(10), new Integer(20), new Integer(1)));
 		GridBagConstraints gbc_fieldSizeSpinner = new GridBagConstraints();
 		gbc_fieldSizeSpinner.insets = new Insets(0, 0, 5, 0);
 		gbc_fieldSizeSpinner.fill = GridBagConstraints.HORIZONTAL;
