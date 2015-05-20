@@ -55,6 +55,10 @@ public class PreGameFieldsPanel extends JPanel {
 	private JPanel panel_1;
 	private JTextArea textArea;
 	
+	/**
+	 * 
+	 * @param parent
+	 */
 	public PreGameFieldsPanel(JBSGUI parent) {
 		
 		GameManager gm = JBattleships.game.getGameManager();
