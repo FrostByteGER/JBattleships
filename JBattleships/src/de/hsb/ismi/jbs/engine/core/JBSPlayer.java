@@ -13,6 +13,7 @@ public class JBSPlayer {
 	
 	private ArrayList<JBSShip> ships;
 	private boolean isAlive;
+	private String name;
 	
 	/**
 	 * 
@@ -20,6 +21,16 @@ public class JBSPlayer {
 	public JBSPlayer() {
 		ships = new ArrayList<JBSShip>();
 		isAlive = true;
+		name = "undefined";
+	}
+	
+	/**
+	 * 
+	 */
+	public JBSPlayer(String name) {
+		ships = new ArrayList<JBSShip>();
+		isAlive = true;
+		this.name = name;
 	}
 	
 	public void setShips(ArrayList<JBSShip> ships){
@@ -44,6 +55,20 @@ public class JBSPlayer {
 
 	public void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public final String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public final void setName(String name) {
+		this.name = name;
 	}
 	
 	

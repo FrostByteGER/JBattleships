@@ -2,8 +2,14 @@ package de.hsb.ismi.jbs.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Stack;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -28,6 +34,8 @@ public class JBSGUI{
 	
 	private MainPanel mainPanel;
 	private OptionsPanel2 optionsPanel;
+	
+	private BufferedImage backgroundImage;
 
 	/**
 	 * Create the frame and its components.
@@ -38,6 +46,13 @@ public class JBSGUI{
 		mainFrame.setResizable(JBSCore.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 100, res.getX(), res.getY());
+		
+		try {
+			backgroundImage = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
@@ -45,6 +60,8 @@ public class JBSGUI{
 		mainPanel = new MainPanel(this);
 		//TODO: Remove add call
 		contentPane.add(mainPanel,BorderLayout.CENTER);
+		//contentPane.add(new PreGamePanel(this),BorderLayout.CENTER);
+		
 		mainFrame.setContentPane(contentPane);
 
 		changeScreenMode(mode);
@@ -94,6 +111,7 @@ public class JBSGUI{
 		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 		headerPanel.add(Box.createVerticalStrut(20));
 		JLabel headerLbl = new JLabel("JBattleships");
+		headerLbl.setFont(new Font("Tahoma", Font.BOLD, 40));
 		headerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 		headerPanel.add(headerLbl);
 		headerPanel.add(Box.createVerticalStrut(20));
@@ -134,6 +152,20 @@ public class JBSGUI{
 			break;
 		}
 		mainFrame.setVisible(true); // Makes GUI visible again
+	}
+
+	/**
+	 * @return the backgroundImage
+	 */
+	public final BufferedImage getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	/**
+	 * @param backgroundImage the backgroundImage to set
+	 */
+	public final void setBackgroundImage(BufferedImage backgroundImage) {
+		this.backgroundImage = backgroundImage;
 	}
 
 }

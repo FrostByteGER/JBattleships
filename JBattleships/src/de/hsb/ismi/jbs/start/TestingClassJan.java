@@ -3,6 +3,8 @@
  */
 package de.hsb.ismi.jbs.start;
 
+import java.awt.Color;
+
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
@@ -56,7 +58,8 @@ public class TestingClassJan {
 		f.printField();
 		*/
 		
-		ConsoleUserInterface cui = new ConsoleUserInterface();
+		//ConsoleUserInterface cui = new ConsoleUserInterface();
+		
 		
 		/*
 		Game g = new Game();

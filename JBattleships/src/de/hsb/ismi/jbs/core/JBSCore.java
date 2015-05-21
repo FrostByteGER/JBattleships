@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.swing.UIManager;
 
 import de.frostbyteger.messagelogger.MessageLogger;
+import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
@@ -47,6 +48,7 @@ public class JBSCore {
 	private String language;
 	
 	private JBSGUI mainGUI;
+	private GameManager gameManager;
 	private DataManager dataManager;
 
 	
@@ -55,6 +57,7 @@ public class JBSCore {
 	 */
 	public JBSCore() {
 		dataManager = new DataManager();
+		gameManager = null;
 		currentResolution = null;
 		screenMode = null;
 		volume = 0;
@@ -235,6 +238,20 @@ public class JBSCore {
 	 */
 	public final DataManager getDataManager() {
 		return dataManager;
+	}
+
+	/**
+	 * @return the gameManager
+	 */
+	public final GameManager getGameManager() {
+		return gameManager;
+	}
+
+	/**
+	 * @param gameManager the gameManager to set
+	 */
+	public final void generateGame() {
+		this.gameManager = new GameManager(dataManager);
 	}
 
 }

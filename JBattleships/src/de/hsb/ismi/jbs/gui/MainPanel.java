@@ -3,7 +3,6 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -16,33 +15,15 @@ import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.io.File;
-import java.io.IOException;
-
 import javax.swing.Box;
 
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-
-import javax.swing.border.TitledBorder;
-
-import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.JBSCorvette;
-import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
-import de.hsb.ismi.jbs.engine.core.JBSFrigate;
-import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
-import de.hsb.ismi.jbs.engine.core.JBSPlayer;
-import de.hsb.ismi.jbs.engine.core.JBSShip;
-import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
-import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
  * @author Kevin Kuegler
@@ -62,9 +43,6 @@ public class MainPanel extends JPanel {
 	private Component rigidArea;
 	private JPanel versionPanel;
 	private JLabel versionLbl;
-	
-	
-	private BufferedImage bg;
 
 	/**
 	 * 
@@ -92,6 +70,9 @@ public class MainPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("local")){
 					
+					parent.swapContainer(new PreGamePanel(parent, JBSGameType.GAME_LOCAL));
+					
+					/**
 					JBSPlayer[] p = new JBSPlayer[1];
 					p[0] = new JBSPlayer();
 					
@@ -125,6 +106,7 @@ public class MainPanel extends JPanel {
 					Game game = new Game(JBSGameType.GAME_LAN, fi, players);
 					
 					parent.swapContainer(new GameFieldContainer(game));
+					*/
 				}
 				
 			}
@@ -222,12 +204,6 @@ public class MainPanel extends JPanel {
 		
 		versionLbl = new JLabel("PRE-ALPHA");
 		versionPanel.add(versionLbl);
-		
-		try {
-			bg = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 	}
 	
 	/* (non-Javadoc)
@@ -236,7 +212,7 @@ public class MainPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(bg, 0, 0, this.getWidth(),this.getHeight(), null);
+		g.drawImage(parent.getBackgroundImage(), 0, 0, this.getWidth(),this.getHeight(), null);
 	}
 
 }

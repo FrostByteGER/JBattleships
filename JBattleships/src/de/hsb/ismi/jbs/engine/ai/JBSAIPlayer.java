@@ -15,7 +15,17 @@ public class JBSAIPlayer extends JBSPlayer {
 	 * 
 	 */
 	public JBSAIPlayer() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * @param name
+	 */
+	public JBSAIPlayer(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
+
 
 }
