@@ -32,7 +32,6 @@ public class JBSGameField {
 	 * @param size
 	 */
 	public JBSGameField(int size) {
-		super();
 		this.size = size;
 		
 		water = new JBSActor();

@@ -103,18 +103,14 @@ public class ConsoleUserInterface {
 
 		do {
 			game.getPlayer(playernumber).getPlayerField().resetActorFields();
-			//game.getPlayerFields()[playernumber].resetActorFields();
 			for (JBSShip ship : player.getShips()) {
 				do {
 					cls();
 					System.out.println("Player " + playernumber);
-					//game.getPlayerFields()[playernumber].printField(true);
 					game.getPlayer(playernumber).getPlayerField().printField(true);
 					System.out.println("Shiptype: " + ship.getName());
-					//readIntMinMax("Ship x 0-" + (game.getPlayerFields()[playernumber].getSize() - 1), 0, game.getPlayerFields()[playernumber].getSize());
 					readIntMinMax("Ship x 0-" + (game.getPlayer(playernumber).getPlayerField().getSize() - 1), 0, game.getPlayer(playernumber).getPlayerField().getSize());
 					x = intinput;
-					//readIntMinMax("Ship y 0-"+ (game.getPlayerFields()[playernumber].getSize() - 1),0, game.getPlayerFields()[playernumber].getSize());
 					readIntMinMax("Ship y 0-"+ (game.getPlayer(playernumber).getPlayerField().getSize() - 1),0, game.getPlayer(playernumber).getPlayerField().getSize());
 					y = intinput;
 
@@ -145,8 +141,8 @@ public class ConsoleUserInterface {
 
 					ship.setPositon(x, y, ship.getDirection());
 
-				} while (game.getPlayer(playernumber).getPlayerField().shipCanBePlaced(ship));
-				game.getPlayer(playernumber).getPlayerField().setShip(ship);
+				} while (!game.getPlayer(playernumber).getPlayerField().shipCanBePlaced(ship));
+				System.out.println(game.getPlayer(playernumber).getPlayerField().setShip(ship));
 			}
 			game.getPlayer(playernumber).getPlayerField().printField(true);
 		} while (!readStringYN("Are the information correct? y/n"));
