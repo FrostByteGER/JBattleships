@@ -3,19 +3,30 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlRootElement(name = "Game")
+@XmlType(propOrder = {"DataManager", "GameType", "GameFields", "Players", "ActivePlayer"})
 public class Game {
 	
+	@XmlElement(name = "DataManager")
 	public DataManager DataM;
+	@XmlElement(name = "GameType")
 	private JBSGameType gameType;
+	@XmlElement(name = "GameFields")
 	private JBSGameField[] gameFields;
+	@XmlElement(name = "Players")
 	private JBSPlayer[] players;
-	private int activPlayer;
+	@XmlElement(name = "ActivePlayer")
+	private int activePlayer;
 
 	/**
 	 * @param gameType
@@ -28,7 +39,7 @@ public class Game {
 		this.gameType = gameType;
 		this.gameFields = gameField;
 		this.players = players;
-		this.activPlayer = 0;//TODO may change
+		this.activePlayer = 0;//TODO may change
 		
 	}
 
@@ -78,14 +89,14 @@ public class Game {
 	 * @return the activPlayer
 	 */
 	public int getActivPlayer() {
-		return activPlayer;
+		return activePlayer;
 	}
 
 	/**
 	 * @param activPlayer the activPlayer to set
 	 */
 	public void setActivPlayer(int activPlayer) {
-		this.activPlayer = activPlayer;
+		this.activePlayer = activPlayer;
 	}
 	
 	public boolean isGameOver(){
