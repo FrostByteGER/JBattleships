@@ -279,6 +279,10 @@ public class ConsoleUserInterface {
 		} while (!readStringYN("Are the information correct? y/n"));
 		ship.shot(xshoot, yshoot, direction, game.getGameField()[shootat]);
 		ship.setCooldown(ship.getCooldownLimit());
+		game.getGameField()[shootat].printField(false);
+		
+		while(!readStringYN("Continue ? y/n")){
+		}
 	}
 
 	private void printDirections() {
