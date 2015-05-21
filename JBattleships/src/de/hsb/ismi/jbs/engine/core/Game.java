@@ -5,6 +5,7 @@ package de.hsb.ismi.jbs.engine.core;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
@@ -14,19 +15,21 @@ import de.hsb.ismi.jbs.engine.io.manager.DataManager;
  * @version 1.00
  */
 @XmlRootElement(name = "Game")
-@XmlType(propOrder = {"DataManager", "GameType", "GameFields", "Players", "ActivePlayer"})
 public class Game {
 	
-	@XmlElement(name = "DataManager")
-	public DataManager DataM;
-	@XmlElement(name = "GameType")
+	@XmlTransient
+	private DataManager DataM;
 	private JBSGameType gameType;
-	@XmlElement(name = "GameFields")
 	private JBSGameField[] gameFields;
-	@XmlElement(name = "Players")
 	private JBSPlayer[] players;
-	@XmlElement(name = "ActivePlayer")
 	private int activePlayer;
+	
+	public Game(){
+		DataM = new DataManager();
+		gameType = JBSGameType.GAME_LOCAL;
+		gameFields = new JBSGameField[]{new JBSGameField(new JBSPlayer(), 8)};
+		players = new JBSPlayer[]{new JBSPlayer()};
+	}
 
 	/**
 	 * @param gameType

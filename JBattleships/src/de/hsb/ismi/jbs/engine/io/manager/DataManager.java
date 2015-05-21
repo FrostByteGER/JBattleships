@@ -15,11 +15,13 @@ public class DataManager {
 	private LocalizationManager localizationM;
 	private ResourceManager resourceM;
 	private ProfileManager profileM;
+	private String penis;
 	
 	/**
 	 * 
 	 */
 	public DataManager() {
+		penis = "FUCK";
 		resourceM = new ResourceManager();
 		optionsM = new OptionsManager();//TODO need Language Data
 		configM = new ConfigManager();
