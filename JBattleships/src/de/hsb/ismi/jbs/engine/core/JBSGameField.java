@@ -163,11 +163,11 @@ public class JBSGameField {
 				if(fields[i][j] == water){
 					System.out.print("--");
 				}else if(fields[i][j] == water_hit){
-					System.out.print("XX");
+					System.out.print("~~");
 				}else if(visible){
 					System.out.print("BB");
 				}else if(fields[i][j].isHit()){
-					System.out.print("OO");
+					System.out.print("XX");
 				}else{
 					System.out.print("--");
 				}

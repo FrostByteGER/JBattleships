@@ -58,7 +58,7 @@ public class TestingClassJan {
 		f.printField();
 		*/
 		
-		//ConsoleUserInterface cui = new ConsoleUserInterface();
+		ConsoleUserInterface cui = new ConsoleUserInterface();
 		
 		
 		/*
