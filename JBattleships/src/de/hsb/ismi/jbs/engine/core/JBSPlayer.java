@@ -22,7 +22,7 @@ public class JBSPlayer {
 	private ArrayList<JBSShip> ships;
 	@XmlElement(name = "Alive")
 	private boolean isAlive;
-	@XmlElement(name = "PlayerName")
+	@XmlElement(name = "Name")
 	private String name;
 	@XmlElement(name = "PlayerField")
 	private JBSGameField playerField;
