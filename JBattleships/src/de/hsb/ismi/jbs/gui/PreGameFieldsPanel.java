@@ -47,6 +47,11 @@ public class PreGameFieldsPanel extends JPanel {
 	private JPanel panel_1;
 	private JTextArea textArea;
 	
+	private int destroyersLeft = 0;
+	private int frigatesLeft = 0;
+	private int corvettesLeft = 0;
+	private int subsLeft = 0;
+	
 	/**
 	 * 
 	 * @param parent
@@ -54,6 +59,10 @@ public class PreGameFieldsPanel extends JPanel {
 	public PreGameFieldsPanel(JBSGUI parent) {
 		
 		GameManager gm = JBattleships.game.getGameManager();
+		destroyersLeft = gm.getDestroyerCount();
+		frigatesLeft = gm.getFrigateCount();
+		corvettesLeft = gm.getCorvetteCount();
+		subsLeft = gm.getSubmarineCount();
 		fieldPanel = new GameFieldPanel(new JBSGameField(gm.getPlayers().get(0), gm.getFieldSize()), 400, gm.getFieldSize());
 		
 		this.parent = parent;
@@ -125,7 +134,18 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_textArea.gridy = 0;
 		shipPanel.add(textArea, gbc_textArea);
 		
-		btnDestroyer = new JButton("Destroyer Left: ");
+		btnDestroyer = new JButton("Destroyers Left: " + destroyersLeft);
+		btnDestroyer.setActionCommand("placedest");
+		btnDestroyer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("placedest")){
+					if(destroyersLeft > 0){
+						destroyersLeft--;
+						btnDestroyer.setText("Destroyers Left: " + destroyersLeft);						
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_btnDestroyer = new GridBagConstraints();
 		gbc_btnDestroyer.ipady = 20;
 		gbc_btnDestroyer.fill = GridBagConstraints.HORIZONTAL;
@@ -134,7 +154,7 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnDestroyer.gridy = 1;
 		shipPanel.add(btnDestroyer, gbc_btnDestroyer);
 		
-		btnFrigate = new JButton("Frigates Left: ");
+		btnFrigate = new JButton("Frigates Left: " + frigatesLeft);
 		GridBagConstraints gbc_btnFrigate = new GridBagConstraints();
 		gbc_btnFrigate.ipady = 20;
 		gbc_btnFrigate.fill = GridBagConstraints.HORIZONTAL;
@@ -143,7 +163,7 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnFrigate.gridy = 2;
 		shipPanel.add(btnFrigate, gbc_btnFrigate);
 		
-		btnCorvette = new JButton("Corvettes Left: ");
+		btnCorvette = new JButton("Corvettes Left: " + corvettesLeft);
 		GridBagConstraints gbc_btnCorvette = new GridBagConstraints();
 		gbc_btnCorvette.ipady = 20;
 		gbc_btnCorvette.fill = GridBagConstraints.HORIZONTAL;
@@ -152,7 +172,7 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnCorvette.gridy = 3;
 		shipPanel.add(btnCorvette, gbc_btnCorvette);
 		
-		btnSubmarine = new JButton("Submarines Left: ");
+		btnSubmarine = new JButton("Submarines Left: " + subsLeft);
 		GridBagConstraints gbc_btnSubmarine = new GridBagConstraints();
 		gbc_btnSubmarine.ipady = 20;
 		gbc_btnSubmarine.insets = new Insets(0, 5, 0, 0);
