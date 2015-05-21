@@ -44,7 +44,7 @@ public class ConsoleUserInterface {
 			fieldsize = intinput;
 
 			cls();
-			System.out.println("Fieldsze " + fieldsize);
+			System.out.println("Fieldsize " + fieldsize);
 			System.out.println("Playeramount " + playeramount);
 		} while (!readStringYN("Are the information correct? y/n"));
 
@@ -58,7 +58,7 @@ public class ConsoleUserInterface {
 			System.out.println();
 			readIntMinMax("Corvetteamount 0-3", 0, 3);
 			pm.setCorvetteCount(intinput);
-			readIntMinMax("Destrayeramount 0-3", 0, 3);
+			readIntMinMax("Destroyeramount 0-3", 0, 3);
 			pm.setDestroyerCount(intinput);
 			readIntMinMax("Frigateamount 0-3", 0, 3);
 			pm.setFrigateCount(intinput);
@@ -68,7 +68,7 @@ public class ConsoleUserInterface {
 			cls();
 
 			System.out.println("Corvetteamount " + pm.getCorvetteCount());
-			System.out.println("Destrayeramount " + pm.getDestroyerCount());
+			System.out.println("Destroyeramount " + pm.getDestroyerCount());
 			System.out.println("Frigateamount " + pm.getFrigateCount());
 			System.out.println("Submarineamount " + pm.getSubmarineCount());
 
@@ -88,7 +88,7 @@ public class ConsoleUserInterface {
 		for (int i = 0; i < playeramount; i++) {
 			if (game.getPlayers()[i].isAlive()) {
 				winner = game.getPlayers()[i];
-				System.out.println("Player " + i + " Won!!!");
+				System.out.println("Player " + i + " won!!!");
 			}
 		}
 
@@ -109,23 +109,14 @@ public class ConsoleUserInterface {
 					System.out.println("Player " + playernumber);
 					game.getGameField()[playernumber].printField(true);
 					System.out.println("Shiptype: " + ship.getName());
-					readIntMinMax(
-							"Ship x 0-"
-									+ (game.getGameField()[playernumber]
-											.getSize() - 1),
-							0, game.getGameField()[playernumber].getSize());
+					readIntMinMax("Ship x 0-" + (game.getGameField()[playernumber].getSize() - 1), 0, game.getGameField()[playernumber].getSize());
 					x = intinput;
-					readIntMinMax(
-							"Ship y 0-"
-									+ (game.getGameField()[playernumber]
-											.getSize() - 1),
-							0, game.getGameField()[playernumber].getSize());
+					readIntMinMax("Ship y 0-"+ (game.getGameField()[playernumber].getSize() - 1),0, game.getGameField()[playernumber].getSize());
 					y = intinput;
 
 					while (true) {
 						printDirections();
-						System.out.println("Ship Direction (n,e,s,w) type: "
-								+ ship.getName());
+						System.out.println("Ship Direction (n,e,s,w) type: " + ship.getName());
 						readString();
 						switch (stringinput) {
 						case "n":
@@ -183,9 +174,8 @@ public class ConsoleUserInterface {
 
 		if (!candosomething) {
 			cls();
-			System.out.println("You can´t do anything in this Round Player "
-					+ player);
-			readStringYN("continue y/n");
+			System.out.println("You can't do anything in this Round Player #" + player);
+			readStringYN("continue? y/n");
 			return;
 		}
 
@@ -198,14 +188,12 @@ public class ConsoleUserInterface {
 
 				for (int i = 0; i < game.getPlayers().length; i++) {
 					if (game.getPlayers()[i].isAlive() && i != player) {
-						System.out.println(i + " Player is Alive "
-								+ game.getPlayers()[i].isAlive());
+						System.out.println(i + " Player is Alive " + game.getPlayers()[i].isAlive());
 					}
 				}
 				readIntMinMax("Shoot at", 0, game.getPlayers().length - 1);
 
-			} while (!game.getPlayers()[intinput].isAlive()
-					|| (intinput == player));
+			} while (!game.getPlayers()[intinput].isAlive() || (intinput == player));
 
 			if (!candosomething) {
 				break;
