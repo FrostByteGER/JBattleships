@@ -225,7 +225,7 @@ public class ConsoleUserInterface {
 						.getShips().size() - 1);
 			} while (!game.getPlayers()[player].getShips().get(intinput)
 					.isAlife()
-					&& game.getPlayers()[player].getShips().get(intinput)
+					|| game.getPlayers()[player].getShips().get(intinput)
 							.getCooldown() > 0);
 
 			ship = game.getPlayers()[player].getShips().get(intinput);
