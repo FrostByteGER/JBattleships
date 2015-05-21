@@ -32,7 +32,6 @@ import javax.swing.JRadioButton;
 
 import java.awt.Dimension;
 import java.net.Inet4Address;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
@@ -40,7 +39,6 @@ import javax.swing.JSlider;
 
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
-import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -378,7 +376,6 @@ public class OptionsPanel2 extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("save")){
 					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
-					//TODO: Change later
 					Resolution r = (Resolution) resBox.getSelectedItem();
 					
 					// If a custom resolution was set in the Settings.cfg, the resBox won't possibly have a match, this prevents a NullPointerException!
@@ -391,6 +388,9 @@ public class OptionsPanel2 extends JPanel{
 					
 					if(rdbtnFull.isSelected()){
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_FULLSCREEN);
+						r = Resolution.convertDisplayModeToResolution(JBSCore.screenDeviceManager.getCurrentDisplayMode());
+						JBattleships.game.changeResolution(r);
+						resBox.setSelectedItem(r);
 					}else if(rdbtnWin.isSelected()){
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_WINDOWED);
 					}else if(rdbtnLess.isSelected()){

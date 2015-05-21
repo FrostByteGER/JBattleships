@@ -7,9 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import de.hsb.ismi.jbs.core.JBSCore;
-import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
+import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
-import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -17,21 +16,23 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JTabbedPane;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JLabel;
+
 import javax.swing.border.TitledBorder;
+
 import java.awt.Font;
+
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.SystemColor;
+import java.io.File;
 
 /**
  * @author Kevin Kuegler
@@ -51,14 +52,26 @@ public class PreGameFieldsPanel extends JPanel {
 	private JButton btnCorvette;
 	private JButton btnSubmarine;
 	private JPanel centerPanel;
-	private JPanel panel;
-	private JPanel panel_1;
 	private JTextArea textArea;
 	
+	private int destroyersLeft = 0;
+	private int frigatesLeft = 0;
+	private int corvettesLeft = 0;
+	private int subsLeft = 0;
+	private JButton btnSave;
+	
+	/**
+	 * 
+	 * @param parent
+	 */
 	public PreGameFieldsPanel(JBSGUI parent) {
 		
 		GameManager gm = JBattleships.game.getGameManager();
-		fieldPanel = new GameFieldPanel(new JBSGameField(gm.getPlayers().get(0), gm.getFieldSize()), gm.getFieldSize());
+		destroyersLeft = gm.getDestroyerCount();
+		frigatesLeft = gm.getFrigateCount();
+		corvettesLeft = gm.getCorvetteCount();
+		subsLeft = gm.getSubmarineCount();
+		fieldPanel = new GameFieldPanel(new JBSGameField(gm.getPlayers().get(0), gm.getFieldSize()), 400, gm.getFieldSize());
 		
 		this.parent = parent;
 		this.header = parent.generateHeader();
@@ -110,9 +123,9 @@ public class PreGameFieldsPanel extends JPanel {
 		centerPanel.add(shipPanel, "cell 1 0,grow");
 		shipPanel.setBorder(new TitledBorder(null, "Ship List", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_shipPanel = new GridBagLayout();
-		gbl_shipPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_shipPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_shipPanel.columnWeights = new double[]{1.0};
-		gbl_shipPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_shipPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		shipPanel.setLayout(gbl_shipPanel);
 		
 		textArea = new JTextArea();
@@ -129,7 +142,18 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_textArea.gridy = 0;
 		shipPanel.add(textArea, gbc_textArea);
 		
-		btnDestroyer = new JButton("Destroyer Left: ");
+		btnDestroyer = new JButton("Destroyers Left: " + destroyersLeft);
+		btnDestroyer.setActionCommand("placedest");
+		btnDestroyer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("placedest")){
+					if(destroyersLeft > 0){
+						destroyersLeft--;
+						btnDestroyer.setText("Destroyers Left: " + destroyersLeft);						
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_btnDestroyer = new GridBagConstraints();
 		gbc_btnDestroyer.ipady = 20;
 		gbc_btnDestroyer.fill = GridBagConstraints.HORIZONTAL;
@@ -138,7 +162,7 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnDestroyer.gridy = 1;
 		shipPanel.add(btnDestroyer, gbc_btnDestroyer);
 		
-		btnFrigate = new JButton("Frigates Left: ");
+		btnFrigate = new JButton("Frigates Left: " + frigatesLeft);
 		GridBagConstraints gbc_btnFrigate = new GridBagConstraints();
 		gbc_btnFrigate.ipady = 20;
 		gbc_btnFrigate.fill = GridBagConstraints.HORIZONTAL;
@@ -147,7 +171,7 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnFrigate.gridy = 2;
 		shipPanel.add(btnFrigate, gbc_btnFrigate);
 		
-		btnCorvette = new JButton("Corvettes Left: ");
+		btnCorvette = new JButton("Corvettes Left: " + corvettesLeft);
 		GridBagConstraints gbc_btnCorvette = new GridBagConstraints();
 		gbc_btnCorvette.ipady = 20;
 		gbc_btnCorvette.fill = GridBagConstraints.HORIZONTAL;
@@ -156,14 +180,39 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnCorvette.gridy = 3;
 		shipPanel.add(btnCorvette, gbc_btnCorvette);
 		
-		btnSubmarine = new JButton("Submarines Left: ");
+		btnSubmarine = new JButton("Submarines Left: " + subsLeft);
 		GridBagConstraints gbc_btnSubmarine = new GridBagConstraints();
 		gbc_btnSubmarine.ipady = 20;
-		gbc_btnSubmarine.insets = new Insets(0, 5, 0, 0);
+		gbc_btnSubmarine.insets = new Insets(0, 5, 5, 0);
 		gbc_btnSubmarine.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSubmarine.gridx = 0;
 		gbc_btnSubmarine.gridy = 4;
 		shipPanel.add(btnSubmarine, gbc_btnSubmarine);
+		
+		btnSave = new JButton("Save Game");
+		btnSave.setActionCommand("save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("save")){
+					try {
+						JAXBContext jaxb = JAXBContext.newInstance(Game.class);
+						Marshaller m = jaxb.createMarshaller();
+						m.marshal(JBattleships.game.getGameManager().getGame(), new File("Data/testsave.xml"));
+					} catch (JAXBException jaxbe) {
+						// TODO Auto-generated catch block
+						jaxbe.printStackTrace();
+					}
+
+				}
+			}
+		});
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.insets = new Insets(0, 5, 0, 0);
+		gbc_btnSave.ipady = 20;
+		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnSave.gridx = 0;
+		gbc_btnSave.gridy = 5;
+		shipPanel.add(btnSave, gbc_btnSave);
 		
 		
 		

@@ -5,14 +5,24 @@ package de.hsb.ismi.jbs.engine.core;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class JBSPlayer {
 	
+	@XmlElement(name = "Ship")
+	@XmlElementWrapper(name = "PlayerShips")
 	private ArrayList<JBSShip> ships;
+	@XmlElement(name = "Alive")
 	private boolean isAlive;
+	@XmlElement(name = "PlayerName")
 	private String name;
 	
 	/**

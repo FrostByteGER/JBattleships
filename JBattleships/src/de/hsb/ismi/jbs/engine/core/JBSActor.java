@@ -17,7 +17,7 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	private Vector2i location;
 	private Direction rotation;
 	
-	private boolean ishit;
+	private boolean isHit;
 	
 	private boolean visibility;
 	private JBSActorComponent[] components;
@@ -27,7 +27,7 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	 * 
 	 */
 	public JBSActor() {
-		ishit = false;
+		isHit = false;
 		location = new Vector2i();
 	}
 
@@ -69,11 +69,11 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	}
 
 	public boolean isHit() {
-		return ishit;
+		return isHit;
 	}
 
 	public void setHit(boolean isHit) {
-		this.ishit = isHit;
+		this.isHit = isHit;
 	}
 
 	/**

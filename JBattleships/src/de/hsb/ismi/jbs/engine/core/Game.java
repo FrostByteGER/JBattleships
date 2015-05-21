@@ -3,32 +3,58 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlRootElement(name = "Game")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Game {
 	
-	public DataManager DataM;
+	@XmlTransient
+	private DataManager dataManager;
+	@XmlElement(name = "GameType")
 	private JBSGameType gameType;
-	private JBSGameField[] gameFields;
+	@XmlElement(name = "PlayerField")
+	@XmlElementWrapper(name = "PlayerFields")
+	private JBSGameField[] playerFields;
+	@XmlElement(name = "Player")
+	@XmlElementWrapper(name = "Players")
 	private JBSPlayer[] players;
-	private int activPlayer;
+	@XmlElement(name = "ActivePlayer")
+	private int activePlayer;
+	
+	/**
+	 * TODO: Delete, just a save-test
+	 */
+	public Game(){
+		dataManager = new DataManager();
+		gameType = JBSGameType.GAME_LOCAL;
+		playerFields = new JBSGameField[]{new JBSGameField(new JBSPlayer(), 8)};
+		players = new JBSPlayer[]{new JBSPlayer()};
+	}
 
 	/**
 	 * @param gameType
 	 * @param gameField
 	 * @param players
 	 */
-	public Game(JBSGameType gameType, JBSGameField[] gameField, JBSPlayer[] players) {
+	public Game(JBSGameType gameType, JBSGameField[] gameFields, JBSPlayer[] players) {
 		super();
-		DataM = new DataManager();
+		dataManager = new DataManager();
 		this.gameType = gameType;
-		this.gameFields = gameField;
+		this.playerFields = gameFields;
 		this.players = players;
-		this.activPlayer = 0;//TODO may change
+		this.activePlayer = 0;//TODO may change
 		
 	}
 
@@ -49,15 +75,15 @@ public class Game {
 	/**
 	 * @return the gameField
 	 */
-	public final JBSGameField[] getGameField() {
-		return gameFields;
+	public final JBSGameField[] getPlayerFields() {
+		return playerFields;
 	}
 
 	/**
 	 * @param gameField the gameField to set
 	 */
-	public final void setGameField(JBSGameField[] gameField) {
-		this.gameFields = gameField;
+	public final void setPlayerFields(JBSGameField[] playerFields) {
+		this.playerFields = playerFields;
 	}
 
 	/**
@@ -77,15 +103,15 @@ public class Game {
 	/**
 	 * @return the activPlayer
 	 */
-	public int getActivPlayer() {
-		return activPlayer;
+	public int getActivePlayer() {
+		return activePlayer;
 	}
 
 	/**
-	 * @param activPlayer the activPlayer to set
+	 * @param activePlayer the activPlayer to set
 	 */
-	public void setActivPlayer(int activPlayer) {
-		this.activPlayer = activPlayer;
+	public void setActivePlayer(int activePlayer) {
+		this.activePlayer = activePlayer;
 	}
 	
 	public boolean isGameOver(){
@@ -115,7 +141,9 @@ public class Game {
 	}
 	
 	public final DataManager getDataManager(){
-		return DataM;
+		return dataManager;
 	}
+	
+	
 
 }
