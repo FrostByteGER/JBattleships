@@ -24,9 +24,6 @@ public class Game {
 	private DataManager dataManager;
 	@XmlElement(name = "GameType")
 	private JBSGameType gameType;
-	@XmlElement(name = "PlayerField")
-	@XmlElementWrapper(name = "PlayerFields")
-	private JBSGameField[] playerFields;
 	@XmlElement(name = "Player")
 	@XmlElementWrapper(name = "Players")
 	private JBSPlayer[] players;
@@ -39,23 +36,20 @@ public class Game {
 	public Game(){
 		dataManager = new DataManager();
 		gameType = JBSGameType.GAME_LOCAL;
-		playerFields = new JBSGameField[]{new JBSGameField(new JBSPlayer(), 8)};
 		players = new JBSPlayer[]{new JBSPlayer()};
 	}
-
+	
 	/**
 	 * @param gameType
 	 * @param gameField
 	 * @param players
 	 */
-	public Game(JBSGameType gameType, JBSGameField[] gameFields, JBSPlayer[] players) {
+	public Game(JBSGameType gameType, JBSPlayer[] players) {
 		super();
 		dataManager = new DataManager();
 		this.gameType = gameType;
-		this.playerFields = gameFields;
 		this.players = players;
 		this.activePlayer = 0;//TODO may change
-		
 	}
 
 	/**
@@ -71,19 +65,13 @@ public class Game {
 	public final void setGameType(JBSGameType gameType) {
 		this.gameType = gameType;
 	}
-
+	
 	/**
-	 * @return the gameField
+	 * @param id
+	 * @return
 	 */
-	public final JBSGameField[] getPlayerFields() {
-		return playerFields;
-	}
-
-	/**
-	 * @param gameField the gameField to set
-	 */
-	public final void setPlayerFields(JBSGameField[] playerFields) {
-		this.playerFields = playerFields;
+	public final JBSPlayer getPlayer(int id){
+		return players[id];
 	}
 
 	/**

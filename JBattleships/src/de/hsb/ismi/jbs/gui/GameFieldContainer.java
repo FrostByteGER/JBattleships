@@ -56,7 +56,7 @@ public class GameFieldContainer extends JPanel {
 		
 		splitPane.setRightComponent(uperSiedPanel);
 		
-		mainPanel = new GameFieldPanel(game.getPlayerFields()[0],500,50);
+		mainPanel = new GameFieldPanel(game.getPlayer(0).getPlayerField(),500,50);
 		splitPane.setLeftComponent(mainPanel);
 		mainPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -72,11 +72,11 @@ public class GameFieldContainer extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {		
-				if(game.getPlayerFields().length-1>selectedGameField){
+				if(game.getPlayers().length-1>selectedGameField){
 					selectedGameField++;
 					fieldNumber.setText(String.valueOf(selectedGameField));
 					
-					mainPanel.setGamefild(game.getPlayerFields()[selectedGameField]);
+					mainPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 				}
 			}
 		});
@@ -91,7 +91,7 @@ public class GameFieldContainer extends JPanel {
 					selectedGameField--;
 					fieldNumber.setText(String.valueOf(selectedGameField));
 					
-					mainPanel.setGamefild(game.getPlayerFields()[selectedGameField]);
+					mainPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 				}			
 			}
 		});
@@ -133,8 +133,8 @@ public class GameFieldContainer extends JPanel {
 		p[1] = new JBSPlayer();
 		
 		JBSGameField[] fi = new JBSGameField[2];
-		fi[0] = new JBSGameField(p[0],12);
-		fi[1] = new JBSGameField(p[1],12);
+		fi[0] = new JBSGameField(12);
+		fi[1] = new JBSGameField(12);
 		
 		DataManager dm = new DataManager();
 		
@@ -166,7 +166,7 @@ public class GameFieldContainer extends JPanel {
 		
 		fi[1].setShip(p[1].getShips().get(0));
 		
-		Game game = new Game(JBSGameType.GAME_LOCAL, fi, p);
+		Game game = new Game(JBSGameType.GAME_LOCAL, p);
 		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setContentPane(new GameFieldContainer(game));

@@ -71,7 +71,7 @@ public class PreGameFieldsPanel extends JPanel {
 		frigatesLeft = gm.getFrigateCount();
 		corvettesLeft = gm.getCorvetteCount();
 		subsLeft = gm.getSubmarineCount();
-		fieldPanel = new GameFieldPanel(new JBSGameField(gm.getPlayers().get(0), gm.getFieldSize()), 400, gm.getFieldSize());
+		fieldPanel = new GameFieldPanel(new JBSGameField(gm.getFieldSize()), 400, gm.getFieldSize());
 		
 		this.parent = parent;
 		this.header = parent.generateHeader();

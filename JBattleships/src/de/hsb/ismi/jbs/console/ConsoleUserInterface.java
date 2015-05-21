@@ -102,16 +102,20 @@ public class ConsoleUserInterface {
 		int y = 0;
 
 		do {
-			game.getPlayerFields()[playernumber].resetActorFields();
+			game.getPlayer(playernumber).getPlayerField().resetActorFields();
+			//game.getPlayerFields()[playernumber].resetActorFields();
 			for (JBSShip ship : player.getShips()) {
 				do {
 					cls();
 					System.out.println("Player " + playernumber);
-					game.getPlayerFields()[playernumber].printField(true);
+					//game.getPlayerFields()[playernumber].printField(true);
+					game.getPlayer(playernumber).getPlayerField().printField(true);
 					System.out.println("Shiptype: " + ship.getName());
-					readIntMinMax("Ship x 0-" + (game.getPlayerFields()[playernumber].getSize() - 1), 0, game.getPlayerFields()[playernumber].getSize());
+					//readIntMinMax("Ship x 0-" + (game.getPlayerFields()[playernumber].getSize() - 1), 0, game.getPlayerFields()[playernumber].getSize());
+					readIntMinMax("Ship x 0-" + (game.getPlayer(playernumber).getPlayerField().getSize() - 1), 0, game.getPlayer(playernumber).getPlayerField().getSize());
 					x = intinput;
-					readIntMinMax("Ship y 0-"+ (game.getPlayerFields()[playernumber].getSize() - 1),0, game.getPlayerFields()[playernumber].getSize());
+					//readIntMinMax("Ship y 0-"+ (game.getPlayerFields()[playernumber].getSize() - 1),0, game.getPlayerFields()[playernumber].getSize());
+					readIntMinMax("Ship y 0-"+ (game.getPlayer(playernumber).getPlayerField().getSize() - 1),0, game.getPlayer(playernumber).getPlayerField().getSize());
 					y = intinput;
 
 					while (true) {
@@ -141,11 +145,10 @@ public class ConsoleUserInterface {
 
 					ship.setPositon(x, y, ship.getDirection());
 
-				} while (!game.getPlayerFields()[playernumber]
-						.shipCanBePlaced(ship));
-				game.getPlayerFields()[playernumber].setShip(ship);
+				} while (game.getPlayer(playernumber).getPlayerField().shipCanBePlaced(ship));
+				game.getPlayer(playernumber).getPlayerField().setShip(ship);
 			}
-			game.getPlayerFields()[playernumber].printField(true);
+			game.getPlayer(playernumber).getPlayerField().printField(true);
 		} while (!readStringYN("Are the information correct? y/n"));
 
 	}
@@ -201,7 +204,7 @@ public class ConsoleUserInterface {
 
 			shootat = intinput;
 
-			game.getPlayerFields()[shootat].printField(false);
+			game.getPlayer(shootat).getPlayerField().printField(false);
 
 		} while (!readStringYN("Do you want to shoot him? y/n"));
 
@@ -220,16 +223,16 @@ public class ConsoleUserInterface {
 
 			cls();
 
-			game.getPlayerFields()[shootat].printField(false);
+			game.getPlayer(shootat).getPlayerField().printField(false);
 			readIntMinMax(
 					"shoot at X 0-"
-							+ (game.getPlayerFields()[player].getSize() - 1), 0,
-					game.getPlayerFields()[player].getSize() - 1);
+							+ (game.getPlayer(player).getPlayerField().getSize() - 1), 0,
+							game.getPlayer(player).getPlayerField().getSize() - 1);
 			xshoot = intinput;
 			readIntMinMax(
 					"shoot at Y 0-"
-							+ (game.getPlayerFields()[player].getSize() - 1), 0,
-					game.getPlayerFields()[player].getSize() - 1);
+							+ (game.getPlayer(player).getPlayerField().getSize() - 1), 0,
+							game.getPlayer(player).getPlayerField().getSize() - 1);
 			yshoot = intinput;
 
 			while (true) {
@@ -258,7 +261,7 @@ public class ConsoleUserInterface {
 			}
 			cls();
 
-			game.getPlayerFields()[shootat].printField(false);
+			game.getPlayer(shootat).getPlayerField().printField(false);
 			printDirections();
 			System.out.println(ship.getName());
 			System.out.println("Health " + ship.getHealth() + "/"
@@ -277,9 +280,9 @@ public class ConsoleUserInterface {
 			}
 
 		} while (!readStringYN("Are the information correct? y/n"));
-		ship.shot(xshoot, yshoot, direction, game.getPlayerFields()[shootat]);
+		ship.shot(xshoot, yshoot, direction, game.getPlayer(shootat).getPlayerField());
 		ship.setCooldown(ship.getCooldownLimit());
-		game.getPlayerFields()[shootat].printField(false);
+		game.getPlayer(shootat).getPlayerField().printField(false);
 		
 		while(!readStringYN("Continue ? y/n")){
 		}
