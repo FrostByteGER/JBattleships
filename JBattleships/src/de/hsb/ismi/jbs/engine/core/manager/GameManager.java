@@ -113,7 +113,14 @@ public class GameManager {
 	}
 	
 	public final int getFieldSize(){
-		return game.getGameField()[0].getSize(); //TODO: Change, could be null!
+		return game.getPlayerFields()[0].getSize(); //TODO: Change, could be null!
+	}
+
+	/**
+	 * @return the game
+	 */
+	public final Game getGame() {
+		return game;
 	}
 	
 }

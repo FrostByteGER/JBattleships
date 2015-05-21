@@ -56,7 +56,7 @@ public class GameFieldContainer extends JPanel {
 		
 		splitPane.setRightComponent(uperSiedPanel);
 		
-		mainPanel = new GameFieldPanel(game.getGameField()[0],500,50);
+		mainPanel = new GameFieldPanel(game.getPlayerFields()[0],500,50);
 		splitPane.setLeftComponent(mainPanel);
 		mainPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -72,11 +72,11 @@ public class GameFieldContainer extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {		
-				if(game.getGameField().length-1>selectedGameField){
+				if(game.getPlayerFields().length-1>selectedGameField){
 					selectedGameField++;
 					fieldNumber.setText(String.valueOf(selectedGameField));
 					
-					mainPanel.setGamefild(game.getGameField()[selectedGameField]);
+					mainPanel.setGamefild(game.getPlayerFields()[selectedGameField]);
 				}
 			}
 		});
@@ -91,7 +91,7 @@ public class GameFieldContainer extends JPanel {
 					selectedGameField--;
 					fieldNumber.setText(String.valueOf(selectedGameField));
 					
-					mainPanel.setGamefild(game.getGameField()[selectedGameField]);
+					mainPanel.setGamefild(game.getPlayerFields()[selectedGameField]);
 				}			
 			}
 		});
@@ -112,7 +112,7 @@ public class GameFieldContainer extends JPanel {
 	
 	public void loadShips(){
 		
-		for(JBSShip ship : game.getPlayers()[game.getActivPlayer()].getShips()){
+		for(JBSShip ship : game.getPlayers()[game.getActivePlayer()].getShips()){
 		//	uperSiedPanel.addShip(ship);
 		}
 	}

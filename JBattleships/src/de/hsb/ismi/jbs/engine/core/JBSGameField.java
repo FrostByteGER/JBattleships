@@ -3,22 +3,35 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
+
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class JBSGameField {
 
-	private JBSActor[][] fields;
+	@XmlElement(name = "ActorField")
+	@XmlElementWrapper(name = "GameActorFields")
+	private JBSActor[][] actorFields;
+	@XmlElement(name = "GameFieldSize")
 	private int size;
+	@XmlElement(name = "Parent")
 	private JBSPlayer player;
+	@XmlTransient
 	public JBSActor water;
-	public JBSActor water_hit;
+	@XmlTransient
+	public JBSActor waterHitDummy;
 
 	/**
-	 * @param fields
+	 * @param actorFields
 	 * @param size
 	 */
 	public JBSGameField(JBSPlayer player, int size) {
@@ -27,16 +40,16 @@ public class JBSGameField {
 		this.size = size;
 		
 		water = new JBSActor();
-		water_hit = new JBSActor();
+		waterHitDummy = new JBSActor();
 		
 		water.setHit(false);
-		water_hit.setHit(true);
+		waterHitDummy.setHit(true);
 		
-		fields = new JBSActor[size][size];
+		actorFields = new JBSActor[size][size];
 		
 		for(int i = 0 ; i < size ; i++){
 			for (int j = 0 ; j < size ; j++){
-				fields[i][j] = water;
+				actorFields[i][j] = water;
 			}
 		}
 		
@@ -47,35 +60,35 @@ public class JBSGameField {
 	}
 
 	/**
-	 * @return the fields
+	 * @return the actorFields
 	 */
 	public final JBSActor[][] getFields() {
-		return fields;
+		return actorFields;
 	}
 	
 	public JBSActor getField(int x,int y){
-		return fields[x][y];
+		return actorFields[x][y];
 	}
 	
 	public boolean isFieldWater(int x ,int y){
-		return(fields[x][y]==water);
+		return(actorFields[x][y]==water);
 	}
 	
 	public boolean isFieldWaterHit(int x ,int y){
-		return(fields[x][y]==water_hit);
+		return(actorFields[x][y]==waterHitDummy);
 	}
 	
 	/**
-	 * @param fields the fields to set
+	 * @param actorFields the actorFields to set
 	 */
-	public final void setFields(JBSActor[][] fields) {
-		this.fields = fields;
+	public final void setActorFields(JBSActor[][] fields) {
+		this.actorFields = fields;
 	}
 	
-	public void resetField(){
+	public void resetActorFields(){
 		for(int i = 0 ; i < size ; i++){
 			for(int j = 0 ; j < size ; j++){
-				this.fields[i][j] = water;
+				this.actorFields[i][j] = water;
 			}	
 		}
 	}
@@ -83,11 +96,11 @@ public class JBSGameField {
 	public void shootField(int x,int y){
 		if(x > size || y > size){
 		}else{
-			if(fields[x][y] == water){
-				fields[x][y] = water_hit;
-			}else if(fields[x][y] == water_hit){
+			if(actorFields[x][y] == water){
+				actorFields[x][y] = waterHitDummy;
+			}else if(actorFields[x][y] == waterHitDummy){
 			}else{
-				fields[x][y].setHit(true);;
+				actorFields[x][y].setHit(true);;
 			}
 		}
 	}
@@ -121,7 +134,7 @@ public class JBSGameField {
 						continue;
 					}else if(actor.getLocation().getY()+j < 0 || actor.getLocation().getY()+j >= size){
 						continue;
-					}else if(fields[actor.getLocation().getX()+i][actor.getLocation().getY()+j] != water){
+					}else if(actorFields[actor.getLocation().getX()+i][actor.getLocation().getY()+j] != water){
 						return false;
 					}
 				}
@@ -133,7 +146,7 @@ public class JBSGameField {
 	public boolean setShip(JBSShip ship){
 		if(shipCanBePlaced(ship)){
 			for(JBSActor actor : ship.getShipActors()){
-				fields[actor.getLocation().getX()][actor.getLocation().getY()] = actor;
+				actorFields[actor.getLocation().getX()][actor.getLocation().getY()] = actor;
 			}
 			return true;
 		}
@@ -143,7 +156,7 @@ public class JBSGameField {
 	// DEBUG
 	public void printField(boolean visible){
 		System.out.print("x/y");
-		for(int i = 0 ; i < fields.length ;i++){
+		for(int i = 0 ; i < actorFields.length ;i++){
 			
 			if(i < 10){
 				System.out.print(" "+i+" ");
@@ -152,21 +165,21 @@ public class JBSGameField {
 			}
 		}
 		System.out.println();
-		for(int i = 0 ; i < fields.length ; i++){
+		for(int i = 0 ; i < actorFields.length ; i++){
 			if(i < 10){
 				System.out.print(i+"  ");
 			}else{
 				System.out.print(i+" ");
 			}
-			for(int j = 0 ; j < fields[i].length ; j++){
+			for(int j = 0 ; j < actorFields[i].length ; j++){
 				
-				if(fields[i][j] == water){
+				if(actorFields[i][j] == water){
 					System.out.print("--");
-				}else if(fields[i][j] == water_hit){
+				}else if(actorFields[i][j] == waterHitDummy){
 					System.out.print("~~");
 				}else if(visible){
 					System.out.print("BB");
-				}else if(fields[i][j].isHit()){
+				}else if(actorFields[i][j].isHit()){
 					System.out.print("XX");
 				}else{
 					System.out.print("--");

@@ -13,6 +13,7 @@ import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
  * @author Kevin-Laptop Kuegler
@@ -31,15 +32,6 @@ public class TestingClassKevin {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try {
-			Game g = new Game();
-			JAXBContext jaxb = JAXBContext.newInstance(Game.class);
-			Marshaller m = jaxb.createMarshaller();
-			m.marshal(g, new File("Data/testsave.xml"));
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 	}
 
