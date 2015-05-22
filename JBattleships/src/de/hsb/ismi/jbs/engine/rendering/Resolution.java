@@ -33,7 +33,7 @@ public class Resolution extends Vector2i {
 	 * @return
 	 */
 	public int getWidth(){
-		return getX();
+		return super.getX();
 	}
 	
 	/**
@@ -41,7 +41,26 @@ public class Resolution extends Vector2i {
 	 * @param width
 	 */
 	public void setWidth(int width){
-		setX(width);
+		super.setX(width);
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.utility.Vector2i#getX()
+	 */
+	@Deprecated
+	@Override
+	public int getX() {
+		return super.getX();
+	}
+	
+	/* 
+	 * (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.utility.Vector2i#setX(int)
+	 */
+	@Deprecated
+	@Override
+	public void setX(int x) {
+		super.setX(x);
 	}
 	
 	/**
@@ -49,7 +68,7 @@ public class Resolution extends Vector2i {
 	 * @return
 	 */
 	public int getHeight(){
-		return getY();
+		return super.getY();
 	}
 	
 	/**
@@ -57,7 +76,27 @@ public class Resolution extends Vector2i {
 	 * @param height
 	 */
 	public void setHeight(int height){
-		setY(height);
+		super.setY(height);
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.utility.Vector2i#getY()
+	 */
+	@Deprecated
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return super.getY();
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.utility.Vector2i#setY(int)
+	 */
+	@Deprecated
+	@Override
+	public void setY(int y) {
+		// TODO Auto-generated method stub
+		super.setY(y);
 	}
 	
 	/* (non-Javadoc)
@@ -93,6 +132,8 @@ public class Resolution extends Vector2i {
 	public static Resolution convertDisplayModeToResolution(DisplayMode m){
 		return new Resolution(m.getWidth(),m.getHeight());
 	}
+	
+	
 	
 
 }
