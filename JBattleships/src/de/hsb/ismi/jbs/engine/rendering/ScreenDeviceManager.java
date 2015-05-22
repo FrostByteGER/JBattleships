@@ -19,6 +19,9 @@ public class ScreenDeviceManager {
 	private GraphicsEnvironment ge;
 	private GraphicsDevice currentAdapter;
 	private final int supportedBitDepth = 32;
+	private final Resolution minResolution = new Resolution(800, 600);
+	@Deprecated
+	private final Resolution maxResolution = new Resolution(1920, 1080);
 	
 	/**
 	 * 
@@ -53,7 +56,7 @@ public class ScreenDeviceManager {
 		ArrayList<DisplayMode> supportedModes = new ArrayList<>(0);
 		for(DisplayMode m : currentAdapter.getDisplayModes()){
 			for(int ref : supportedRefreshRates){
-				if(ref == m.getRefreshRate() && supportedBitDepth == m.getBitDepth()){
+				if(ref == m.getRefreshRate() && supportedBitDepth == m.getBitDepth() && (m.getWidth() >= minResolution.getWidth() && m.getHeight() >= minResolution.getHeight())){
 					supportedModes.add(m);
 				}
 			}
