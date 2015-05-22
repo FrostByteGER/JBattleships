@@ -142,13 +142,13 @@ public class JBSShip {
 		
 		for(int i = 0 ; i < shotpower ; i++){
 			if(direction == Direction.NORTH){				
-				field.shootField(x, y+i);
-			}else if(direction == Direction.EAST){
-				field.shootField(x-i, y);
-			}else if(direction == Direction.SOUTH){
 				field.shootField(x, y-i);
-			}else if(direction == Direction.WEST){
+			}else if(direction == Direction.EAST){
 				field.shootField(x+i, y);
+			}else if(direction == Direction.SOUTH){
+				field.shootField(x, y+i);
+			}else if(direction == Direction.WEST){
+				field.shootField(x-i, y);
 			}			
 		}
 		
@@ -163,15 +163,15 @@ public class JBSShip {
 		for(int i = 0 ; i < shipActors.size() ; i++){
 			if(direction == Direction.NORTH){
 				shipActors.get(i).getLocation().setX(x);
-				shipActors.get(i).getLocation().setY(y+i);
+				shipActors.get(i).getLocation().setY(y-i);
 			}else if(direction == Direction.EAST){
-				shipActors.get(i).getLocation().setX(x-i);
+				shipActors.get(i).getLocation().setX(x+i);
 				shipActors.get(i).getLocation().setY(y);
 			}else if(direction == Direction.SOUTH){
 				shipActors.get(i).getLocation().setX(x);
-				shipActors.get(i).getLocation().setY(y-i);
+				shipActors.get(i).getLocation().setY(y+i);
 			}else if(direction == Direction.WEST){
-				shipActors.get(i).getLocation().setX(x+i);
+				shipActors.get(i).getLocation().setX(x-i);
 				shipActors.get(i).getLocation().setY(y);
 			}			
 		}
