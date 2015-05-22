@@ -32,7 +32,7 @@ public class Resolution extends Vector2i {
 	 * 
 	 * @return
 	 */
-	public int getWidth(){
+	public final int getWidth(){
 		return super.getX();
 	}
 	
@@ -40,7 +40,7 @@ public class Resolution extends Vector2i {
 	 * 
 	 * @param width
 	 */
-	public void setWidth(int width){
+	public final void setWidth(int width){
 		super.setX(width);
 	}
 	
@@ -49,7 +49,7 @@ public class Resolution extends Vector2i {
 	 */
 	@Deprecated
 	@Override
-	public int getX() {
+	public final int getX() {
 		return super.getX();
 	}
 	
@@ -59,7 +59,7 @@ public class Resolution extends Vector2i {
 	 */
 	@Deprecated
 	@Override
-	public void setX(int x) {
+	public final void setX(int x) {
 		super.setX(x);
 	}
 	
@@ -67,7 +67,7 @@ public class Resolution extends Vector2i {
 	 * 
 	 * @return
 	 */
-	public int getHeight(){
+	public final int getHeight(){
 		return super.getY();
 	}
 	
@@ -75,7 +75,7 @@ public class Resolution extends Vector2i {
 	 * 
 	 * @param height
 	 */
-	public void setHeight(int height){
+	public final void setHeight(int height){
 		super.setY(height);
 	}
 	
@@ -84,7 +84,7 @@ public class Resolution extends Vector2i {
 	 */
 	@Deprecated
 	@Override
-	public int getY() {
+	public final int getY() {
 		// TODO Auto-generated method stub
 		return super.getY();
 	}
@@ -94,7 +94,7 @@ public class Resolution extends Vector2i {
 	 */
 	@Deprecated
 	@Override
-	public void setY(int y) {
+	public final void setY(int y) {
 		// TODO Auto-generated method stub
 		super.setY(y);
 	}
