@@ -2,6 +2,9 @@ package de.hsb.ismi.jbs.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
@@ -16,12 +19,20 @@ public class GameSidePanel2 extends JPanel {
 	private Color cooldownColor;
 	private Color healthColor;
 	private Color dethColor;
+	private Color selectedColor;
+	private Color hoverColor;
 	private int height;
 	private int width;
 	private int buttonheight;
 	private int buttonwidth;
 	private int nameheightoffset;
 	private int namewidthoffset;
+	private boolean isSelected;
+	private int selectedship;
+	private int hovership;
+	private int hovery = 0;
+	
+	private GameSidePanel2 panel;
 	
 	public GameSidePanel2(JBSPlayer player) {
 		this.player = player;
@@ -30,6 +41,8 @@ public class GameSidePanel2 extends JPanel {
 		cooldownColor = Color.BLUE;
 		healthColor = Color.GREEN;
 		dethColor = Color.RED;
+		selectedColor = new Color(100,100,100,100);
+		hoverColor = new Color(100,100,100,50);
 		
 		setBackground(Color.GRAY);
 		
@@ -38,6 +51,64 @@ public class GameSidePanel2 extends JPanel {
 		
 		nameheightoffset = 20;
 		namewidthoffset = 10;
+		
+		panel  = this;
+		
+		addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				if(isSelected){
+					if(hovery != (e.getY()-(e.getY()%buttonheight))/buttonheight){
+						hovery = (e.getY()-(e.getY()%buttonheight))/buttonheight;
+						panel.repaint();
+					}							
+				}
+			}
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				isSelected = false;
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				isSelected = true;
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getButton() == 1){
+					selectedship = hovery;
+					panel.repaint();
+				}
+			}
+		});
+		
+		
 	}
 	
 	@Override
@@ -53,6 +124,13 @@ public class GameSidePanel2 extends JPanel {
 		for(int i = 0 ; i < player.getShips().size() ; i++){		
 			printButton(g, 0, i*buttonheight, player.getShips().get(i));	
 		}
+		
+		g.setColor(selectedColor);
+		g.fillRect(0, selectedship*buttonheight, buttonwidth, buttonheight);
+		
+		g.setColor(hoverColor);
+		g.fillRect(0, hovery*buttonheight, buttonwidth, buttonheight);
+		
 	}
 	
 	private void printButton(Graphics g, int x, int y, JBSShip ship) {
@@ -82,6 +160,90 @@ public class GameSidePanel2 extends JPanel {
 	private float getCooldownP(JBSShip ship){
 		return (((float)ship.getCooldown())/((float)ship.getCooldownLimit()));
 	}
-	
-	
+
+	public Color getButtonColor() {
+		return buttonColor;
+	}
+
+	public void setButtonColor(Color buttonColor) {
+		this.buttonColor = buttonColor;
+	}
+
+	public Color getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(Color textColor) {
+		this.textColor = textColor;
+	}
+
+	/**
+	 * @return the cooldownColor
+	 */
+	public Color getCooldownColor() {
+		return cooldownColor;
+	}
+
+	/**
+	 * @param cooldownColor the cooldownColor to set
+	 */
+	public void setCooldownColor(Color cooldownColor) {
+		this.cooldownColor = cooldownColor;
+	}
+
+	/**
+	 * @return the healthColor
+	 */
+	public Color getHealthColor() {
+		return healthColor;
+	}
+
+	/**
+	 * @param healthColor the healthColor to set
+	 */
+	public void setHealthColor(Color healthColor) {
+		this.healthColor = healthColor;
+	}
+
+	/**
+	 * @return the dethColor
+	 */
+	public Color getDethColor() {
+		return dethColor;
+	}
+
+	/**
+	 * @param dethColor the dethColor to set
+	 */
+	public void setDethColor(Color dethColor) {
+		this.dethColor = dethColor;
+	}
+
+	/**
+	 * @return the selectedColor
+	 */
+	public Color getSelectedColor() {
+		return selectedColor;
+	}
+
+	/**
+	 * @param selectedColor the selectedColor to set
+	 */
+	public void setSelectedColor(Color selectedColor) {
+		this.selectedColor = selectedColor;
+	}
+
+	/**
+	 * @return the hoverColor
+	 */
+	public Color getHoverColor() {
+		return hoverColor;
+	}
+
+	/**
+	 * @param hoverColor the hoverColor to set
+	 */
+	public void setHoverColor(Color hoverColor) {
+		this.hoverColor = hoverColor;
+	}	
 }

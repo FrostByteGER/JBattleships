@@ -22,6 +22,7 @@ import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 public class GameFieldContainer extends JPanel {
@@ -56,7 +57,7 @@ public class GameFieldContainer extends JPanel {
 		
 		splitPane.setRightComponent(uperSiedPanel);
 		
-		mainPanel = new GameFieldPanel(game.getPlayer(0).getPlayerField(),500,50);
+		mainPanel = new GameFieldPanel(game.getPlayers()[0].getPlayerField(),500,50);
 		splitPane.setLeftComponent(mainPanel);
 		mainPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -125,48 +126,29 @@ public class GameFieldContainer extends JPanel {
 	}
 	
 	public static void main(String[] args) {
+		
+		GameManager pre = new GameManager(new DataManager());
+		
+		pre.addPlayer(new JBSPlayer());
+		pre.addPlayer(new JBSPlayer());
+		
+		pre.setDestroyerCount(1);	
+		pre.setCorvetteCount(4);
+		pre.setFrigateCount(3);
+		pre.setSubmarineCount(3);
+		
+		
+		
 		JFrame f = new JFrame();
 		f.setBounds(100, 100, 1000, 800);
 		
-		JBSPlayer[] p = new JBSPlayer[2];
-		p[0] = new JBSPlayer();
-		p[1] = new JBSPlayer();
+		Game game = pre.createGame(JBSGameType.GAME_LOCAL, 16);
 		
-		JBSGameField[] fi = new JBSGameField[2];
-		fi[0] = new JBSGameField(12);
-		fi[1] = new JBSGameField(12);
-		
-		DataManager dm = new DataManager();
-		
-		JBSShip s = new JBSDestroyer(dm);
-		
-		s.setHealth(3);
-		s.setCooldown(2);
-		
-		p[0].addShip(s);
-		p[0].addShip(new JBSCorvette(dm));
-		p[0].addShip(new JBSFrigate(dm));
-		p[0].addShip(new JBSSubmarine(dm));
-		p[0].addShip(new JBSDestroyer(dm));
-		p[0].addShip(new JBSCorvette(dm));
-		p[0].addShip(new JBSFrigate(dm));
-		p[0].addShip(new JBSSubmarine(dm));
-		p[0].addShip(new JBSDestroyer(dm));
-		p[0].addShip(new JBSCorvette(dm));
-		p[0].addShip(new JBSFrigate(dm));
-		p[0].addShip(new JBSSubmarine(dm));
-		
-		p[1].addShip(new JBSCorvette(dm));
-		
-		p[0].getShips().get(0).setPositon(0, 0, Direction.NORTH);
-		
-		fi[0].setShip(p[0].getShips().get(0));
-		
-		p[1].getShips().get(0).setPositon(0, 0, Direction.WEST);
-		
-		fi[1].setShip(p[1].getShips().get(0));
-		
-		Game game = new Game(JBSGameType.GAME_LOCAL, p);
+		game.getPlayers()[0].getShips().get(0).setPositon(0, 0, Direction.SOUTH);
+		game.getPlayers()[0].getPlayerField().setShip(game.getPlayers()[0].getShips().get(0));
+		game.getPlayers()[0].getShips().get(0).setHealth(3);
+		game.getPlayers()[0].getShips().get(0).setCooldown(2);
+		game.getPlayers()[1].getShips().get(0).setPositon(0, 0, Direction.WEST);
 		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setContentPane(new GameFieldContainer(game));

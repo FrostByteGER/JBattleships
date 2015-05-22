@@ -24,7 +24,10 @@ public class GameFieldPanel extends JPanel {
 	
 	private Color gridColor;
 	private Color selectColor;
+	private Color hoverColor;
 	private boolean isSelected;
+	private int hoverx;
+	private int hovery;
 	private int selectx;
 	private int selecty;
 	
@@ -37,10 +40,10 @@ public class GameFieldPanel extends JPanel {
 		this.gamefild = fild;
 		gridColor = Color.RED;
 		selectColor = new Color(100,100,100,100);
-		
+		hoverColor = new Color(100,100,100,50);
 		isSelected = false;
-		selectx = 0;
-		selecty = 0;
+		hoverx = 0;
+		hovery = 0;
 		
 		direction = Direction.NORTH;
 		
@@ -88,8 +91,10 @@ public class GameFieldPanel extends JPanel {
 					}else if(direction == Direction.WEST){
 						direction = Direction.NORTH;
 					}
+				}else if(arg0.getButton() == 1){
+					selectx = hoverx;
+					selecty = hovery;
 				}
-				
 			}
 		});
 		
@@ -98,18 +103,18 @@ public class GameFieldPanel extends JPanel {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				if(isSelected){
-					if(selectx != ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize ||
-							selecty != ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize){
+					if(hoverx != ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize ||
+							hovery != ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize){
 						panel.repaint();
 					}
 					
 					if(((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize < fild.getSize() && 
 							((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize >= 0){
-						selectx = ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize;
+						hoverx = ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize;
 					}
 					if(((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize < fild.getSize() &&
 							((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize >= 0){
-						selecty = ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize;
+						hovery = ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize;
 					}
 				}
 				
@@ -168,23 +173,41 @@ public class GameFieldPanel extends JPanel {
 		}
 		
 		if(isSelected){
-			g.setColor(selectColor);		
-			g.fillRect(selectx*gridsize+xofset, selecty*gridsize+yofset, gridsize, gridsize);
+			g.setColor(hoverColor);		
+			g.fillRect(hoverx*gridsize+xofset, hovery*gridsize+yofset, gridsize, gridsize);
 			
 			g.setColor(Color.WHITE);			
 			if(direction == Direction.NORTH){
-				g.drawString("^", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+				g.drawString("^", hoverx*gridsize+xofset+gridsize/2, hovery*gridsize+yofset+gridsize/2);
 				panel.repaint();
 			}else if(direction == Direction.EAST){
-				g.drawString(">", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+				g.drawString(">", hoverx*gridsize+xofset+gridsize/2, hovery*gridsize+yofset+gridsize/2);
 				panel.repaint();
 			}else if(direction == Direction.SOUTH){
-				g.drawString("v", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+				g.drawString("v", hoverx*gridsize+xofset+gridsize/2, hovery*gridsize+yofset+gridsize/2);
 				panel.repaint();
 			}else if(direction == Direction.WEST){
-				g.drawString("<", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+				g.drawString("<", hoverx*gridsize+xofset+gridsize/2, hovery*gridsize+yofset+gridsize/2);
 				panel.repaint();
 			}
+		}
+		
+		g.setColor(selectColor);		
+		g.fillRect(selectx*gridsize+xofset, selecty*gridsize+yofset, gridsize, gridsize);
+		
+		g.setColor(Color.WHITE);			
+		if(direction == Direction.NORTH){
+			g.drawString("^", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+			panel.repaint();
+		}else if(direction == Direction.EAST){
+			g.drawString(">", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+			panel.repaint();
+		}else if(direction == Direction.SOUTH){
+			g.drawString("v", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+			panel.repaint();
+		}else if(direction == Direction.WEST){
+			g.drawString("<", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+			panel.repaint();
 		}
 		
 		g.setColor(gridColor);
@@ -259,4 +282,18 @@ public class GameFieldPanel extends JPanel {
 	public Direction getDirection() {
 		return direction;
 	}
+
+	/**
+	 * @return the hoverColor
+	 */
+	public Color getHoverColor() {
+		return hoverColor;
+	}
+
+	/**
+	 * @param hoverColor the hoverColor to set
+	 */
+	public void setHoverColor(Color hoverColor) {
+		this.hoverColor = hoverColor;
+	}	
 }
