@@ -39,6 +39,7 @@ import javax.swing.JSlider;
 
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
+import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -125,7 +126,7 @@ public class OptionsPanel2 extends JPanel{
 		DisplayMode[] modes = JBSCore.screenDeviceManager.getSupportedDisplayModes(new int[]{60});
 		Resolution[] res = new Resolution[modes.length];
 		for(int i = 0; i < modes.length; i++){
-			res[i] = new Resolution(modes[i].getWidth(), modes[i].getHeight());
+			res[i] = Resolution.convertDisplayModeToResolution(modes[i]);
 		}
 		int index = -1;
 		for(int j = 0; j < res.length; j++){

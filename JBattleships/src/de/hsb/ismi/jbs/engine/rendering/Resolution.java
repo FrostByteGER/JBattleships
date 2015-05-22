@@ -21,11 +21,43 @@ public class Resolution extends Vector2i {
 	}
 
 	/**
-	 * @param x
-	 * @param y
+	 * @param width
+	 * @param height
 	 */
-	public Resolution(int x, int y) {
-		super(x, y);
+	public Resolution(int width, int height) {
+		super(width, height);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getWidth(){
+		return getX();
+	}
+	
+	/**
+	 * 
+	 * @param width
+	 */
+	public void setWidth(int width){
+		setX(width);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getHeight(){
+		return getY();
+	}
+	
+	/**
+	 * 
+	 * @param height
+	 */
+	public void setHeight(int height){
+		setY(height);
 	}
 	
 	/* (non-Javadoc)
@@ -50,7 +82,7 @@ public class Resolution extends Vector2i {
 	 */
 	@Override
 	public String toString() {
-		return getX() + "x" + getY();
+		return getWidth() + "x" + getHeight();
 	}
 	
 	/**
