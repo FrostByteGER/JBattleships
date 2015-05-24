@@ -182,7 +182,7 @@ public class PreGamePanel extends JPanel {
 					JBSCore.msgLogger.addMessage("Created Game!");
 					JBSCore.msgLogger.addMessage(gm.toString());
 					
-					parent.swapContainer(new PreGameFieldsPanel(PreGamePanel.this.parent));
+					parent.swapContainer(new PreGamePlacingPanel(PreGamePanel.this.parent));
 					//parent.swapContainer(new ColorPickerPanel());
 				}
 			}
