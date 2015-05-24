@@ -33,7 +33,7 @@ public class JBSGUI{
 	private Stack<JPanel> panelStack;
 	
 	private MainPanel mainPanel;
-	private OptionsPanel2 optionsPanel;
+	private OptionsPanel optionsPanel;
 	
 	private BufferedImage backgroundImage;
 
@@ -56,7 +56,7 @@ public class JBSGUI{
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		optionsPanel = new OptionsPanel2(this);
+		optionsPanel = new OptionsPanel(this);
 		mainPanel = new MainPanel(this);
 		//TODO: Remove add call
 		contentPane.add(mainPanel,BorderLayout.CENTER);
@@ -129,7 +129,7 @@ public class JBSGUI{
 	/**
 	 * @return the optionsPanel
 	 */
-	public final OptionsPanel2 getOptionsPanel() {
+	public final OptionsPanel getOptionsPanel() {
 		return optionsPanel;
 	}
 	

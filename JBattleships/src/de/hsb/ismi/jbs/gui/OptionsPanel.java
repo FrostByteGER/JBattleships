@@ -52,7 +52,7 @@ import javax.swing.JCheckBox;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class OptionsPanel2 extends JPanel{
+public class OptionsPanel extends JPanel{
 	
 	private JBSGUI parent;
 	private JPanel centerPanel;
@@ -89,7 +89,7 @@ public class OptionsPanel2 extends JPanel{
 	/**
 	 * 
 	 */
-	public OptionsPanel2(JBSGUI parent) {
+	public OptionsPanel(JBSGUI parent) {
 		this.parent = parent;
 		setLayout(new BorderLayout(0, 0));
 		add(parent.generateHeader(), BorderLayout.NORTH);
@@ -364,7 +364,7 @@ public class OptionsPanel2 extends JPanel{
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("reset")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
 				}
 			}
 		});
@@ -376,7 +376,7 @@ public class OptionsPanel2 extends JPanel{
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("save")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
 					Resolution r = (Resolution) resBox.getSelectedItem();
 					
 					// If a custom resolution was set in the Settings.cfg, the resBox won't possibly have a match, this prevents a NullPointerException!
@@ -411,8 +411,8 @@ public class OptionsPanel2 extends JPanel{
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("back")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
-					OptionsPanel2.this.parent.swapContainer(OptionsPanel2.this.parent.getMainPanel());
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
+					OptionsPanel.this.parent.swapContainer(OptionsPanel.this.parent.getMainPanel());
 				}
 			}
 		});
