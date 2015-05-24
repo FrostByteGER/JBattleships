@@ -261,7 +261,7 @@ public class JBSCore {
 	 * @param gameManager the gameManager to set
 	 */
 	public final void generateGame() {
-		this.gameManager = new GameManager(dataManager);
+		this.gameManager = new GameManager();
 	}
 
 }

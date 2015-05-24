@@ -127,7 +127,7 @@ public class GameFieldContainer extends JPanel {
 	
 	public static void main(String[] args) {
 		
-		GameManager pre = new GameManager(new DataManager());
+		GameManager pre = new GameManager();
 		
 		pre.addPlayer(new JBSPlayer());
 		pre.addPlayer(new JBSPlayer());

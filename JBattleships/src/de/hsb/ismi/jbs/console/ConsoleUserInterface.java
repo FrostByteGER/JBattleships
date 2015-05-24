@@ -28,7 +28,7 @@ public class ConsoleUserInterface {
 
 	private void startGame() {
 
-		GameManager pm = new GameManager(new DataManager());
+		GameManager pm = new GameManager();
 		JBSPlayer winner;
 
 		intinput = 0;

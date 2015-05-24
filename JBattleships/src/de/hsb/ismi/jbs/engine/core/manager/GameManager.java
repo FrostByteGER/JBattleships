@@ -17,13 +17,10 @@ public class GameManager {
 	private Game game;
 	private ArrayList<JBSPlayer> players;
 	private int[] shipcount;
-	private DataManager datam;
 	
-	public GameManager(DataManager manager) {
+	public GameManager() {
 		players = new ArrayList<JBSPlayer>();
 		shipcount = new int[]{0,0,0,0};	
-		
-		datam = manager;
 		
 	}
 	
@@ -68,22 +65,30 @@ public class GameManager {
 		for(int i = 0 ; i < tplayers.length ; i++){
 			tplayers[i] = players.get(i);
 			for(int j = 0 ; j < shipcount[0] ; j++){
-				tplayers[i].addShip(new JBSDestroyer(datam));
+				tplayers[i].addShip(new JBSDestroyer());
 			}
 			for(int j = 0 ; j < shipcount[1] ; j++){
-				tplayers[i].addShip(new JBSFrigate(datam));
+				tplayers[i].addShip(new JBSFrigate());
 			}
 			for(int j = 0 ; j < shipcount[2] ; j++){
-				tplayers[i].addShip(new JBSSubmarine(datam));
+				tplayers[i].addShip(new JBSSubmarine());
 			}
 			for(int j = 0 ; j < shipcount[3] ; j++){
-				tplayers[i].addShip(new JBSCorvette(datam));
+				tplayers[i].addShip(new JBSCorvette());
 			}
 		}
 		
 		game = new Game(type, tplayers);
 		
 		return game;
+	}
+	
+	/**
+	 * Starts the actual match with the current data.
+	 * <br>TODO: Does nothing, fill with functionality!
+	 */
+	public void startGame(){
+		
 	}
 	
 	/* (non-Javadoc)
