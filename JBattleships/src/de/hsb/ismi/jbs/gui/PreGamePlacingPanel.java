@@ -5,6 +5,7 @@ package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
@@ -40,6 +41,8 @@ import net.miginfocom.swing.MigLayout;
 
 import java.awt.SystemColor;
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JLabel;
 
 /**
@@ -318,13 +321,38 @@ public class PreGamePlacingPanel extends JPanel {
 		
 		if(activePlayer instanceof JBSAIPlayer){
 			JBSAIPlayer ai = (JBSAIPlayer)activePlayer;
-			//TODO: Do AI magic
+			removeAll();
+			setLayout(new BorderLayout(0, 0));
+			JLabel aiNotify = new JLabel("AI Player is placing its ships, please wait...", SwingConstants.CENTER);
+			aiNotify.setFont(new Font("Tahoma", Font.BOLD, 16));
+			updateUI();
+			add(aiNotify, BorderLayout.CENTER);
 			
-			//Manually call updatePlayerData to bypass the display of the GUI.
-			nextPlayer();
+			////
+			//TODO: Do AI magic here
+			////
+			
+			/* 
+			 * Sets a timer to notify the player about the AI. The AI code runs probably extremely fast, 
+			 * so its strange to click on next and instantaniously see the next placementpanel. 
+			 * As a result, the player expects to see the AI working but instead sees the next player-placement-panel!
+			 * So this Timer gives the player a visual feedback that the AI is working now.
+			 * The timer is set to 3 seconds.
+			 */
+			Timer t = new Timer();
+			t.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					//Manually call updatePlayerData to bypass the display of the GUI.
+					nextPlayer();
+				}
+			}, 3000);
 		}else{
 			// Updates the panel with the new player-data since this is a human player!
 			updatePanel();
+			if(activePlayerIndex == gm.getPlayers().size() - 1){
+				btnContinue.setText("Start Game");
+			}
 		}
 	}
 	
@@ -344,9 +372,6 @@ public class PreGamePlacingPanel extends JPanel {
 		if(activePlayerIndex < gm.getPlayers().size() - 1){
 			activePlayerIndex++;
 			initPlayerData();
-			if(activePlayerIndex == gm.getPlayers().size() - 1){
-				btnContinue.setText("Start Game");
-			}
 		}else if(activePlayerIndex == gm.getPlayers().size() - 1){
 			parent.swapContainer(new JPanel());
 			JBSCore.msgLogger.addMessage("Started Game!");
