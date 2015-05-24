@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -14,6 +15,7 @@ import de.hsb.ismi.jbs.engine.core.JBSGameField;
 
 public class GameFieldPanel extends JPanel {
 	
+	private JBSGUI parent;
 	private JBSGameField gamefild;
 	
 	private int gridsize;
@@ -24,23 +26,28 @@ public class GameFieldPanel extends JPanel {
 	
 	private Color gridColor;
 	private Color selectColor;
+	private Color hoverColor;
 	private boolean isSelected;
+	private int hoverx;
+	private int hovery;
 	private int selectx;
 	private int selecty;
 	
 	private Direction direction; 
 	
-	private JPanel panel = this;
+	private ArrayList<GameFieldActionListener> listeners;
+	
 	
 	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
 		
 		this.gamefild = fild;
+		listeners = new ArrayList<>(0);
 		gridColor = Color.RED;
 		selectColor = new Color(100,100,100,100);
-		
+		hoverColor = new Color(100,100,100,50);
 		isSelected = false;
-		selectx = 0;
-		selecty = 0;
+		hoverx = 0;
+		hovery = 0;
 		
 		direction = Direction.NORTH;
 		
@@ -88,6 +95,10 @@ public class GameFieldPanel extends JPanel {
 					}else if(direction == Direction.WEST){
 						direction = Direction.NORTH;
 					}
+				}else if(arg0.getButton() == 1){
+					selectx = hoverx;
+					selecty = hovery;
+					fireListeners();
 				}
 				
 			}
@@ -98,18 +109,18 @@ public class GameFieldPanel extends JPanel {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				if(isSelected){
-					if(selectx != ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize ||
-							selecty != ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize){
-						panel.repaint();
+					if(hoverx != ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize ||
+							hovery != ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize){
+						GameFieldPanel.this.repaint();
 					}
 					
 					if(((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize < fild.getSize() && 
 							((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize >= 0){
-						selectx = ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize;
+						hoverx = ((e.getX()-xofset)-((e.getX()-xofset)%gridsize))/gridsize;
 					}
 					if(((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize < fild.getSize() &&
 							((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize >= 0){
-						selecty = ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize;
+						hovery = ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize;
 					}
 				}
 				
@@ -168,23 +179,41 @@ public class GameFieldPanel extends JPanel {
 		}
 		
 		if(isSelected){
-			g.setColor(selectColor);		
-			g.fillRect(selectx*gridsize+xofset, selecty*gridsize+yofset, gridsize, gridsize);
+			g.setColor(hoverColor);		
+			g.fillRect(hoverx*gridsize+xofset, hovery*gridsize+yofset, gridsize, gridsize);
 			
 			g.setColor(Color.WHITE);			
 			if(direction == Direction.NORTH){
-				g.drawString("^", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
-				panel.repaint();
+				g.drawString("^", hoverx*gridsize+xofset+gridsize/2, hovery*gridsize+yofset+gridsize/2);
+				GameFieldPanel.this.repaint();
 			}else if(direction == Direction.EAST){
-				g.drawString(">", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
-				panel.repaint();
+				g.drawString(">", hoverx*gridsize+xofset+gridsize/2, hovery*gridsize+yofset+gridsize/2);
+				GameFieldPanel.this.repaint();
 			}else if(direction == Direction.SOUTH){
-				g.drawString("v", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
-				panel.repaint();
+				g.drawString("v", hoverx*gridsize+xofset+gridsize/2, hovery*gridsize+yofset+gridsize/2);
+				GameFieldPanel.this.repaint();
 			}else if(direction == Direction.WEST){
-				g.drawString("<", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
-				panel.repaint();
+				g.drawString("<", hoverx*gridsize+xofset+gridsize/2, hovery*gridsize+yofset+gridsize/2);
+				GameFieldPanel.this.repaint();
 			}
+		}
+		
+		g.setColor(selectColor);		
+		g.fillRect(selectx*gridsize+xofset, selecty*gridsize+yofset, gridsize, gridsize);
+		
+		g.setColor(Color.WHITE);			
+		if(direction == Direction.NORTH){
+			g.drawString("^", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+			GameFieldPanel.this.repaint();
+		}else if(direction == Direction.EAST){
+			g.drawString(">", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+			GameFieldPanel.this.repaint();
+		}else if(direction == Direction.SOUTH){
+			g.drawString("v", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+			GameFieldPanel.this.repaint();
+		}else if(direction == Direction.WEST){
+			g.drawString("<", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+			GameFieldPanel.this.repaint();
 		}
 		
 		g.setColor(gridColor);
@@ -258,5 +287,36 @@ public class GameFieldPanel extends JPanel {
 	 */
 	public Direction getDirection() {
 		return direction;
+	}
+
+	/**
+	 * @return the hoverColor
+	 */
+	public Color getHoverColor() {
+		return hoverColor;
+	}
+
+	/**
+	 * @param hoverColor the hoverColor to set
+	 */
+	public void setHoverColor(Color hoverColor) {
+		this.hoverColor = hoverColor;
+	}	
+	
+	/**
+	 * Adds the given ActionListener to the array.
+	 * @param gfal
+	 */
+	public void addGameFieldActionListener(GameFieldActionListener gfal){
+		listeners.add(gfal);
+	}
+	
+	/**
+	 * Notifies all added listeners.
+	 */
+	private void fireListeners(){
+		for(GameFieldActionListener gfal : listeners){
+			gfal.clickFired(this);
+		}
 	}
 }

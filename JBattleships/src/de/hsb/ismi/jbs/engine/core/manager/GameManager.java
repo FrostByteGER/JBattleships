@@ -15,26 +15,17 @@ import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 public class GameManager {
 	
 	private Game game;
-	private ArrayList<JBSGameField> fields;
 	private ArrayList<JBSPlayer> players;
 	private int[] shipcount;
-	private DataManager datam;
 	
-	public GameManager(DataManager manager) {
-		fields = new ArrayList<JBSGameField>();
+	public GameManager() {
 		players = new ArrayList<JBSPlayer>();
 		shipcount = new int[]{0,0,0,0};	
-		
-		datam = manager;
 		
 	}
 	
 	public void addPlayer(JBSPlayer player){
 		players.add(player);
-	}
-	
-	public ArrayList<JBSGameField> getGameFields(){
-		return fields;
 	}
 	
 	public void setDestroyerCount(int size){
@@ -66,35 +57,38 @@ public class GameManager {
 	public Game createGame(JBSGameType type ,int fieldsize){
 		
 		for(JBSPlayer p : players){
-			fields.add(new JBSGameField(p, fieldsize));
+			p.setPlayerField(new JBSGameField(fieldsize));
 		}
-		
-		JBSGameField[] tfields = new JBSGameField[fields.size()];
+	
 		JBSPlayer[] tplayers = new JBSPlayer[players.size()];
-		
-		for(int i = 0 ; i < tfields.length ; i++){
-			tfields[i] = fields.get(i);
-		}
 		
 		for(int i = 0 ; i < tplayers.length ; i++){
 			tplayers[i] = players.get(i);
 			for(int j = 0 ; j < shipcount[0] ; j++){
-				tplayers[i].addShip(new JBSDestroyer(datam));
+				tplayers[i].addShip(new JBSDestroyer());
 			}
 			for(int j = 0 ; j < shipcount[1] ; j++){
-				tplayers[i].addShip(new JBSFrigate(datam));
+				tplayers[i].addShip(new JBSFrigate());
 			}
 			for(int j = 0 ; j < shipcount[2] ; j++){
-				tplayers[i].addShip(new JBSSubmarine(datam));
+				tplayers[i].addShip(new JBSSubmarine());
 			}
 			for(int j = 0 ; j < shipcount[3] ; j++){
-				tplayers[i].addShip(new JBSCorvette(datam));
+				tplayers[i].addShip(new JBSCorvette());
 			}
 		}
 		
-		game = new Game(type, tfields, tplayers);
+		game = new Game(type, tplayers);
 		
 		return game;
+	}
+	
+	/**
+	 * Starts the actual match with the current data.
+	 * <br>TODO: Does nothing, fill with functionality!
+	 */
+	public void startGame(){
+		
 	}
 	
 	/* (non-Javadoc)
@@ -102,7 +96,7 @@ public class GameManager {
 	 */
 	@Override
 	public String toString() {
-		return "GameManager | Fields: " + fields.size() + " | Players: " + players.size() + " | ShipCount: " + shipcount.length;
+		return "GameManager | Players: " + players.size() + " | ShipCount: " + shipcount.length;
 	}
 
 	/**
@@ -113,7 +107,7 @@ public class GameManager {
 	}
 	
 	public final int getFieldSize(){
-		return game.getPlayerFields()[0].getSize(); //TODO: Change, could be null!
+		return game.getPlayer(0).getPlayerField().getSize(); //TODO: Change, could be null!
 	}
 
 	/**

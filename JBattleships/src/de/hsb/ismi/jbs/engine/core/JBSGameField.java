@@ -23,20 +23,15 @@ public class JBSGameField {
 	private JBSActor[][] actorFields;
 	@XmlElement(name = "GameFieldSize")
 	private int size;
-	@XmlElement(name = "Parent")
-	private JBSPlayer player;
 	@XmlTransient
 	public JBSActor water;
 	@XmlTransient
 	public JBSActor waterHitDummy;
-
+	
 	/**
-	 * @param actorFields
 	 * @param size
 	 */
-	public JBSGameField(JBSPlayer player, int size) {
-		super();
-		this.player = player;
+	public JBSGameField(int size) {
 		this.size = size;
 		
 		water = new JBSActor();
@@ -52,7 +47,6 @@ public class JBSGameField {
 				actorFields[i][j] = water;
 			}
 		}
-		
 	}
 	
 	public Vector2i mouseToFieldCoords(int x, int y, int fieldSize){

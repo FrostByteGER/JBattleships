@@ -32,23 +32,33 @@ public class JBSCore {
 	public static SHA256Generator shaGenerator = new SHA256Generator();
 	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
 	public static ScreenDeviceManager screenDeviceManager = new ScreenDeviceManager();
-	
+	/** The Path of the Datafolder with all important content. */
 	public static final String DATA_PATH = "Data/";
-	/** Enables debug functionality and the MessageLogger */
+	/** Enables debug functionality and the MessageLogger. */
 	public static final boolean DEBUG = true;
-	/** Allows to resize the game window */
+	/** Allows to resize the game window. */
 	public static final boolean RESIZABLE = false;
 	
+	/** Contains the game's current resolution. */
 	private Resolution currentResolution;
+	/** The game's current screenMode. */
 	private ScreenMode screenMode;
+	/** The game's current master-volume. */
 	private int volume;
+	/** The game's current music-volume. */
 	private int music;
+	/** The game's current IP-address. */
 	private String ip;
+	/** The game's current port. */
 	private int port;
+	/** The game's current language. */
 	private String language;
 	
+	/** The mainGUI of the game. */
 	private JBSGUI mainGUI;
+	/** The gameManager of the game. */
 	private GameManager gameManager;
+	/** The dataManager of the game. */
 	private DataManager dataManager;
 
 	
@@ -251,7 +261,7 @@ public class JBSCore {
 	 * @param gameManager the gameManager to set
 	 */
 	public final void generateGame() {
-		this.gameManager = new GameManager(dataManager);
+		this.gameManager = new GameManager();
 	}
 
 }

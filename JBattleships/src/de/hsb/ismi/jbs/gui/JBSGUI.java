@@ -33,7 +33,7 @@ public class JBSGUI{
 	private Stack<JPanel> panelStack;
 	
 	private MainPanel mainPanel;
-	private OptionsPanel2 optionsPanel;
+	private OptionsPanel optionsPanel;
 	
 	private BufferedImage backgroundImage;
 
@@ -45,7 +45,7 @@ public class JBSGUI{
 		mainFrame = new JFrame("JBattleships ALPHA");
 		mainFrame.setResizable(JBSCore.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 100, res.getX(), res.getY());
+		mainFrame.setBounds(100, 100, res.getWidth(), res.getHeight());
 		
 		try {
 			backgroundImage = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
@@ -56,7 +56,7 @@ public class JBSGUI{
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		optionsPanel = new OptionsPanel2(this);
+		optionsPanel = new OptionsPanel(this);
 		mainPanel = new MainPanel(this);
 		//TODO: Remove add call
 		contentPane.add(mainPanel,BorderLayout.CENTER);
@@ -129,12 +129,12 @@ public class JBSGUI{
 	/**
 	 * @return the optionsPanel
 	 */
-	public final OptionsPanel2 getOptionsPanel() {
+	public final OptionsPanel getOptionsPanel() {
 		return optionsPanel;
 	}
 	
 	public final void changeFrameSize(Resolution r){
-		mainFrame.setSize(r.getX(), r.getY());
+		mainFrame.setSize(r.getWidth(), r.getHeight());
 		mainFrame.setLocationRelativeTo(null);
 	}
 	

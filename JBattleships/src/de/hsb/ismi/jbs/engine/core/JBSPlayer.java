@@ -22,14 +22,17 @@ public class JBSPlayer {
 	private ArrayList<JBSShip> ships;
 	@XmlElement(name = "Alive")
 	private boolean isAlive;
-	@XmlElement(name = "PlayerName")
+	@XmlElement(name = "Name")
 	private String name;
+	@XmlElement(name = "PlayerField")
+	private JBSGameField playerField;
 	
 	/**
 	 * 
 	 */
 	public JBSPlayer() {
 		ships = new ArrayList<JBSShip>();
+		playerField = null;
 		isAlive = true;
 		name = "undefined";
 	}
@@ -39,6 +42,17 @@ public class JBSPlayer {
 	 */
 	public JBSPlayer(String name) {
 		ships = new ArrayList<JBSShip>();
+		playerField = null;
+		isAlive = true;
+		this.name = name;
+	}
+	
+	/**
+	 * 
+	 */
+	public JBSPlayer(String name, JBSGameField playerField) {
+		ships = new ArrayList<JBSShip>();
+		this.playerField = playerField;
 		isAlive = true;
 		this.name = name;
 	}
@@ -79,6 +93,20 @@ public class JBSPlayer {
 	 */
 	public final void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the playerField
+	 */
+	public final JBSGameField getPlayerField() {
+		return playerField;
+	}
+
+	/**
+	 * @param playerField the playerField to set
+	 */
+	public final void setPlayerField(JBSGameField playerField) {
+		this.playerField = playerField;
 	}
 	
 	

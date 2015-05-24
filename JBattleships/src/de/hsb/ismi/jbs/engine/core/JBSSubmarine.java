@@ -3,7 +3,7 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
-import de.hsb.ismi.jbs.engine.io.manager.DataManager;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * @author Jan Schult
@@ -14,9 +14,9 @@ public class JBSSubmarine extends JBSShip {
 	/**
 	 * 
 	 */
-	public JBSSubmarine(DataManager manager) {
+	public JBSSubmarine() {
 		super(1, 0, 2, JBSDamageType.DAMAGE_SMALL);
-		setName(manager.getLocalizationManager().getLocalization("Submarine"));
+		setName(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Submarine"));
 		addShipPart(new JBSActor());
 		addShipPart(new JBSActor());
 	}

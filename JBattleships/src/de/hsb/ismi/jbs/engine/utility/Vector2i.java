@@ -36,28 +36,28 @@ public class Vector2i {
 	/**
 	 * @return the x
 	 */
-	public final int getX() {
+	public int getX() {
 		return x;
 	}
 
 	/**
 	 * @param x the x to set
 	 */
-	public final void setX(int x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
 	/**
 	 * @return the y
 	 */
-	public final int getY() {
+	public int getY() {
 		return y;
 	}
 
 	/**
 	 * @param y the y to set
 	 */
-	public final void setY(int y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 	
