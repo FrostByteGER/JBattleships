@@ -14,16 +14,10 @@ import javax.swing.JSplitPane;
 
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.JBSCorvette;
-import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
-import de.hsb.ismi.jbs.engine.core.JBSFrigate;
-import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
-import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
-import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 public class GameFieldContainer extends JPanel {
 	
