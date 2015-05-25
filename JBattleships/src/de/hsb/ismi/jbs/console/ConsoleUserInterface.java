@@ -276,7 +276,7 @@ public class ConsoleUserInterface {
 			}
 
 		} while (!readStringYN("Are the information correct? y/n"));
-		ship.shot(xshoot, yshoot, direction, game.getPlayer(shootat).getPlayerField());
+		ship.shoot(xshoot, yshoot, direction, game.getPlayer(shootat).getPlayerField());
 		ship.setCooldown(ship.getCooldownLimit());
 		game.getPlayer(shootat).getPlayerField().printField(false);
 		

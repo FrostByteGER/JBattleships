@@ -138,7 +138,7 @@ public class JBSShip {
 		return isAlife()&&cooldown==0;
 	}
 	
-	public void shot(int x, int y, Direction direction, JBSGameField field){
+	public void shoot(int x, int y, Direction direction, JBSGameField field){
 		
 		for(int i = 0 ; i < shotpower ; i++){
 			if(direction == Direction.NORTH){				

@@ -4,10 +4,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JSplitPane;
 
 import de.hsb.ismi.jbs.core.JBSCore;
@@ -17,6 +19,7 @@ import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 
 public class GameFieldContainer extends JPanel {
 	
@@ -119,6 +122,10 @@ public class GameFieldContainer extends JPanel {
 	}
 	
 	public static void main(String[] args) {
+		
+		
+		new RoundManager().processRound(new JBSPlayer());
+		
 		
 		new JBSCore(true);
 		

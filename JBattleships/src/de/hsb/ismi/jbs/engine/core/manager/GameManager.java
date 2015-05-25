@@ -91,7 +91,20 @@ public class GameManager {
 	 */
 	public void startGame(){
 		if(game != null){
-
+			
+			runGame();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void runGame(){
+		while(!game.isGameOver()){
+			
+			for(JBSPlayer player : game.getPlayers()){
+				roundManager.processRound(player);
+			}
 		}
 	}
 	
