@@ -5,8 +5,10 @@ package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
@@ -39,12 +41,15 @@ import net.miginfocom.swing.MigLayout;
 
 import java.awt.SystemColor;
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JLabel;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class PreGameFieldsPanel extends JPanel {
+public class PreGamePlacingPanel extends JPanel {
 	
 	private JBSGUI parent;
 	private JPanel header;
@@ -70,21 +75,17 @@ public class PreGameFieldsPanel extends JPanel {
 	private JBSPlayer activePlayer;
 	private GameManager gm;
 	private int activePlayerIndex;
+	private JLabel lblSelectedShip;
 	
 	/**
 	 * 
 	 * @param parent
 	 */
-	public PreGameFieldsPanel(JBSGUI parent) {
+	public PreGamePlacingPanel(JBSGUI parent) {
 		activePlayerIndex = 0;
 		gm = JBattleships.game.getGameManager();
-		
-		
 		this.parent = parent;
 		initPlayerData();
-		initPanel();
-		
-
 	}
 	
 	/**
@@ -104,8 +105,8 @@ public class PreGameFieldsPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("cancel")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + PreGameFieldsPanel.this.getClass());
-					PreGameFieldsPanel.this.parent.swapContainer(PreGameFieldsPanel.this.parent.getMainPanel());
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePlacingPanel.this.getClass());
+					PreGamePlacingPanel.this.parent.swapContainer(PreGamePlacingPanel.this.parent.getMainPanel());
 				}
 			}
 		});
@@ -116,19 +117,7 @@ public class PreGameFieldsPanel extends JPanel {
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("continue")){
-					if(activePlayerIndex < gm.getPlayers().size() - 1){
-						activePlayerIndex++;
-						initPlayerData();
-						removeAll();
-						initPanel();
-						//updateUI();
-						if(activePlayerIndex == gm.getPlayers().size() - 1){
-							System.out.println("AC");
-							btnContinue.setText("Start Game");
-						}
-					}else if(activePlayerIndex == gm.getPlayers().size()){
-						
-					}
+					nextPlayer();
 				}
 			}
 		});
@@ -153,9 +142,9 @@ public class PreGameFieldsPanel extends JPanel {
 		centerPanel.add(shipPanel, "cell 1 0,grow");
 		shipPanel.setBorder(new TitledBorder(null, "Ship List", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_shipPanel = new GridBagLayout();
-		gbl_shipPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_shipPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_shipPanel.columnWeights = new double[]{1.0};
-		gbl_shipPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_shipPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		shipPanel.setLayout(gbl_shipPanel);
 		
 		textArea = new JTextArea();
@@ -179,17 +168,26 @@ public class PreGameFieldsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("placedest")){
 					if(destroyersLeft > 0){
-						activeShip = new JBSDestroyer();				
+						activeShip = new JBSDestroyer();	
+						lblSelectedShip.setText("Selected Ship: Destroyer");
 					}
 				}
 			}
 		});
+		
+		lblSelectedShip = new JLabel("Selected Ship: None");
+		lblSelectedShip.setFont(new Font("Tahoma", Font.BOLD, 16));
+		GridBagConstraints gbc_lblSelectedShip = new GridBagConstraints();
+		gbc_lblSelectedShip.insets = new Insets(0, 0, 5, 0);
+		gbc_lblSelectedShip.gridx = 0;
+		gbc_lblSelectedShip.gridy = 1;
+		shipPanel.add(lblSelectedShip, gbc_lblSelectedShip);
 		GridBagConstraints gbc_btnDestroyer = new GridBagConstraints();
 		gbc_btnDestroyer.ipady = 20;
 		gbc_btnDestroyer.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDestroyer.insets = new Insets(0, 5, 5, 0);
 		gbc_btnDestroyer.gridx = 0;
-		gbc_btnDestroyer.gridy = 1;
+		gbc_btnDestroyer.gridy = 2;
 		shipPanel.add(btnDestroyer, gbc_btnDestroyer);
 		
 		btnFrigate = new JButton("Frigates Left: " + frigatesLeft);
@@ -199,7 +197,8 @@ public class PreGameFieldsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("placefrig")){
 					if(frigatesLeft > 0){
-						activeShip = new JBSFrigate();				
+						activeShip = new JBSFrigate();
+						lblSelectedShip.setText("Selected Ship: Frigate");
 					}
 				}
 			}
@@ -209,7 +208,7 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnFrigate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnFrigate.insets = new Insets(0, 5, 5, 0);
 		gbc_btnFrigate.gridx = 0;
-		gbc_btnFrigate.gridy = 2;
+		gbc_btnFrigate.gridy = 3;
 		shipPanel.add(btnFrigate, gbc_btnFrigate);
 		
 		btnCorvette = new JButton("Corvettes Left: " + corvettesLeft);
@@ -219,7 +218,8 @@ public class PreGameFieldsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("placecorv")){
 					if(corvettesLeft > 0){
-						activeShip = new JBSCorvette();				
+						activeShip = new JBSCorvette();	
+						lblSelectedShip.setText("Selected Ship: Corvette");
 					}
 				}
 			}
@@ -229,7 +229,7 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnCorvette.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCorvette.insets = new Insets(0, 5, 5, 0);
 		gbc_btnCorvette.gridx = 0;
-		gbc_btnCorvette.gridy = 3;
+		gbc_btnCorvette.gridy = 4;
 		shipPanel.add(btnCorvette, gbc_btnCorvette);
 		
 		btnSubmarine = new JButton("Submarines Left: " + subsLeft);
@@ -239,7 +239,8 @@ public class PreGameFieldsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("placesub")){
 					if(subsLeft > 0){
-						activeShip = new JBSSubmarine();				
+						activeShip = new JBSSubmarine();	
+						lblSelectedShip.setText("Selected Ship: Submarine");
 					}
 				}
 			}
@@ -249,7 +250,7 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnSubmarine.insets = new Insets(0, 5, 5, 0);
 		gbc_btnSubmarine.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSubmarine.gridx = 0;
-		gbc_btnSubmarine.gridy = 4;
+		gbc_btnSubmarine.gridy = 5;
 		shipPanel.add(btnSubmarine, gbc_btnSubmarine);
 		
 		btnSave = new JButton("Save Game");
@@ -262,10 +263,8 @@ public class PreGameFieldsPanel extends JPanel {
 						Marshaller m = jaxb.createMarshaller();
 						m.marshal(JBattleships.game.getGameManager().getGame(), new File("Data/testsave.xml"));
 					} catch (JAXBException jaxbe) {
-						// TODO Auto-generated catch block
 						jaxbe.printStackTrace();
 					}
-
 				}
 			}
 		});
@@ -274,14 +273,14 @@ public class PreGameFieldsPanel extends JPanel {
 		gbc_btnSave.ipady = 20;
 		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSave.gridx = 0;
-		gbc_btnSave.gridy = 5;
+		gbc_btnSave.gridy = 6;
 		shipPanel.add(btnSave, gbc_btnSave);
 	}
 	
 	/**
 	 * Initiates the player-relevant data.
 	 */
-	public void initPlayerData(){
+	private void initPlayerData(){
 		destroyersLeft = gm.getDestroyerCount();
 		frigatesLeft = gm.getFrigateCount();
 		corvettesLeft = gm.getCorvetteCount();
@@ -310,11 +309,73 @@ public class PreGameFieldsPanel extends JPanel {
 							subsLeft--;
 							btnSubmarine.setText("Submarines Left: " + subsLeft);	
 						}
-						activeShip = null;		
+						JBSCore.msgLogger.addMessage("Successfully placed " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection());
+						activeShip = null;
+						lblSelectedShip.setText("Selected Ship: None");
+					}else{
+						JBSCore.msgLogger.addMessage("Could not place " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection());
 					}
 				}
 			}
 		});
+		
+		if(activePlayer instanceof JBSAIPlayer){
+			JBSAIPlayer ai = (JBSAIPlayer)activePlayer;
+			removeAll();
+			setLayout(new BorderLayout(0, 0));
+			JLabel aiNotify = new JLabel("AI Player is placing its ships, please wait...", SwingConstants.CENTER);
+			aiNotify.setFont(new Font("Tahoma", Font.BOLD, 16));
+			updateUI();
+			add(aiNotify, BorderLayout.CENTER);
+			
+			////
+			//TODO: Do AI magic here
+			////
+			
+			/* 
+			 * Sets a timer to notify the player about the AI. The AI code runs probably extremely fast, 
+			 * so its strange to click on next and instantaniously see the next placementpanel. 
+			 * As a result, the player expects to see the AI working but instead sees the next player-placement-panel!
+			 * So this Timer gives the player a visual feedback that the AI is working now.
+			 * The timer is set to 3 seconds.
+			 */
+			Timer t = new Timer();
+			t.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					//Manually call updatePlayerData to bypass the display of the GUI.
+					nextPlayer();
+				}
+			}, 3000);
+		}else{
+			// Updates the panel with the new player-data since this is a human player!
+			updatePanel();
+			if(activePlayerIndex == gm.getPlayers().size() - 1){
+				btnContinue.setText("Start Game");
+			}
+		}
+	}
+	
+	/**
+	 * Reinitiates the panel and its components.
+	 */
+	private void updatePanel(){
+		removeAll();
+		initPanel();
+	}
+	
+	/**
+	 * Gets next player and initiates the panel with its data. Also checks if its the last player and starts the game.
+	 */
+	private void nextPlayer(){
+		//TODO: Add security question if destroyersLeft etc... is > 0
+		if(activePlayerIndex < gm.getPlayers().size() - 1){
+			activePlayerIndex++;
+			initPlayerData();
+		}else if(activePlayerIndex == gm.getPlayers().size() - 1){
+			parent.swapContainer(new JPanel());
+			JBSCore.msgLogger.addMessage("Started Game!");
+		}
 	}
 
 }
