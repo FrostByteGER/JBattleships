@@ -285,7 +285,7 @@ public class PreGamePlacingPanel extends JPanel {
 		frigatesLeft = gm.getFrigateCount();
 		corvettesLeft = gm.getCorvetteCount();
 		subsLeft = gm.getSubmarineCount();
-		activePlayer = gm.getPlayers().get(activePlayerIndex); //TODO: Be careful, might be null!
+		activePlayer = gm.getPrePlayers().get(activePlayerIndex); //TODO: Be careful, might be null!
 		activePlayer.setPlayerField(new JBSGameField(gm.getFieldSize()));
 		fieldPanel = new GameFieldPanel(activePlayer.getPlayerField(), 400, gm.getFieldSize());
 		fieldPanel.addGameFieldActionListener(new GameFieldActionListener() {
@@ -350,7 +350,7 @@ public class PreGamePlacingPanel extends JPanel {
 		}else{
 			// Updates the panel with the new player-data since this is a human player!
 			updatePanel();
-			if(activePlayerIndex == gm.getPlayers().size() - 1){
+			if(activePlayerIndex == gm.getPrePlayers().size() - 1){
 				btnContinue.setText("Start Game");
 			}
 		}
@@ -369,10 +369,10 @@ public class PreGamePlacingPanel extends JPanel {
 	 */
 	private void nextPlayer(){
 		//TODO: Add security question if destroyersLeft etc... is > 0
-		if(activePlayerIndex < gm.getPlayers().size() - 1){
+		if(activePlayerIndex < gm.getPrePlayers().size() - 1){
 			activePlayerIndex++;
 			initPlayerData();
-		}else if(activePlayerIndex == gm.getPlayers().size() - 1){
+		}else if(activePlayerIndex == gm.getPrePlayers().size() - 1){
 			parent.swapContainer(new JPanel());
 			JBSCore.msgLogger.addMessage("Started Game!");
 		}

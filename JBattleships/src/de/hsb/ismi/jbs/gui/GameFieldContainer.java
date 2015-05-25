@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JSplitPane;
 
+import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
@@ -126,6 +127,8 @@ public class GameFieldContainer extends JPanel {
 	}
 	
 	public static void main(String[] args) {
+		
+		new JBSCore(true);
 		
 		GameManager pre = new GameManager();
 		

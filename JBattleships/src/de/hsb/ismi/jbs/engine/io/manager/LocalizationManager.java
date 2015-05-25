@@ -86,7 +86,7 @@ public class LocalizationManager {
 				activeLanguageData = parser.loadLanguage(JBSCore.DATA_PATH + LANGUAGE_PATH + language + ".cfg");
 				activeLanguage = language;
 			} catch (IOException | JBSParserException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				return false;
 			}
 		}

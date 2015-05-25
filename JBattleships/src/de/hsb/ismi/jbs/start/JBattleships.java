@@ -14,7 +14,7 @@ import de.hsb.ismi.jbs.core.JBSCore;
  */
 public class JBattleships {
 	
-	public static JBSCore game;
+	public static JBSCore game = new JBSCore(true);
 
 	/**
 	 * @param args
@@ -23,8 +23,7 @@ public class JBattleships {
 		JBSCore.msgLogger = new MessageLogger(JBSCore.DEBUG);
 		// Sets the Position so the MessageLogger is a bit better visible
 		JBSCore.msgLogger.getFrame().setLocation(10, 10);
-		game = new JBSCore();
-		game.initGame();
+		game.initGUI();
 	}
 }
 

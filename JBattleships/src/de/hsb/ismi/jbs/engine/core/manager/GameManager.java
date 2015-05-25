@@ -17,11 +17,13 @@ public class GameManager {
 	private Game game;
 	private ArrayList<JBSPlayer> players;
 	private int[] shipcount;
+	private RoundManager roundManager;
 	
 	public GameManager() {
 		players = new ArrayList<JBSPlayer>();
 		shipcount = new int[]{0,0,0,0};	
-		
+		game = null;
+		roundManager = null;
 	}
 	
 	public void addPlayer(JBSPlayer player){
@@ -88,7 +90,9 @@ public class GameManager {
 	 * <br>TODO: Does nothing, fill with functionality!
 	 */
 	public void startGame(){
-		
+		if(game != null){
+
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -102,7 +106,7 @@ public class GameManager {
 	/**
 	 * @return the players
 	 */
-	public final ArrayList<JBSPlayer> getPlayers() {
+	public final ArrayList<JBSPlayer> getPrePlayers() {
 		return players;
 	}
 	

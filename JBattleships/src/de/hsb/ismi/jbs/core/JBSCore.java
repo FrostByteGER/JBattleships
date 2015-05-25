@@ -78,18 +78,40 @@ public class JBSCore {
 	}
 	
 	/**
+	 * 
+	 */
+	public JBSCore(boolean initGame) {
+		dataManager = new DataManager();
+		gameManager = null;
+		currentResolution = null;
+		screenMode = null;
+		volume = 0;
+		music = 0;
+		ip = "0.0.0.0";
+		port = 0;
+		language = "German";
+		if(initGame){
+			initGame();
+		}
+	}
+	
+	/**
 	 * Initializes the game.
 	 * @return
 	 */
 	public boolean initGame(){
-		if(!initResources()){
+		if(initResources() && initSettings() && initLocalization() && initConfigs() && initProfiles()){
+			return true;
+		}else{
 			return false;
 		}
-		initSettings();
-		initLocalization();
-		initConfigs();
-		initProfiles();
-		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public void initGUI(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -100,7 +122,6 @@ public class JBSCore {
 				}
 			}
 		});
-		return true;
 	}
 	
 	/**
