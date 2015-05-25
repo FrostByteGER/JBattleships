@@ -4,14 +4,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JSplitPane;
-
+import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
@@ -131,7 +129,7 @@ public class GameFieldContainer extends JPanel {
 		pre.setFrigateCount(3);
 		pre.setSubmarineCount(3);
 		
-		
+		JBSCore core = new JBSCore();
 		
 		JFrame f = new JFrame();
 		f.setBounds(100, 100, 1000, 800);
