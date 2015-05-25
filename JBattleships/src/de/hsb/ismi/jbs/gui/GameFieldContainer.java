@@ -122,11 +122,7 @@ public class GameFieldContainer extends JPanel {
 	}
 	
 	public static void main(String[] args) {
-		
-		
-		new RoundManager().processRound(new JBSPlayer());
-		
-		
+
 		new JBSCore(true);
 		
 		GameManager pre = new GameManager();

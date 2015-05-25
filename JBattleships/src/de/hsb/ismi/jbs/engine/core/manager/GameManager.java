@@ -102,8 +102,11 @@ public class GameManager {
 	public void runGame(){
 		while(!game.isGameOver()){
 			
-			for(JBSPlayer player : game.getPlayers()){
-				roundManager.processRound(player);
+			for(int i = 0; i < game.getPlayers().length; i++){
+				game.setActivePlayer(i);
+				while(!roundManager.hasRoundEnded()){
+					//TODO: Empty Block
+				}
 			}
 		}
 	}
@@ -132,6 +135,20 @@ public class GameManager {
 	 */
 	public final Game getGame() {
 		return game;
+	}
+
+	/**
+	 * @return the roundManager
+	 */
+	public final RoundManager getRoundManager() {
+		return roundManager;
+	}
+
+	/**
+	 * @param roundManager the roundManager to set
+	 */
+	public final void setRoundManager(RoundManager roundManager) {
+		this.roundManager = roundManager;
 	}
 	
 }
