@@ -102,6 +102,14 @@ public class Game {
 		this.activePlayer = activePlayer;
 	}
 	
+	public void chackShipsHealth(){
+		for(JBSPlayer p : players){
+			for(JBSShip s : p.getShips()){
+				s.checkHealth();
+			}
+		}
+	}
+	
 	public boolean isGameOver(){
 		
 		int amount = 0;

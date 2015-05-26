@@ -72,7 +72,13 @@ public class JBSPlayer {
 	public void removeShips(){
 		ships.clear();
 	}
-
+	
+	public void subAllCooldown(){
+		for(JBSShip s : ships){
+			s.subCooldown();
+		}
+	}
+	
 	public boolean isAlive() {
 		return isAlive;
 	}

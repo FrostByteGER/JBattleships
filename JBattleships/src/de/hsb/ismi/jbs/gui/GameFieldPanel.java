@@ -28,6 +28,7 @@ public class GameFieldPanel extends JPanel {
 	private Color selectColor;
 	private Color hoverColor;
 	private boolean isSelected;
+	private boolean showSelection;
 	private int hoverx;
 	private int hovery;
 	private int selectx;
@@ -46,6 +47,7 @@ public class GameFieldPanel extends JPanel {
 		selectColor = new Color(100,100,100,100);
 		hoverColor = new Color(100,100,100,50);
 		isSelected = false;
+		showSelection = true;
 		hoverx = 0;
 		hovery = 0;
 		
@@ -197,9 +199,11 @@ public class GameFieldPanel extends JPanel {
 				GameFieldPanel.this.repaint();
 			}
 		}
-		
-		g.setColor(selectColor);		
-		g.fillRect(selectx*gridsize+xofset, selecty*gridsize+yofset, gridsize, gridsize);
+		if(showSelection){
+			g.setColor(selectColor);		
+			g.fillRect(selectx*gridsize+xofset, selecty*gridsize+yofset, gridsize, gridsize);
+		}
+
 		
 		g.setColor(Color.WHITE);			
 		if(direction == Direction.NORTH){
@@ -266,6 +270,20 @@ public class GameFieldPanel extends JPanel {
 	 */
 	public boolean isSelected() {
 		return isSelected;
+	}
+	
+	/**
+	 * @return the showSelection
+	 */
+	public boolean isShowSelection() {
+		return showSelection;
+	}
+
+	/**
+	 * @param showSelection the showSelection to set
+	 */
+	public void setShowSelection(boolean showSelection) {
+		this.showSelection = showSelection;
 	}
 
 	/**

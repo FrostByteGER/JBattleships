@@ -75,14 +75,24 @@ public class JBSShip {
 	public void setCooldown(int cooldown) {
 		this.cooldown = cooldown;
 	}
-
+	
+	public void setMaxCooldown(){
+		cooldown = cooldownLimit;
+	}
+	
+	public void subCooldown(){
+		if(cooldown > 0){
+			cooldown--;
+		}
+	}
+	
 	/**
 	 * @return the cooldownLimit
 	 */
 	public final int getCooldownLimit() {
 		return cooldownLimit;
 	}
-
+	
 	/**
 	 * @return the damageType
 	 */

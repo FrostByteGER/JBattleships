@@ -245,5 +245,47 @@ public class GameSidePanel2 extends JPanel {
 	 */
 	public void setHoverColor(Color hoverColor) {
 		this.hoverColor = hoverColor;
-	}	
+	}
+
+	/**
+	 * @return the player
+	 */
+	public JBSPlayer getPlayer() {
+		return player;
+	}
+
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(JBSPlayer player) {
+		this.player = player;
+	}
+
+	/**
+	 * @return the isSelected
+	 */
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	/**
+	 * @param isSelected the isSelected to set
+	 */
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+
+	/**
+	 * @return the selectedship
+	 */
+	public int getSelectedship() {
+		return selectedship;
+	}
+
+	/**
+	 * @param selectedship the selectedship to set
+	 */
+	public void setSelectedship(int selectedship) {
+		this.selectedship = selectedship;
+	}
 }
