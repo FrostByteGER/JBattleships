@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Kevin Kuegler
@@ -26,6 +27,8 @@ public class JBSPlayer {
 	private String name;
 	@XmlElement(name = "PlayerField")
 	private JBSGameField playerField;
+	@XmlTransient
+	private JBSProfile profile;
 	
 	/**
 	 * 
@@ -35,6 +38,7 @@ public class JBSPlayer {
 		playerField = null;
 		isAlive = true;
 		name = "undefined";
+		profile = null;
 	}
 	
 	/**
@@ -45,6 +49,7 @@ public class JBSPlayer {
 		playerField = null;
 		isAlive = true;
 		this.name = name;
+		profile = null;
 	}
 	
 	/**
@@ -106,6 +111,20 @@ public class JBSPlayer {
 	 */
 	public final JBSGameField getPlayerField() {
 		return playerField;
+	}
+
+	/**
+	 * @return the profile
+	 */
+	public final JBSProfile getProfile() {
+		return profile;
+	}
+
+	/**
+	 * @param profile the profile to set
+	 */
+	public final void setProfile(JBSProfile profile) {
+		this.profile = profile;
 	}
 
 	/**

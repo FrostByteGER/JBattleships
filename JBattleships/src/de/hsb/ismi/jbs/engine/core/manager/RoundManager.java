@@ -12,7 +12,7 @@ import de.hsb.ismi.jbs.engine.core.JBSShip;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class RoundManager implements RoundListener, Runnable{
+public class RoundManager implements RoundListener{
 	
 	private boolean ended;
 	
@@ -24,19 +24,23 @@ public class RoundManager implements RoundListener, Runnable{
 	private Direction direction;
 
 	public RoundManager(){
-		
+		this.target = null;
+		this.source = null;
+		this.ship = null;
+		this.x = -1;
+		this.y = -1;
+		this.direction = null;
+		ended = false;
 	}
 	
 	private void processRound(){
-		ship.shoot(x, y, direction, target.getPlayerField());
+		if(ship.isAlife() && ship.canShot()){
+			ship.shoot(x, y, direction, target.getPlayerField());
+		}
 	}
 	
 	private void analyzeRound(){
 		target.getPlayerField().isFieldWaterHit(x, y);
-	}
-	
-	private void endRound(){
-		ended = true;
 	}
 	
 	public boolean hasRoundEnded(){
@@ -55,16 +59,34 @@ public class RoundManager implements RoundListener, Runnable{
 		this.y = y;
 		this.direction = direction;
 		processRound();
-		analyzeRound();
-		endRound();
-		
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see java.lang.Runnable#run()
+	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireAnalyzeRound()
 	 */
 	@Override
-	public void run() {
+	public void fireAnalyzeRound() {
+		analyzeRound();
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireEndRound()
+	 */
+	@Override
+	public void fireEndRound() {
+		ended = true;
+	}
+	
+	
+	public void reset(){
+		this.target = null;
+		this.source = null;
+		this.ship = null;
+		this.x = -1;
+		this.y = -1;
+		this.direction = null;
+		ended = false;
 	}
 	
 }

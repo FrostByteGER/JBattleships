@@ -145,7 +145,7 @@ public class JBSShip {
 	}
 	
 	public boolean canShot(){
-		return isAlife()&&cooldown==0;
+		return isAlife() && cooldown == 0;
 	}
 	
 	public void shoot(int x, int y, Direction direction, JBSGameField field){

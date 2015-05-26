@@ -288,6 +288,7 @@ public class PreGamePlacingPanel extends JPanel {
 		activePlayer = gm.getPrePlayers().get(activePlayerIndex); //TODO: Be careful, might be null!
 		activePlayer.setPlayerField(new JBSGameField(gm.getFieldSize()));
 		fieldPanel = new GameFieldPanel(activePlayer.getPlayerField(), 400, gm.getFieldSize());
+		fieldPanel.setShowSelection(false);
 		fieldPanel.addGameFieldActionListener(new GameFieldActionListener() {
 			@Override
 			public void clickFired(JPanel instigator) {
