@@ -202,23 +202,23 @@ public class GameFieldPanel extends JPanel {
 		if(showSelection){
 			g.setColor(selectColor);		
 			g.fillRect(selectx*gridsize+xofset, selecty*gridsize+yofset, gridsize, gridsize);
+			
+			g.setColor(Color.WHITE);			
+			if(direction == Direction.NORTH){
+				g.drawString("^", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+				GameFieldPanel.this.repaint();
+			}else if(direction == Direction.EAST){
+				g.drawString(">", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+				GameFieldPanel.this.repaint();
+			}else if(direction == Direction.SOUTH){
+				g.drawString("v", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+				GameFieldPanel.this.repaint();
+			}else if(direction == Direction.WEST){
+				g.drawString("<", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
+				GameFieldPanel.this.repaint();
+			}		
 		}
 
-		
-		g.setColor(Color.WHITE);			
-		if(direction == Direction.NORTH){
-			g.drawString("^", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
-			GameFieldPanel.this.repaint();
-		}else if(direction == Direction.EAST){
-			g.drawString(">", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
-			GameFieldPanel.this.repaint();
-		}else if(direction == Direction.SOUTH){
-			g.drawString("v", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
-			GameFieldPanel.this.repaint();
-		}else if(direction == Direction.WEST){
-			g.drawString("<", selectx*gridsize+xofset+gridsize/2, selecty*gridsize+yofset+gridsize/2);
-			GameFieldPanel.this.repaint();
-		}
 		
 		g.setColor(gridColor);
 		
