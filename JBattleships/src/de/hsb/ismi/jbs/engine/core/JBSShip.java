@@ -161,9 +161,6 @@ public class JBSShip {
 				field.shootField(x-i, y);
 			}			
 		}
-		
-		
-		
 	}
 	
 	public void setPositon(int x, int y, Direction direction) {
