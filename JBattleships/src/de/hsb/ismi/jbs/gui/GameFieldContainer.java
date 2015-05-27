@@ -50,6 +50,7 @@ public class GameFieldContainer extends JPanel {
 		
 		selectedGameField = 0;
 		
+		// change ?
 		roundManager = new RoundManager();//TODO
 		
 		setLayout(new BorderLayout(0, 0));
@@ -82,10 +83,12 @@ public class GameFieldContainer extends JPanel {
 							
 							System.out.println(game.getActivePlayerInt());
 							
+							// needs to be in teh Round Manager TODO
 							game.chackShipsHealth();
 							
 							centerSiedPanel.repaint();
-						
+							
+							// needs to be in teh Round Manager TODO
 							game.nextPlayer();
 							
 							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
