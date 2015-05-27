@@ -87,26 +87,24 @@ public class GameManager {
 	
 	/**
 	 * Starts the actual match with the current data.
-	 * <br>TODO: Does nothing, fill with functionality!
 	 */
 	public void startGame(){
 		if(game != null){
-			
 			runGame();
 		}
 	}
 	
 	/**
-	 * 
+	 * Main game-loop
 	 */
 	public void runGame(){
 		while(!game.isGameOver()){
-			
 			for(int i = 0; i < game.getPlayers().length; i++){
-				game.setActivePlayer(i);
+				game.setActivePlayerInt(i);
 				while(!roundManager.hasRoundEnded()){
-					//TODO: Empty Block
+					//Wait till round has finished
 				}
+				roundManager.reset();
 			}
 		}
 	}

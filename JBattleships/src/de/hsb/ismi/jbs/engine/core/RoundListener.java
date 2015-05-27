@@ -14,5 +14,9 @@ public interface RoundListener {
 	//public void analyzeRound(JBSPlayer target, JBSPlayer source, JBSShip ship ,int x, int y, Direction direction);
 	
 	public void fireRound(JBSPlayer target, JBSPlayer source, JBSShip ship ,int x, int y, Direction direction);
+	
+	public void fireAnalyzeRound();
+	
+	public void fireEndRound();
 
 }

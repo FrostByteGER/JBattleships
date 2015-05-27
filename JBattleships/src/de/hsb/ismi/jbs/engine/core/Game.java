@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
@@ -29,15 +28,8 @@ public class Game {
 	private JBSPlayer[] players;
 	@XmlElement(name = "ActivePlayer")
 	private int activePlayer;
-	
-	/**
-	 * TODO: Delete, just a save-test
-	 */
-	public Game(){
-		dataManager = new DataManager();
-		gameType = JBSGameType.GAME_LOCAL;
-		players = new JBSPlayer[]{new JBSPlayer()};
-	}
+	@XmlElement(name = "NextPlayer") // TODO added
+	private int nextPlayer;
 	
 	/**
 	 * @param gameType
@@ -50,6 +42,7 @@ public class Game {
 		this.gameType = gameType;
 		this.players = players;
 		this.activePlayer = 0;//TODO may change
+		this.nextPlayer = activePlayer;
 	}
 
 	/**
@@ -91,15 +84,33 @@ public class Game {
 	/**
 	 * @return the activPlayer
 	 */
-	public int getActivePlayer() {
+	public int getActivePlayerInt() {
 		return activePlayer;
 	}
-
+	
+	public JBSPlayer getActivePlayer(){
+		return players[activePlayer];
+	}
+	
 	/**
 	 * @param activePlayer the activPlayer to set
 	 */
-	public void setActivePlayer(int activePlayer) {
+	public void setActivePlayerInt(int activePlayer) {
 		this.activePlayer = activePlayer;
+	}
+	
+	public int nextPlayer(){
+		
+		nextPlayer = activePlayer;
+		
+		do {
+			nextPlayer = (nextPlayer+1)%players.length;
+			
+		} while (!players[nextPlayer].isAlive()&&activePlayer!=nextPlayer);
+		
+		activePlayer = nextPlayer;
+		
+		return activePlayer;
 	}
 	
 	public void chackShipsHealth(){

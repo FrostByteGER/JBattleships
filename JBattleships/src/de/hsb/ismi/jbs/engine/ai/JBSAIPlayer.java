@@ -4,6 +4,7 @@
 package de.hsb.ismi.jbs.engine.ai;
 
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.core.JBSProfile;
 
 /**
  * @author Kevin-Laptop Kuegler
@@ -15,7 +16,7 @@ public class JBSAIPlayer extends JBSPlayer {
 	 * 
 	 */
 	public JBSAIPlayer() {
-		super();
+		super(new JBSProfile());
 		// TODO Auto-generated constructor stub
 	}
 

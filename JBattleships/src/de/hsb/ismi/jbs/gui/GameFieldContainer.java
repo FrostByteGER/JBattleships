@@ -18,6 +18,7 @@ import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.engine.core.JBSProfile;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
@@ -33,7 +34,7 @@ public class GameFieldContainer extends JPanel {
 	private JPanel uperMainPanel;
 	private Game game;
 	private JLabel fieldNumber;
-	
+	private RoundManager roundManager;
 	private int selectedGameField;
 	private JTextArea chat;
 	private JButton shoot;
@@ -49,6 +50,8 @@ public class GameFieldContainer extends JPanel {
 		
 		selectedGameField = 0;
 		
+		roundManager = new RoundManager();//TODO
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -57,7 +60,7 @@ public class GameFieldContainer extends JPanel {
 		sidePanel = new JPanel();
 		sidePanel.setLayout(new BorderLayout());
 		
-		centerSiedPanel = new GameSidePanel2(game.getPlayers()[game.getActivePlayer()]);
+		centerSiedPanel = new GameSidePanel2(game.getPlayers()[game.getActivePlayerInt()]);
 		sidePanel.add(centerSiedPanel, BorderLayout.CENTER);
 		
 		shoot = new JButton("Shoot");
@@ -69,28 +72,26 @@ public class GameFieldContainer extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "shoot"){
 					
-					if(game.getActivePlayer() == Integer.valueOf( fieldNumber.getText())){
+					if(game.getActivePlayerInt() == Integer.valueOf( fieldNumber.getText())){
 						chat.setText(chat.getText()+"\nDont shoot yourself");
 					}else{
 					
-						if(game.getPlayer(game.getActivePlayer()).getShips().get(centerSiedPanel.getSelectedship()).canShot()){
-							game.getPlayer(game.getActivePlayer()).
-							getShips().
-							get(centerSiedPanel.getSelectedship()).
-							shoot(mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection(), game.getPlayer(Integer.valueOf(fieldNumber.getText())).getPlayerField());
+						if(centerSiedPanel.getSelectedship().canShot()){
 							
-							game.getPlayer(game.getActivePlayer()).subAllCooldown();
+							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
 							
-							game.getPlayer(game.getActivePlayer()).getShips().get(centerSiedPanel.getSelectedship()).setMaxCooldown();
+							System.out.println(game.getActivePlayerInt());
 							
 							game.chackShipsHealth();
 							
 							centerSiedPanel.repaint();
 						
-							game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
+							game.nextPlayer();
+							
+							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
 												
-							centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayer()));
-							mainPanel.setGamefild(game.getPlayer(game.getActivePlayer()).getPlayerField());
+							centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
+							mainPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
 						
 						}else{
 							chat.setText(chat.getText()+"\nCan´t shoot");
@@ -110,20 +111,15 @@ public class GameFieldContainer extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "pass"){
 					
-					
-
-							
-						game.getPlayer(game.getActivePlayer()).subAllCooldown();
-							
-						centerSiedPanel.repaint();
+					game.getPlayer(game.getActivePlayerInt()).subAllCooldown();
 						
-						game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
-												
-						centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayer()));
-						mainPanel.setGamefild(game.getPlayer(game.getActivePlayer()).getPlayerField());
-						
-
+					centerSiedPanel.repaint();
 					
+					game.setActivePlayerInt((game.getActivePlayerInt()+1)%game.getPlayers().length);
+											
+					centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
+					mainPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
+						
 				}
 				
 			}
@@ -139,7 +135,7 @@ public class GameFieldContainer extends JPanel {
 		
 		splitPane.setRightComponent(sidePanel);
 		
-		mainPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayer()].getPlayerField(),500,50);
+		mainPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
 		splitPane.setLeftComponent(mainPanel);
 		mainPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -169,8 +165,8 @@ public class GameFieldContainer extends JPanel {
 				}else if(game.getPlayers().length-1 == selectedGameField){
 					selectedGameField = 0;
 				}
-				fieldNumber.setText(String.valueOf(selectedGameField));
-				
+				fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
+
 				mainPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 			}
 		});
@@ -187,7 +183,7 @@ public class GameFieldContainer extends JPanel {
 				}else if(selectedGameField == 0){
 					selectedGameField = game.getPlayers().length-1;
 				}
-				fieldNumber.setText(String.valueOf(selectedGameField));
+				fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
 				
 				mainPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 			}
@@ -203,32 +199,16 @@ public class GameFieldContainer extends JPanel {
 		
 		mainPanel.add(uperMainPanel,BorderLayout.NORTH);
 		
-		loadShips();
-		
 	}
-	
-	public void loadShips(){
-		
-		for(JBSShip ship : game.getPlayers()[game.getActivePlayer()].getShips()){
-		//	uperSiedPanel.addShip(ship);
-		}
-	}
-	
-	public void loadShips(int player){
-		
-		for(JBSShip ship : game.getPlayers()[player].getShips()){
-		//	uperSiedPanel.addShip(ship);
-		}
-	}
-	
+
 	public static void main(String[] args) {
 
 		new JBSCore(true);
 		
 		GameManager pre = new GameManager();
 		
-		pre.addPlayer(new JBSPlayer());
-		pre.addPlayer(new JBSPlayer());
+		pre.addPlayer(new JBSPlayer(new JBSProfile()));
+		pre.addPlayer(new JBSPlayer(new JBSProfile()));
 		
 		pre.setDestroyerCount(1);	
 		pre.setCorvetteCount(4);

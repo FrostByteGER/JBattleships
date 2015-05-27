@@ -145,7 +145,7 @@ public class JBSShip {
 	}
 	
 	public boolean canShot(){
-		return isAlife()&&cooldown==0;
+		return isAlife() && cooldown == 0;
 	}
 	
 	public void shoot(int x, int y, Direction direction, JBSGameField field){
@@ -161,6 +161,7 @@ public class JBSShip {
 				field.shootField(x-i, y);
 			}		
 		}
+				
 	}
 	
 	public void setPositon(int x, int y, Direction direction) {

@@ -49,7 +49,7 @@ public class ConsoleUserInterface {
 		} while (!readStringYN("Are the information correct? y/n"));
 
 		for (int i = 0; i < playeramount; i++) {
-			pm.addPlayer(new JBSPlayer());
+			pm.addPlayer(new JBSPlayer(new JBSProfile()));
 		}
 
 		do {
