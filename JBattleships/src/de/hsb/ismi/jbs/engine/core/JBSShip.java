@@ -159,7 +159,7 @@ public class JBSShip {
 				field.shootField(x, y+i);
 			}else if(direction == Direction.WEST){
 				field.shootField(x-i, y);
-			}			
+			}		
 		}
 	}
 	
