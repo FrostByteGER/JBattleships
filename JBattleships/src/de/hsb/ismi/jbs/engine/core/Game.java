@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
@@ -31,15 +30,6 @@ public class Game {
 	private int activePlayer;
 	@XmlElement(name = "NextPlayer") // TODO added
 	private int nextPlayer;
-	
-	/**
-	 * TODO: Delete, just a save-test
-	 */
-	public Game(){
-		dataManager = new DataManager();
-		gameType = JBSGameType.GAME_LOCAL;
-		players = new JBSPlayer[]{new JBSPlayer()};
-	}
 	
 	/**
 	 * @param gameType
@@ -114,10 +104,11 @@ public class Game {
 		nextPlayer = activePlayer;
 		
 		do {
-			nextPlayer = nextPlayer%players.length;
+			nextPlayer = (nextPlayer+1)%players.length;
 			
-			
-		} while (!players[nextPlayer].isAlive());
+		} while (!players[nextPlayer].isAlive()&&activePlayer!=nextPlayer);
+		
+		activePlayer = nextPlayer;
 		
 		return activePlayer;
 	}

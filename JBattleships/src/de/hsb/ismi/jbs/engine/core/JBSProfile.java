@@ -15,15 +15,26 @@ public class JBSProfile {
 	private String name;
 	private HashMap<String,Float> stats;
 	private HashMap<String,Achievement> achievements;
-	
-	
-	
-	
+
 	/**
 	 * 
 	 */
 	public JBSProfile() {
-		// TODO Auto-generated constructor stub
+		id = 0;
+		name = "default";
+	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
 
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 }

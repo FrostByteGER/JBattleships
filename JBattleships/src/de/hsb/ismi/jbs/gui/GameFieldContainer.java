@@ -18,6 +18,7 @@ import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.engine.core.JBSProfile;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
@@ -34,7 +35,6 @@ public class GameFieldContainer extends JPanel {
 	private Game game;
 	private JLabel fieldNumber;
 	private RoundManager roundManager;
-	
 	private int selectedGameField;
 	private JTextArea chat;
 	private JButton shoot;
@@ -78,8 +78,10 @@ public class GameFieldContainer extends JPanel {
 					
 						if(centerSiedPanel.getSelectedship().canShot()){
 							
-							roundManager.fireRound(game.getPlayer(Integer.valueOf(fieldNumber.getText())), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
-
+							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
+							
+							System.out.println(game.getActivePlayerInt());
+							
 							game.chackShipsHealth();
 							
 							centerSiedPanel.repaint();
@@ -163,8 +165,8 @@ public class GameFieldContainer extends JPanel {
 				}else if(game.getPlayers().length-1 == selectedGameField){
 					selectedGameField = 0;
 				}
-				fieldNumber.setText(String.valueOf(selectedGameField));
-				
+				fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
+
 				mainPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 			}
 		});
@@ -181,7 +183,7 @@ public class GameFieldContainer extends JPanel {
 				}else if(selectedGameField == 0){
 					selectedGameField = game.getPlayers().length-1;
 				}
-				fieldNumber.setText(String.valueOf(selectedGameField));
+				fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
 				
 				mainPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 			}
@@ -205,8 +207,8 @@ public class GameFieldContainer extends JPanel {
 		
 		GameManager pre = new GameManager();
 		
-		pre.addPlayer(new JBSPlayer());
-		pre.addPlayer(new JBSPlayer());
+		pre.addPlayer(new JBSPlayer(new JBSProfile()));
+		pre.addPlayer(new JBSPlayer(new JBSProfile()));
 		
 		pre.setDestroyerCount(1);	
 		pre.setCorvetteCount(4);
