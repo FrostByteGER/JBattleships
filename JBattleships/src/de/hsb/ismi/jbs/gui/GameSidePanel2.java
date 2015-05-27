@@ -278,10 +278,14 @@ public class GameSidePanel2 extends JPanel {
 	/**
 	 * @return the selectedship
 	 */
-	public int getSelectedship() {
+	public int getSelectedshipInt() {
 		return selectedship;
 	}
-
+	
+	public JBSShip getSelectedship(){
+		return player.getShips().get(selectedship);
+	}
+	
 	/**
 	 * @param selectedship the selectedship to set
 	 */
