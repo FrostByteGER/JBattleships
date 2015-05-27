@@ -4,6 +4,7 @@
 package de.hsb.ismi.jbs.engine.core.manager;
 
 import de.hsb.ismi.jbs.engine.core.Direction;
+import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.RoundListener;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
@@ -36,6 +37,11 @@ public class RoundManager implements RoundListener{
 	private void processRound(){
 		if(ship.isAlife() && ship.canShot()){
 			ship.shoot(x, y, direction, target.getPlayerField());
+			
+			source.subAllCooldown();
+			
+			ship.setMaxCooldown();
+			
 		}
 	}
 	

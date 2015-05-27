@@ -100,7 +100,7 @@ public class GameManager {
 	public void runGame(){
 		while(!game.isGameOver()){
 			for(int i = 0; i < game.getPlayers().length; i++){
-				game.setActivePlayer(i);
+				game.setActivePlayerInt(i);
 				while(!roundManager.hasRoundEnded()){
 					//Wait till round has finished
 				}

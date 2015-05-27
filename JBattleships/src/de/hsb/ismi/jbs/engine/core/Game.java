@@ -29,6 +29,8 @@ public class Game {
 	private JBSPlayer[] players;
 	@XmlElement(name = "ActivePlayer")
 	private int activePlayer;
+	@XmlElement(name = "NextPlayer") // TODO added
+	private int nextPlayer;
 	
 	/**
 	 * TODO: Delete, just a save-test
@@ -50,6 +52,7 @@ public class Game {
 		this.gameType = gameType;
 		this.players = players;
 		this.activePlayer = 0;//TODO may change
+		this.nextPlayer = activePlayer;
 	}
 
 	/**
@@ -91,15 +94,32 @@ public class Game {
 	/**
 	 * @return the activPlayer
 	 */
-	public int getActivePlayer() {
+	public int getActivePlayerInt() {
 		return activePlayer;
 	}
-
+	
+	public JBSPlayer getActivePlayer(){
+		return players[activePlayer];
+	}
+	
 	/**
 	 * @param activePlayer the activPlayer to set
 	 */
-	public void setActivePlayer(int activePlayer) {
+	public void setActivePlayerInt(int activePlayer) {
 		this.activePlayer = activePlayer;
+	}
+	
+	public int nextPlayer(){
+		
+		nextPlayer = activePlayer;
+		
+		do {
+			nextPlayer = nextPlayer%players.length;
+			
+			
+		} while (!players[nextPlayer].isAlive());
+		
+		return activePlayer;
 	}
 	
 	public void chackShipsHealth(){

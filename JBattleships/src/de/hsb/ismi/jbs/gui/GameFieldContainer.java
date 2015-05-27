@@ -33,6 +33,7 @@ public class GameFieldContainer extends JPanel {
 	private JPanel uperMainPanel;
 	private Game game;
 	private JLabel fieldNumber;
+	private RoundManager roundManager;
 	
 	private int selectedGameField;
 	private JTextArea chat;
@@ -49,6 +50,8 @@ public class GameFieldContainer extends JPanel {
 		
 		selectedGameField = 0;
 		
+		roundManager = new RoundManager();//TODO
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -57,7 +60,7 @@ public class GameFieldContainer extends JPanel {
 		sidePanel = new JPanel();
 		sidePanel.setLayout(new BorderLayout());
 		
-		centerSiedPanel = new GameSidePanel2(game.getPlayers()[game.getActivePlayer()]);
+		centerSiedPanel = new GameSidePanel2(game.getPlayers()[game.getActivePlayerInt()]);
 		sidePanel.add(centerSiedPanel, BorderLayout.CENTER);
 		
 		shoot = new JButton("Shoot");
@@ -69,28 +72,24 @@ public class GameFieldContainer extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "shoot"){
 					
-					if(game.getActivePlayer() == Integer.valueOf( fieldNumber.getText())){
+					if(game.getActivePlayerInt() == Integer.valueOf( fieldNumber.getText())){
 						chat.setText(chat.getText()+"\nDont shoot yourself");
 					}else{
 					
-						if(game.getPlayer(game.getActivePlayer()).getShips().get(centerSiedPanel.getSelectedship()).canShot()){
-							game.getPlayer(game.getActivePlayer()).
-							getShips().
-							get(centerSiedPanel.getSelectedship()).
-							shoot(mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection(), game.getPlayer(Integer.valueOf(fieldNumber.getText())).getPlayerField());
+						if(centerSiedPanel.getSelectedship().canShot()){
 							
-							game.getPlayer(game.getActivePlayer()).subAllCooldown();
-							
-							game.getPlayer(game.getActivePlayer()).getShips().get(centerSiedPanel.getSelectedship()).setMaxCooldown();
-							
+							roundManager.fireRound(game.getPlayer(Integer.valueOf(fieldNumber.getText())), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
+
 							game.chackShipsHealth();
 							
 							centerSiedPanel.repaint();
 						
-							game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
+							game.nextPlayer();
+							
+							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
 												
-							centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayer()));
-							mainPanel.setGamefild(game.getPlayer(game.getActivePlayer()).getPlayerField());
+							centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
+							mainPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
 						
 						}else{
 							chat.setText(chat.getText()+"\nCan´t shoot");
@@ -110,20 +109,15 @@ public class GameFieldContainer extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "pass"){
 					
-					
-
-							
-						game.getPlayer(game.getActivePlayer()).subAllCooldown();
-							
-						centerSiedPanel.repaint();
+					game.getPlayer(game.getActivePlayerInt()).subAllCooldown();
 						
-						game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
-												
-						centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayer()));
-						mainPanel.setGamefild(game.getPlayer(game.getActivePlayer()).getPlayerField());
-						
-
+					centerSiedPanel.repaint();
 					
+					game.setActivePlayerInt((game.getActivePlayerInt()+1)%game.getPlayers().length);
+											
+					centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
+					mainPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
+						
 				}
 				
 			}
@@ -139,7 +133,7 @@ public class GameFieldContainer extends JPanel {
 		
 		splitPane.setRightComponent(sidePanel);
 		
-		mainPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayer()].getPlayerField(),500,50);
+		mainPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
 		splitPane.setLeftComponent(mainPanel);
 		mainPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -203,24 +197,8 @@ public class GameFieldContainer extends JPanel {
 		
 		mainPanel.add(uperMainPanel,BorderLayout.NORTH);
 		
-		loadShips();
-		
 	}
-	
-	public void loadShips(){
-		
-		for(JBSShip ship : game.getPlayers()[game.getActivePlayer()].getShips()){
-		//	uperSiedPanel.addShip(ship);
-		}
-	}
-	
-	public void loadShips(int player){
-		
-		for(JBSShip ship : game.getPlayers()[player].getShips()){
-		//	uperSiedPanel.addShip(ship);
-		}
-	}
-	
+
 	public static void main(String[] args) {
 
 		new JBSCore(true);
