@@ -73,7 +73,7 @@ public class GameFieldContainer extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "shoot"){
 					
-					if(game.getActivePlayerInt() == Integer.valueOf( fieldNumber.getText())){
+					if(game.getActivePlayerInt() == selectedGameField){
 						chat.setText(chat.getText()+"\nDont shoot yourself");
 					}else{
 					

@@ -122,8 +122,8 @@ public class OptionsPanel extends JPanel{
 		gbc_lblRes.gridy = 1;
 		gfxPanel.add(lblRes, gbc_lblRes);
 		
-		
-		DisplayMode[] modes = JBSCore.screenDeviceManager.getSupportedDisplayModes(new int[]{59});
+				
+		DisplayMode[] modes = JBSCore.screenDeviceManager.getSupportedDisplayModes(new int[]{JBSCore.screenDeviceManager.getCurrentDisplayMode().getRefreshRate()});
 		Resolution[] res = new Resolution[modes.length];
 		for(int i = 0; i < modes.length; i++){
 			res[i] = Resolution.convertDisplayModeToResolution(modes[i]);
