@@ -99,13 +99,11 @@ public class GameManager {
 	 */
 	public void runGame(){
 		while(!game.isGameOver()){
-			for(int i = 0; i < game.getPlayers().length; i++){
-				game.setActivePlayerInt(i);
-				while(!roundManager.hasRoundEnded()){
-					//Wait till round has finished
-				}
-				roundManager.reset();
+			game.nextPlayer();
+			while(!roundManager.hasRoundEnded()){
+				//Wait till round has finished
 			}
+			roundManager.reset();
 		}
 	}
 	

@@ -57,7 +57,9 @@ public class ScreenDeviceManager {
 		for(DisplayMode m : currentAdapter.getDisplayModes()){
 			for(int ref : supportedRefreshRates){
 				if(ref == m.getRefreshRate() && supportedBitDepth == m.getBitDepth() && (m.getWidth() >= minResolution.getWidth() && m.getHeight() >= minResolution.getHeight())){
-					supportedModes.add(m);
+					if(m != null){
+						supportedModes.add(m);
+					}
 				}
 			}
 		}
