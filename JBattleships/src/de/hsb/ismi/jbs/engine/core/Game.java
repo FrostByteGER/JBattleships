@@ -99,7 +99,7 @@ public class Game {
 		this.activePlayer = activePlayer;
 	}
 	
-	public int nextPlayer(){
+	public boolean nextPlayer(){
 		
 		nextPlayer = activePlayer;
 		
@@ -108,9 +108,11 @@ public class Game {
 			
 		} while (!players[nextPlayer].isAlive()&&activePlayer!=nextPlayer);
 		
+		if(activePlayer==nextPlayer){
+			return false;
+		}	
 		activePlayer = nextPlayer;
-		
-		return activePlayer;
+		return true;
 	}
 	
 	public void chackShipsHealth(){

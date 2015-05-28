@@ -80,9 +80,7 @@ public class GameFieldContainer extends JPanel {
 						if(centerSiedPanel.getSelectedship().canShot()){
 							
 							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
-							
-							System.out.println(game.getActivePlayerInt());
-							
+														
 							// needs to be in teh Round Manager TODO
 							game.chackShipsHealth();
 							
@@ -117,9 +115,9 @@ public class GameFieldContainer extends JPanel {
 					game.getPlayer(game.getActivePlayerInt()).subAllCooldown();
 						
 					centerSiedPanel.repaint();
+										
+					game.nextPlayer();
 					
-					game.setActivePlayerInt((game.getActivePlayerInt()+1)%game.getPlayers().length);
-											
 					centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
 					mainPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
 						
