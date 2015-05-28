@@ -106,6 +106,10 @@ public class Game {
 		do {
 			nextPlayer = (nextPlayer+1)%players.length;
 			
+			if(players[nextPlayer].isAlive()){
+				players[nextPlayer].chackIsAlive();
+			}
+			
 		} while (!players[nextPlayer].isAlive()&&activePlayer!=nextPlayer);
 		
 		if(activePlayer==nextPlayer){
@@ -126,14 +130,26 @@ public class Game {
 	public boolean isGameOver(){
 		
 		int amount = 0;
-		
+		/* not needed
 		for(JBSPlayer p : players){
 			for(JBSShip ship : p.getShips()){
 				ship.checkHealth();
 			}
 		}
-		// TODO CAHNGE!!!
+		*/
+		
 		for(JBSPlayer p : players){
+			if(p.isAlive()){
+				amount++;
+				if(amount==2){
+					return false;
+				}
+			}
+		}
+		
+		
+		// TODO CAHNGE!!! OLD
+		/*for(JBSPlayer p : players){
 			p.setAlive(false);
 			for(JBSShip ship : p.getShips()){
 				if(ship.isAlife()){
@@ -145,7 +161,7 @@ public class Game {
 			if(amount>1){
 				return false;
 			}
-		}
+		}*/
 		return true;
 	}
 	

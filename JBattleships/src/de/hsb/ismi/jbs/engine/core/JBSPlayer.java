@@ -87,6 +87,17 @@ public class JBSPlayer {
 		this.isAlive = isAlive;
 	}
 
+	public void chackIsAlive(){
+		if(isAlive){
+			for(JBSShip s : ships){
+				s.checkHealth();
+				if(s.isAlife()){
+					return;
+				}
+			}
+		}
+	}
+	
 	/**
 	 * @return the name
 	 */
