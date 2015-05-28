@@ -133,6 +133,10 @@ public class JBSShip {
 		
 		health = length;
 		
+		if(!isAlife()){
+			return;
+		}
+		
 		for(JBSActor actor : this.shipActors){
 			if(actor.isHit()){
 				this.health--;
