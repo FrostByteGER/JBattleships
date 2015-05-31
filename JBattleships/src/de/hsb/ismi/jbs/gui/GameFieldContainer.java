@@ -3,6 +3,7 @@ package de.hsb.ismi.jbs.gui;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -23,6 +24,7 @@ import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 public class GameFieldContainer extends JPanel {
 	
@@ -51,7 +53,7 @@ public class GameFieldContainer extends JPanel {
 		selectedGameField = 0;
 		
 		// change ?
-		roundManager = new RoundManager();//TODO
+		roundManager = JBattleships.game.getGameManager().getRoundManager();
 		
 		setLayout(new BorderLayout(0, 0));
 		
@@ -80,14 +82,11 @@ public class GameFieldContainer extends JPanel {
 						if(centerSiedPanel.getSelectedship().canShot()){
 							
 							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
-														
-							// needs to be in teh Round Manager TODO
-							game.chackShipsHealth();
+							
 							
 							centerSiedPanel.repaint();
 							
-							// needs to be in teh Round Manager TODO
-							game.nextPlayer();
+							roundManager.fireEndRound();
 							
 							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
 												
@@ -112,7 +111,7 @@ public class GameFieldContainer extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "pass"){
 					
-					game.getPlayer(game.getActivePlayerInt()).subAllCooldown();
+					game.getPlayer(game.getActivePlayerInt()).decreaseCooldownAll();
 						
 					centerSiedPanel.repaint();
 										
@@ -204,9 +203,9 @@ public class GameFieldContainer extends JPanel {
 
 	public static void main(String[] args) {
 
-		new JBSCore(true);
-		
-		GameManager pre = new GameManager();
+		JBSCore core = JBattleships.game;
+		core.generateGame();
+		GameManager pre = core.getGameManager();
 		
 		pre.addPlayer(new JBSPlayer(new JBSProfile()));
 		pre.addPlayer(new JBSPlayer(new JBSProfile()));
@@ -216,13 +215,15 @@ public class GameFieldContainer extends JPanel {
 		pre.setFrigateCount(3);
 		pre.setSubmarineCount(3);
 		
-		JBSCore core = new JBSCore();
-		
 		JFrame f = new JFrame();
 		f.setBounds(100, 100, 1000, 800);
 		
 		Game game = pre.createGame(JBSGameType.GAME_LOCAL, 16);
-		
+		////
+		//TODO: Change to own thread, otherwise, blocks GUI thread!!!
+		JOptionPane.showMessageDialog(f, "GAME NOT WORKING, ADD SEPERATE GAME THREAD, CHECK CODE!");
+		pre.startGame();
+		////
 		game.getPlayers()[0].getShips().get(0).setPositon(0, 0, Direction.SOUTH);
 		game.getPlayers()[0].getPlayerField().setShip(game.getPlayers()[0].getShips().get(0));
 		game.getPlayers()[0].getShips().get(0).setHealth(3);

@@ -73,7 +73,10 @@ public class JBSPlayer {
 		ships.clear();
 	}
 	
-	public void subAllCooldown(){
+	/**
+	 * Decreases the cooldown of all ships by one.
+	 */
+	public void decreaseCooldownAll(){
 		for(JBSShip s : ships){
 			s.subCooldown();
 		}

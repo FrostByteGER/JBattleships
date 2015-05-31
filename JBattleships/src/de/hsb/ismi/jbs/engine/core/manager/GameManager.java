@@ -90,6 +90,7 @@ public class GameManager {
 	 */
 	public void startGame(){
 		if(game != null){
+			roundManager = new RoundManager();
 			runGame();
 		}
 	}
@@ -100,8 +101,8 @@ public class GameManager {
 	public void runGame(){
 		while(!game.isGameOver()){
 			game.nextPlayer();
-			while(!roundManager.hasRoundEnded()){
-				//Wait till round has finished
+			while(!roundManager.hasRoundEnded()){ 
+				//Wait till player fires {@link de.hsb.ismi.jbs.engine.core.RoundListener#fireEndRound() fireEndRound} 
 			}
 			roundManager.reset();
 		}

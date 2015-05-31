@@ -119,7 +119,10 @@ public class Game {
 		return true;
 	}
 	
-	public void chackShipsHealth(){
+	/**
+	 * Checks the health of the ships of all players
+	 */
+	public void checkShipsHealth(){
 		for(JBSPlayer p : players){
 			for(JBSShip s : p.getShips()){
 				s.checkHealth();
