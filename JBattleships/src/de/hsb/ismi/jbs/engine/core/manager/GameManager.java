@@ -93,11 +93,14 @@ public class GameManager extends Thread{
 	 * Starts the actual match with the current data.
 	 * <br><br>DO NOT CALL {@link #run()}. This will NOT work!
 	 */
-	public void startGame(){
+	public boolean startGame(){
 		if(game != null){
 			roundManager = new RoundManager();
 			started = true;
 			start();
+			return true;
+		}else{
+			return false;
 		}
 	}
 	
