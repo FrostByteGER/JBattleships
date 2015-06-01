@@ -50,7 +50,7 @@ public class RoundManager implements RoundListener{
 		target.getPlayerField().isFieldWaterHit(x, y);
 	}
 	
-	public boolean hasRoundEnded(){
+	public synchronized boolean hasRoundEnded(){
 		return ended;
 	}
 
@@ -82,11 +82,15 @@ public class RoundManager implements RoundListener{
 	 */
 	@Override
 	public void fireEndRound() {
+		System.out.println("Fired end!");
 		ended = true;
 	}
 	
-	
-	public void reset(){
+	/**
+	 * Resets the RoundManager to a neutral state. Call after round has ended.
+	 */
+	public synchronized void reset(){
+		System.out.println("Called reset!");
 		this.target = null;
 		this.source = null;
 		this.ship = null;

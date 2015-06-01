@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JSplitPane;
 
+import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
@@ -52,7 +53,6 @@ public class GameFieldContainer extends JPanel {
 		
 		selectedGameField = 0;
 		
-		// change ?
 		roundManager = JBattleships.game.getGameManager().getRoundManager();
 		
 		setLayout(new BorderLayout(0, 0));
@@ -83,10 +83,11 @@ public class GameFieldContainer extends JPanel {
 							
 							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
 							
-							
-							centerSiedPanel.repaint();
+				
 							
 							roundManager.fireEndRound();
+							
+							centerSiedPanel.repaint();
 							
 							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
 												
@@ -112,10 +113,9 @@ public class GameFieldContainer extends JPanel {
 				if(e.getActionCommand() == "pass"){
 					
 					game.getPlayer(game.getActivePlayerInt()).decreaseCooldownAll();
-						
+					roundManager.fireEndRound();	
 					centerSiedPanel.repaint();
 										
-					game.nextPlayer();
 					
 					centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
 					mainPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
@@ -202,6 +202,10 @@ public class GameFieldContainer extends JPanel {
 	}
 
 	public static void main(String[] args) {
+		
+		JBSCore.msgLogger = new MessageLogger(JBSCore.DEBUG);
+		// Sets the Position so the MessageLogger is a bit better visible
+		JBSCore.msgLogger.getFrame().setLocation(10, 10);
 
 		JBSCore core = JBattleships.game;
 		core.generateGame();
@@ -221,7 +225,8 @@ public class GameFieldContainer extends JPanel {
 		Game game = pre.createGame(JBSGameType.GAME_LOCAL, 16);
 		////
 		//TODO: Change to own thread, otherwise, blocks GUI thread!!!
-		JOptionPane.showMessageDialog(f, "GAME NOT WORKING, ADD SEPERATE GAME THREAD, CHECK CODE!");
+		//TODO: Possibly fixed, might check for thread-bugs
+		JOptionPane.showMessageDialog(f, "Be careful, Game-Thread might be buggy!");
 		pre.startGame();
 		////
 		game.getPlayers()[0].getShips().get(0).setPositon(0, 0, Direction.SOUTH);

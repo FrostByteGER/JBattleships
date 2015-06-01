@@ -99,7 +99,7 @@ public class Game {
 		this.activePlayer = activePlayer;
 	}
 	
-	public boolean nextPlayer(){
+	public synchronized boolean nextPlayer(){
 		
 		nextPlayer = activePlayer;
 		
@@ -130,7 +130,7 @@ public class Game {
 		}
 	}
 	
-	public boolean isGameOver(){
+	public synchronized boolean isGameOver(){
 		
 		int amount = 0;
 		/* not needed
