@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JButton;
@@ -6,39 +9,43 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JSplitPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
+import javax.swing.JTextArea;
 
 import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
-import de.hsb.ismi.jbs.engine.core.JBSProfile;
-import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.core.JBSProfile;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
+import de.hsb.ismi.jbs.engine.rendering.Resolution;
+import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
 
-public class GameFieldContainer extends JPanel {
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import net.miginfocom.swing.MigLayout;
+
+/**
+ * @author Kevin-Laptop Kuegler
+ * @version 1.00
+ */
+public class GameFieldContainer2 extends JPanel {
+
 	
-	private GameSidePanel2 centerSiedPanel;
-	private JPanel sidePanel;
+	private JBSGUI parent;
+	
+	
+	private GameSidePanel2 gameSidePanel;
+	private JPanel centerPanel;
 	private JPanel lowerSidePanel;
-	private GameFieldPanel mainPanel;
+	private GameFieldPanel gameFieldPanel;
 	private JPanel lowerMainPanel;
 	private JPanel uperMainPanel;
 	private Game game;
@@ -48,31 +55,26 @@ public class GameFieldContainer extends JPanel {
 	private JTextArea chat;
 	private JButton shoot;
 	private JButton pass;
-	private JLabel save;
-	private JButton end;
 	
-	public GameFieldContainer(Game game) {
+	/**
+	 * Create the panel.
+	 */
+	public GameFieldContainer2(JBSGUI parent) {
+		this.parent = parent;
+		this.game = JBattleships.game.getGameManager().getGame();
+		setLayout(new BorderLayout(0, 0));
 		
-		this.game = game;
-		init();
-	}
-	
-	private void init() {
+		centerPanel = new JPanel();
+		add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setLayout(new MigLayout("", "[grow][grow]", "[grow]"));
+				
 		
 		selectedGameField = 0;
 		
 		roundManager = JBattleships.game.getGameManager().getRoundManager();
 		
-		setLayout(new BorderLayout(0, 0));
-		
-		JSplitPane splitPane = new JSplitPane();
-		add(splitPane);
-		
-		sidePanel = new JPanel();
-		sidePanel.setLayout(new BorderLayout());
-		
-		centerSiedPanel = new GameSidePanel2(game.getPlayers()[game.getActivePlayerInt()]);
-		sidePanel.add(centerSiedPanel, BorderLayout.CENTER);
+		gameSidePanel = new GameSidePanel2(game.getPlayers()[game.getActivePlayerInt()]);
+		centerPanel.add(gameSidePanel, "cell 1 0,width :35%:,grow");
 		
 		shoot = new JButton("Shoot");
 		
@@ -87,20 +89,20 @@ public class GameFieldContainer extends JPanel {
 						chat.setText(chat.getText()+"\nDont shoot yourself");
 					}else{
 					
-						if(centerSiedPanel.getSelectedship().canShot()){
+						if(gameSidePanel.getSelectedship().canShot()){
 							
-							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
+							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
 							
 				
 							
 							roundManager.fireEndRound();
 							
-							centerSiedPanel.repaint();
+							gameSidePanel.repaint();
 							
 							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
 												
-							centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
-							mainPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
+							gameSidePanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
+							gameFieldPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
 						
 						}else{
 							chat.setText(chat.getText()+"\nCan´t shoot");
@@ -122,76 +124,30 @@ public class GameFieldContainer extends JPanel {
 					
 					game.getPlayer(game.getActivePlayerInt()).decreaseCooldownAll();
 					roundManager.fireEndRound();	
-					centerSiedPanel.repaint();
+					gameSidePanel.repaint();
 										
 					
-					centerSiedPanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
-					mainPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
+					gameSidePanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
+					gameFieldPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
 						
 				}
 				
 			}
 		});
 		
-		save = new JLabel("Save");
-		save.setBackground(Color.WHITE);
-		save.setOpaque(true);
-		save.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				save.setBackground(Color.lightGray);
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				System.out.println("mousePressed"+getBackground());
-				save.setBackground(Color.GRAY);
-				save.repaint();
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				System.out.println("Exit"+getBackground());
-				save.setBackground(Color.WHITE);
-				save.repaint();
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				System.out.println("Enter"+getBackground());
-				save.setBackground(Color.LIGHT_GRAY);
-				save.repaint();
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-			}
-		});
-		
-		end = new JButton("End");
-		
 		lowerSidePanel = new JPanel();
 		
 		lowerSidePanel.setLayout(new FlowLayout());
 		lowerSidePanel.add(shoot);
 		lowerSidePanel.add(pass);
-		lowerSidePanel.add(save);
-		lowerSidePanel.add(end);
 		
-		save.setBorder(new EmptyBorder(5,10,5,10));
+		add(lowerSidePanel,BorderLayout.SOUTH);
 		
-		sidePanel.add(lowerSidePanel,BorderLayout.SOUTH);
 		
-		splitPane.setRightComponent(sidePanel);
-		
-		mainPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
-		splitPane.setLeftComponent(mainPanel);
-		mainPanel.setLayout(new BorderLayout(0, 0));
+		gameFieldPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
+		gameFieldPanel.setLayout(new BorderLayout(0, 0));
+		centerPanel.add(gameFieldPanel, "cell 0 0,width :65%:,grow");
+
 		
 		chat = new JTextArea();
 		chat.setText("Chat Text");
@@ -200,7 +156,7 @@ public class GameFieldContainer extends JPanel {
 		lowerMainPanel.setLayout(new BorderLayout());
 		lowerMainPanel.add(new JScrollPane(chat), BorderLayout.CENTER);
 		
-		mainPanel.add(lowerMainPanel, BorderLayout.SOUTH);
+		gameFieldPanel.add(lowerMainPanel, BorderLayout.SOUTH);
 		
 
 		
@@ -221,7 +177,7 @@ public class GameFieldContainer extends JPanel {
 				}
 				fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
 
-				mainPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
+				gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 			}
 		});
 		
@@ -239,24 +195,26 @@ public class GameFieldContainer extends JPanel {
 				}
 				fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
 				
-				mainPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
+				gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 			}
 		});
 		
-
-		
 		fieldNumber = new JLabel();
 		
-		fieldNumber.setText(String.valueOf(game.getPlayer(selectedGameField).getName()+selectedGameField));
+		fieldNumber.setText(String.valueOf(selectedGameField));
 		
 		uperMainPanel.add(mbut);
 		uperMainPanel.add(fieldNumber);
 		uperMainPanel.add(pbut);
 		
-		mainPanel.add(uperMainPanel,BorderLayout.NORTH);
+		gameFieldPanel.add(uperMainPanel,BorderLayout.NORTH);
+		
+
+		
+		
 		
 	}
-
+	
 	public static void main(String[] args) {
 		
 		JBSCore.msgLogger = new MessageLogger(JBSCore.DEBUG);
@@ -292,9 +250,9 @@ public class GameFieldContainer extends JPanel {
 		game.getPlayers()[1].getShips().get(0).setPositon(0, 0, Direction.SOUTH);
 		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setContentPane(new GameFieldContainer(game));
+		f.setContentPane(new GameFieldContainer2(new JBSGUI(new Resolution(0,0),ScreenMode.MODE_BORDERLESS)));
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 	}
-	
+
 }

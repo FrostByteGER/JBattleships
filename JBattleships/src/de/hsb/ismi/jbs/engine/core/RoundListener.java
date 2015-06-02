@@ -13,6 +13,15 @@ public interface RoundListener {
 	
 	//public void analyzeRound(JBSPlayer target, JBSPlayer source, JBSShip ship ,int x, int y, Direction direction);
 	
+	/**
+	 * Fires a round processing event. Used to shoot at a ship and notify the game.
+	 * @param target
+	 * @param source
+	 * @param ship
+	 * @param x
+	 * @param y
+	 * @param direction
+	 */
 	public void fireRound(JBSPlayer target, JBSPlayer source, JBSShip ship ,int x, int y, Direction direction);
 	
 	public void fireAnalyzeRound();

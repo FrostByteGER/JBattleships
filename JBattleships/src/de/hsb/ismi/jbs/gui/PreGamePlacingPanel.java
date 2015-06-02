@@ -77,6 +77,8 @@ public class PreGamePlacingPanel extends JPanel {
 	private int activePlayerIndex;
 	private JLabel lblSelectedShip;
 	
+	private boolean lastPlayer;
+	
 	/**
 	 * 
 	 * @param parent
@@ -92,7 +94,7 @@ public class PreGamePlacingPanel extends JPanel {
 	 * Initiates the Panel.
 	 */
 	public void initPanel(){
-		
+		lastPlayer = false;
 		this.header = parent.generateHeader();
 		setLayout(new BorderLayout(0, 0));
 		add(header, BorderLayout.NORTH);
@@ -117,7 +119,13 @@ public class PreGamePlacingPanel extends JPanel {
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("continue")){
-					nextPlayer();
+					if(!lastPlayer){
+						nextPlayer();
+					}else{
+						System.out.println(gm.startGame());
+						parent.swapContainer(new GameFieldContainer2(parent));
+					}
+					
 				}
 			}
 		});
@@ -353,6 +361,7 @@ public class PreGamePlacingPanel extends JPanel {
 			updatePanel();
 			if(activePlayerIndex == gm.getPrePlayers().size() - 1){
 				btnContinue.setText("Start Game");
+				lastPlayer = true;
 			}
 		}
 	}

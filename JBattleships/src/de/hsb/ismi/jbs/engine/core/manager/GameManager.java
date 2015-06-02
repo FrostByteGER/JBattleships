@@ -2,6 +2,7 @@ package de.hsb.ismi.jbs.engine.core.manager;
 
 import java.util.ArrayList;
 
+import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
@@ -12,18 +13,21 @@ import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
-public class GameManager {
+public class GameManager extends Thread{
 	
 	private Game game;
 	private ArrayList<JBSPlayer> players;
 	private int[] shipcount;
 	private RoundManager roundManager;
+	private boolean started;
 	
 	public GameManager() {
+		super("Game-Thread");
 		players = new ArrayList<JBSPlayer>();
 		shipcount = new int[]{0,0,0,0};	
 		game = null;
 		roundManager = null;
+		started = false;
 	}
 	
 	public void addPlayer(JBSPlayer player){
@@ -87,9 +91,26 @@ public class GameManager {
 	
 	/**
 	 * Starts the actual match with the current data.
+	 * <br><br>DO NOT CALL {@link #run()}. This will NOT work!
 	 */
-	public void startGame(){
+	public boolean startGame(){
 		if(game != null){
+			roundManager = new RoundManager();
+			started = true;
+			start();
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
+	@Override
+	public void run() {
+		if(started){
 			runGame();
 		}
 	}
@@ -97,12 +118,13 @@ public class GameManager {
 	/**
 	 * Main game-loop
 	 */
-	public void runGame(){
+	private void runGame(){
 		while(!game.isGameOver()){
 			game.nextPlayer();
-			while(!roundManager.hasRoundEnded()){
-				//Wait till round has finished
+			while(!roundManager.hasRoundEnded()){ 
+				//Wait till player fires {@link de.hsb.ismi.jbs.engine.core.RoundListener#fireEndRound() fireEndRound} 
 			}
+			JBSCore.msgLogger.addMessage("Round ended for Player #" + game.getActivePlayer().getName());
 			roundManager.reset();
 		}
 	}

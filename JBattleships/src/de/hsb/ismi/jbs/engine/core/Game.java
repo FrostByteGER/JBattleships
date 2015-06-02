@@ -99,7 +99,7 @@ public class Game {
 		this.activePlayer = activePlayer;
 	}
 	
-	public boolean nextPlayer(){
+	public synchronized boolean nextPlayer(){
 		
 		nextPlayer = activePlayer;
 		
@@ -119,7 +119,10 @@ public class Game {
 		return true;
 	}
 	
-	public void chackShipsHealth(){
+	/**
+	 * Checks the health of the ships of all players
+	 */
+	public void checkShipsHealth(){
 		for(JBSPlayer p : players){
 			for(JBSShip s : p.getShips()){
 				s.checkHealth();
@@ -127,7 +130,7 @@ public class Game {
 		}
 	}
 	
-	public boolean isGameOver(){
+	public synchronized boolean isGameOver(){
 		
 		int amount = 0;
 		/* not needed
