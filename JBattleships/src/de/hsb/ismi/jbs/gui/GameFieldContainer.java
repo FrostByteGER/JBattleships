@@ -8,11 +8,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JSplitPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
@@ -39,6 +45,8 @@ public class GameFieldContainer extends JPanel {
 	private JTextArea chat;
 	private JButton shoot;
 	private JButton pass;
+	private JLabel save;
+	private JButton end;
 	
 	public GameFieldContainer(Game game) {
 		
@@ -126,11 +134,57 @@ public class GameFieldContainer extends JPanel {
 			}
 		});
 		
+		save = new JLabel("Save");
+		save.setBackground(Color.WHITE);
+		save.setOpaque(true);
+		save.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				save.setBackground(Color.lightGray);
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println("mousePressed"+getBackground());
+				save.setBackground(Color.GRAY);
+				save.repaint();
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				System.out.println("Exit"+getBackground());
+				save.setBackground(Color.WHITE);
+				save.repaint();
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				System.out.println("Enter"+getBackground());
+				save.setBackground(Color.LIGHT_GRAY);
+				save.repaint();
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+			}
+		});
+		
+		end = new JButton("End");
+		
 		lowerSidePanel = new JPanel();
 		
 		lowerSidePanel.setLayout(new FlowLayout());
 		lowerSidePanel.add(shoot);
 		lowerSidePanel.add(pass);
+		lowerSidePanel.add(save);
+		lowerSidePanel.add(end);
+		
+		save.setBorder(new EmptyBorder(5,10,5,10));
 		
 		sidePanel.add(lowerSidePanel,BorderLayout.SOUTH);
 		
@@ -190,9 +244,11 @@ public class GameFieldContainer extends JPanel {
 			}
 		});
 		
+
+		
 		fieldNumber = new JLabel();
 		
-		fieldNumber.setText(String.valueOf(selectedGameField));
+		fieldNumber.setText(String.valueOf(game.getPlayer(selectedGameField).getName()+selectedGameField));
 		
 		uperMainPanel.add(mbut);
 		uperMainPanel.add(fieldNumber);
