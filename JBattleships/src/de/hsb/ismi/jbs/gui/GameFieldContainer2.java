@@ -200,8 +200,8 @@ public class GameFieldContainer2 extends JPanel {
 		});
 		
 		fieldNumber = new JLabel();
-		
-		fieldNumber.setText(String.valueOf(selectedGameField));
+				
+		fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
 		
 		uperMainPanel.add(mbut);
 		uperMainPanel.add(fieldNumber);
@@ -209,7 +209,7 @@ public class GameFieldContainer2 extends JPanel {
 		
 		gameFieldPanel.add(uperMainPanel,BorderLayout.NORTH);
 		
-
+		gameFieldPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
 		
 		
 		
