@@ -164,7 +164,7 @@ public class GameFieldContainer2 extends JPanel {
 		uperMainPanel.setLayout(new FlowLayout());
 		
 		JButton pbut = new JButton();
-		pbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Plus"));
+		pbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Next"));
 		pbut.addActionListener(new ActionListener() {
 			
 			@Override
@@ -175,14 +175,14 @@ public class GameFieldContainer2 extends JPanel {
 				}else if(game.getPlayers().length-1 == selectedGameField){
 					selectedGameField = 0;
 				}
-				fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
+				fieldNumber.setText(game.getPlayer(selectedGameField).getName());
 
 				gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 			}
 		});
 		
 		JButton mbut = new JButton();
-		mbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Minus"));
+		mbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Previous"));
 		mbut.addActionListener(new ActionListener() {
 			
 			@Override
@@ -193,7 +193,7 @@ public class GameFieldContainer2 extends JPanel {
 				}else if(selectedGameField == 0){
 					selectedGameField = game.getPlayers().length-1;
 				}
-				fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
+				fieldNumber.setText(game.getPlayer(selectedGameField).getName());
 				
 				gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 			}
@@ -201,7 +201,7 @@ public class GameFieldContainer2 extends JPanel {
 		
 		fieldNumber = new JLabel();
 				
-		fieldNumber.setText(game.getPlayer(selectedGameField).getName()+selectedGameField);
+		fieldNumber.setText(game.getPlayer(selectedGameField).getName());
 		
 		uperMainPanel.add(mbut);
 		uperMainPanel.add(fieldNumber);

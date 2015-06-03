@@ -45,7 +45,7 @@ public class JBSPlayer {
 		ships = new ArrayList<JBSShip>();
 		playerField = null;
 		isAlive = true;
-		profile = new JBSProfile();
+		profile = new JBSProfile(name);
 	}
 	
 	/**

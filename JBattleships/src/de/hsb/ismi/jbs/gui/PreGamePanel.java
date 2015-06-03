@@ -135,6 +135,7 @@ public class PreGamePanel extends JPanel {
 							if(ai){
 								gm.addPlayer(new JBSAIPlayer(name));
 							}else{
+								System.out.println(name);
 								gm.addPlayer(new JBSPlayer(name));
 							}
 						}
