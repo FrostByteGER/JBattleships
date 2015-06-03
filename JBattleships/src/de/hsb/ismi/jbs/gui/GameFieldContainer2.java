@@ -41,8 +41,8 @@ public class GameFieldContainer2 extends JPanel {
 	
 	private JBSGUI parent;
 	
-	
 	private GameSidePanel2 gameSidePanel;
+	private JPanel sidePanel;
 	private JPanel centerPanel;
 	private JPanel lowerSidePanel;
 	private GameFieldPanel gameFieldPanel;
@@ -53,8 +53,11 @@ public class GameFieldContainer2 extends JPanel {
 	private RoundManager roundManager;
 	private int selectedGameField;
 	private JTextArea chat;
-	private JButton shoot;
-	private JButton pass;
+	private JButton btnExit;
+	private JButton btnShoot;
+	private JButton btnEndRound;
+	private JButton btnSaveGame;
+	private ChatPanel chatPanel;
 	
 	/**
 	 * Create the panel.
@@ -68,18 +71,34 @@ public class GameFieldContainer2 extends JPanel {
 		add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new MigLayout("", "[grow][grow]", "[grow]"));
 				
+		chatPanel = new ChatPanel(true);
+		sidePanel = new JPanel();
+		
 		
 		selectedGameField = 0;
 		
 		roundManager = JBattleships.game.getGameManager().getRoundManager();
 		
 		gameSidePanel = new GameSidePanel2(game.getPlayers()[game.getActivePlayerInt()]);
-		centerPanel.add(gameSidePanel, "cell 1 0,width :35%:,grow");
+		centerPanel.add(sidePanel, "cell 1 0,width :35%:,grow");
+		sidePanel.setLayout(new MigLayout("", "[grow]", "[grow][grow]"));
 		
-		shoot = new JButton("Shoot");
+		sidePanel.add(gameSidePanel, "cell 0 0,height :75%:,grow");
+
+		sidePanel.add(chatPanel, "cell 0 1,height :25%:,grow");
 		
-		shoot.setActionCommand("shoot");
-		shoot.addActionListener(new ActionListener() {
+		btnExit = new JButton("Exit Game");
+		btnExit.setActionCommand("exit");
+		btnExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent.swapContainer(parent.getMainPanel());
+			}
+		});
+		btnShoot = new JButton("Shoot");
+		
+		btnShoot.setActionCommand("shoot");
+		btnShoot.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -97,12 +116,13 @@ public class GameFieldContainer2 extends JPanel {
 							
 							roundManager.fireEndRound();
 							
-							gameSidePanel.repaint();
+							
 							
 							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
 												
 							gameSidePanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
 							gameFieldPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
+							gameSidePanel.repaint();
 						
 						}else{
 							chat.setText(chat.getText()+"\nCan´t shoot");
@@ -114,9 +134,9 @@ public class GameFieldContainer2 extends JPanel {
 			}
 		});
 		
-		pass = new JButton("Pass");
-		pass.setActionCommand("pass");
-		pass.addActionListener(new ActionListener() {
+		btnEndRound = new JButton("End Round");
+		btnEndRound.setActionCommand("pass");
+		btnEndRound.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -138,10 +158,14 @@ public class GameFieldContainer2 extends JPanel {
 		lowerSidePanel = new JPanel();
 		
 		lowerSidePanel.setLayout(new FlowLayout());
-		lowerSidePanel.add(shoot);
-		lowerSidePanel.add(pass);
+		lowerSidePanel.add(btnExit);
+		lowerSidePanel.add(btnShoot);
+		lowerSidePanel.add(btnEndRound);
 		
 		add(lowerSidePanel,BorderLayout.SOUTH);
+		
+		btnSaveGame = new JButton("Save Game");
+		lowerSidePanel.add(btnSaveGame);
 		
 		
 		gameFieldPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
@@ -154,9 +178,9 @@ public class GameFieldContainer2 extends JPanel {
 		
 		lowerMainPanel = new JPanel();
 		lowerMainPanel.setLayout(new BorderLayout());
-		lowerMainPanel.add(new JScrollPane(chat), BorderLayout.CENTER);
+		//lowerMainPanel.add(new JScrollPane(chat), BorderLayout.CENTER);
 		
-		gameFieldPanel.add(lowerMainPanel, BorderLayout.SOUTH);
+		//gameFieldPanel.add(lowerMainPanel, BorderLayout.SOUTH);
 		
 
 		
