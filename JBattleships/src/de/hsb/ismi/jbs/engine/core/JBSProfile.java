@@ -25,6 +25,22 @@ public class JBSProfile {
 	}
 	
 	/**
+	 * 
+	 */
+	public JBSProfile(String name) {
+		id = 0;
+		this.name = name;
+	}
+	
+	/**
+	 * 
+	 */
+	public JBSProfile(String name, int id) {
+		this.id = id;
+		this.name = name;
+	}
+	
+	/**
 	 * @return the name
 	 */
 	public String getName() {

@@ -4,10 +4,10 @@
 package de.hsb.ismi.jbs.engine.core.manager;
 
 import de.hsb.ismi.jbs.engine.core.Direction;
-import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.RoundListener;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * @author Kevin Kuegler
@@ -38,10 +38,11 @@ public class RoundManager implements RoundListener{
 		if(ship.isAlife() && ship.canShot()){
 			ship.shoot(x, y, direction, target.getPlayerField());
 			
-			source.subAllCooldown();
+			// Decreases the cooldown of all ships of the player.
+			source.decreaseCooldownAll();
 			
 			ship.setMaxCooldown();
-			
+			JBattleships.game.getGameManager().getGame().checkShipsHealth();
 		}
 	}
 	
@@ -49,7 +50,7 @@ public class RoundManager implements RoundListener{
 		target.getPlayerField().isFieldWaterHit(x, y);
 	}
 	
-	public boolean hasRoundEnded(){
+	public synchronized boolean hasRoundEnded(){
 		return ended;
 	}
 
@@ -81,11 +82,15 @@ public class RoundManager implements RoundListener{
 	 */
 	@Override
 	public void fireEndRound() {
+		System.out.println("Fired end!");
 		ended = true;
 	}
 	
-	
-	public void reset(){
+	/**
+	 * Resets the RoundManager to a neutral state. Call after round has ended.
+	 */
+	public synchronized void reset(){
+		System.out.println("Called reset!");
 		this.target = null;
 		this.source = null;
 		this.ship = null;

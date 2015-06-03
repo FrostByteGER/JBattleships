@@ -57,12 +57,13 @@ public class ScreenDeviceManager {
 		for(DisplayMode m : currentAdapter.getDisplayModes()){
 			for(int ref : supportedRefreshRates){
 				if(ref == m.getRefreshRate() && supportedBitDepth == m.getBitDepth() && (m.getWidth() >= minResolution.getWidth() && m.getHeight() >= minResolution.getHeight())){
-					supportedModes.add(m);
+					if(!supportedModes.contains(m)){
+						supportedModes.add(m);
+					}
 				}
 			}
 		}
 		DisplayMode[] modes = supportedModes.toArray(new DisplayMode[supportedModes.size()]);
-		modes = new LinkedHashSet<>(Arrays.asList(modes)).toArray(new DisplayMode[supportedModes.size()]);
 		return modes;
 	}
 	

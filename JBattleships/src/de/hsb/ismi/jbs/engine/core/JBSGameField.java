@@ -88,7 +88,7 @@ public class JBSGameField {
 	}
 	
 	public void shootField(int x,int y){
-		if(x > size || y > size){
+		if(x > size || y > size || y < 0 || x < 0){
 		}else{
 			if(actorFields[x][y] == water){
 				actorFields[x][y] = waterHitDummy;

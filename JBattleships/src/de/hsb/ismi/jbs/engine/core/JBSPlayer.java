@@ -45,7 +45,7 @@ public class JBSPlayer {
 		ships = new ArrayList<JBSShip>();
 		playerField = null;
 		isAlive = true;
-		profile = null;
+		profile = new JBSProfile(name);
 	}
 	
 	/**
@@ -73,7 +73,10 @@ public class JBSPlayer {
 		ships.clear();
 	}
 	
-	public void subAllCooldown(){
+	/**
+	 * Decreases the cooldown of all ships by one.
+	 */
+	public void decreaseCooldownAll(){
 		for(JBSShip s : ships){
 			s.subCooldown();
 		}
@@ -87,6 +90,17 @@ public class JBSPlayer {
 		this.isAlive = isAlive;
 	}
 
+	public void chackIsAlive(){
+		if(isAlive){
+			for(JBSShip s : ships){
+				s.checkHealth();
+				if(s.isAlife()){
+					return;
+				}
+			}
+		}
+	}
+	
 	/**
 	 * @return the name
 	 */

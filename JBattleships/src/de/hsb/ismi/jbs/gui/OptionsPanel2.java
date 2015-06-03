@@ -9,12 +9,11 @@ import javax.swing.UIManager;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
-import java.awt.DisplayMode;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
-
+import javax.swing.BoxLayout;
 import java.awt.Component;
 
 import javax.swing.Box;
@@ -31,28 +30,18 @@ import java.awt.Insets;
 import javax.swing.JRadioButton;
 
 import java.awt.Dimension;
-import java.net.Inet4Address;
-import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JSlider;
 
 import de.hsb.ismi.jbs.core.JBSCore;
-import de.hsb.ismi.jbs.engine.rendering.Resolution;
-import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
-import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
-import de.hsb.ismi.jbs.start.JBattleships;
-
 import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JCheckBox;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class OptionsPanel extends JPanel{
+public class OptionsPanel2 extends JPanel{
 	
 	private JBSGUI parent;
 	private JPanel centerPanel;
@@ -64,32 +53,26 @@ public class OptionsPanel extends JPanel{
 	private JButton saveButton;
 	private JButton backButton;
 	private JLabel lblRes;
-	private JComboBox<Resolution> resBox;
+	private JComboBox<String> resBox;
 	private JLabel lblMode;
 	private JRadioButton rdbtnFull;
 	private JRadioButton rdbtnWin;
 	private JRadioButton rdbtnLess;
-	private final ButtonGroup buttonGroup;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblVolume;
 	private JSlider sliderVolume;
 	private JSlider sliderMusic;
 	private JLabel lblMusic;
 	private JPanel networkPanel;
 	private JLabel lblIP;
-	private JComboBox<Inet4Address> ipBox;
+	private JComboBox<Object> ipBox;
 	private JLabel lblPort;
 	private JTextField portField;
-	private JPanel mixedPanel;
-	private JPanel gamePanel;
-	private JLabel lblLang;
-	private JComboBox<String> langBox;
-	private JLabel lblDebugmode;
-	private JCheckBox chckbxDebug;
 	
 	/**
 	 * 
 	 */
-	public OptionsPanel(JBSGUI parent) {
+	public OptionsPanel2(JBSGUI parent) {
 		this.parent = parent;
 		setLayout(new BorderLayout(0, 0));
 		add(parent.generateHeader(), BorderLayout.NORTH);
@@ -97,7 +80,6 @@ public class OptionsPanel extends JPanel{
 		add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		
-		buttonGroup = new ButtonGroup();
 		gfxPanel = new JPanel();
 		centerPanel.add(gfxPanel);
 		gfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Graphics", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -122,21 +104,7 @@ public class OptionsPanel extends JPanel{
 		gbc_lblRes.gridy = 1;
 		gfxPanel.add(lblRes, gbc_lblRes);
 		
-				
-		DisplayMode[] modes = JBSCore.screenDeviceManager.getSupportedDisplayModes(new int[]{JBSCore.screenDeviceManager.getCurrentDisplayMode().getRefreshRate()});
-		Resolution[] res = new Resolution[modes.length];
-		for(int i = 0; i < modes.length; i++){
-			res[i] = Resolution.convertDisplayModeToResolution(modes[i]);
-		}
-		int index = -1;
-		for(int j = 0; j < res.length; j++){
-			if(res[j].equals(JBattleships.game.getCurrentResolution())){
-				index = j;
-			}
-		}
-		
-		resBox = new JComboBox<Resolution>(res);
-		resBox.setSelectedIndex(index);
+		resBox = new JComboBox<String>();
 		GridBagConstraints gbc_resBox = new GridBagConstraints();
 		gbc_resBox.insets = new Insets(0, 0, 5, 0);
 		gbc_resBox.fill = GridBagConstraints.HORIZONTAL;
@@ -274,8 +242,7 @@ public class OptionsPanel extends JPanel{
 		gbc_lblIP.gridy = 1;
 		networkPanel.add(lblIP, gbc_lblIP);
 		
-		ipBox = new JComboBox<Inet4Address>(new Inet4Address[]{(Inet4Address) Inet4Address.getLoopbackAddress()});
-		//ipBox = new JComboBox<Inet4Address>();
+		ipBox = new JComboBox<Object>(); //TODO: Change type!
 		GridBagConstraints gbc_ipBox = new GridBagConstraints();
 		gbc_ipBox.insets = new Insets(0, 0, 5, 0);
 		gbc_ipBox.fill = GridBagConstraints.HORIZONTAL;
@@ -307,56 +274,8 @@ public class OptionsPanel extends JPanel{
 		networkPanel.add(portField, gbc_portField);
 		portField.setColumns(10);
 		
-		mixedPanel = new JPanel();
-		centerPanel.add(mixedPanel);
-		mixedPanel.setLayout(new BoxLayout(mixedPanel, BoxLayout.Y_AXIS));
-		
-		gamePanel = new JPanel();
-		gamePanel.setBorder(new TitledBorder(null, "Game", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		mixedPanel.add(gamePanel);
-		GridBagLayout gbl_gamePanel = new GridBagLayout();
-		gbl_gamePanel.columnWidths = new int[]{0};
-		gbl_gamePanel.rowHeights = new int[] {0, 0, 0, 0, 0};
-		gbl_gamePanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_gamePanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gamePanel.setLayout(gbl_gamePanel);
-		
-		lblLang = new JLabel("Language:");
-		lblLang.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_lblLang = new GridBagConstraints();
-		gbc_lblLang.anchor = GridBagConstraints.WEST;
-		gbc_lblLang.insets = new Insets(0, 0, 5, 0);
-		gbc_lblLang.gridx = 0;
-		gbc_lblLang.gridy = 0;
-		gamePanel.add(lblLang, gbc_lblLang);
-		
-		
-		langBox = new JComboBox<String>(JBattleships.game.getDataManager().getLocalizationManager().getLanguageTable());
-		langBox.setSelectedItem(JBattleships.game.getDataManager().getLocalizationManager().getActiveLanguage());
-		GridBagConstraints gbc_langBox = new GridBagConstraints();
-		gbc_langBox.insets = new Insets(0, 0, 5, 0);
-		gbc_langBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_langBox.gridx = 0;
-		gbc_langBox.gridy = 1;
-		gamePanel.add(langBox, gbc_langBox);
-		
-		lblDebugmode = new JLabel("Other:");
-		GridBagConstraints gbc_lblDebugmode = new GridBagConstraints();
-		gbc_lblDebugmode.insets = new Insets(0, 0, 5, 0);
-		gbc_lblDebugmode.anchor = GridBagConstraints.WEST;
-		gbc_lblDebugmode.gridx = 0;
-		gbc_lblDebugmode.gridy = 2;
-		gamePanel.add(lblDebugmode, gbc_lblDebugmode);
-		
-		chckbxDebug = new JCheckBox("Debug-Mode");
-		GridBagConstraints gbc_chckbxDebug = new GridBagConstraints();
-		gbc_chckbxDebug.anchor = GridBagConstraints.WEST;
-		gbc_chckbxDebug.gridx = 0;
-		gbc_chckbxDebug.gridy = 3;
-		gamePanel.add(chckbxDebug, gbc_chckbxDebug);
-		
 		buttonPanel = new JPanel();
-		mixedPanel.add(buttonPanel);
+		centerPanel.add(buttonPanel);
 		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		resetButton = new JButton("Reset to Default");
@@ -364,7 +283,7 @@ public class OptionsPanel extends JPanel{
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("reset")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
 				}
 			}
 		});
@@ -376,30 +295,7 @@ public class OptionsPanel extends JPanel{
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("save")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
-					Resolution r = (Resolution) resBox.getSelectedItem();
-					
-					// If a custom resolution was set in the Settings.cfg, the resBox won't possibly have a match, this prevents a NullPointerException!
-					if(r == null){
-						r = Resolution.convertDisplayModeToResolution(JBSCore.screenDeviceManager.getCurrentDisplayMode());
-						resBox.setSelectedItem(r); // Prevents that the JComboBox selection is still null!
-					}
-					
-					JBattleships.game.changeResolution(r);
-					
-					if(rdbtnFull.isSelected()){
-						JBattleships.game.changeScreenMode(ScreenMode.MODE_FULLSCREEN);
-						r = Resolution.convertDisplayModeToResolution(JBSCore.screenDeviceManager.getCurrentDisplayMode());
-						JBattleships.game.changeResolution(r);
-						resBox.setSelectedItem(r);
-					}else if(rdbtnWin.isSelected()){
-						JBattleships.game.changeScreenMode(ScreenMode.MODE_WINDOWED);
-					}else if(rdbtnLess.isSelected()){
-						JBattleships.game.changeScreenMode(ScreenMode.MODE_BORDERLESS);
-					}
-					//TODO: Doesn't work fully yet!
-					boolean check = JBattleships.game.getDataManager().getOptionsManager().saveOptions(new HashMap<String, String[]>());
-					System.out.println("Saving was: " + check);
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
 				}
 			}
 		});
@@ -411,24 +307,12 @@ public class OptionsPanel extends JPanel{
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("back")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
-					OptionsPanel.this.parent.swapContainer(OptionsPanel.this.parent.getMainPanel());
+					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+					OptionsPanel2.this.parent.swapContainer(OptionsPanel2.this.parent.getMainPanel());
 				}
 			}
 		});
 		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonPanel.add(backButton);
-		
-		switch(JBattleships.game.getScreenMode()){
-		case MODE_FULLSCREEN:
-			buttonGroup.setSelected(rdbtnFull.getModel(), true);
-			break;
-		case MODE_BORDERLESS:
-			buttonGroup.setSelected(rdbtnLess.getModel(), true);
-			break;
-		case MODE_WINDOWED:
-			buttonGroup.setSelected(rdbtnWin.getModel(), true);
-			break;
-		}
 	}
 }

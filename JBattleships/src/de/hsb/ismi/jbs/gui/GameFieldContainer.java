@@ -3,17 +3,25 @@ package de.hsb.ismi.jbs.gui;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JSplitPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
+import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
@@ -23,6 +31,7 @@ import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 public class GameFieldContainer extends JPanel {
 	
@@ -39,6 +48,8 @@ public class GameFieldContainer extends JPanel {
 	private JTextArea chat;
 	private JButton shoot;
 	private JButton pass;
+	private JLabel save;
+	private JButton end;
 	
 	public GameFieldContainer(Game game) {
 		
@@ -51,7 +62,7 @@ public class GameFieldContainer extends JPanel {
 		selectedGameField = 0;
 		
 		// change ?
-		roundManager = new RoundManager();//TODO
+		roundManager = JBattleships.game.getGameManager().getRoundManager();
 		
 		setLayout(new BorderLayout(0, 0));
 		
@@ -73,7 +84,7 @@ public class GameFieldContainer extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "shoot"){
 					
-					if(game.getActivePlayerInt() == Integer.valueOf( fieldNumber.getText())){
+					if(game.getActivePlayerInt() == selectedGameField){
 						chat.setText(chat.getText()+"\nDont shoot yourself");
 					}else{
 					
@@ -81,15 +92,13 @@ public class GameFieldContainer extends JPanel {
 							
 							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
 							
-							System.out.println(game.getActivePlayerInt());
+				
 							
 							// needs to be in teh Round Manager TODO
-							game.chackShipsHealth();
+							roundManager.fireEndRound();
 							
 							centerSiedPanel.repaint();
-							
-							// needs to be in teh Round Manager TODO
-							game.nextPlayer();
+
 							
 							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
 												
