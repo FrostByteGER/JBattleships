@@ -123,7 +123,7 @@ public class GameFieldContainer extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "pass"){
 					
-					game.getPlayer(game.getActivePlayerInt()).subAllCooldown();
+					game.getPlayer(game.getActivePlayerInt()).decreaseCooldownAll();
 						
 					centerSiedPanel.repaint();
 					
