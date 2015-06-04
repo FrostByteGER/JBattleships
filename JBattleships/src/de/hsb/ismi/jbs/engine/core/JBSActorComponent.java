@@ -3,21 +3,33 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import java.awt.image.BufferedImage;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
 public class JBSActorComponent extends JBSObject {
 
-	private String imagePath = null;
-	private JBSActor parent = null;
-	private boolean destroyed = false;
+
+	private String imagePath;
+	private JBSActor parent;
+	private BufferedImage image;
+	private int imagecount;
+	private int activanimation;
+	private int imageamount;
+	private int animationamount;
+	
+	private int size = 64;
+
 	
 	/**
 	 * 
 	 */
-	public JBSActorComponent() {
-		// TODO Auto-generated constructor stub
+	public JBSActorComponent(BufferedImage image) {
+		this.image  = image;
+		this.animationamount = image.getHeight()/size;
+		this.imageamount = image.getWidth()/size;
 	}
 
 	/**
@@ -25,7 +37,7 @@ public class JBSActorComponent extends JBSObject {
 	 */
 	public JBSActorComponent(boolean replicated) {
 		super(replicated);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -33,13 +45,29 @@ public class JBSActorComponent extends JBSObject {
 	 * @param parent
 	 * @param destroyed
 	 */
-	public JBSActorComponent(String imagePath, JBSActor parent, boolean destroyed) {
+	public JBSActorComponent(String imagePath, JBSActor parent) {
 		super();
 		this.imagePath = imagePath;
 		this.parent = parent;
-		this.destroyed = destroyed;
 	}
-
+	
+	public void startAnimation(int animationnuber){
+		activanimation = animationnuber%animationamount;
+	}
+	
+	public void nextImage(){
+		if(imagecount == imageamount-1){
+			activanimation = 0;
+			imagecount = 0;
+		}else{
+			imagecount++;
+		}
+	}
+	
+	public BufferedImage getImage(){
+		return image.getSubimage(imagecount*size,activanimation*size , size, size);
+	}
+	
 	/**
 	 * @return the parent
 	 */
@@ -55,24 +83,73 @@ public class JBSActorComponent extends JBSObject {
 	}
 
 	/**
-	 * @return the destroyed
-	 */
-	public final boolean isDestroyed() {
-		return destroyed;
-	}
-
-	/**
-	 * @param destroyed the destroyed to set
-	 */
-	public final void setDestroyed(boolean destroyed) {
-		this.destroyed = destroyed;
-	}
-
-	/**
 	 * @return the imagePath
 	 */
 	public final String getImagePath() {
 		return imagePath;
 	}
 
+	/**
+	 * @return the imagecount
+	 */
+	public int getImagecount() {
+		return imagecount;
+	}
+
+	/**
+	 * @param imagecount the imagecount to set
+	 */
+	public void setImagecount(int imagecount) {
+		this.imagecount = imagecount;
+	}
+
+	/**
+	 * @return the activanimation
+	 */
+	public int getActivanimation() {
+		return activanimation;
+	}
+
+	/**
+	 * @param activanimation the activanimation to set
+	 */
+	public void setActivanimation(int activanimation) {
+		this.activanimation = activanimation;
+	}
+
+	/**
+	 * @return the imageamount
+	 */
+	public int getImageamount() {
+		return imageamount;
+	}
+
+	/**
+	 * @param imageamount the imageamount to set
+	 */
+	public void setImageamount(int imageamount) {
+		this.imageamount = imageamount;
+	}
+
+	/**
+	 * @return the animationamount
+	 */
+	public int getAnimationamount() {
+		return animationamount;
+	}
+
+	/**
+	 * @param animationamount the animationamount to set
+	 */
+	public void setAnimationamount(int animationamount) {
+		this.animationamount = animationamount;
+	}
+
+	/**
+	 * @param imagePath the imagePath to set
+	 */
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	
 }
