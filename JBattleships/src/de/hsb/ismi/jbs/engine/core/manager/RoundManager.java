@@ -60,7 +60,7 @@ public class RoundManager implements RoundListener{
 	 * 
 	 * @return
 	 */
-	public synchronized boolean hasRoundEnded(){
+	public boolean hasRoundEnded(){
 		return ended;
 	}
 
@@ -93,15 +93,12 @@ public class RoundManager implements RoundListener{
 	@Override
 	public void fireEndRound() {
 		ended = true;
-		synchronized(JBattleships.game.getGameManager()){
-			JBattleships.game.getGameManager().notifyAll();
-		}
 	}
 	
 	/**
 	 * Resets the RoundManager to a neutral state. Call after round has ended.
 	 */
-	public synchronized void reset(){
+	public void reset(){
 		this.target = null;
 		this.source = null;
 		this.ship = null;

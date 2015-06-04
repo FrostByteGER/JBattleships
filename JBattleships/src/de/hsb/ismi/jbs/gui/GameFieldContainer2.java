@@ -27,6 +27,7 @@ import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -50,6 +51,7 @@ public class GameFieldContainer2 extends JPanel {
 	private JPanel uperMainPanel;
 	private Game game;
 	private JLabel fieldNumber;
+	private JLabel activePlayerlbl;
 	private RoundManager roundManager;
 	private int selectedGameField;
 	private JTextArea chat;
@@ -83,9 +85,12 @@ public class GameFieldContainer2 extends JPanel {
 		centerPanel.add(sidePanel, "cell 1 0,width :35%:,grow");
 		sidePanel.setLayout(new MigLayout("", "[grow]", "[grow][grow]"));
 		
-		sidePanel.add(gameSidePanel, "cell 0 0,height :75%:,grow");
+		activePlayerlbl = new JLabel("Active Player: " + game.getActivePlayer().getName());
+		activePlayerlbl.setFont(new Font("Tahoma", Font.BOLD, 20));
+		sidePanel.add(activePlayerlbl, "cell 0 0,height :10%:,grow");
+		sidePanel.add(gameSidePanel, "cell 0 1,height :65%:,grow");
 
-		sidePanel.add(chatPanel, "cell 0 1,height :25%:,grow");
+		sidePanel.add(chatPanel, "cell 0 2,height :25%:,grow");
 		
 		btnExit = new JButton("Exit Game");
 		btnExit.setActionCommand("exit");
@@ -107,29 +112,21 @@ public class GameFieldContainer2 extends JPanel {
 					if(game.getActivePlayerInt() == selectedGameField){
 						chat.setText(chat.getText()+"\nDont shoot yourself");
 					}else{
-					
 						if(gameSidePanel.getSelectedship().canShot()){
-							
 							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
-							
-				
-							
+							roundManager.fireAnalyzeRound();
 							roundManager.fireEndRound();
-							
-							
-							
-							//game.setActivePlayer((game.getActivePlayer()+1)%game.getPlayers().length);
-												
-							gameSidePanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
-							gameFieldPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
+							JBSCore.msgLogger.addMessage("Round ended for Player: " + game.getActivePlayer().getName());
+							roundManager.reset();
+							game.nextPlayer();
+							gameSidePanel.setPlayer(game.getActivePlayer());
+							gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 							gameSidePanel.repaint();
-						
+							activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
 						}else{
 							chat.setText(chat.getText()+"\nCan´t shoot");
 						}
-					
 					}
-					
 				}
 			}
 		});
@@ -142,14 +139,14 @@ public class GameFieldContainer2 extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "pass"){
 					
-					game.getPlayer(game.getActivePlayerInt()).decreaseCooldownAll();
-					roundManager.fireEndRound();	
+					roundManager.fireEndRound();
+					JBSCore.msgLogger.addMessage("Round ended for Player: " + game.getActivePlayer().getName());
+					roundManager.reset();
+					game.nextPlayer();
+					gameSidePanel.setPlayer(game.getActivePlayer());
+					gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 					gameSidePanel.repaint();
-										
-					
-					gameSidePanel.setPlayer(game.getPlayer(game.getActivePlayerInt()));
-					gameFieldPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
-						
+					activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
 				}
 				
 			}
@@ -233,12 +230,13 @@ public class GameFieldContainer2 extends JPanel {
 		
 		gameFieldPanel.add(uperMainPanel,BorderLayout.NORTH);
 		
-		gameFieldPanel.setGamefild(game.getPlayer(game.getActivePlayerInt()).getPlayerField());
+		gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 		
 		
 		
 	}
 	
+	/*
 	public static void main(String[] args) {
 		
 		JBSCore.msgLogger = new MessageLogger(JBSCore.DEBUG);
@@ -278,5 +276,6 @@ public class GameFieldContainer2 extends JPanel {
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 	}
+	*/
 
 }

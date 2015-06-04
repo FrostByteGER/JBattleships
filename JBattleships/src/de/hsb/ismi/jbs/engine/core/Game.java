@@ -99,7 +99,7 @@ public class Game {
 		this.activePlayer = activePlayer;
 	}
 	
-	public synchronized boolean nextPlayer(){
+	public boolean nextPlayer(){
 		
 		nextPlayer = activePlayer;
 		

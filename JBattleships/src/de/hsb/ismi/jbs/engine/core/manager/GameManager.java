@@ -12,7 +12,7 @@ import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 
-public class GameManager extends Thread{
+public class GameManager{
 	
 	private Game game;
 	private ArrayList<JBSPlayer> players;
@@ -21,7 +21,6 @@ public class GameManager extends Thread{
 	private boolean started;
 	
 	public GameManager() {
-		super("Game-Thread");
 		players = new ArrayList<JBSPlayer>();
 		shipcount = new int[]{0,0,0,0};	
 		game = null;
@@ -90,45 +89,24 @@ public class GameManager extends Thread{
 	
 	/**
 	 * Starts the actual match with the current data.
-	 * <br><br>DO NOT CALL {@link #run()}. This will NOT work!
 	 */
 	public boolean startGame(){
 		if(game != null){
 			roundManager = new RoundManager();
 			started = true;
-			start();
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Thread#run()
-	 */
-	@Override
-	public void run() {
-		if(started){
-			runGame();
-		}
-	}
+
 	
 	/**
 	 * Main game-loop
 	 */
-	private synchronized void runGame(){
+	private void runGame(){
 		while(!game.isGameOver()){
-			while(!roundManager.hasRoundEnded()){ 
-				//Wait till player fires {@link de.hsb.ismi.jbs.engine.core.RoundListener#fireEndRound() fireEndRound} 
-				try {
-					wait();
-				} catch (InterruptedException e) {
-					//TODO: May fix or do something...
-					e.printStackTrace();
-				}
-			}
-			JBSCore.msgLogger.addMessage("Round ended for Player #" + game.getActivePlayer().getName());
+			JBSCore.msgLogger.addMessage("Round ended for Player: " + game.getActivePlayer().getName());
 			roundManager.reset();
 			game.nextPlayer();
 		}
