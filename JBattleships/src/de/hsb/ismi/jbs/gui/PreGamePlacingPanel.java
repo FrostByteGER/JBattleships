@@ -122,6 +122,7 @@ public class PreGamePlacingPanel extends JPanel {
 					if(!lastPlayer){
 						nextPlayer();
 					}else{
+						gm.startGame();
 						parent.swapContainer(new GameFieldContainer2(parent));
 					}
 					
