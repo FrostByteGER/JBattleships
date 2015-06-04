@@ -24,6 +24,7 @@ public class GameManager{
 		game = null;
 		roundManager = null;
 		started = false;
+		listeners = new ArrayList<>(0);
 	}
 	
 	public void addPlayer(JBSPlayer player){

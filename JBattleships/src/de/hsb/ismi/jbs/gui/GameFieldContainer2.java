@@ -138,7 +138,6 @@ public class GameFieldContainer2 extends JPanel {
 		btnEndRound = new JButton("End Round");
 		btnEndRound.setActionCommand("pass");
 		btnEndRound.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "pass"){
@@ -152,7 +151,6 @@ public class GameFieldContainer2 extends JPanel {
 					gameSidePanel.repaint();
 					activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
 				}
-				
 			}
 		});
 		
@@ -253,47 +251,5 @@ public class GameFieldContainer2 extends JPanel {
 		
 		
 	}
-	
-	/*
-	public static void main(String[] args) {
-		
-		JBSCore.msgLogger = new MessageLogger(JBSCore.DEBUG);
-		// Sets the Position so the MessageLogger is a bit better visible
-		JBSCore.msgLogger.getFrame().setLocation(10, 10);
-
-		JBSCore core = JBattleships.game;
-		core.generateGame();
-		GameManager pre = core.getGameManager();
-		
-		pre.addPlayer(new JBSPlayer(new JBSProfile()));
-		pre.addPlayer(new JBSPlayer(new JBSProfile()));
-		
-		pre.setDestroyerCount(1);	
-		pre.setCorvetteCount(4);
-		pre.setFrigateCount(3);
-		pre.setSubmarineCount(3);
-		
-		JFrame f = new JFrame();
-		f.setBounds(100, 100, 1000, 800);
-		
-		Game game = pre.createGame(JBSGameType.GAME_LOCAL, 16);
-		////
-		//TODO: Change to own thread, otherwise, blocks GUI thread!!!
-		//TODO: Possibly fixed, might check for thread-bugs
-		JOptionPane.showMessageDialog(f, "Be careful, Game-Thread might be buggy!");
-		pre.startGame();
-		////
-		game.getPlayers()[0].getShips().get(0).setPositon(0, 0, Direction.SOUTH);
-		game.getPlayers()[0].getPlayerField().setShip(game.getPlayers()[0].getShips().get(0));
-		game.getPlayers()[0].getShips().get(0).setHealth(3);
-		game.getPlayers()[0].getShips().get(0).setCooldown(2);
-		game.getPlayers()[1].getShips().get(0).setPositon(0, 0, Direction.SOUTH);
-		
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setContentPane(new GameFieldContainer2(new JBSGUI(new Resolution(0,0),ScreenMode.MODE_BORDERLESS)));
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
-	}
-	*/
 
 }
