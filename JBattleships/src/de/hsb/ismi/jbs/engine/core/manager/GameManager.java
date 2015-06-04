@@ -11,7 +11,6 @@ import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
-import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 public class GameManager extends Thread{
 	
@@ -140,7 +139,7 @@ public class GameManager extends Thread{
 	 */
 	@Override
 	public String toString() {
-		return "GameManager | Players: " + players.size() + " | ShipCount: " + shipcount.length;
+		return "GameManager | Players: " + players.size() + " | ShipCount: " + (shipcount[0] + shipcount[1] + shipcount[2] + shipcount[3]);
 	}
 
 	/**
