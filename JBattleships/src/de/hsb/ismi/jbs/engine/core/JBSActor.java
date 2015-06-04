@@ -4,6 +4,12 @@
 package de.hsb.ismi.jbs.engine.core;
 
 import java.awt.Graphics;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import de.hsb.ismi.jbs.engine.rendering.RenderInterface;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
@@ -11,15 +17,20 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class JBSActor extends JBSObject implements RenderInterface{
 	
+	@XmlTransient
 	private JBSPlayer player;
-	private Vector2i location;
+	@XmlElement(name = "ActorLocation")
+	private Vector2i location = new Vector2i();;
+	@XmlElement(name = "ActorRotation")
 	private Direction rotation;
-	
-	private boolean isHit;
-	
-	private boolean visibility;
+	@XmlElement(name = "Hitted")
+	private boolean isHit = false;
+	@XmlElement(name = "Visibility")
+	private boolean visibility = true;
+	@XmlTransient
 	private JBSActorComponent[] components;
 	
 
@@ -27,8 +38,6 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	 * 
 	 */
 	public JBSActor() {
-		isHit = false;
-		location = new Vector2i();
 	}
 
 	/**
@@ -36,7 +45,6 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	 */
 	public JBSActor(boolean replicated) {
 		super(replicated);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

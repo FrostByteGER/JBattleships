@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.core.JBSCore;
@@ -30,6 +33,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -162,6 +166,20 @@ public class GameFieldContainer2 extends JPanel {
 		add(lowerSidePanel,BorderLayout.SOUTH);
 		
 		btnSaveGame = new JButton("Save Game");
+		btnSaveGame.setActionCommand("save");
+		btnSaveGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("save")){
+					try {
+						JAXBContext jaxb = JAXBContext.newInstance(Game.class);
+						Marshaller m = jaxb.createMarshaller();
+						m.marshal(JBattleships.game.getGameManager().getGame(), new File("Data/Saves/testsave.xml"));
+					} catch (JAXBException jaxbe) {
+						jaxbe.printStackTrace();
+					}
+				}
+			}
+		});
 		lowerSidePanel.add(btnSaveGame);
 		
 		

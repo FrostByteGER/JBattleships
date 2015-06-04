@@ -5,15 +5,25 @@ package de.hsb.ismi.jbs.engine.core;
 
 import java.util.HashMap;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class JBSProfile {
 	
+	@XmlTransient
 	private int id;
+	@XmlElement(name = "PlayerName")
 	private String name;
+	@XmlTransient
 	private HashMap<String,Float> stats;
+	@XmlTransient
 	private HashMap<String,Achievement> achievements;
 
 	/**

@@ -5,31 +5,49 @@ package de.hsb.ismi.jbs.engine.core;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
+
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class JBSShip {
 
+	@XmlTransient
 	private int cooldownLimit;
+	@XmlElement(name = "Cooldown")
 	private int cooldown;
+	@XmlTransient
 	private int length;
+	@XmlTransient
 	private JBSDamageType damageType;
+	@XmlTransient
 	private int shotpower;
+	@XmlTransient
 	private String name;
+	@XmlElement(name = "ShipHealth")
 	private int health;
+	@XmlElement(name = "ShipElement")
+	@XmlElementWrapper(name = "ShipElements")
 	private ArrayList<JBSActor> shipActors;
-	private Vector2i positon;
-	private Direction direction;
+	@XmlElement(name = "Position")
+	private Vector2i position = new Vector2i();
+	@XmlElement(name = "Direction")
+	private Direction direction = null;
 	
 	/**
 	 * 
 	 */
 	public JBSShip() {
 		name = "unknown";
-		shipActors = new ArrayList<JBSActor>();
+		shipActors = new ArrayList<JBSActor>(0);
 		direction = Direction.NORTH;
 	}
 	
@@ -46,7 +64,6 @@ public class JBSShip {
 		this.length = length;
 		this.health = length;
 		this.shipActors = new ArrayList<JBSActor>();
-		this.positon = new Vector2i();
 		if(JBSDamageType.DAMAGE_SMALL == damageType){
 			shotpower = 1;
 		}else if(JBSDamageType.DAMAGE_MEDIUM == damageType){
@@ -54,7 +71,30 @@ public class JBSShip {
 		}else if(JBSDamageType.DAMAGE_LARGE == damageType){
 			shotpower = 3;
 		}
-		
+	}
+	
+	/**
+	 * @param cooldownLimit
+	 * @param cooldown
+	 * @param damageType
+	 */
+	public JBSShip(int cooldownLimit, int cooldown, int length, JBSDamageType damageType, Vector2i location, Direction direction) {
+		super();
+		this.cooldownLimit = cooldownLimit;
+		this.cooldown = cooldown;
+		this.damageType = damageType;
+		this.length = length;
+		this.health = length;
+		this.position = location;
+		this.direction = direction;
+		this.shipActors = new ArrayList<JBSActor>();
+		if(JBSDamageType.DAMAGE_SMALL == damageType){
+			shotpower = 1;
+		}else if(JBSDamageType.DAMAGE_MEDIUM == damageType){
+			shotpower = 2;
+		}else if(JBSDamageType.DAMAGE_LARGE == damageType){
+			shotpower = 3;
+		}
 	}
 	
 	public void addShipPart(JBSActor part) {
@@ -169,8 +209,8 @@ public class JBSShip {
 	}
 	
 	public void setPositon(int x, int y, Direction direction) {
-		this.positon.setX(x);
-		this.positon.setY(y);
+		this.position.setX(x);
+		this.position.setY(y);
 		
 		for(int i = 0 ; i < shipActors.size() ; i++){
 			if(direction == Direction.NORTH){
@@ -185,12 +225,13 @@ public class JBSShip {
 			}else if(direction == Direction.WEST){
 				shipActors.get(i).getLocation().setX(x-i);
 				shipActors.get(i).getLocation().setY(y);
-			}			
+			}
+			shipActors.get(i).setRotation(direction);
 		}
 	}
 	
 	public Vector2i getPositon() {
-		return positon;
+		return position;
 	}
 	
 	public ArrayList<JBSActor> getShipActors() {

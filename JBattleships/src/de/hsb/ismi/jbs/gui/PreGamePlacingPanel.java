@@ -69,7 +69,6 @@ public class PreGamePlacingPanel extends JPanel {
 	private int frigatesLeft = 0;
 	private int corvettesLeft = 0;
 	private int subsLeft = 0;
-	private JButton btnSave;
 	
 	private JBSShip activeShip;
 	private JBSPlayer activePlayer;
@@ -260,29 +259,6 @@ public class PreGamePlacingPanel extends JPanel {
 		gbc_btnSubmarine.gridx = 0;
 		gbc_btnSubmarine.gridy = 5;
 		shipPanel.add(btnSubmarine, gbc_btnSubmarine);
-		
-		btnSave = new JButton("Save Game");
-		btnSave.setActionCommand("save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("save")){
-					try {
-						JAXBContext jaxb = JAXBContext.newInstance(Game.class);
-						Marshaller m = jaxb.createMarshaller();
-						m.marshal(JBattleships.game.getGameManager().getGame(), new File("Data/testsave.xml"));
-					} catch (JAXBException jaxbe) {
-						jaxbe.printStackTrace();
-					}
-				}
-			}
-		});
-		GridBagConstraints gbc_btnSave = new GridBagConstraints();
-		gbc_btnSave.insets = new Insets(0, 5, 0, 0);
-		gbc_btnSave.ipady = 20;
-		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnSave.gridx = 0;
-		gbc_btnSave.gridy = 6;
-		shipPanel.add(btnSave, gbc_btnSave);
 	}
 	
 	/**
@@ -318,7 +294,9 @@ public class PreGamePlacingPanel extends JPanel {
 							subsLeft--;
 							btnSubmarine.setText("Submarines Left: " + subsLeft);	
 						}
+						activePlayer.addShip(activeShip);
 						JBSCore.msgLogger.addMessage("Successfully placed " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection());
+						
 						activeShip = null;
 						lblSelectedShip.setText("Selected Ship: None");
 					}else{

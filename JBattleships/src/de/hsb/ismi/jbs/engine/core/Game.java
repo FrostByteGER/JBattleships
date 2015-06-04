@@ -20,16 +20,20 @@ import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 public class Game {
 	
 	@XmlTransient
-	private DataManager dataManager;
+	private DataManager dataManager = new DataManager();
 	@XmlElement(name = "GameType")
-	private JBSGameType gameType;
+	private JBSGameType gameType = null;
 	@XmlElement(name = "Player")
 	@XmlElementWrapper(name = "Players")
-	private JBSPlayer[] players;
+	private JBSPlayer[] players = null;
 	@XmlElement(name = "ActivePlayer")
-	private int activePlayer;
+	private int activePlayer = 0;
 	@XmlElement(name = "NextPlayer") // TODO added
-	private int nextPlayer;
+	private int nextPlayer = 0;
+	
+	public Game(){
+		
+	}
 	
 	/**
 	 * @param gameType
@@ -38,11 +42,9 @@ public class Game {
 	 */
 	public Game(JBSGameType gameType, JBSPlayer[] players) {
 		super();
-		dataManager = new DataManager();
 		this.gameType = gameType;
 		this.players = players;
 		this.activePlayer = 0;//TODO may change
-		this.nextPlayer = activePlayer;
 	}
 
 	/**

@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JBSPlayer {
 	
+	@XmlElement(name = "PlayerProfile")
+	private JBSProfile profile;
 	@XmlElement(name = "Ship")
 	@XmlElementWrapper(name = "PlayerShips")
 	private ArrayList<JBSShip> ships;
@@ -25,8 +27,7 @@ public class JBSPlayer {
 	private boolean isAlive;
 	@XmlElement(name = "PlayerField")
 	private JBSGameField playerField;
-	@XmlTransient
-	private JBSProfile profile;
+
 	
 	/**
 	 * 

@@ -19,8 +19,8 @@ public class Vector2i {
 	 * Default Constructor. Initiates both coordinates with 0.
 	 */
 	public Vector2i() {
-		this.x = 0;
-		this.y = 0;
+		this.x = -1;
+		this.y = -1;
 	}
 	
 	/**

@@ -65,9 +65,10 @@ public class GameManager{
 		}
 	
 		JBSPlayer[] tplayers = new JBSPlayer[players.size()];
-		
+
 		for(int i = 0 ; i < tplayers.length ; i++){
 			tplayers[i] = players.get(i);
+			/*
 			for(int j = 0 ; j < shipcount[0] ; j++){
 				tplayers[i].addShip(new JBSDestroyer());
 			}
@@ -80,8 +81,8 @@ public class GameManager{
 			for(int j = 0 ; j < shipcount[3] ; j++){
 				tplayers[i].addShip(new JBSCorvette());
 			}
+			*/
 		}
-		
 		game = new Game(type, tplayers);
 		
 		return game;

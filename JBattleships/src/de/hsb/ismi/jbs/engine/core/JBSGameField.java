@@ -18,8 +18,7 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JBSGameField {
 
-	@XmlElement(name = "ActorField")
-	@XmlElementWrapper(name = "GameActorFields")
+	@XmlTransient
 	private JBSActor[][] actorFields;
 	@XmlElement(name = "GameFieldSize")
 	private int size;
@@ -94,7 +93,7 @@ public class JBSGameField {
 				actorFields[x][y] = waterHitDummy;
 			}else if(actorFields[x][y] == waterHitDummy){
 			}else{
-				actorFields[x][y].setHit(true);;
+				actorFields[x][y].setHit(true);
 			}
 		}
 	}
