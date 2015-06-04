@@ -22,10 +22,12 @@ public class JBSGameField {
 	private JBSActor[][] actorFields = null;
 	@XmlElement(name = "GameFieldSize")
 	private int size = -1;
+	
+	// OLD TODO
 	@XmlTransient
-	public JBSActor water = new JBSActor();
+	public JBSActor water = new JBSActor("water");
 	@XmlTransient
-	public JBSActor waterHitDummy = new JBSActor();
+	public JBSActor waterHitDummy = new JBSActor("waterhit");
 	
 	/**
 	 * @param size
@@ -40,7 +42,7 @@ public class JBSGameField {
 		
 		for(int i = 0 ; i < size ; i++){
 			for (int j = 0 ; j < size ; j++){
-				actorFields[i][j] = water;
+				actorFields[i][j] = new JBSActor("water");
 			}
 		}
 	}
@@ -61,11 +63,11 @@ public class JBSGameField {
 	}
 	
 	public boolean isFieldWater(int x ,int y){
-		return(actorFields[x][y]==water);
+		return(actorFields[x][y].getName().equals("water"));
 	}
 	
 	public boolean isFieldWaterHit(int x ,int y){
-		return(actorFields[x][y]==waterHitDummy);
+		return(actorFields[x][y].getName().equals("waterhit"));
 	}
 	
 	/**
@@ -78,7 +80,7 @@ public class JBSGameField {
 	public void resetActorFields(){
 		for(int i = 0 ; i < size ; i++){
 			for(int j = 0 ; j < size ; j++){
-				this.actorFields[i][j] = water;
+				this.actorFields[i][j] = new JBSActor("water");
 			}	
 		}
 	}
@@ -86,12 +88,8 @@ public class JBSGameField {
 	public void shootField(int x,int y){
 		if(x > size || y > size || y < 0 || x < 0){
 		}else{
-			if(actorFields[x][y] == water){
-				actorFields[x][y] = waterHitDummy;
-			}else if(actorFields[x][y] == waterHitDummy){
-			}else{
-				actorFields[x][y].setHit(true);
-			}
+			actorFields[x][y].setHit(true);
+			actorFields[x][y].setName("waterhit");
 		}
 	}
 	
@@ -124,7 +122,7 @@ public class JBSGameField {
 						continue;
 					}else if(actor.getLocation().getY()+j < 0 || actor.getLocation().getY()+j >= size){
 						continue;
-					}else if(actorFields[actor.getLocation().getX()+i][actor.getLocation().getY()+j] != water){
+					}else if(!actorFields[actor.getLocation().getX()+i][actor.getLocation().getY()+j].getName().equals("water")){
 						return false;
 					}
 				}

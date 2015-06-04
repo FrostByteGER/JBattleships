@@ -3,6 +3,9 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 /**
@@ -14,7 +17,10 @@ public class JBSActorComponent extends JBSObject {
 
 	private String imagePath;
 	private JBSActor parent;
-	private BufferedImage image;
+	private BufferedImage imagesorce;
+	private BufferedImage[][]images;
+	private BufferedImage[][] resizeimages;
+	
 	private int imagecount;
 	private int activanimation;
 	private int imageamount;
@@ -23,13 +29,27 @@ public class JBSActorComponent extends JBSObject {
 	private int size = 64;
 
 	
+	
 	/**
 	 * 
 	 */
-	public JBSActorComponent(BufferedImage image) {
-		this.image  = image;
-		this.animationamount = image.getHeight()/size;
-		this.imageamount = image.getWidth()/size;
+	public JBSActorComponent(BufferedImage imagesorce) {
+		this.imagesorce  = imagesorce;
+		this.animationamount = imagesorce.getHeight()/size;
+		this.imageamount = imagesorce.getWidth()/size;
+		
+		//imagesorce.getSubimage(imagecount*size,activanimation*size , size, size)
+		
+		images = new BufferedImage[animationamount][imageamount];
+		resizeimages = new BufferedImage[animationamount][imageamount];
+		
+		for(int i = 0 ; i < animationamount ; i++){
+			for(int j = 0 ; j < imageamount ; j++){
+				images[i][j] = imagesorce.getSubimage(j*size,i*size , size, size);
+				resizeimages[i][j] = imagesorce.getSubimage(j*size,i*size , size, size);
+			}
+		}
+		
 	}
 
 	/**
@@ -55,6 +75,26 @@ public class JBSActorComponent extends JBSObject {
 		activanimation = animationnuber%animationamount;
 	}
 	
+	public void resize(int size){
+		
+		Graphics2D g = null; 
+		
+		for(int i = 0 ; i < animationamount ; i++){
+			for(int j = 0 ; j < imageamount ; j++){
+				//resizeimages[i][j] = images[i][j];
+				
+				resizeimages[i][j] = new BufferedImage(size, size, BufferedImage.TRANSLUCENT);
+				
+				g = resizeimages[i][j].createGraphics();
+				
+				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					    RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
+				g.drawImage(images[i][j], 0, 0, size, size, null);
+				g.dispose();	
+			}
+		}
+	}
+	
 	public void nextImage(){
 		if(imagecount == imageamount-1){
 			activanimation = 0;
@@ -65,7 +105,10 @@ public class JBSActorComponent extends JBSObject {
 	}
 	
 	public BufferedImage getImage(){
-		return image.getSubimage(imagecount*size,activanimation*size , size, size);
+		
+		return resizeimages[ activanimation][imagecount];
+		
+		//return imagesorce.getSubimage(imagecount*size,activanimation*size , size, size);
 	}
 	
 	/**

@@ -1,16 +1,25 @@
 package de.hsb.ismi.jbs.gui;
 
+import java.util.Random;
+
 public class animationThread extends Thread {
 
 	private GameFieldPanel field;
 	private int sleeptime;
 	private boolean runit;
+	private Random r;
 	
-	public animationThread(GameFieldPanel field) {
+	public animationThread(GameFieldPanel field,int size) {
 		
 		this.field = field;
 		sleeptime = 200;
 		runit = true;
+		r = new Random();
+		for(int i = 0 ; i < field.getGamefild().getSize() ; i++){
+			for(int j = 0 ; j < field.getGamefild().getSize() ; j++){
+				field.getGamefild().getField(i, j).getComponents().resize(size);
+			}
+		}
 		
 	}
 	
@@ -27,7 +36,12 @@ public class animationThread extends Thread {
 								
 				for(int i = 0 ; i < field.getGamefild().getSize() ; i++){
 					for(int j = 0 ; j < field.getGamefild().getSize() ; j++){
-						//TODO
+						
+						if(field.getGamefild().getField(i, j).getComponents().getImagecount() == 0 && r.nextInt(20)==10){
+							field.getGamefild().getField(i, j).getComponents().startAnimation(r.nextInt(10));
+						}else{
+							field.getGamefild().getField(i, j).getComponents().nextImage();
+						}					
 					}
 				}
 				

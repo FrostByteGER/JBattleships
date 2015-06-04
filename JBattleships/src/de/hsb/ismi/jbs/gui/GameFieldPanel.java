@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -38,7 +39,8 @@ public class GameFieldPanel extends JPanel {
 	
 	private ArrayList<GameFieldActionListener> listeners;
 	
-	
+	private animationThread animationthread;
+		
 	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
 		
 		this.gamefild = fild;
@@ -61,6 +63,10 @@ public class GameFieldPanel extends JPanel {
 		this.fildsize = fieldsize;
 		xofset = 0;
 		yofset = 0;
+		
+		animationthread = new animationThread(this,size);
+		
+		animationthread.start();
 		
 		//TODO test
 		//TEST
@@ -161,8 +167,10 @@ public class GameFieldPanel extends JPanel {
 		for(int i = 0 ; i < gamefild.getSize() ; i++){
 			for(int j = 0 ; j < gamefild.getSize() ; j++ ){
 				if(gamefild.isFieldWater(i, j)){
-					g.setColor(Color.BLUE);				
-					g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
+					//g.setColor(Color.BLUE);				
+					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
+					
+					g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
 					
 				}else if(gamefild.isFieldWaterHit(i, j)){
 					g.setColor(Color.BLUE);

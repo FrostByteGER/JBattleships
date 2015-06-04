@@ -17,9 +17,9 @@ public class JBSFrigate extends JBSShip {
 	public JBSFrigate() {
 		super(2, 0, 4, JBSDamageType.DAMAGE_MEDIUM);
 		setName(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Frigate"));
-		addShipPart(new JBSActor());
-		addShipPart(new JBSActor());
-		addShipPart(new JBSActor());
-		addShipPart(new JBSActor());
+		addShipPart(new JBSActor("JBSFrigate"));
+		addShipPart(new JBSActor("JBSFrigate"));
+		addShipPart(new JBSActor("JBSFrigate"));
+		addShipPart(new JBSActor("JBSFrigate"));
 	}
 }

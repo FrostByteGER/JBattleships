@@ -12,13 +12,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import de.hsb.ismi.jbs.engine.rendering.RenderInterface;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class JBSActor extends JBSObject implements RenderInterface{
+public class JBSActor extends JBSObject{
 	
 	@XmlTransient
 	private JBSPlayer player = null;
@@ -30,14 +31,18 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	private boolean isHit = false;
 	@XmlElement(name = "Visibility")
 	private boolean visibility = true;
+	@XmlElement(name = "Name")
+	private String name;
 	@XmlTransient
-	private JBSActorComponent[] components = null;
+	private JBSActorComponent components = null;
 	
 
 	/**
 	 * 
 	 */
-	public JBSActor() {
+	public JBSActor(String name) {
+		components =  new JBSActorComponent(JBattleships.game.getDataManager().getResourceManager().getTexture("testwater.png"));
+		this.name = name; // TODO
 	}
 
 	/**
@@ -54,22 +59,13 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	 * @param health
 	 * @param visibility
 	 */
-	public JBSActor(JBSPlayer player, Vector2i location, Direction rotation, int health, boolean visibility, JBSActorComponent[] components) {
+	public JBSActor(JBSPlayer player, Vector2i location, Direction rotation, int health, boolean visibility, JBSActorComponent components) {
 		super();
 		this.player = player;
 		this.location = location;
 		this.rotation = rotation;
 		this.visibility = visibility;
 		this.components = components;
-	}
-
-	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.rendering.RenderInterface#render(java.awt.Graphics)
-	 */
-	@Override
-	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public boolean isControlledByPlayer(){
@@ -143,15 +139,31 @@ public class JBSActor extends JBSObject implements RenderInterface{
 	/**
 	 * @return the components
 	 */
-	public final JBSActorComponent[] getComponents() {
+	public final JBSActorComponent getComponents() {
 		return components;
 	}
 
 	/**
 	 * @param components the components to set
 	 */
-	public final void setComponents(JBSActorComponent[] components) {
+	public final void setComponents(JBSActorComponent components) {
 		this.components = components;
 	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 
 }
