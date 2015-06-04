@@ -118,11 +118,17 @@ public class GameManager extends Thread{
 	/**
 	 * Main game-loop
 	 */
-	private void runGame(){
+	private synchronized void runGame(){
 		while(!game.isGameOver()){
 			game.nextPlayer();
 			while(!roundManager.hasRoundEnded()){ 
 				//Wait till player fires {@link de.hsb.ismi.jbs.engine.core.RoundListener#fireEndRound() fireEndRound} 
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					//TODO: May fix or do something...
+					e.printStackTrace();
+				}
 			}
 			JBSCore.msgLogger.addMessage("Round ended for Player #" + game.getActivePlayer().getName());
 			roundManager.reset();

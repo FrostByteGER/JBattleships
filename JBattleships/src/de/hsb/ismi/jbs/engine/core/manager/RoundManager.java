@@ -34,6 +34,9 @@ public class RoundManager implements RoundListener{
 		ended = false;
 	}
 	
+	/**
+	 * 
+	 */
 	private void processRound(){
 		if(ship.isAlife() && ship.canShot()){
 			ship.shoot(x, y, direction, target.getPlayerField());
@@ -46,10 +49,17 @@ public class RoundManager implements RoundListener{
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	private void analyzeRound(){
 		target.getPlayerField().isFieldWaterHit(x, y);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public synchronized boolean hasRoundEnded(){
 		return ended;
 	}
@@ -82,15 +92,16 @@ public class RoundManager implements RoundListener{
 	 */
 	@Override
 	public void fireEndRound() {
-		System.out.println("Fired end!");
 		ended = true;
+		synchronized(JBattleships.game.getGameManager()){
+			JBattleships.game.getGameManager().notifyAll();
+		}
 	}
 	
 	/**
 	 * Resets the RoundManager to a neutral state. Call after round has ended.
 	 */
 	public synchronized void reset(){
-		System.out.println("Called reset!");
 		this.target = null;
 		this.source = null;
 		this.ship = null;

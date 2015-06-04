@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.swing.UIManager;
 
 import de.frostbyteger.messagelogger.MessageLogger;
+import de.hsb.ismi.jbs.engine.core.JBSIOQueue;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
@@ -32,6 +33,8 @@ public class JBSCore {
 	public static SHA256Generator shaGenerator = new SHA256Generator();
 	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
 	public static ScreenDeviceManager screenDeviceManager = new ScreenDeviceManager();
+	/** The IO-Queue for any IO events. */
+	public static JBSIOQueue<String> ioQueue = new JBSIOQueue<String>();
 	/** The Path of the Datafolder with all important content. */
 	public static final String DATA_PATH = "Data/";
 	/** Enables debug functionality and the MessageLogger. */
