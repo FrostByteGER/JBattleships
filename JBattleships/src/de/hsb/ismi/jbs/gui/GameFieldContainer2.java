@@ -4,28 +4,17 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import de.frostbyteger.messagelogger.MessageLogger;
 import de.hsb.ismi.jbs.core.JBSCore;
-import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.JBSGameType;
-import de.hsb.ismi.jbs.engine.core.JBSPlayer;
-import de.hsb.ismi.jbs.engine.core.JBSProfile;
-import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
-import de.hsb.ismi.jbs.engine.rendering.Resolution;
-import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.BorderLayout;
@@ -248,7 +237,17 @@ public class GameFieldContainer2 extends JPanel {
 		
 		gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 		
-		
+		JBattleships.game.getGameManager().addGameListener(new GameListener() {
+			
+			@Override
+			public void fireStartedGame() {
+			}
+			
+			@Override
+			public void fireEndedGame() {
+				parent.swapContainer(parent.getMainPanel());
+			}
+		});
 		
 	}
 

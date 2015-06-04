@@ -109,7 +109,7 @@ public class Game {
 			nextPlayer = (nextPlayer+1)%players.length;
 			
 			if(players[nextPlayer].isAlive()){
-				players[nextPlayer].chackIsAlive();
+				players[nextPlayer].checkIsAlive();
 			}
 			
 		} while (!players[nextPlayer].isAlive()&&activePlayer!=nextPlayer);
@@ -146,7 +146,7 @@ public class Game {
 		for(JBSPlayer p : players){
 			if(p.isAlive()){
 				amount++;
-				if(amount==2){
+				if(amount>=2){
 					return false;
 				}
 			}

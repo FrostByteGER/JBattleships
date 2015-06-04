@@ -46,6 +46,7 @@ public class RoundManager implements RoundListener{
 			
 			ship.setMaxCooldown();
 			JBattleships.game.getGameManager().getGame().checkShipsHealth();
+			target.checkIsAlive();
 		}
 	}
 	
@@ -59,7 +60,6 @@ public class RoundManager implements RoundListener{
 			fireEndRound(source);
 			JBattleships.game.getGameManager().endGame(false);
 		}else{
-			
 		}
 	}
 	

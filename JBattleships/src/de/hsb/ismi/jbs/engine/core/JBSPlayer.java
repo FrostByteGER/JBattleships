@@ -91,7 +91,7 @@ public class JBSPlayer {
 		this.isAlive = isAlive;
 	}
 
-	public void chackIsAlive(){
+	public void checkIsAlive(){
 		if(isAlive){
 			for(JBSShip s : ships){
 				s.checkHealth();
@@ -99,6 +99,7 @@ public class JBSPlayer {
 					return;
 				}
 			}
+			isAlive = false;
 		}
 	}
 	
