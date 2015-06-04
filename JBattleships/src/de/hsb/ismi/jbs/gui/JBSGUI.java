@@ -28,21 +28,19 @@ import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
  */
 public class JBSGUI{
 
-	private JFrame mainFrame;
-	private JPanel contentPane;
-	private Stack<JPanel> panelStack;
+	private JFrame mainFrame = new JFrame("JBattleships ALPHA");
+	private JPanel contentPane = new JPanel();
+	private Stack<JPanel> panelStack  = new Stack<JPanel>();
 	
-	private MainPanel mainPanel;
-	private OptionsPanel optionsPanel;
+	private MainPanel mainPanel = new MainPanel(this);
+	private OptionsPanel optionsPanel = new OptionsPanel(this);
 	
-	private BufferedImage backgroundImage;
+	private BufferedImage backgroundImage = null;
 
 	/**
 	 * Create the frame and its components.
 	 */
 	public JBSGUI(Resolution res, ScreenMode mode) {
-		panelStack = new Stack<JPanel>();
-		mainFrame = new JFrame("JBattleships ALPHA");
 		mainFrame.setResizable(JBSCore.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 100, res.getWidth(), res.getHeight());
@@ -53,14 +51,10 @@ public class JBSGUI{
 			ioe.printStackTrace();
 		}
 		
-		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		optionsPanel = new OptionsPanel(this);
-		mainPanel = new MainPanel(this);
+
 		//TODO: Remove add call
 		contentPane.add(mainPanel,BorderLayout.CENTER);
-		//contentPane.add(new PreGamePanel(this),BorderLayout.CENTER);
 		
 		mainFrame.setContentPane(contentPane);
 

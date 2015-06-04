@@ -19,23 +19,20 @@ import javax.xml.bind.annotation.XmlTransient;
 public class JBSPlayer {
 	
 	@XmlElement(name = "PlayerProfile")
-	private JBSProfile profile;
+	private JBSProfile profile = new JBSProfile();
 	@XmlElement(name = "Ship")
 	@XmlElementWrapper(name = "PlayerShips")
-	private ArrayList<JBSShip> ships;
+	private ArrayList<JBSShip> ships = new ArrayList<JBSShip>(0);
 	@XmlElement(name = "Alive")
-	private boolean isAlive;
+	private boolean isAlive = true;
 	@XmlElement(name = "PlayerField")
-	private JBSGameField playerField;
+	private JBSGameField playerField = null;
 
 	
 	/**
 	 * 
 	 */
 	public JBSPlayer(JBSProfile profile) {
-		ships = new ArrayList<JBSShip>();
-		playerField = null;
-		isAlive = true;
 		this.profile = profile;
 	}
 	

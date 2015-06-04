@@ -16,26 +16,19 @@ import javax.swing.SwingConstants;
  */
 public class PreGamePlayerPanel extends JPanel {
 
-	private JLabel lblName;
-	private JTextField nameField;
-	private JCheckBox checkboxAI;
-	private JCheckBox checkboxActive;
+	private JLabel lblName = new JLabel("Name:");
+	private JTextField nameField = new JTextField("Undefined", 10);
+	private JCheckBox checkboxAI = new JCheckBox("AI?");
+	private JCheckBox checkboxActive = new JCheckBox("Active?");
 	
 	/**
 	 * Creates a new PreGamePlayerPanel with a preset nameField String.
 	 */
 	public PreGamePlayerPanel() {
-		lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(lblName);
-		
-		nameField = new JTextField("undefined",10);
 		add(nameField);
-		
-		checkboxAI = new JCheckBox("AI?");
 		add(checkboxAI);
-		
-		checkboxActive = new JCheckBox("Active?");
 		add(checkboxActive);
 	}
 	
@@ -44,17 +37,11 @@ public class PreGamePlayerPanel extends JPanel {
 	 * @param fieldContent The content of the nameField.
 	 */
 	public PreGamePlayerPanel(String fieldContent) {
-		lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(lblName);
-		
 		nameField = new JTextField(fieldContent, 10);
 		add(nameField);
-		
-		checkboxAI = new JCheckBox("AI?");
 		add(checkboxAI);
-		
-		checkboxActive = new JCheckBox("Active?");
 		add(checkboxActive);
 	}
 

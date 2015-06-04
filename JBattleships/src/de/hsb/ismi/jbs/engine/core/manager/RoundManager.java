@@ -15,23 +15,16 @@ import de.hsb.ismi.jbs.start.JBattleships;
  */
 public class RoundManager implements RoundListener{
 	
-	private boolean ended;
+	private boolean ended = false;
 	
-	private JBSPlayer target;
-	private JBSPlayer source;
-	private JBSShip ship;
-	private int x;
-	private int y;
-	private Direction direction;
+	private JBSPlayer target = null;
+	private JBSPlayer source = null;
+	private JBSShip ship = null;
+	private int x = -1;
+	private int y = -1;
+	private Direction direction = null;
 
 	public RoundManager(){
-		this.target = null;
-		this.source = null;
-		this.ship = null;
-		this.x = -1;
-		this.y = -1;
-		this.direction = null;
-		ended = false;
 	}
 	
 	/**

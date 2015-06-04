@@ -9,9 +9,9 @@ package de.hsb.ismi.jbs.engine.core;
  */
 public class JBSActorComponent extends JBSObject {
 
-	private String imagePath;
-	private JBSActor parent;
-	private boolean destroyed;
+	private String imagePath = null;
+	private JBSActor parent = null;
+	private boolean destroyed = false;
 	
 	/**
 	 * 

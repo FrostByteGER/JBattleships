@@ -28,7 +28,7 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
 public class JBSCore {
 
 	/** The MessageLogger to log errors, exceptions and other stuff. */
-	public static MessageLogger msgLogger;
+	public static MessageLogger msgLogger = new MessageLogger(JBSCore.DEBUG);
 	/** The Checksumgenerator to generate checksums from various objects, Strings or such. */
 	public static SHA256Generator shaGenerator = new SHA256Generator();
 	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
@@ -43,56 +43,38 @@ public class JBSCore {
 	public static final boolean RESIZABLE = false;
 	
 	/** Contains the game's current resolution. */
-	private Resolution currentResolution;
+	private Resolution currentResolution = new Resolution(800, 600);
 	/** The game's current screenMode. */
-	private ScreenMode screenMode;
+	private ScreenMode screenMode = ScreenMode.MODE_FULLSCREEN;
 	/** The game's current master-volume. */
-	private int volume;
+	private int volume = 100;
 	/** The game's current music-volume. */
-	private int music;
+	private int music = 100;
 	/** The game's current IP-address. */
-	private String ip;
+	private String ip = "0.0.0.0";
 	/** The game's current port. */
-	private int port;
+	private int port = -1;
 	/** The game's current language. */
-	private String language;
+	private String language = "English";
 	
 	/** The mainGUI of the game. */
-	private JBSGUI mainGUI;
+	private JBSGUI mainGUI = null;
 	/** The gameManager of the game. */
-	private GameManager gameManager;
+	private GameManager gameManager = null;
 	/** The dataManager of the game. */
-	private DataManager dataManager;
+	private DataManager dataManager = new DataManager();
 
 	
 	/**
 	 * 
 	 */
 	public JBSCore() {
-		dataManager = new DataManager();
-		gameManager = null;
-		currentResolution = null;
-		screenMode = null;
-		volume = 0;
-		music = 0;
-		ip = "0.0.0.0";
-		port = 0;
-		language = "German";
 	}
 	
 	/**
 	 * 
 	 */
 	public JBSCore(boolean initGame) {
-		dataManager = new DataManager();
-		gameManager = null;
-		currentResolution = null;
-		screenMode = null;
-		volume = 0;
-		music = 0;
-		ip = "0.0.0.0";
-		port = 0;
-		language = "German";
 		if(initGame){
 			initGame();
 		}

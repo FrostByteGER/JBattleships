@@ -21,17 +21,17 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 public class JBSActor extends JBSObject implements RenderInterface{
 	
 	@XmlTransient
-	private JBSPlayer player;
+	private JBSPlayer player = null;
 	@XmlElement(name = "ActorLocation")
-	private Vector2i location = new Vector2i();;
+	private Vector2i location = new Vector2i();
 	@XmlElement(name = "ActorRotation")
-	private Direction rotation;
+	private Direction rotation = null;
 	@XmlElement(name = "Hitted")
 	private boolean isHit = false;
 	@XmlElement(name = "Visibility")
 	private boolean visibility = true;
 	@XmlTransient
-	private JBSActorComponent[] components;
+	private JBSActorComponent[] components = null;
 	
 
 	/**

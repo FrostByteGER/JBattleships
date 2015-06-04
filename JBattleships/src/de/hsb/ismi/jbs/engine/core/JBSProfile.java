@@ -18,27 +18,24 @@ import javax.xml.bind.annotation.XmlTransient;
 public class JBSProfile {
 	
 	@XmlTransient
-	private int id;
+	private int id = -1;
 	@XmlElement(name = "PlayerName")
-	private String name;
+	private String name = "default";
 	@XmlTransient
-	private HashMap<String,Float> stats;
+	private HashMap<String, Float> stats = new HashMap<String, Float>(0);
 	@XmlTransient
-	private HashMap<String,Achievement> achievements;
+	private HashMap<String, Achievement> achievements = new HashMap<String, Achievement>(0);
 
 	/**
 	 * 
 	 */
 	public JBSProfile() {
-		id = 0;
-		name = "default";
 	}
 	
 	/**
 	 * 
 	 */
 	public JBSProfile(String name) {
-		id = 0;
 		this.name = name;
 	}
 	

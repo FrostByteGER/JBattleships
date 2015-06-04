@@ -23,20 +23,20 @@ public class JBSShip {
 	@XmlTransient
 	private int cooldownLimit;
 	@XmlElement(name = "Cooldown")
-	private int cooldown;
+	private int cooldown = -1;
 	@XmlTransient
-	private int length;
+	private int length = -1;
 	@XmlTransient
 	private JBSDamageType damageType;
 	@XmlTransient
-	private int shotpower;
+	private int shotpower = -1;
 	@XmlTransient
-	private String name;
+	private String name = "PLACEHOLDER";
 	@XmlElement(name = "ShipHealth")
-	private int health;
+	private int health = -1;
 	@XmlElement(name = "ShipElement")
 	@XmlElementWrapper(name = "ShipElements")
-	private ArrayList<JBSActor> shipActors;
+	private ArrayList<JBSActor> shipActors = new ArrayList<JBSActor>(0);
 	@XmlElement(name = "Position")
 	private Vector2i position = new Vector2i();
 	@XmlElement(name = "Direction")
@@ -46,9 +46,6 @@ public class JBSShip {
 	 * 
 	 */
 	public JBSShip() {
-		name = "unknown";
-		shipActors = new ArrayList<JBSActor>(0);
-		direction = Direction.NORTH;
 	}
 	
 	/**

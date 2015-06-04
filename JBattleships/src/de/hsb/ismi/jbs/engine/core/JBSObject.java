@@ -9,7 +9,7 @@ package de.hsb.ismi.jbs.engine.core;
  */
 public class JBSObject {
 	
-	private boolean replicated;
+	private boolean replicated = false;
 
 	/**
 	 * 

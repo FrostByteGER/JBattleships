@@ -19,22 +19,19 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 public class JBSGameField {
 
 	@XmlTransient
-	private JBSActor[][] actorFields;
+	private JBSActor[][] actorFields = null;
 	@XmlElement(name = "GameFieldSize")
-	private int size;
+	private int size = -1;
 	@XmlTransient
-	public JBSActor water;
+	public JBSActor water = new JBSActor();
 	@XmlTransient
-	public JBSActor waterHitDummy;
+	public JBSActor waterHitDummy = new JBSActor();
 	
 	/**
 	 * @param size
 	 */
 	public JBSGameField(int size) {
 		this.size = size;
-		
-		water = new JBSActor();
-		waterHitDummy = new JBSActor();
 		
 		water.setHit(false);
 		waterHitDummy.setHit(true);

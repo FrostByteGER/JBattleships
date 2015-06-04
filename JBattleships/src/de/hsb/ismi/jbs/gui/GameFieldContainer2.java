@@ -248,7 +248,5 @@ public class GameFieldContainer2 extends JPanel {
 				parent.swapContainer(parent.getMainPanel());
 			}
 		});
-		
 	}
-
 }
