@@ -132,7 +132,7 @@ public class Game {
 		}
 	}
 	
-	public synchronized boolean isGameOver(){
+	public boolean isGameOver(){
 		
 		int amount = 0;
 		/* not needed

@@ -95,7 +95,7 @@ public class GameFieldContainer extends JPanel {
 				
 							
 							// needs to be in teh Round Manager TODO
-							roundManager.fireEndRound();
+							roundManager.fireEndRound(game.getActivePlayer());
 							
 							centerSiedPanel.repaint();
 

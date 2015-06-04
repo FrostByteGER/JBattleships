@@ -118,8 +118,8 @@ public class GameFieldContainer2 extends JPanel {
 					}else{
 						if(gameSidePanel.getSelectedship().canShot()){
 							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
-							roundManager.fireAnalyzeRound();
-							roundManager.fireEndRound();
+							roundManager.fireAnalyzeRound(game.getActivePlayer());
+							roundManager.fireEndRound(game.getActivePlayer());
 							JBSCore.msgLogger.addMessage("Round ended for Player: " + game.getActivePlayer().getName());
 							roundManager.reset();
 							game.nextPlayer();
@@ -128,7 +128,7 @@ public class GameFieldContainer2 extends JPanel {
 							gameSidePanel.repaint();
 							activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
 						}else{
-							chat.setText(chat.getText()+"\nCan´t shoot");
+							chat.setText(chat.getText()+"\nCan't shoot");
 						}
 					}
 				}
@@ -143,7 +143,7 @@ public class GameFieldContainer2 extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand() == "pass"){
 					
-					roundManager.fireEndRound();
+					roundManager.fireEndRound(game.getActivePlayer());
 					JBSCore.msgLogger.addMessage("Round ended for Player: " + game.getActivePlayer().getName());
 					roundManager.reset();
 					game.nextPlayer();

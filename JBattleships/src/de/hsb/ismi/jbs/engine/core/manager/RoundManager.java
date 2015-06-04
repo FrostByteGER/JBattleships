@@ -42,7 +42,7 @@ public class RoundManager implements RoundListener{
 			ship.shoot(x, y, direction, target.getPlayerField());
 			
 			// Decreases the cooldown of all ships of the player.
-			source.decreaseCooldownAll();
+
 			
 			ship.setMaxCooldown();
 			JBattleships.game.getGameManager().getGame().checkShipsHealth();
@@ -54,6 +54,13 @@ public class RoundManager implements RoundListener{
 	 */
 	private void analyzeRound(){
 		target.getPlayerField().isFieldWaterHit(x, y);
+		//TODO: Fire GameEnd event!
+		if(JBattleships.game.getGameManager().getGame().isGameOver()){
+			fireEndRound(source);
+			JBattleships.game.getGameManager().endGame(false);
+		}else{
+			
+		}
 	}
 	
 	/**
@@ -82,7 +89,8 @@ public class RoundManager implements RoundListener{
 	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireAnalyzeRound()
 	 */
 	@Override
-	public void fireAnalyzeRound() {
+	public void fireAnalyzeRound(JBSPlayer source) {
+		this.source = source;
 		analyzeRound();
 	}
 	
@@ -91,7 +99,9 @@ public class RoundManager implements RoundListener{
 	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireEndRound()
 	 */
 	@Override
-	public void fireEndRound() {
+	public void fireEndRound(JBSPlayer source) {
+		this.source = source;
+		source.decreaseCooldownAll();
 		ended = true;
 	}
 	

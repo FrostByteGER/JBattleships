@@ -2,15 +2,11 @@ package de.hsb.ismi.jbs.engine.core.manager;
 
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.JBSCorvette;
-import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
-import de.hsb.ismi.jbs.engine.core.JBSFrigate;
+import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
-import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 
 public class GameManager{
 	
@@ -19,6 +15,8 @@ public class GameManager{
 	private int[] shipcount;
 	private RoundManager roundManager;
 	private boolean started;
+	
+	private ArrayList<GameListener> listeners;
 	
 	public GameManager() {
 		players = new ArrayList<JBSPlayer>();
@@ -90,26 +88,35 @@ public class GameManager{
 	
 	/**
 	 * Starts the actual match with the current data.
+	 * @return
 	 */
 	public boolean startGame(){
 		if(game != null){
 			roundManager = new RoundManager();
 			started = true;
+			for(GameListener gl : listeners){
+				gl.fireStartedGame();
+			}
 			return true;
 		}else{
 			return false;
 		}
 	}
-
 	
 	/**
-	 * Main game-loop
+	 * Ends the game.
+	 * @param force Forces the game to end.
+	 * @return True if game is over.
 	 */
-	private void runGame(){
-		while(!game.isGameOver()){
-			JBSCore.msgLogger.addMessage("Round ended for Player: " + game.getActivePlayer().getName());
-			roundManager.reset();
-			game.nextPlayer();
+	public boolean endGame(boolean force){
+		if((started && game.isGameOver()) || force){
+			started = false;
+			for(GameListener gl : listeners){
+				gl.fireEndedGame();
+			}
+			return true;
+		}else{
+			return false;
 		}
 	}
 	
@@ -153,4 +160,8 @@ public class GameManager{
 		this.roundManager = roundManager;
 	}
 	
+	public final void addGameListener(GameListener gl){
+		listeners.add(gl);
+	}
+
 }
