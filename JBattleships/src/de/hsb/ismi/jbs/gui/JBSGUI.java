@@ -30,6 +30,7 @@ public class JBSGUI{
 
 	private JFrame mainFrame = new JFrame("JBattleships ALPHA");
 	private JPanel contentPane = new JPanel();
+	@Deprecated
 	private Stack<JPanel> panelStack  = new Stack<JPanel>();
 	
 	private MainPanel mainPanel = new MainPanel(this);
@@ -132,8 +133,12 @@ public class JBSGUI{
 		mainFrame.setLocationRelativeTo(null);
 	}
 	
+	/**
+	 * Sets the screenMode. I.e. borderless.
+	 * @param sm The screenMode.
+	 */
 	public final void changeScreenMode(ScreenMode sm){
-		mainFrame.dispose(); // Critical, otherwise, IllegalFrameStateException will b e thrown
+		mainFrame.dispose(); // Critical, otherwise, IllegalFrameStateException will be thrown
 		switch(sm){
 		case MODE_FULLSCREEN:
 			mainFrame.setUndecorated(true);
