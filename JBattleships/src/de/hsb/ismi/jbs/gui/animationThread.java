@@ -18,6 +18,7 @@ public class animationThread extends Thread {
 		for(int i = 0 ; i < field.getGamefild().getSize() ; i++){
 			for(int j = 0 ; j < field.getGamefild().getSize() ; j++){
 				field.getGamefild().getField(i, j).getComponents().resize(size);
+				field.getGamefild().getField(i, j).getComponents().setImagecount(r.nextInt(10));
 			}
 		}
 		

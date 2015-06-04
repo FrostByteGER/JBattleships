@@ -143,7 +143,7 @@ public class JBSActorComponent extends JBSObject {
 	 * @param imagecount the imagecount to set
 	 */
 	public void setImagecount(int imagecount) {
-		this.imagecount = imagecount;
+		this.imagecount = imagecount%imageamount;
 	}
 
 	/**

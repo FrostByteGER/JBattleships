@@ -64,7 +64,9 @@ public class GameFieldPanel extends JPanel {
 		xofset = 0;
 		yofset = 0;
 		
-		animationthread = new animationThread(this,size);
+		gridsize = fildsize/gamefild.getSize();
+		
+		animationthread = new animationThread(this,gridsize);
 		
 		animationthread.start();
 		
