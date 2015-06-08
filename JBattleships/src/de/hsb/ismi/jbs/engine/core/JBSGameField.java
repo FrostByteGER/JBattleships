@@ -85,11 +85,16 @@ public class JBSGameField {
 		}
 	}
 	
-	public void shootField(int x,int y){
+	public boolean shootField(int x,int y){
 		if(x > size || y > size || y < 0 || x < 0){
+			return false;
 		}else{
 			actorFields[x][y].setHit(true);
-			actorFields[x][y].setName("waterhit");
+			if(actorFields[x][y].getName().equals("water")){
+				actorFields[x][y].setName("waterhit");
+				return false;
+			}
+			return true;
 		}
 	}
 	

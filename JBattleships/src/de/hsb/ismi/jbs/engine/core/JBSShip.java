@@ -189,20 +189,21 @@ public class JBSShip {
 		return isAlife() && cooldown == 0;
 	}
 	
-	public void shoot(int x, int y, Direction direction, JBSGameField field){
+	public boolean shoot(int x, int y, Direction direction, JBSGameField field){
 		
+		boolean end = false;	
 		for(int i = 0 ; i < shotpower ; i++){
 			if(direction == Direction.NORTH){				
-				field.shootField(x, y-i);
+				if(field.shootField(x, y-i)){end = true;};
 			}else if(direction == Direction.EAST){
-				field.shootField(x+i, y);
+				if(field.shootField(x+i, y)){end = true;};
 			}else if(direction == Direction.SOUTH){
-				field.shootField(x, y+i);
+				if(field.shootField(x, y+i)){end = true;};
 			}else if(direction == Direction.WEST){
-				field.shootField(x-i, y);
+				if(field.shootField(x-i, y)){end = true;};
 			}		
-		}
-				
+		}	
+		return end;			
 	}
 	
 	public void setPositon(int x, int y, Direction direction) {
