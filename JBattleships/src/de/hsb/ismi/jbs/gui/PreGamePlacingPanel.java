@@ -315,9 +315,7 @@ public class PreGamePlacingPanel extends JPanel {
 			updateUI();
 			add(aiNotify, BorderLayout.CENTER);
 			
-			////
-			//TODO: Do AI magic here
-			////
+			ai.placeShips(JBattleships.game.getGameManager());
 			
 			/* 
 			 * Sets a timer to notify the player about the AI. The AI code runs probably extremely fast, 

@@ -34,6 +34,8 @@ public class JBSAIPlayer extends JBSPlayer {
 	private int hity;
 	private int hitfield;
 	
+	private boolean hit;
+	
 	private Direction lasthitdirection;
 	private int lasthitx;
 	private int lasthity;
@@ -54,6 +56,8 @@ public class JBSAIPlayer extends JBSPlayer {
 		hity = -1;
 		hitfield = -1;
 		
+		hit = false;
+		
 		lasthitdirection = Direction.NONE;
 		lasthitx = -1;
 		lasthity = -1;
@@ -73,6 +77,8 @@ public class JBSAIPlayer extends JBSPlayer {
 		hitx = 0;
 		hity = 0;
 		hitfield = 0;
+		
+		hit = false;	
 		
 		lasthitdirection = Direction.NONE;
 		lasthitx = 0;
@@ -103,7 +109,14 @@ public class JBSAIPlayer extends JBSPlayer {
 							
 							hitdirection = Direction.getRandomDirection(r);
 							
-							ship.shoot(hitx, hity, hitdirection, game.getPlayer(hitfield).getPlayerField());
+							hit = ship.shoot(hitx, hity, hitdirection, game.getPlayer(hitfield).getPlayerField());
+							
+							if(hit){
+								lasthitx = hitx;
+								lasthity = hity;
+								lasthitdirection = hitdirection;
+								lasthit = hit;
+							}
 							
 						}else{
 							continue;
@@ -122,23 +135,26 @@ public class JBSAIPlayer extends JBSPlayer {
 		for(int i = 0 ; i < manager.getDestroyerCount() ; i++){		
 			ship = new JBSDestroyer();		
 			placeShip(getPlayerField(), ship);
+			addShip(ship);
 		}
 		
 		for(int i = 0 ; i < manager.getFrigateCount() ; i++){		
 			ship = new JBSFrigate();
 			placeShip(getPlayerField(), ship);
+			addShip(ship);
 		}
 		
 		for(int i = 0 ; i < manager.getCorvetteCount() ; i++){
 			ship = new JBSCorvette();			
 			placeShip(getPlayerField(), ship);
+			addShip(ship);
 		}
 		
 		for(int i = 0 ; i < manager.getSubmarineCount(); i++){			
 			ship = new JBSSubmarine();			
 			placeShip(getPlayerField(), ship);
+			addShip(ship);
 		}
-		
 	}
 	
 	private void placeShip(JBSGameField field, JBSShip ship){

@@ -35,6 +35,9 @@ public class GameSidePanel2 extends JPanel {
 	private GameSidePanel2 panel;
 	
 	public GameSidePanel2(JBSPlayer player) {
+		
+		System.out.println(player.getShips().size());
+		
 		this.player = player;
 		buttonColor = Color.LIGHT_GRAY;
 		textColor = Color.BLACK;
