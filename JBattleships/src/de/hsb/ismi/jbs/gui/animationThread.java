@@ -45,8 +45,6 @@ public class animationThread extends Thread {
 						}					
 					}
 				}
-				
-				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
