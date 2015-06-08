@@ -187,4 +187,11 @@ public class ResourceManager{
 		return TEXTURE_PATH;
 	}
 
+	/**
+	 * @return the parser
+	 */
+	public final ResourceParser getParser() {
+		return parser;
+	}
+
 }
