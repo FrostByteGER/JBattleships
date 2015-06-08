@@ -3,7 +3,10 @@
  */
 package de.hsb.ismi.jbs.engine.io.parser;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +18,16 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
+
+import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
+import de.hsb.ismi.jbs.gui.JBSGUI;
 
 
 /**
@@ -24,7 +37,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class ResourceParser extends DataParser{
 	
 	private static final String COMMENT = ";";
-
+	
 	public ResourceParser() {
 	}
 	
@@ -97,6 +110,95 @@ public class ResourceParser extends DataParser{
 	public BufferedImage parseImage(String path) throws IOException{
 		BufferedImage bi = ImageIO.read(new File(path));
 		return bi;
+	}
+	
+	/**
+	 * Parses a whole AnimationSequence
+	 * @param path the AnimationPath
+	 * @return The parsed Animation
+	 * @throws IOException 
+	 */
+	public AnimationSequence parseAnimation(String path) throws IOException{
+		int width = AnimationSequence.SPRITE_WIDTH;
+		int height = AnimationSequence.SPRITE_HEIGHT;
+		BufferedImage sourceSprite = parseImage(path);
+		int imageWidth = sourceSprite.getWidth();
+		int imageHeight = sourceSprite.getHeight();
+		int columns = 0;
+		int rows = 0;
+		int lastRow = 0;
+		columns = imageWidth / width;
+		rows = imageHeight / height;
+		
+		// Checks last column for empty images to get last index.
+		for(int i = 0; i < columns; i++){
+			BufferedImage sub = sourceSprite.getSubimage(i * width, (rows - 1) * height, width, height);
+			int[] pixels = new int[sub.getWidth() * sub.getHeight()];
+			sub.getRGB(0, 0, sub.getWidth(), sub.getHeight(), pixels, 0, sub.getWidth());
+			boolean alpha = true;
+			for (int pixel : pixels){
+				if ((pixel & AnimationSequence.BACKGROUND_COLOR) != 0){
+					alpha = false;
+					break;
+				}
+			}
+			if(alpha){
+				break;
+			}
+			lastRow = i;
+		}
+		
+		ArrayList<BufferedImage> sprites = new ArrayList<>(columns * (rows - 1) + lastRow);
+		
+		// Adds the BufferedImages to the spriteArray
+		for(int i = 0; i < rows; i++){
+			for(int j = 0; j < columns; j++){
+				if((i == rows && j <= lastRow) || i < rows){
+					sprites.add(sourceSprite.getSubimage(j * width, i * height, width, height));
+				}else{
+					break;
+				}
+			}
+		}
+		return new AnimationSequence(sprites.toArray(new BufferedImage[sprites.size()]));
+	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ResourceParser p = new ResourceParser();
+					BufferedImage[] b = null;
+					try {
+						b = p.parseAnimation("Data/Textures/testwater.png").getSourceSprites();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //ALWAYS SET BEFORE CREATING THE FRAME!
+					JFrame mainFrame = new JFrame();
+					mainFrame.setResizable(true);
+					mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					mainFrame.setBounds(100, 100, 400,400);
+					
+					JPanel contentPane = new JPanel();
+					contentPane.setLayout(new BorderLayout(0, 0));
+					JTabbedPane jtp = new JTabbedPane();
+					for(int i = 0; i < b.length; i++){
+						jtp.addTab(Integer.toString(i + 1), new JLabel(new ImageIcon(b[i])));
+					}
+					
+					contentPane.add(jtp,BorderLayout.CENTER);
+					
+					mainFrame.setContentPane(contentPane);
+					mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
+					mainFrame.setVisible(true); // Call always at the end!
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 	}
 
 }

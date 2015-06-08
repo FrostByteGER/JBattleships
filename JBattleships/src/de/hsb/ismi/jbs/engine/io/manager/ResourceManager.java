@@ -19,6 +19,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.io.parser.ResourceParser;
+import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 
 /**
  * @author Kevin Kuegler
@@ -26,15 +27,17 @@ import de.hsb.ismi.jbs.engine.io.parser.ResourceParser;
  */
 public class ResourceManager{
 
-	private HashMap<String, Clip> audioFiles;
-	private HashMap<String, BufferedImage> textureFiles;
+	private HashMap<String, Clip> audioFiles = new HashMap<String, Clip>(0);
+	private HashMap<String, BufferedImage> textureFiles = new HashMap<String, BufferedImage>(0);
+	private HashMap<String, AnimationSequence> animationFiles = new HashMap<String, AnimationSequence>(0);
 	
-	private String audioPath;
-	private String texturePath;
+	private final String AUDIO_PATH = "Data/Sfx";
+	private final String TEXTURE_PATH = "Data/Textures";
+	private final String ANIMATION_PATH = "";
 	
-	private ResourceParser parser;
+	private ResourceParser parser = new ResourceParser();
 	
-	private String[] resourceTable;
+	private String[] resourceTable = null;
 	private static final String RESOURCE_TABLE_PATH = "Data/Resources.cfg";
 	private static final String RESOURCE_TABLE_SHA = "PLACEHOLDER";
 	
@@ -42,12 +45,7 @@ public class ResourceManager{
 	 * @param path
 	 */
 	public ResourceManager() {
-		parser = new ResourceParser();
-		resourceTable = null;
-		audioPath = "Data/Sfx";
-		texturePath = "Data/Textures";
-		audioFiles = new HashMap<String, Clip>(0);
-		textureFiles = new HashMap<String, BufferedImage>(0);
+
 	}
 	
 	/**
@@ -89,7 +87,7 @@ public class ResourceManager{
 		boolean success = true;
 		for(String s : resourceTable){
 			File f = new File(s);
-			if(s.contains(texturePath)){
+			if(s.contains(TEXTURE_PATH)){
 				try {
 					BufferedImage bi = parser.parseImage(f);
 					textureFiles.put(f.getName(), bi);
@@ -97,7 +95,7 @@ public class ResourceManager{
 					e.printStackTrace();
 					success = false;
 				}
-			}else if(s.contains(audioPath)){
+			}else if(s.contains(AUDIO_PATH)){
 				try {
 					Clip c = parser.parseAudioFile(f);
 					audioFiles.put(f.getName(), c);
@@ -111,11 +109,40 @@ public class ResourceManager{
 					e.printStackTrace();
 					success = false;
 				}
+			}else if(s.contains(ANIMATION_PATH)){
+				
 			}else{
 				System.out.println("Ignored File: " + s);
 			}
 		}
 		return success;
+	}
+
+	/**
+	 * @return the AnimationPath
+	 */
+	public final String getAnimationPath() {
+		return ANIMATION_PATH;
+	}
+	
+	public final HashMap<String, AnimationSequence> getAnimationSequences(){
+		return animationFiles;
+	}
+	
+	/**
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public final AnimationSequence getAnimationSequence(String key){
+		return animationFiles.get(key);
+	}
+
+	/**
+	 * @return the resourceTable
+	 */
+	public final String[] getResourceTable() {
+		return resourceTable;
 	}
 
 	/**
@@ -136,7 +163,7 @@ public class ResourceManager{
 	 * @return the audioPath
 	 */
 	public final String getAudioPath() {
-		return audioPath;
+		return AUDIO_PATH;
 	}
 
 	/**
@@ -157,7 +184,7 @@ public class ResourceManager{
 	 * @return the imagePath
 	 */
 	public final String getTexturePath() {
-		return texturePath;
+		return TEXTURE_PATH;
 	}
 
 }
