@@ -3,7 +3,6 @@
  */
 package de.hsb.ismi.jbs.engine.rendering;
 
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
@@ -11,7 +10,7 @@ import java.awt.image.BufferedImage;
  * @author Kevin-Laptop Kuegler
  * @version 1.00
  */
-public class AnimationSequence {
+public class AnimationSequence{
 	
 	@Deprecated
 	public static final int BORDER_HORIZONTAL_THICK = 1;
@@ -32,13 +31,13 @@ public class AnimationSequence {
 	
 	public AnimationSequence(BufferedImage[] sprites){
 		this.sourceSprites = sprites;
-		resizedSprites = new BufferedImage[sprites.length];
+		resizedSprites = sprites;
 	}
 	
 	/**
-	 * 
-	 * @param width
-	 * @param height
+	 * Resizes the animation to the given width and height.
+	 * @param width The target width.
+	 * @param height The target height.
 	 */
 	public void resizeAnimation(int width, int height){
 		for(int i = 0; i < sourceSprites.length; i++){

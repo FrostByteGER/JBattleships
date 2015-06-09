@@ -33,7 +33,7 @@ public class ResourceManager{
 	
 	private final String AUDIO_PATH = "Data/Sfx";
 	private final String TEXTURE_PATH = "Data/Textures";
-	private final String ANIMATION_PATH = "";
+	private final String ANIMATION_PATH = "Data/Textures/Animations";
 	
 	private ResourceParser parser = new ResourceParser();
 	
@@ -110,7 +110,13 @@ public class ResourceManager{
 					success = false;
 				}
 			}else if(s.contains(ANIMATION_PATH)){
-				
+				try {
+					AnimationSequence as = parser.parseAnimation(f);
+					animationFiles.put(f.getName(), as);
+				} catch (IOException e) {
+					e.printStackTrace();
+					success = false;
+				}
 			}else{
 				System.out.println("Ignored File: " + s);
 			}

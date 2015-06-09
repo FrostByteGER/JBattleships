@@ -5,12 +5,16 @@ package de.hsb.ismi.jbs.engine.io.parser;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -19,6 +23,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -147,6 +152,58 @@ public class ResourceParser extends DataParser{
 			}
 			lastRow = i;
 		}
+	
+		ArrayList<BufferedImage> sprites = new ArrayList<>(columns * (rows - 1) + lastRow);
+		
+		// Adds the BufferedImages to the spriteArray
+		for(int i = 0; i < rows; i++){
+			for(int j = 0; j < columns; j++){
+				if((i == rows && j <= lastRow) || i < rows){
+					sprites.add(sourceSprite.getSubimage(j * width, i * height, width, height));
+				}else{
+					break;
+				}
+			}
+		}
+		return new AnimationSequence(sprites.toArray(new BufferedImage[sprites.size()]));
+	}
+
+		
+		/**
+		 * Parses a whole AnimationSequence
+		 * @param path the AnimationPath
+		 * @return The parsed Animation
+		 * @throws IOException 
+		 */
+		public AnimationSequence parseAnimation(File f) throws IOException{
+			int width = AnimationSequence.SPRITE_WIDTH;
+			int height = AnimationSequence.SPRITE_HEIGHT;
+			BufferedImage sourceSprite = parseImage(f);
+			int imageWidth = sourceSprite.getWidth();
+			int imageHeight = sourceSprite.getHeight();
+			int columns = 0;
+			int rows = 0;
+			int lastRow = 0;
+			columns = imageWidth / width;
+			rows = imageHeight / height;
+			
+			// Checks last column for empty images to get last index.
+			for(int i = 0; i < columns; i++){
+				BufferedImage sub = sourceSprite.getSubimage(i * width, (rows - 1) * height, width, height);
+				int[] pixels = new int[sub.getWidth() * sub.getHeight()];
+				sub.getRGB(0, 0, sub.getWidth(), sub.getHeight(), pixels, 0, sub.getWidth());
+				boolean alpha = true;
+				for (int pixel : pixels){
+					if ((pixel & AnimationSequence.BACKGROUND_COLOR) != 0){
+						alpha = false;
+						break;
+					}
+				}
+				if(alpha){
+					break;
+				}
+				lastRow = i;
+			}
 		
 		ArrayList<BufferedImage> sprites = new ArrayList<>(columns * (rows - 1) + lastRow);
 		
@@ -167,7 +224,7 @@ public class ResourceParser extends DataParser{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ResourceParser p = new ResourceParser();
+					final ResourceParser p = new ResourceParser();
 					BufferedImage[] b = null;
 					try {
 						b = p.parseAnimation("Data/Textures/testwater.png").getSourceSprites();
@@ -187,8 +244,37 @@ public class ResourceParser extends DataParser{
 					for(int i = 0; i < b.length; i++){
 						jtp.addTab(Integer.toString(i + 1), new JLabel(new ImageIcon(b[i])));
 					}
+					JPanel animP = new JPanel(new BorderLayout(0,0));
 					
+					jtp.addTab("Animation", animP);
 					contentPane.add(jtp,BorderLayout.CENTER);
+					JButton btn = new JButton("Start!");
+					btn.setActionCommand("start");
+					btn.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							if(e.getActionCommand().equals("start")){
+								try {
+									final BufferedImage[] x = p.parseAnimation("Data/Textures/testwater.png").getSourceSprites();
+									
+
+										Timer t = new Timer();
+										t.schedule(new TimerTask() {
+											@Override
+											public void run() {
+												animP.removeAll();
+												animP.add(new JLabel(new ImageIcon(x)), BorderLayout.CENTER);
+											}
+										}, 3000);
+
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
+						}
+					});
 					
 					mainFrame.setContentPane(contentPane);
 					mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
