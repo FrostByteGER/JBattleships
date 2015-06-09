@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
-import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 import de.hsb.ismi.jbs.engine.io.parser.ResourceParser;
 
 /**
@@ -46,7 +45,6 @@ public class TestingClassKevin {
 					try {
 						b = p.parseAnimation("Data/Textures/testwater.png").getSourceSprites();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //ALWAYS SET BEFORE CREATING THE FRAME!
@@ -72,7 +70,7 @@ public class TestingClassKevin {
 						public void actionPerformed(ActionEvent e) {
 							if(e.getActionCommand().equals("start")){
 								try {
-									final BufferedImage[] x = p.parseAnimation("Data/Textures/testwater.png").getSourceSprites();
+									BufferedImage[] x = p.parseAnimation("Data/Textures/testexplosion.png").getSourceSprites();
 									new Thread(new Runnable() {
 										@Override
 										public void run() {
@@ -87,13 +85,13 @@ public class TestingClassKevin {
 													i = 0;
 												}
 												try {
-													Thread.sleep(100); // Animation speed
+													Thread.sleep(42); // Animation speed
 												} catch (InterruptedException e) {
 													e.printStackTrace();
 												}
 											}
 										}
-									}).start();
+									}, "Animation-Thread").start();
 
 
 								} catch (IOException e1) {
