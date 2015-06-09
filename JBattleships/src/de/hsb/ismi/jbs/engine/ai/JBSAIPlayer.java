@@ -17,6 +17,7 @@ import de.hsb.ismi.jbs.engine.core.JBSProfile;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * @author Kevin-Laptop Kuegler
@@ -115,28 +116,33 @@ public class JBSAIPlayer extends JBSPlayer {
 	}
 	
 	
-	public void placeShips(GameManager manager){
+	public void placeShips(){
 		
-		JBSShip ship;
+		GameManager manager = JBattleships.game.getGameManager();
+		JBSShip ship = null;
 		
 		for(int i = 0 ; i < manager.getDestroyerCount() ; i++){		
 			ship = new JBSDestroyer();		
 			placeShip(getPlayerField(), ship);
+			addShip(ship);
 		}
 		
 		for(int i = 0 ; i < manager.getFrigateCount() ; i++){		
 			ship = new JBSFrigate();
 			placeShip(getPlayerField(), ship);
+			addShip(ship);
 		}
 		
 		for(int i = 0 ; i < manager.getCorvetteCount() ; i++){
 			ship = new JBSCorvette();			
 			placeShip(getPlayerField(), ship);
+			addShip(ship);
 		}
 		
 		for(int i = 0 ; i < manager.getSubmarineCount(); i++){			
 			ship = new JBSSubmarine();			
 			placeShip(getPlayerField(), ship);
+			addShip(ship);
 		}
 		
 	}
