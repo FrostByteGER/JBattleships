@@ -10,10 +10,10 @@ import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 
 public class GameManager{
 	
-	private Game game = null;
+	private Game game = new Game();
 	private ArrayList<JBSPlayer> players = new ArrayList<JBSPlayer>(2);
 	private int[] shipcount = new int[]{0,0,0,0};
-	private RoundManager roundManager = null;
+	private RoundManager roundManager = new RoundManager();
 	private boolean started = false;
 	
 	private ArrayList<GameListener> listeners = new ArrayList<GameListener>(0);

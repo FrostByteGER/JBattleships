@@ -118,13 +118,7 @@ public class PreGamePlacingPanel extends JPanel {
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("continue")){
-					if(!lastPlayer){
-						nextPlayer();
-					}else{
-						gm.startGame();
-						parent.swapContainer(new GameFieldContainer2(parent));
-					}
-					
+					nextPlayer();
 				}
 			}
 		});
@@ -316,7 +310,8 @@ public class PreGamePlacingPanel extends JPanel {
 			add(aiNotify, BorderLayout.CENTER);
 			
 			////
-			//TODO: Do AI magic here
+			// AI Magic
+			ai.placeShips();
 			////
 			
 			/* 
@@ -361,7 +356,9 @@ public class PreGamePlacingPanel extends JPanel {
 			activePlayerIndex++;
 			initPlayerData();
 		}else if(activePlayerIndex == gm.getPrePlayers().size() - 1){
-			parent.swapContainer(new JPanel());
+			gm.startGame();
+			parent.swapContainer(new GameFieldContainer2(parent));
+			
 			JBSCore.msgLogger.addMessage("Started Game!");
 		}
 	}

@@ -3,7 +3,6 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -48,8 +47,7 @@ public class JBSActorComponent extends JBSObject {
 				images[i][j] = imagesorce.getSubimage(j*size,i*size , size, size);
 				resizeimages[i][j] = imagesorce.getSubimage(j*size,i*size , size, size);
 			}
-		}
-		
+		}		
 	}
 
 	/**
@@ -90,7 +88,7 @@ public class JBSActorComponent extends JBSObject {
 				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 					    RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
 				g.drawImage(images[i][j], 0, 0, size, size, null);
-				g.dispose();	
+				g.dispose();
 			}
 		}
 	}

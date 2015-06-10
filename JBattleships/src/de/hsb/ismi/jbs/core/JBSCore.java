@@ -14,6 +14,7 @@ import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
+import de.hsb.ismi.jbs.engine.network.server.chat.ChatServer;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
@@ -56,6 +57,8 @@ public class JBSCore {
 	private int port = -1;
 	/** The game's current language. */
 	private String language = "English";
+	/** The ChatServers curent port. */
+	private int chatPort = 5550;
 	
 	/** The mainGUI of the game. */
 	private JBSGUI mainGUI = null;
@@ -63,7 +66,9 @@ public class JBSCore {
 	private GameManager gameManager = null;
 	/** The dataManager of the game. */
 	private DataManager dataManager = new DataManager();
-
+	
+	/** The ChatServer of the game. */
+	private ChatServer chatServer = null;
 	
 	/**
 	 * 
@@ -266,8 +271,24 @@ public class JBSCore {
 	/**
 	 * Generates a new GameManager
 	 */
-	public final void generateGame() {
+	public final GameManager generateGame() {
 		this.gameManager = new GameManager();
+		return this.gameManager;
+	}
+
+	/**
+	 * @return the chatServer
+	 */
+	public final ChatServer getChatServer() {
+		return chatServer;
+	}
+
+	/**
+	 * @param chatServer the chatServer to set
+	 */
+	public final ChatServer generateChatServer() {
+		this.chatServer = new ChatServer(chatPort);
+		return this.chatServer;
 	}
 
 }

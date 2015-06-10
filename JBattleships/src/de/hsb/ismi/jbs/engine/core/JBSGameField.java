@@ -6,7 +6,6 @@ package de.hsb.ismi.jbs.engine.core;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
@@ -85,11 +84,16 @@ public class JBSGameField {
 		}
 	}
 	
-	public void shootField(int x,int y){
+	public boolean shootField(int x,int y){
 		if(x > size || y > size || y < 0 || x < 0){
+			return false;
 		}else{
 			actorFields[x][y].setHit(true);
-			actorFields[x][y].setName("waterhit");
+			if(actorFields[x][y].getName().equals("water")){
+				actorFields[x][y].setName("waterhit");
+				return false;
+			}
+			return true;
 		}
 	}
 	
