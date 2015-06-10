@@ -84,7 +84,16 @@ public class ResourceManager{
 		boolean success = true;
 		for(String s : resourceTable){
 			File f = new File(s);
-			if(s.contains(TEXTURE_PATH)){
+			if(s.contains(ANIMATION_PATH)){
+				try {
+					AnimationSequence as = parser.parseAnimation(f);
+					animationFiles.put(f.getName(), as);
+				} catch (IOException e) {
+					e.printStackTrace();
+					success = false;
+				}
+			}else if(s.contains(TEXTURE_PATH)){
+								
 				try {
 					BufferedImage bi = parser.parseImage(f);
 					textureFiles.put(f.getName(), bi);
@@ -103,14 +112,6 @@ public class ResourceManager{
 					e.printStackTrace();
 					success = false;
 				} catch (LineUnavailableException e) {
-					e.printStackTrace();
-					success = false;
-				}
-			}else if(s.contains(ANIMATION_PATH)){
-				try {
-					AnimationSequence as = parser.parseAnimation(f);
-					animationFiles.put(f.getName(), as);
-				} catch (IOException e) {
 					e.printStackTrace();
 					success = false;
 				}

@@ -69,6 +69,7 @@ public class TestingClassKevin {
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							if(e.getActionCommand().equals("start")){
+								//TODO
 								try {
 									BufferedImage[] x = p.parseAnimation("Data/Textures/testexplosion.png").getSourceSprites();
 									new Thread(new Runnable() {
@@ -91,7 +92,7 @@ public class TestingClassKevin {
 												}
 											}
 										}
-									}, "Animation-Thread").start();
+									}, "Animation-Thread").start();//TODO
 
 
 								} catch (IOException e1) {

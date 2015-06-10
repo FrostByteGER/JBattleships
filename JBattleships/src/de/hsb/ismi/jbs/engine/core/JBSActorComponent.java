@@ -7,13 +7,16 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
+import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
 public class JBSActorComponent extends JBSObject {
 
-
+	private AnimationSequence animation;
+	
 	private String imagePath;
 	private JBSActor parent;
 	private BufferedImage imagesorce;
@@ -33,6 +36,7 @@ public class JBSActorComponent extends JBSObject {
 	 * 
 	 */
 	public JBSActorComponent(BufferedImage imagesorce) {
+		
 		this.imagesorce  = imagesorce;
 		this.animationamount = imagesorce.getHeight()/size;
 		this.imageamount = imagesorce.getWidth()/size;
@@ -48,6 +52,11 @@ public class JBSActorComponent extends JBSObject {
 				resizeimages[i][j] = imagesorce.getSubimage(j*size,i*size , size, size);
 			}
 		}		
+	}
+	
+	public JBSActorComponent(BufferedImage[] animation) {
+		
+		this.animation = new AnimationSequence(animation);
 	}
 
 	/**
