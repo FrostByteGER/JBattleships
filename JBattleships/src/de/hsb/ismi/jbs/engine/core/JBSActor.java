@@ -41,7 +41,7 @@ public class JBSActor extends JBSObject{
 	 * 
 	 */
 	public JBSActor(String name) {
-		components =  new JBSActorComponent(new String[]{"testwater.png"});
+		components =  new JBSActorComponent(new String[]{"testwater1.png","testwater2.png","testwater3.png"});
 		this.name = name; // TODO
 	}
 
