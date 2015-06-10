@@ -173,16 +173,19 @@ public class GameFieldPanel extends JPanel {
 					g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
 					
 				}else if(gamefild.isFieldWaterHit(i, j)){
-					g.setColor(Color.BLUE);
-					g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
+					g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
+					//g.setColor(Color.BLUE);
+					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}else{
 					g.setColor(Color.GRAY);
 					g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}
 				if(gamefild.getField(i, j).isHit()){
+					
 					g.setColor(Color.RED);
 					g.drawLine(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize*(i+1)+xofset-1, gridsize*(j+1)+yofset-1);
 					g.drawLine(gridsize*i+xofset+1, gridsize*(j+1)+yofset+1, gridsize*(i+1)+xofset-1, gridsize*j+yofset-1);
+					
 				}
 				
 			}
