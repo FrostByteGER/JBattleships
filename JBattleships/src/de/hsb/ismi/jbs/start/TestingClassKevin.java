@@ -51,6 +51,7 @@ public class TestingClassKevin {
 					JPanel contentPane = new JPanel();
 					contentPane.setLayout(new BorderLayout(0, 0));
 					JTabbedPane jtp = new JTabbedPane();
+					
 					JPanel animP = new JPanel(new BorderLayout(0,0));
 					
 					jtp.addTab("Animation", animP);
