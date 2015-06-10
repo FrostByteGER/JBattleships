@@ -45,7 +45,7 @@ public class GameFieldPanel extends JPanel {
 		
 		this.gamefild = fild;
 		listeners = new ArrayList<>(0);
-		gridColor = Color.RED;
+		gridColor = new Color(0,0,0,0);;
 		selectColor = new Color(100,100,100,100);
 		hoverColor = new Color(100,100,100,50);
 		isSelected = false;

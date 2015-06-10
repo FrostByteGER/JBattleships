@@ -14,7 +14,7 @@ public class animationThread extends Thread {
 	public animationThread(GameFieldPanel field,int size) {
 		
 		this.field = field;
-		sleeptime = 200;
+		sleeptime = 100;
 		runit = true;
 		r = new Random();
 		
