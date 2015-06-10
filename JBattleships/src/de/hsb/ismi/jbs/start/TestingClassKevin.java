@@ -56,6 +56,7 @@ public class TestingClassKevin {
 					JPanel contentPane = new JPanel();
 					contentPane.setLayout(new BorderLayout(0, 0));
 					JTabbedPane jtp = new JTabbedPane();
+					
 					for(int j = 0; j < b.length; j++){
 						//jtp.addTab(Integer.toString(j + 1), new JLabel(new ImageIcon(b[j])));
 					}

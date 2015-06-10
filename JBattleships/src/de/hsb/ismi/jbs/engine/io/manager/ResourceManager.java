@@ -121,7 +121,14 @@ public class ResourceManager{
 		}
 		return success;
 	}
-
+	
+	public void resizeAllAnimation(int width, int height){
+		for(AnimationSequence animation : animationFiles.values()){
+			animation.resizeAnimation(width, height);
+		}
+	}
+	
+	
 	/**
 	 * @return the AnimationPath
 	 */

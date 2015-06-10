@@ -3,7 +3,10 @@
  */
 package de.hsb.ismi.jbs.engine.rendering;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 /**
@@ -40,8 +43,34 @@ public class AnimationSequence{
 	 * @param height The target height.
 	 */
 	public void resizeAnimation(int width, int height){
+		
+		Graphics2D g;
+		
 		for(int i = 0; i < sourceSprites.length; i++){
-			resizedSprites[i] = (BufferedImage) sourceSprites[i].getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			
+			//resizedSprites[i] = (BufferedImage) sourceSprites[i].getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			
+			resizedSprites[i] = new BufferedImage(width, height, BufferedImage.TRANSLUCENT);
+			
+			g = resizedSprites[i].createGraphics();
+				
+			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				    RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
+			g.drawImage(sourceSprites[i], 0, 0, width, height, null);
+			g.dispose();
+			
+			
+			/*
+			resizeimages[i][j] = new BufferedImage(size, size, BufferedImage.TRANSLUCENT);
+			
+			g = resizeimages[i][j].createGraphics();
+			
+			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				    RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
+			g.drawImage(images[i][j], 0, 0, size, size, null);
+			g.dispose();
+			(*/
+			
 		}
 	}
 
