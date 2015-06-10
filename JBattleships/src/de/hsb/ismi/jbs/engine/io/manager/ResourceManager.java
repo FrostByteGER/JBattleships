@@ -60,6 +60,7 @@ public class ResourceManager{
 					for(int i = 0;i < table.size();i++){
 						resourceTable[i] = table.get(i);
 					}
+					
 					return true;
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -68,12 +69,16 @@ public class ResourceManager{
 					e.printStackTrace();
 					return false;
 				}
+				
+
 			}else{
 				return false;
 			}
 		}else{
 			return false;
 		}
+		
+
 		
 	}
 	
@@ -119,6 +124,7 @@ public class ResourceManager{
 				System.out.println("Ignored File: " + s);
 			}
 		}
+		
 		return success;
 	}
 	

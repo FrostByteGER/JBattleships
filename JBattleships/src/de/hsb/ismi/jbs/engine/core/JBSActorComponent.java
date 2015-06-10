@@ -57,13 +57,13 @@ public class JBSActorComponent extends JBSObject {
 	
 	public JBSActorComponent(String[] animationname) {
 		
-		animation = new AnimationSequence[animationname.length-1];
-		this.animationamount = animationname.length-1;
+		this.animation = new AnimationSequence[animationname.length];
+		this.animationamount = animationname.length;
 		
 		for(int i = 0 ; i < animationname.length ; i++){
 			this.animation[i] = JBattleships.game.getDataManager().getResourceManager().getAnimationSequence(animationname[i]);
-			
 		}
+		
 		if(this.animation.length > 0){
 			this.imageamount = this.animation[0].getSourceSprites().length;
 		}
@@ -93,6 +93,7 @@ public class JBSActorComponent extends JBSObject {
 	}
 	
 	//TODO Remove
+	/*
 	public void resize(int size){
 		
 		Graphics2D g = null; 
@@ -112,7 +113,7 @@ public class JBSActorComponent extends JBSObject {
 			}
 		}
 	}
-	
+	*/
 	public void nextImage(){
 		if(imagecount == imageamount-1){
 			activanimation = 0;

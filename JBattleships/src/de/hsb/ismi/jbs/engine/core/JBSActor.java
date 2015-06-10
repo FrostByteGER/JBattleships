@@ -41,7 +41,7 @@ public class JBSActor extends JBSObject{
 	 * 
 	 */
 	public JBSActor(String name) {
-		components =  new JBSActorComponent(JBattleships.game.getDataManager().getResourceManager().getTexture("testwater.png"));
+		components =  new JBSActorComponent(new String[]{"testwater.png"});
 		this.name = name; // TODO
 	}
 
