@@ -3,6 +3,7 @@
  */
 package de.hsb.ismi.jbs.engine.io.manager;
 
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -130,7 +131,7 @@ public class ResourceManager{
 	
 	public void resizeAllAnimation(int width, int height){
 		for(AnimationSequence animation : animationFiles.values()){
-			animation.resizeAnimation(width, height);
+			animation.resizeAnimation(width, height, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		}
 	}
 	

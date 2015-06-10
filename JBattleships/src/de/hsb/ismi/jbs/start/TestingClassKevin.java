@@ -5,6 +5,7 @@ package de.hsb.ismi.jbs.start;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -69,8 +70,8 @@ public class TestingClassKevin {
 										final ResourceParser p = new ResourceParser();
 										BufferedImage[] b = null;
 										try {
-											AnimationSequence as = p.parseAnimation("Data/Textures/testexplosion.png");
-											as.resizeAnimation(128, 128);
+											AnimationSequence as = p.parseAnimation("Data/Textures/testwater.png");
+											as.resizeAnimation(16, 16);
 											b = as.getResizedSprites();
 										} catch (IOException e1) {
 											e1.printStackTrace();

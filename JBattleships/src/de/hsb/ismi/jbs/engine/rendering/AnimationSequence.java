@@ -37,7 +37,7 @@ public class AnimationSequence{
 	}
 	
 	/**
-	 * Resizes the animation to the given width and height.
+	 * Resizes the animation to the given width and height with simple Nearest-Neightbor resize-algorithm.
 	 * @param width The target width.
 	 * @param height The target height.
 	 */
@@ -46,6 +46,24 @@ public class AnimationSequence{
 			BufferedImage scaled = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = scaled.createGraphics();
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR); 
+			g.drawImage(sourceSprites[i], 0, 0, width, height, null);
+			g.dispose();
+			resizedSprites[i] = scaled;
+		}
+	}
+	
+	/**
+	 * Resizes the animation to the given width and height.
+	 * @see RenderingHints
+	 * @param width The target width.
+	 * @param height The target height.
+	 * @param hint The Resize-Algorithm. 
+	 */
+	public void resizeAnimation(int width, int height, Object hint){
+		for(int i = 0; i < sourceSprites.length; i++){
+			BufferedImage scaled = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g = scaled.createGraphics();
+			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, hint); 
 			g.drawImage(sourceSprites[i], 0, 0, width, height, null);
 			g.dispose();
 			resizedSprites[i] = scaled;
