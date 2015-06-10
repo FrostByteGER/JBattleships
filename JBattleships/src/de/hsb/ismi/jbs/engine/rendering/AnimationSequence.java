@@ -5,6 +5,7 @@ package de.hsb.ismi.jbs.engine.rendering;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 /**
@@ -42,11 +43,11 @@ public class AnimationSequence{
 	 */
 	public void resizeAnimation(int width, int height){
 		for(int i = 0; i < sourceSprites.length; i++){
-			Image img = sourceSprites[i].getScaledInstance(width, height, Image.SCALE_SMOOTH);
-			BufferedImage scaled = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-		    Graphics2D bGr = scaled.createGraphics();
-		    bGr.drawImage(img, 0, 0, null);
-		    bGr.dispose();
+			BufferedImage scaled = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g = scaled.createGraphics();
+			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR); 
+			g.drawImage(sourceSprites[i], 0, 0, width, height, null);
+			g.dispose();
 			resizedSprites[i] = scaled;
 		}
 	}
