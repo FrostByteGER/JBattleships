@@ -6,8 +6,6 @@ package de.hsb.ismi.jbs.engine.io.parser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import de.hsb.ismi.jbs.engine.io.JBSParserException;
 
 

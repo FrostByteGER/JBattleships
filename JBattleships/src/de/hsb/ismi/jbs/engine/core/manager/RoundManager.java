@@ -31,7 +31,7 @@ public class RoundManager implements RoundListener{
 	 * 
 	 */
 	private void processRound(){
-		if(ship.isAlife() && ship.canShot()){
+		if(ship.isAlive() && ship.canShot()){
 			ship.shoot(x, y, direction, target.getPlayerField());
 			
 			// Decreases the cooldown of all ships of the player.

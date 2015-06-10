@@ -3,7 +3,6 @@
  */
 package de.hsb.ismi.jbs.engine.ai;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.Random;
 
 import de.hsb.ismi.jbs.engine.core.Direction;
@@ -85,7 +84,7 @@ public class JBSAIPlayer extends JBSPlayer {
 		r = new Random();	
 	}
 
-	public void shoot(Game game){
+	private void shoot(Game game){
 		
 		for(JBSShip ship : getShips()){
 			if(ship.canShot()){
@@ -113,6 +112,24 @@ public class JBSAIPlayer extends JBSPlayer {
 				}
 			}
 		}	
+	}
+	
+	/**
+	 * Processes the AIs round.
+	 * @param game
+	 */
+	public void processRound(Game game){
+		int i = getShips().size();
+		for(JBSShip s : getShips()){
+			if(!s.canShot()){
+				i--;
+			}
+		}
+		if(i == 0){
+			return;
+		}else{
+			shoot(game);
+		}
 	}
 	
 	

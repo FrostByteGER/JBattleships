@@ -149,5 +149,15 @@ public class ChatPanel extends JPanel {
 	public void addTextToChat(String text){
 		chatArea.append(text + System.lineSeparator());
 	}
+	
+	public void toggleChatInput(){
+		if(inputField.isEnabled() && btnEnter.isEnabled()){
+			inputField.setEnabled(false);
+			btnEnter.setEnabled(false);
+		}else{
+			inputField.setEnabled(true);
+			btnEnter.setEnabled(true);
+		}
+	}
 
 }
