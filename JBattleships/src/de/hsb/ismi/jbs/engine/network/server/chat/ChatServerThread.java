@@ -23,6 +23,7 @@ public class ChatServerThread extends Thread {
 	private DataOutputStream streamOut = null;
 	private boolean endThread = false;
 	private ChatState state = ChatState.LOGIN;
+	private int loginCount = 0;
 
 	public ChatServerThread(ChatServer server, Socket socket, String id) {
 		super();
@@ -49,8 +50,14 @@ public class ChatServerThread extends Thread {
 				String input = streamIn.readUTF();
 				switch(state){
 					case LOGIN: 
+						if(loginCount > ChatServer.MAX_LOGIN_COUNT){
+							state = ChatState.BANNED;
+						}
 						if(server.authenticate(this ,input)){
-						state = ChatState.AUTHENTICATED;
+							state = ChatState.AUTHENTICATED;
+							loginCount++;
+						}else{
+							loginCount++;
 						}
 						break;
 					case AUTHENTICATED:

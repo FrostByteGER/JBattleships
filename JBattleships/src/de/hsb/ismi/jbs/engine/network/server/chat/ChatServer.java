@@ -17,6 +17,7 @@ public class ChatServer extends Thread {
 	private ArrayList<ChatServerThread> clients = new ArrayList<>(0);
 	private ServerSocket server = null;
 	private boolean endThread = false;
+	public static final int MAX_LOGIN_COUNT = 3;
 
 	public ChatServer(int port) {
 		try {
@@ -44,7 +45,7 @@ public class ChatServer extends Thread {
 
 	private ChatServerThread findClient(String id) {
 		for (int i = 0; i < clients.size(); i++)
-			if (clients.get(i).getUsername() == id){
+			if (clients.get(i).getUsername().equals(id)){
 				return clients.get(i);
 			}
 		return null;
