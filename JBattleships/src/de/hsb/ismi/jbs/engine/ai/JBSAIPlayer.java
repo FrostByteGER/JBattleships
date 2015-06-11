@@ -105,8 +105,8 @@ public class JBSAIPlayer extends JBSPlayer {
 						if(game.getPlayer(hitfield).isAlive() && game.getPlayer(hitfield) != this){
 							
 							while(true){
-								hitx = r.nextInt(game.getActivePlayer().getPlayerField().getSize());
-								hity = r.nextInt(game.getActivePlayer().getPlayerField().getSize());
+								hitx = r.nextInt(game.getActivePlayer().getPlayerField().getSize()-1);
+								hity = r.nextInt(game.getActivePlayer().getPlayerField().getSize()-1);
 								
 								if(!game.getPlayer(hitfield).getPlayerField().getField(hitx, hity).isHit()){
 									break;
