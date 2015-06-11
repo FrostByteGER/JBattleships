@@ -272,7 +272,7 @@ public class GameFieldContainer2 extends JPanel {
 		
 		JBattleships.game.generateChatServer();
 		chatClient = new ChatClient();
-		chatClient.setMessageListener(new ClientMessageListener() {
+		chatClient.addMessageListener(new ClientMessageListener() {
 
 			@Override
 			public void messageReceived(String message) {

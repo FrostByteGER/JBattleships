@@ -18,17 +18,17 @@ public class ChatServerThread extends Thread {
 
 	private ChatServer server = null;
 	private Socket socket = null;
-	private int ID = -1;
 	private String id = null;
 	private DataInputStream streamIn = null;
 	private DataOutputStream streamOut = null;
 	private boolean endThread = false;
+	private ChatState state = ChatState.LOGIN;
 
-	public ChatServerThread(ChatServer server, Socket socket) {
+	public ChatServerThread(ChatServer server, Socket socket, String id) {
 		super();
 		this.server = server;
 		this.socket = socket;
-		this.ID = socket.getPort();
+		this.id = id;
 	}
 
 	public void send(String msg) {
@@ -36,24 +36,34 @@ public class ChatServerThread extends Thread {
 			streamOut.writeUTF(msg);
 			streamOut.flush();
 		} catch (IOException ioe) {
-			System.out.println(ID + " ERROR sending: " + ioe.getMessage());
+			System.out.println(id + " ERROR sending: " + ioe.getMessage());
 			// server.remove(ID);
 			endThread();
 		}
 	}
 
-	public int getID() {
-		return ID;
-	}
-
 	public void run() {
-		System.out.println("Server Thread " + ID + " running.");
+		System.out.println("Server Thread " + id + " running.");
 		while (!endThread) {
 			try {
-				server.handle(ID, streamIn.readUTF());
+				String input = streamIn.readUTF();
+				switch(state){
+					case LOGIN: 
+						if(server.authenticate(this ,input)){
+						state = ChatState.AUTHENTICATED;
+						}
+						break;
+					case AUTHENTICATED:
+						server.handle(id, input);
+						break;
+					case BANNED:
+						server.remove(id);
+						break;
+				}
+				
 			} catch (IOException ioe) {
-				System.out.println(ID + " ERROR reading: " + ioe.getMessage());
-				server.remove(ID);
+				System.out.println(id + " ERROR reading: " + ioe.getMessage());
+				server.remove(id);
 				endThread();
 			}
 		}
@@ -69,6 +79,7 @@ public class ChatServerThread extends Thread {
 	}
 
 	public void close() throws IOException {
+		endThread();
 		if (socket != null){
 			socket.close();
 		}
@@ -78,5 +89,27 @@ public class ChatServerThread extends Thread {
 		if (streamOut != null){
 			streamOut.close();
 		}
+	}
+
+	/**
+	 * @return the state
+	 */
+	public final ChatState getChatState() {
+		return state;
+	}
+
+	/**
+	 * @param state the state to set
+	 */
+	public final void setChatState(ChatState state) {
+		this.state = state;
+	}
+	
+	public String getUsername() {
+		return id;
+	}
+	
+	public synchronized void setUsername(String id) {
+		this.id = id;
 	}
 }

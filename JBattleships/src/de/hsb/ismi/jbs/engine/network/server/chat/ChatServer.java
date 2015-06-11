@@ -42,28 +42,44 @@ public class ChatServer extends Thread {
 		}
 	}
 
-	private ChatServerThread findClient(int ID) {
+	private ChatServerThread findClient(String id) {
 		for (int i = 0; i < clients.size(); i++)
-			if (clients.get(i).getID() == ID){
+			if (clients.get(i).getUsername() == id){
 				return clients.get(i);
 			}
 		return null;
 	}
-
-	public synchronized void handle(int ID, String input) {
-		if (input.equals(".bye")) {
-			findClient(ID).send(".bye");
-			remove(ID);
+	
+	public synchronized boolean authenticate(ChatServerThread client ,String input){
+		System.out.println("Client " + client.getUsername() + " requesting Authentification...");
+		if(findClient(input) == null){
+			findClient(client.getUsername()).setUsername(input);
+			System.out.println("Authentification successfull.");
+			return true;
 		} else{
+			System.out.println("Authentification Denied, Duplicate Username.");
+			return false;
+		}
+		
+	}
+
+	public synchronized void handle(String id, String input) {
+		if (input.equals("/end")) {
+			findClient(id).send("/end");
+			remove(id);
+		} else if(input.startsWith("/auth")){
+			
+		}else{
 			for (int i = 0; i < clients.size(); i++){
-				clients.get(i).send(ID + ": " + input);
+				System.out.println("Server received Message from Client " + id + ": " + input);
+				clients.get(i).send(id + ": " + input);
 			}
 		}
 	}
 
-	public synchronized void remove(int ID) {
-		ChatServerThread toTerminate = findClient(ID);
-		System.out.println("Removing client thread " + ID);
+	public synchronized void remove(String id) {
+		ChatServerThread toTerminate = findClient(id);
+		System.out.println("Removing client thread " + id);
 		try {
 			toTerminate.close();
 		} catch (IOException ioe) {
@@ -77,7 +93,7 @@ public class ChatServer extends Thread {
 
 	private void addThread(Socket socket) {
 		System.out.println("Client accepted: " + socket);
-		ChatServerThread cst = new ChatServerThread(this, socket);
+		ChatServerThread cst = new ChatServerThread(this, socket, socket.getInetAddress().toString());
 		clients.add(cst);
 		try {
 			cst.open();
