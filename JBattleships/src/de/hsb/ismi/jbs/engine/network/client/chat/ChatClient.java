@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 
 public class ChatClient implements Runnable{
@@ -13,7 +14,7 @@ public class ChatClient implements Runnable{
 	private Socket socket;
 	private DataOutputStream dout;
 	private DataInputStream din;
-	private ClientMessageListener listener;
+	private ArrayList<ClientMessageListener> listeners = new ArrayList<>(0);
 	private String name;
 	private boolean active;
 	
@@ -41,16 +42,17 @@ public class ChatClient implements Runnable{
 		active = true;
 		din = new DataInputStream(socket.getInputStream());
 		dout = new DataOutputStream(socket.getOutputStream());
-		//sendAuthentification(username, password);
+		sendAuthentification(username);
 		new Thread(this).start();
 	}
 	
-	public void setMessageListener(ClientMessageListener listener){
-		this.listener = listener;
+	public void addMessageListener(ClientMessageListener listener){
+		this.listeners.add(listener);
 	}
 	
 	public void sendMessage(String message){
 		try {
+			System.out.println("Client sending Message: " + message);
 			dout.writeUTF(message);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -65,6 +67,14 @@ public class ChatClient implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+	public void sendAuthentification(String username){
+		try {
+			dout.writeUTF(username);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void run() {
@@ -72,28 +82,24 @@ public class ChatClient implements Runnable{
 			String message = null;
 			while(!socket.isClosed()){
 				message = din.readUTF();
-				if(message.equals("0x0033=")){
-					
-				}else if(message.equals("0x0033=")){
-					
-				}
-				System.out.println(message);
-				if(message.equals("sendAuth")){
-				}else if(message.equals("AuthDenied")){
-					closeConnection();
-					return;
-				}else{
+				System.out.println("Client received Message: " + message);
+				for(ClientMessageListener listener : listeners){
 					listener.messageReceived(message);
 				}
 			}
 		}catch(SocketException se){
 			//se.printStackTrace();
 			active = false;
-			listener.connectionLost(socket.getInetAddress().getHostAddress());
+			for(ClientMessageListener listener : listeners){
+				listener.connectionLost(socket.getInetAddress().getHostAddress());
+			}
+			
 		}catch(IOException ioe){
 			ioe.printStackTrace();
 			active = false;
-			listener.connectionLost(socket.getInetAddress().getHostAddress());
+			for(ClientMessageListener listener : listeners){
+				listener.connectionLost(socket.getInetAddress().getHostAddress());
+			}
 		}finally{
 			active = false;
 			closeConnection();

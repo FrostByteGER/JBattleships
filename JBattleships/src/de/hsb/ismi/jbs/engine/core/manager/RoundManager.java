@@ -34,8 +34,6 @@ public class RoundManager implements RoundListener{
 		if(ship.isAlive() && ship.canShot()){
 			boolean hit = ship.shoot(x, y, direction, target.getPlayerField());
 			
-			// Decreases the cooldown of all ships of the player.
-
 			JBattleships.game.getGameManager().getGame().checkShipsHealth();
 			target.checkIsAlive();
 			return hit;

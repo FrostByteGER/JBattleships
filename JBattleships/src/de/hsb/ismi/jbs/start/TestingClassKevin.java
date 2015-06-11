@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.Inet4Address;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +21,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import de.hsb.ismi.jbs.engine.io.parser.ResourceParser;
+import de.hsb.ismi.jbs.engine.network.client.chat.ChatClient;
+import de.hsb.ismi.jbs.engine.network.server.chat.ChatServer;
 import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 
 /**
@@ -39,6 +42,25 @@ public class TestingClassKevin {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		ChatServer server = new ChatServer(36322);
+		try {
+			ChatClient client = new ChatClient("localhost",36322, "Kevin");
+			//client.sendMessage("rofl");
+			
+			//ChatClient client2 = new ChatClient("localhost",36322, "Kevin");
+			//ChatClient client3 = new ChatClient("localhost",36322, "Jan");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		/*
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -106,7 +128,7 @@ public class TestingClassKevin {
 				}
 			}
 		});
-		
+		*/
 	}
 
 }
