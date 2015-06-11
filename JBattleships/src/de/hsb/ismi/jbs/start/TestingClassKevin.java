@@ -70,8 +70,8 @@ public class TestingClassKevin {
 										final ResourceParser p = new ResourceParser();
 										BufferedImage[] b = null;
 										try {
-											AnimationSequence as = p.parseAnimation("Data/Textures/testwater.png");
-											as.resizeAnimation(16, 16);
+											AnimationSequence as = p.parseAnimation("Data/Textures/testexplosion.png");
+											as.resizeAnimation(128, 128);
 											b = as.getResizedSprites();
 										} catch (IOException e1) {
 											e1.printStackTrace();
