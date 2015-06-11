@@ -104,8 +104,18 @@ public class JBSAIPlayer extends JBSPlayer {
 						
 						if(game.getPlayer(hitfield).isAlive() && game.getPlayer(hitfield) != this){
 							
-							hitx = r.nextInt(game.getActivePlayer().getPlayerField().getSize());
-							hity = r.nextInt(game.getActivePlayer().getPlayerField().getSize());
+							while(true){
+								hitx = r.nextInt(game.getActivePlayer().getPlayerField().getSize());
+								hity = r.nextInt(game.getActivePlayer().getPlayerField().getSize());
+								
+								if(!game.getPlayer(hitfield).getPlayerField().getField(hitx, hity).isHit()){
+									break;
+								}
+								
+								
+							}
+							
+							
 							
 							hitdirection = Direction.getRandomDirection(r);
 							
