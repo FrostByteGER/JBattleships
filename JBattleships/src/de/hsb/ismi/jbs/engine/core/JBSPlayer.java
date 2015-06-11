@@ -92,7 +92,7 @@ public class JBSPlayer {
 		if(isAlive){
 			for(JBSShip s : ships){
 				s.checkHealth();
-				if(s.isAlife()){
+				if(s.isAlive()){
 					return;
 				}
 			}

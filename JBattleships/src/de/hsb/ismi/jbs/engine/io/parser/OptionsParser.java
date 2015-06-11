@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.io.JBSParserException;
 
 

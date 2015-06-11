@@ -118,13 +118,7 @@ public class PreGamePlacingPanel extends JPanel {
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("continue")){
-					if(!lastPlayer){
-						nextPlayer();
-					}else{
-						gm.startGame();
-						parent.swapContainer(new GameFieldContainer2(parent));
-					}
-					
+					nextPlayer();
 				}
 			}
 		});
@@ -315,7 +309,10 @@ public class PreGamePlacingPanel extends JPanel {
 			updateUI();
 			add(aiNotify, BorderLayout.CENTER);
 			
-			ai.placeShips(JBattleships.game.getGameManager());
+			////
+			// AI Magic
+			ai.placeShips();
+			////
 			
 			/* 
 			 * Sets a timer to notify the player about the AI. The AI code runs probably extremely fast, 
@@ -359,7 +356,9 @@ public class PreGamePlacingPanel extends JPanel {
 			activePlayerIndex++;
 			initPlayerData();
 		}else if(activePlayerIndex == gm.getPrePlayers().size() - 1){
-			parent.swapContainer(new JPanel());
+			gm.startGame();
+			parent.swapContainer(new GameFieldContainer2(parent));
+			
 			JBSCore.msgLogger.addMessage("Started Game!");
 		}
 	}

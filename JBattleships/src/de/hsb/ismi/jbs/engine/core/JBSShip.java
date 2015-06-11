@@ -166,12 +166,16 @@ public class JBSShip {
 		this.health = health;
 	}
 	
-	public void checkHealth() {
+	/**
+	 * Updates shipHealth and return false if ship is destroyed. Otherwise returns true.
+	 * @return
+	 */
+	public boolean checkHealth() {
 		
 		health = length;
 		
-		if(!isAlife()){
-			return;
+		if(!isAlive()){
+			return false;
 		}
 		
 		for(JBSActor actor : this.shipActors){
@@ -179,14 +183,16 @@ public class JBSShip {
 				this.health--;
 			}
 		}
+		
+		return isAlive();
 	}
 	
-	public boolean isAlife(){
+	public boolean isAlive(){
 		return (health > 0);
 	}
 	
 	public boolean canShot(){
-		return isAlife() && cooldown == 0;
+		return isAlive() && cooldown == 0;
 	}
 	
 	public boolean shoot(int x, int y, Direction direction, JBSGameField field){

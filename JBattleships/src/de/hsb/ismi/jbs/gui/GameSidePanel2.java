@@ -144,7 +144,7 @@ public class GameSidePanel2 extends JPanel {
 		g.setColor(textColor);
 		g.drawString(ship.getName(), x+namewidthoffset, y+nameheightoffset);
 		
-		if(ship.isAlife()){
+		if(ship.isAlive()){
 			g.setColor(healthColor);
 			g.fillRect(x+buttonwidth, y, (int)(buttonwidth*getHealthP(ship)), buttonheight/2);
 		}else{

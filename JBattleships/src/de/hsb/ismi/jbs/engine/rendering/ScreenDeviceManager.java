@@ -7,8 +7,6 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
 
 /**
  * @author Kevin Kuegler
@@ -20,8 +18,6 @@ public class ScreenDeviceManager {
 	private GraphicsDevice currentAdapter;
 	private final int supportedBitDepth = 32;
 	private final Resolution minResolution = new Resolution(800, 600);
-	@Deprecated
-	private final Resolution maxResolution = new Resolution(1920, 1080);
 	
 	/**
 	 * 

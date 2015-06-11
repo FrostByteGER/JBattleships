@@ -12,9 +12,12 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
+import de.hsb.ismi.jbs.engine.network.client.chat.ChatClient;
+import de.hsb.ismi.jbs.engine.network.client.chat.ClientMessageListener;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.BorderLayout;
@@ -53,6 +56,7 @@ public class GameFieldContainer2 extends JPanel {
 	private JButton btnEndRound;
 	private JButton btnSaveGame;
 	private ChatPanel chatPanel;
+	private ChatClient chatClient;
 	
 	/**
 	 * Create the panel.
@@ -116,6 +120,12 @@ public class GameFieldContainer2 extends JPanel {
 							gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 							gameSidePanel.repaint();
 							activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
+							if(game.getActivePlayer() instanceof JBSAIPlayer){
+								JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
+								ai.processRound(game);
+								JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
+								actionPerformed(e);
+							}
 						}else{
 							chat.setText(chat.getText()+"\nCan't shoot");
 						}
@@ -139,6 +149,12 @@ public class GameFieldContainer2 extends JPanel {
 					gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 					gameSidePanel.repaint();
 					activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
+					if(game.getActivePlayer() instanceof JBSAIPlayer){
+						JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
+						ai.processRound(game);
+						JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
+						actionPerformed(e);
+					}
 				}
 			}
 		});
@@ -237,10 +253,28 @@ public class GameFieldContainer2 extends JPanel {
 		
 		gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 		
+		JBattleships.game.generateChatServer();
+		chatClient = new ChatClient();
+		chatClient.setMessageListener(new ClientMessageListener() {
+
+			@Override
+			public void messageReceived(String message) {
+				chatPanel.addTextToChat(message);
+			}
+			
+			@Override
+			public void connectionLost(String IP) {
+				chatPanel.toggleChatInput();
+				
+			}
+		});
+		
+		
 		JBattleships.game.getGameManager().addGameListener(new GameListener() {
 			
 			@Override
 			public void fireStartedGame() {
+				activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
 			}
 			
 			@Override
@@ -248,5 +282,20 @@ public class GameFieldContainer2 extends JPanel {
 				parent.swapContainer(parent.getMainPanel());
 			}
 		});
+		
+		if(game.getActivePlayer() instanceof JBSAIPlayer){
+			JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
+			ai.processRound(game);
+			JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
+			for(ActionListener a: btnEndRound.getActionListeners()) {
+			    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 7140433730255705194L;
+			    });
+			}
+		}
 	}
 }

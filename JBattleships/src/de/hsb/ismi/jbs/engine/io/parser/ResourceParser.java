@@ -8,13 +8,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 
 
 /**
@@ -24,7 +24,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class ResourceParser extends DataParser{
 	
 	private static final String COMMENT = ";";
-
+	
 	public ResourceParser() {
 	}
 	
@@ -98,5 +98,108 @@ public class ResourceParser extends DataParser{
 		BufferedImage bi = ImageIO.read(new File(path));
 		return bi;
 	}
+	
+	/**
+	 * Parses a whole AnimationSequence
+	 * @param path the AnimationPath
+	 * @return The parsed Animation
+	 * @throws IOException 
+	 */
+	public AnimationSequence parseAnimation(String path) throws IOException{
+		int width = AnimationSequence.SPRITE_WIDTH;
+		int height = AnimationSequence.SPRITE_HEIGHT;
+		BufferedImage sourceSprite = parseImage(path);
+		int imageWidth = sourceSprite.getWidth();
+		int imageHeight = sourceSprite.getHeight();
+		int columns = 0;
+		int rows = 0;
+		int lastRow = 0;
+		columns = imageWidth / width;
+		rows = imageHeight / height;
+		
+		// Checks last column for empty images to get last index.
+		for(int i = 0; i < columns; i++){
+			BufferedImage sub = sourceSprite.getSubimage(i * width, (rows - 1) * height, width, height);
+			int[] pixels = new int[sub.getWidth() * sub.getHeight()];
+			sub.getRGB(0, 0, sub.getWidth(), sub.getHeight(), pixels, 0, sub.getWidth());
+			boolean alpha = true;
+			for (int pixel : pixels){
+				if ((pixel & AnimationSequence.BACKGROUND_COLOR) != 0){
+					alpha = false;
+					break;
+				}
+			}
+			if(alpha){
+				break;
+			}
+			lastRow = i;
+		}
+	
+		ArrayList<BufferedImage> sprites = new ArrayList<>(columns * (rows - 1) + lastRow);
+		
+		// Adds the BufferedImages to the spriteArray
+		for(int i = 0; i < rows; i++){
+			for(int j = 0; j < columns; j++){
+				if((i == rows && j <= lastRow) || i < rows){
+					sprites.add(sourceSprite.getSubimage(j * width, i * height, width, height));
+				}else{
+					break;
+				}
+			}
+		}
+		return new AnimationSequence(sprites.toArray(new BufferedImage[sprites.size()]));
+	}
+
+		
+	/**
+	 * Parses a whole AnimationSequence
+	 * @param path the AnimationPath
+	 * @return The parsed Animation
+	 * @throws IOException 
+	 */
+	public AnimationSequence parseAnimation(File f) throws IOException{
+		int width = AnimationSequence.SPRITE_WIDTH;
+		int height = AnimationSequence.SPRITE_HEIGHT;
+		BufferedImage sourceSprite = parseImage(f);
+		int imageWidth = sourceSprite.getWidth();
+		int imageHeight = sourceSprite.getHeight();
+		int columns = 0;
+		int rows = 0;
+		int lastRow = 0;
+		columns = imageWidth / width;
+		rows = imageHeight / height;
+		
+		// Checks last column for empty images to get last index.
+		for(int i = 0; i < columns; i++){
+			BufferedImage sub = sourceSprite.getSubimage(i * width, (rows - 1) * height, width, height);
+			int[] pixels = new int[sub.getWidth() * sub.getHeight()];
+			sub.getRGB(0, 0, sub.getWidth(), sub.getHeight(), pixels, 0, sub.getWidth());
+			boolean alpha = true;
+			for (int pixel : pixels){
+				if ((pixel & AnimationSequence.BACKGROUND_COLOR) != 0){
+					alpha = false;
+					break;
+				}
+			}
+			if(alpha){
+				break;
+			}
+			lastRow = i;
+		}
+	
+	ArrayList<BufferedImage> sprites = new ArrayList<>(columns * (rows - 1) + lastRow);
+	
+	// Adds the BufferedImages to the spriteArray
+	for(int i = 0; i < rows; i++){
+		for(int j = 0; j < columns; j++){
+			if((i == rows && j <= lastRow) || i < rows){
+				sprites.add(sourceSprite.getSubimage(j * width, i * height, width, height));
+			}else{
+				break;
+			}
+		}
+	}
+	return new AnimationSequence(sprites.toArray(new BufferedImage[sprites.size()]));
+}
 
 }

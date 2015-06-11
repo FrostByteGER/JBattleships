@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.io.manager.*;
 import de.hsb.ismi.jbs.engine.core.*;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 
@@ -211,7 +210,7 @@ public class ConsoleUserInterface {
 				readIntMinMax("Shoot with", 0, game.getPlayers()[player]
 						.getShips().size() - 1);
 			} while (!game.getPlayers()[player].getShips().get(intinput)
-					.isAlife()
+					.isAlive()
 					|| game.getPlayers()[player].getShips().get(intinput)
 							.getCooldown() > 0);
 

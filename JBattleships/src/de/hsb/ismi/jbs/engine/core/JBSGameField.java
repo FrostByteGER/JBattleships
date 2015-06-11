@@ -6,7 +6,6 @@ package de.hsb.ismi.jbs.engine.core;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.hsb.ismi.jbs.engine.utility.Vector2i;

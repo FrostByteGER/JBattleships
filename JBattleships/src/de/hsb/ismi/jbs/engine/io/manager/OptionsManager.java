@@ -6,7 +6,6 @@ package de.hsb.ismi.jbs.engine.io.manager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import de.hsb.ismi.jbs.core.JBSCore;

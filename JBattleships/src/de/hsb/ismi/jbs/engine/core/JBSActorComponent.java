@@ -7,13 +7,17 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
+import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
+import de.hsb.ismi.jbs.start.JBattleships;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
 public class JBSActorComponent extends JBSObject {
 
-
+	private AnimationSequence[] animation;
+	
 	private String imagePath;
 	private JBSActor parent;
 	private BufferedImage imagesorce;
@@ -33,6 +37,7 @@ public class JBSActorComponent extends JBSObject {
 	 * 
 	 */
 	public JBSActorComponent(BufferedImage imagesorce) {
+		
 		this.imagesorce  = imagesorce;
 		this.animationamount = imagesorce.getHeight()/size;
 		this.imageamount = imagesorce.getWidth()/size;
@@ -48,6 +53,20 @@ public class JBSActorComponent extends JBSObject {
 				resizeimages[i][j] = imagesorce.getSubimage(j*size,i*size , size, size);
 			}
 		}		
+	}
+	
+	public JBSActorComponent(String[] animationname) {
+		
+		this.animation = new AnimationSequence[animationname.length];
+		this.animationamount = animationname.length;
+		
+		for(int i = 0 ; i < animationname.length ; i++){
+			this.animation[i] = JBattleships.game.getDataManager().getResourceManager().getAnimationSequence(animationname[i]);
+		}
+		
+		if(this.animation.length > 0){
+			this.imageamount = this.animation[0].getSourceSprites().length;
+		}
 	}
 
 	/**
@@ -73,6 +92,8 @@ public class JBSActorComponent extends JBSObject {
 		activanimation = animationnuber%animationamount;
 	}
 	
+	//TODO Remove
+	/*
 	public void resize(int size){
 		
 		Graphics2D g = null; 
@@ -92,7 +113,7 @@ public class JBSActorComponent extends JBSObject {
 			}
 		}
 	}
-	
+	*/
 	public void nextImage(){
 		if(imagecount == imageamount-1){
 			activanimation = 0;
@@ -103,12 +124,16 @@ public class JBSActorComponent extends JBSObject {
 	}
 	
 	public BufferedImage getImage(){
+		return animation[activanimation].getSourceSprites()[imagecount];
+	}
+	/*OLD TODO
+	public BufferedImage getImage(){
 		
 		return resizeimages[ activanimation][imagecount];
 		
 		//return imagesorce.getSubimage(imagecount*size,activanimation*size , size, size);
 	}
-	
+	*/
 	/**
 	 * @return the parent
 	 */

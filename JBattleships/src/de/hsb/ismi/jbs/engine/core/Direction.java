@@ -23,6 +23,8 @@ public enum Direction {
 	
 	private Direction(int value) {
 		this.value = value; // fuck this Enums suck balls
+		// ^ Yes yes you can't just work with them lol.
+		// KennyS was here.
 	}
 	
 	public static Direction getRandomDirection(Random r){
