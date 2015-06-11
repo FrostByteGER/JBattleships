@@ -85,7 +85,7 @@ public class JBSGameField {
 	}
 	
 	public boolean shootField(int x,int y){
-		if(x > size || y > size || y < 0 || x < 0){
+		if(x > size-1 || y > size-1 || y < 0 || x < 0){
 			return false;
 		}else{
 			actorFields[x][y].setHit(true);

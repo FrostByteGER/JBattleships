@@ -22,7 +22,7 @@ public interface RoundListener {
 	 * @param y
 	 * @param direction
 	 */
-	public void fireRound(JBSPlayer target, JBSPlayer source, JBSShip ship ,int x, int y, Direction direction);
+	public boolean fireRound(JBSPlayer target, JBSPlayer source, JBSShip ship ,int x, int y, Direction direction);
 	
 	public void fireAnalyzeRound(JBSPlayer source);
 	

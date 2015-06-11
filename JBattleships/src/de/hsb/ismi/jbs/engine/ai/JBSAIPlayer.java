@@ -16,6 +16,7 @@ import de.hsb.ismi.jbs.engine.core.JBSProfile;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -90,7 +91,7 @@ public class JBSAIPlayer extends JBSPlayer {
 		r = new Random();	
 	}
 
-	private void shoot(Game game){
+	public JBSShip processRound(Game game){
 		
 		for(JBSShip ship : getShips()){
 			if(ship.canShot()){
@@ -115,7 +116,12 @@ public class JBSAIPlayer extends JBSPlayer {
 							
 							hitdirection = Direction.getRandomDirection(r);
 							
-							hit = ship.shoot(hitx, hity, hitdirection, game.getPlayer(hitfield).getPlayerField());
+							//hit = ship.shoot(hitx, hity, hitdirection, game.getPlayer(hitfield).getPlayerField());
+							RoundManager rm = JBattleships.game.getGameManager().getRoundManager();
+							hit = rm.fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							rm.fireAnalyzeRound(this);
+							rm.fireEndRound(this);
+							
 							
 							if(hit){
 								lasthitx = hitx;
@@ -128,29 +134,13 @@ public class JBSAIPlayer extends JBSPlayer {
 							continue;
 						}
 					}
-					break;//TODO
+					return ship;
 				}
 			}
-		}	
-	}
-	
-	/**
-	 * Processes the AIs round.
-	 * @param game
-	 */
-	public void processRound(Game game){
-		int i = getShips().size();
-		for(JBSShip s : getShips()){
-			if(!s.canShot()){
-				i--;
-			}
 		}
-		if(i == 0){
-			return;
-		}else{
-			shoot(game);
-		}
+		return null;
 	}
+
 	
 	
 	public void placeShips(){

@@ -15,6 +15,7 @@ import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
+import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 import de.hsb.ismi.jbs.engine.network.client.chat.ChatClient;
 import de.hsb.ismi.jbs.engine.network.client.chat.ClientMessageListener;
@@ -122,9 +123,17 @@ public class GameFieldContainer2 extends JPanel {
 							activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
 							if(game.getActivePlayer() instanceof JBSAIPlayer){
 								JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
-								ai.processRound(game);
+								JBSShip last = ai.processRound(game);
 								JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
-								actionPerformed(e);
+								for(ActionListener a: btnEndRound.getActionListeners()) {
+								    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
+
+										/**
+										 * 
+										 */
+										private static final long serialVersionUID = 7140433730255705194L;
+								    });
+								}
 							}
 						}else{
 							chat.setText(chat.getText()+"\nCan't shoot");
@@ -151,9 +160,17 @@ public class GameFieldContainer2 extends JPanel {
 					activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
 					if(game.getActivePlayer() instanceof JBSAIPlayer){
 						JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
-						ai.processRound(game);
+						JBSShip last = ai.processRound(game);
 						JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
-						actionPerformed(e);
+						for(ActionListener a: btnEndRound.getActionListeners()) {
+						    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
+
+								/**
+								 * 
+								 */
+								private static final long serialVersionUID = 7140433730255705194L;
+						    });
+						}
 					}
 				}
 			}
@@ -285,7 +302,7 @@ public class GameFieldContainer2 extends JPanel {
 		
 		if(game.getActivePlayer() instanceof JBSAIPlayer){
 			JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
-			ai.processRound(game);
+			JBSShip last = ai.processRound(game);
 			JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
 			for(ActionListener a: btnEndRound.getActionListeners()) {
 			    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
