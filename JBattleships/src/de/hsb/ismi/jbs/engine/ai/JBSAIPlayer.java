@@ -90,7 +90,7 @@ public class JBSAIPlayer extends JBSPlayer {
 		r = new Random();	
 	}
 
-	private void shoot(Game game){
+	public JBSShip processRound(Game game){
 		
 		for(JBSShip ship : getShips()){
 			if(ship.canShot()){
@@ -132,29 +132,13 @@ public class JBSAIPlayer extends JBSPlayer {
 							continue;
 						}
 					}
-					break;//TODO
+					return ship;
 				}
 			}
-		}	
-	}
-	
-	/**
-	 * Processes the AIs round.
-	 * @param game
-	 */
-	public void processRound(Game game){
-		int i = getShips().size();
-		for(JBSShip s : getShips()){
-			if(!s.canShot()){
-				i--;
-			}
 		}
-		if(i == 0){
-			return;
-		}else{
-			shoot(game);
-		}
+		return null;
 	}
+
 	
 	
 	public void placeShips(){
