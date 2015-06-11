@@ -47,8 +47,6 @@ public class animationThread extends Thread {
 				e.printStackTrace();
 				break;
 			}
-			
-			
 		}
 	}	
 }

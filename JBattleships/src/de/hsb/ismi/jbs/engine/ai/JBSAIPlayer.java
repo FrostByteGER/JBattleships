@@ -102,7 +102,7 @@ public class JBSAIPlayer extends JBSPlayer {
 						
 						hitfield = (lasthitfield+i)%game.getPlayers().length;
 						
-						if(game.getPlayer(hitfield).isAlive()){
+						if(game.getPlayer(hitfield).isAlive() && game.getPlayer(hitfield) != this){
 							
 							hitx = r.nextInt(game.getActivePlayer().getPlayerField().getSize());
 							hity = r.nextInt(game.getActivePlayer().getPlayerField().getSize());
@@ -122,6 +122,7 @@ public class JBSAIPlayer extends JBSPlayer {
 							continue;
 						}
 					}
+					break;//TODO
 				}
 			}
 		}	
