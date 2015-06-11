@@ -3,9 +3,11 @@ package de.hsb.ismi.jbs.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -40,8 +42,14 @@ public class GameFieldPanel extends JPanel {
 	private ArrayList<GameFieldActionListener> listeners;
 	
 	private animationThread animationthread;
-		
+	
+	private AffineTransform at = new AffineTransform();
+	
+	private Graphics2D g2;
+	
 	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
+		
+		at.rotate(Math.PI);
 		
 		this.gamefild = fild;
 		listeners = new ArrayList<>(0);
@@ -177,8 +185,27 @@ public class GameFieldPanel extends JPanel {
 					//g.setColor(Color.BLUE);
 					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}else{
-					g.setColor(Color.GRAY);
-					g.fillRect(gridsize*i+xofset, gridsize*j+yofset, gridsize, gridsize);
+					/*
+					if(gamefild.getField(i, j).getRotation() == Direction.NORTH){
+						at.rotate(0);
+					}else if(gamefild.getField(i, j).getRotation() == Direction.EAST){
+						at.rotate(0.25);
+					}else if(gamefild.getField(i, j).getRotation() == Direction.SOUTH){
+						at.rotate(0.5);
+					}else if(gamefild.getField(i, j).getRotation() == Direction.WEST){
+						at.rotate(0.75);
+					}*/
+					
+					g2 = (Graphics2D) g;
+					
+
+					
+					g2.drawImage(gamefild.getField(i, j).getComponents().getStatikimage(),at,null);
+					
+					
+					
+					//g.setColor(Color.GRAY);
+					//g.fillRect(gridsize*i+xofset, gridsize*j+yofset, gridsize, gridsize);
 				}
 				if(gamefild.getField(i, j).isHit()){
 					

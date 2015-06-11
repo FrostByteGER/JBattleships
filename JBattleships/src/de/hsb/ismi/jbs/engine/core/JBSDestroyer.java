@@ -22,6 +22,11 @@ public class JBSDestroyer extends JBSShip {
 		addShipPart(new JBSActor("JBSDestroyer"));
 		addShipPart(new JBSActor("JBSDestroyer"));
 		addShipPart(new JBSActor("JBSDestroyer"));
+		
+		for(JBSActor a : getShipActors()){
+			a.getComponents().setStatikimage(JBattleships.game.getDataManager().getResourceManager().getTexture("boattest.png"));
+		}
+		
 	}
 	
 }

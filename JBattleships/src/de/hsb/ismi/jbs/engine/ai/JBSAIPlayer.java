@@ -141,8 +141,6 @@ public class JBSAIPlayer extends JBSPlayer {
 		return null;
 	}
 
-	
-	
 	public void placeShips(){
 		
 		GameManager manager = JBattleships.game.getGameManager();
@@ -183,6 +181,41 @@ public class JBSAIPlayer extends JBSPlayer {
 				break;
 			}
 		}	
+	}
+	
+	/**
+	 * @return the hitdirection
+	 */
+	public Direction getHitdirection() {
+		return hitdirection;
+	}
+
+	/**
+	 * @return the hitx
+	 */
+	public int getHitx() {
+		return hitx;
+	}
+
+	/**
+	 * @return the hity
+	 */
+	public int getHity() {
+		return hity;
+	}
+
+	/**
+	 * @return the hitfield
+	 */
+	public int getHitfield() {
+		return hitfield;
+	}
+
+	/**
+	 * @return the hit
+	 */
+	public boolean isHit() {
+		return hit;
 	}
 	
 }

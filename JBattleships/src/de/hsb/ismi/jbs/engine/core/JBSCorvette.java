@@ -20,6 +20,11 @@ public class JBSCorvette extends JBSShip {
 		addShipPart(new JBSActor("JBSCorvette"));	
 		addShipPart(new JBSActor("JBSCorvette"));
 		addShipPart(new JBSActor("JBSCorvette"));
+		
+		for(JBSActor a : getShipActors()){
+			a.getComponents().setStatikimage(JBattleships.game.getDataManager().getResourceManager().getTexture("boattest.png"));
+		}
+		
 	}
 
 }
