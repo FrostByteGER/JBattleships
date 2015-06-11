@@ -124,10 +124,6 @@ public class GameFieldContainer2 extends JPanel {
 							if(game.getActivePlayer() instanceof JBSAIPlayer){
 								JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 								JBSShip last = ai.processRound(game);
-								ai.decreaseCooldownAll();
-								if(last != null){
-									last.setMaxCooldown();
-								}
 								JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
 								for(ActionListener a: btnEndRound.getActionListeners()) {
 								    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
@@ -165,10 +161,6 @@ public class GameFieldContainer2 extends JPanel {
 					if(game.getActivePlayer() instanceof JBSAIPlayer){
 						JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 						JBSShip last = ai.processRound(game);
-						ai.decreaseCooldownAll();
-						if(last != null){
-							last.setMaxCooldown();
-						}
 						JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
 						for(ActionListener a: btnEndRound.getActionListeners()) {
 						    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
@@ -311,10 +303,6 @@ public class GameFieldContainer2 extends JPanel {
 		if(game.getActivePlayer() instanceof JBSAIPlayer){
 			JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 			JBSShip last = ai.processRound(game);
-			ai.decreaseCooldownAll();
-			if(last != null){
-				last.setMaxCooldown();
-			}
 			JBSCore.msgLogger.addMessage("AI " + game.getActivePlayer().getName() + " ended its turn!");
 			for(ActionListener a: btnEndRound.getActionListeners()) {
 			    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {

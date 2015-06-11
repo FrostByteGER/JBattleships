@@ -328,7 +328,7 @@ public class PreGamePlacingPanel extends JPanel {
 					//Manually call updatePlayerData to bypass the display of the GUI.
 					nextPlayer();
 				}
-			}, 3000);
+			}, 10);
 		}else{
 			// Updates the panel with the new player-data since this is a human player!
 			updatePanel();

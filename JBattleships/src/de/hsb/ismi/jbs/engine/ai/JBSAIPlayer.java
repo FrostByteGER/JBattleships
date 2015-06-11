@@ -16,6 +16,7 @@ import de.hsb.ismi.jbs.engine.core.JBSProfile;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -119,7 +120,12 @@ public class JBSAIPlayer extends JBSPlayer {
 							
 							hitdirection = Direction.getRandomDirection(r);
 							
-							hit = ship.shoot(hitx, hity, hitdirection, game.getPlayer(hitfield).getPlayerField());
+							//hit = ship.shoot(hitx, hity, hitdirection, game.getPlayer(hitfield).getPlayerField());
+							RoundManager rm = JBattleships.game.getGameManager().getRoundManager();
+							hit = rm.fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							rm.fireAnalyzeRound(this);
+							rm.fireEndRound(this);
+							
 							
 							if(hit){
 								lasthitx = hitx;
