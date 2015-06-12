@@ -19,7 +19,11 @@ public class GameManager{
 	
 	private ArrayList<GameListener> listeners = new ArrayList<GameListener>(0);
 	
+	/**
+	 * 
+	 */
 	public GameManager() {
+		
 	}
 	
 	public void addPlayer(JBSPlayer player){
@@ -62,20 +66,6 @@ public class GameManager{
 
 		for(int i = 0 ; i < tplayers.length ; i++){
 			tplayers[i] = players.get(i);
-			/*
-			for(int j = 0 ; j < shipcount[0] ; j++){
-				tplayers[i].addShip(new JBSDestroyer());
-			}
-			for(int j = 0 ; j < shipcount[1] ; j++){
-				tplayers[i].addShip(new JBSFrigate());
-			}
-			for(int j = 0 ; j < shipcount[2] ; j++){
-				tplayers[i].addShip(new JBSSubmarine());
-			}
-			for(int j = 0 ; j < shipcount[3] ; j++){
-				tplayers[i].addShip(new JBSCorvette());
-			}
-			*/
 		}
 		game = new Game(type, tplayers);
 		

@@ -35,28 +35,32 @@ import net.miginfocom.swing.MigLayout;
  */
 public class GameFieldContainer2 extends JPanel {
 
+	private Game game;
+	private RoundManager roundManager;
 	
+	private int selectedGameField;
+	
+	@SuppressWarnings("unused")
 	private JBSGUI parent;
 	
+	private GameFieldPanel gameFieldPanel;
 	private GameSidePanel2 gameSidePanel;
+	
 	private JPanel sidePanel;
 	private JPanel centerPanel;
 	private JPanel lowerSidePanel;
-	private GameFieldPanel gameFieldPanel;
 	private JPanel lowerMainPanel;
 	private JPanel uperMainPanel;
-	private Game game;
+	private ChatPanel chatPanel;
+	
 	private JLabel fieldNumber;
 	private JLabel activePlayerlbl;
-	private RoundManager roundManager;
-	private int selectedGameField;
 	private JTextArea chat;
 	private JButton btnExit;
 	private JButton btnShoot;
 	private JButton btnEndRound;
 	private JButton btnSaveGame;
-	private ChatPanel chatPanel;
-	private ChatClient chatClient;
+
 	
 	/**
 	 * Create the panel.
@@ -69,8 +73,26 @@ public class GameFieldContainer2 extends JPanel {
 		centerPanel = new JPanel();
 		add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new MigLayout("", "[grow][grow]", "[grow]"));
-				
-		chatPanel = new ChatPanel(true);
+		
+		boolean chatVisibility;
+		switch(game.getGameType()) {
+			case GAME_ONLINE:
+				chatVisibility = true;
+				break;
+			case GAME_LAN:
+				chatVisibility = true;
+				break;
+			case GAME_LOCAL:
+				chatVisibility = false;
+				break;
+			case GAME_SOLO:
+				chatVisibility = false;
+				break;
+			default:
+				chatVisibility = false;
+				break;
+		}
+		chatPanel = new ChatPanel(chatVisibility);
 		sidePanel = new JPanel();
 		
 		
@@ -217,7 +239,7 @@ public class GameFieldContainer2 extends JPanel {
 		uperMainPanel.setLayout(new FlowLayout());
 		
 		JButton pbut = new JButton();
-		pbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Next"));
+		pbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Next"));
 		pbut.addActionListener(new ActionListener() {
 			
 			@Override
@@ -235,7 +257,7 @@ public class GameFieldContainer2 extends JPanel {
 		});
 		
 		JButton mbut = new JButton();
-		mbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Previous"));
+		mbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Previous"));
 		mbut.addActionListener(new ActionListener() {
 			
 			@Override
@@ -263,30 +285,6 @@ public class GameFieldContainer2 extends JPanel {
 		gameFieldPanel.add(uperMainPanel,BorderLayout.NORTH);
 		
 		gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
-		
-		//TODO: remove!
-		JBattleships.game.generateChatServer();
-		/*
-		 * chatClient = new ChatClient();
-		chatClient.addMessageListener(new ClientMessageListener() {
-
-			@Override
-			public void messageReceived(String message) {
-				chatPanel.addTextToChat(message);
-			}
-			
-			@Override
-			public void connectionLost(String IP) {
-				chatPanel.toggleChatInput();
-				
-			}
-
-			@Override
-			public void messageSent(String message) {
-
-			}
-		});*/
-		
 		
 		JBattleships.game.getGameManager().addGameListener(new GameListener() {
 			

@@ -46,17 +46,19 @@ import javax.swing.JLabel;
 public class PreGamePlacingPanel extends JPanel {
 	
 	private JBSGUI parent;
+	
+	private JPanel centerPanel;
 	private JPanel header;
 	private JPanel buttonPanel;
+	private JPanel shipPanel;
+	
 	private JButton btnCancel;
 	private JButton btnContinue;
 	private GameFieldPanel fieldPanel;
-	private JPanel shipPanel;
 	private JButton btnDestroyer;
 	private JButton btnFrigate;
 	private JButton btnCorvette;
 	private JButton btnSubmarine;
-	private JPanel centerPanel;
 	private JTextArea textArea;
 	
 	private int destroyersLeft = 0;
@@ -87,8 +89,10 @@ public class PreGamePlacingPanel extends JPanel {
 	public void initPanel(){
 		this.header = parent.generateHeader();
 		setLayout(new BorderLayout(0, 0));
+		setOpaque(false);
 		add(header, BorderLayout.NORTH);
 		buttonPanel = new JPanel();
+		buttonPanel.setOpaque(false);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		add(buttonPanel, BorderLayout.SOUTH);
 		
@@ -116,6 +120,7 @@ public class PreGamePlacingPanel extends JPanel {
 		buttonPanel.add(btnContinue);
 		
 		centerPanel = new JPanel();
+		centerPanel.setOpaque(false);
 		add(centerPanel, BorderLayout.CENTER);
 		
 		GridBagConstraints gbc_fieldPanel = new GridBagConstraints();
@@ -131,7 +136,9 @@ public class PreGamePlacingPanel extends JPanel {
 
 		
 		shipPanel = new JPanel();
-		centerPanel.add(shipPanel, "cell 1 0,grow");
+		shipPanel.setOpaque(true);
+		shipPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		centerPanel.add(new AlphaContainer(shipPanel), "cell 1 0,grow");
 		shipPanel.setBorder(new TitledBorder(null, "Ship List", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_shipPanel = new GridBagLayout();
 		gbl_shipPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
@@ -145,6 +152,7 @@ public class PreGamePlacingPanel extends JPanel {
 		textArea.setText("Choose a shiptype and left-click on the board to place your ship. Use right-click to change the direction.");
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
+		textArea.setOpaque(false);
 		textArea.setBackground(SystemColor.menu);
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.insets = new Insets(0, 0, 5, 0);

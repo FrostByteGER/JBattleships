@@ -31,13 +31,12 @@ public class ChatClient extends Thread{
 	 * @throws IOException
 	 */
 	public ChatClient(String ip, int port, String username) throws UnknownHostException, IOException{
-		//super("ChatClient-Thread");
+		super("ChatClient-Thread");
 		this.username = username;
 		socket = new Socket(ip, port);
 		inputStream = new DataInputStream(socket.getInputStream());
 		outputStream = new DataOutputStream(socket.getOutputStream());
 		sendAuthentification(username);
-		System.out.println(getName());
 		this.start();
 	}
 	

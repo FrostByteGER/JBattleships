@@ -8,8 +8,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 
 /**
  * @author Kevin Kuegler
@@ -18,9 +16,7 @@ import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 @XmlRootElement(name = "Game")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Game {
-	
-	@XmlTransient
-	private DataManager dataManager = new DataManager();
+
 	@XmlElement(name = "GameType")
 	private JBSGameType gameType = null;
 	@XmlElement(name = "Player")
@@ -28,7 +24,7 @@ public class Game {
 	private JBSPlayer[] players = null;
 	@XmlElement(name = "ActivePlayer")
 	private int activePlayer = 0;
-	@XmlElement(name = "NextPlayer") // TODO added
+	@XmlElement(name = "NextPlayer")
 	private int nextPlayer = 0;
 	
 	public Game(){
@@ -169,11 +165,4 @@ public class Game {
 		}*/
 		return true;
 	}
-	
-	public final DataManager getDataManager(){
-		return dataManager;
-	}
-	
-	
-
 }

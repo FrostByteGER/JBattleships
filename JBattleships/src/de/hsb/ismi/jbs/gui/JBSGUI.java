@@ -1,6 +1,7 @@
 package de.hsb.ismi.jbs.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -38,6 +39,8 @@ public class JBSGUI{
 	private OptionsPanel optionsPanel = new OptionsPanel(this);
 	
 	private BufferedImage backgroundImage = null;
+	
+	public static final Color BACKGROUND_COLOR = new Color(0.9411f, 0.9411f, 0.9411f, 0.1f);
 
 	/**
 	 * 

@@ -166,7 +166,7 @@ public class GameFieldContainer extends JPanel {
 		uperMainPanel.setLayout(new FlowLayout());
 		
 		JButton pbut = new JButton();
-		pbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Plus"));
+		pbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Plus"));
 		pbut.addActionListener(new ActionListener() {
 			
 			@Override
@@ -184,7 +184,7 @@ public class GameFieldContainer extends JPanel {
 		});
 		
 		JButton mbut = new JButton();
-		mbut.setText(game.getDataManager().getLocalizationManager().getLocalization("Minus"));
+		mbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Minus"));
 		mbut.addActionListener(new ActionListener() {
 			
 			@Override
