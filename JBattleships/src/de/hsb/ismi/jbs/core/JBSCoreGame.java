@@ -30,7 +30,7 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
 public class JBSCoreGame {
 
 	/** The MessageLogger to log errors, exceptions and other stuff. */
-	public static MessageLogger msgLogger = new MessageLogger(JBSCoreGame.DEBUG);
+	public static MessageLogger msgLogger = new MessageLogger(JBSCoreGame.DEBUG_MODE);
 	/** The Checksumgenerator to generate checksums from various objects, Strings or such. */
 	public static SHA256Generator shaGenerator = new SHA256Generator();
 	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
@@ -42,7 +42,7 @@ public class JBSCoreGame {
 	/** TODO: JAVADOC */
 	public static final String MSG_LOGGER_KEY = "Logger";
 	/** Enables debug functionality and the MessageLogger. */
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG_MODE = true;
 	/** Allows to resize the game window. */
 	public static final boolean RESIZABLE = false;
 	
@@ -80,12 +80,18 @@ public class JBSCoreGame {
 		ioQueue.addIOListener("Logger", new IOListener<String>() {
 			
 			@Override
-			public void outputReceived(String output, String notifierType) {				
+			public void outputReceived(String output, String notifierType) {	
+				if(DEBUG_MODE){
+					
+				}
 			}
 			
 			@Override
 			public void inputReceived(String input, String notifierType) {
-				msgLogger.addMessage(input);
+				if(DEBUG_MODE){
+					msgLogger.addMessage(input);
+				}
+				
 			}
 		});
 		if(initGame){

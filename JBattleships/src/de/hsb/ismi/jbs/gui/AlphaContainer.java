@@ -47,8 +47,7 @@ public class AlphaContainer extends JComponent
 	 *  contained component
 	 */
 	@Override
-	public void paintComponent(Graphics g)
-	{
+	public void paintComponent(Graphics g){
 		g.setColor( component.getBackground() );
 		g.fillRect(0, 0, getWidth(), getHeight());
 	}

@@ -145,7 +145,7 @@ public class JBSGameField {
 		return false;
 	}
 	
-	// DEBUG
+	// DEBUG_MODE
 	public void printField(boolean visible){
 		System.out.print("x/y");
 		for(int i = 0 ; i < actorFields.length ;i++){

@@ -2,7 +2,6 @@ package de.hsb.ismi.jbs.engine.core.manager;
 
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
