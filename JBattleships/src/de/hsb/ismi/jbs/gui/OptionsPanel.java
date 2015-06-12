@@ -54,11 +54,16 @@ import javax.swing.JCheckBox;
 public class OptionsPanel extends JPanel{
 	
 	private JBSGUI parent;
+	
 	private JPanel centerPanel;
 	private JPanel gfxPanel;
 	private JPanel sfxPanel;
 	private JPanel otherPanel;
 	private JPanel buttonPanel;
+	private JPanel networkPanel;
+	private JPanel mixedPanel;
+	private JPanel gamePanel;
+
 	private JButton resetButton;
 	private JButton saveButton;
 	private JButton backButton;
@@ -73,13 +78,10 @@ public class OptionsPanel extends JPanel{
 	private JSlider sliderVolume;
 	private JSlider sliderMusic;
 	private JLabel lblMusic;
-	private JPanel networkPanel;
 	private JLabel lblIP;
 	private JComboBox<Inet4Address> ipBox;
 	private JLabel lblPort;
 	private JTextField portField;
-	private JPanel mixedPanel;
-	private JPanel gamePanel;
 	private JLabel lblLang;
 	private JComboBox<String> langBox;
 	private JLabel lblDebugmode;
@@ -104,7 +106,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel = new JPanel();
 		gfxPanel.setOpaque(true);
 		gfxPanel.setBackground(BACKGROUND_COLOR);
-		centerPanel.add(gfxPanel);
+		centerPanel.add(new AlphaContainer(gfxPanel));
 		gfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Graphics", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagLayout gbl_gfxPanel = new GridBagLayout();
 		gbl_gfxPanel.columnWidths = new int[]{0, 0};
@@ -196,7 +198,7 @@ public class OptionsPanel extends JPanel{
 		sfxPanel.setOpaque(true);
 		sfxPanel.setBackground(BACKGROUND_COLOR);
 		sfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Audio", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		centerPanel.add(sfxPanel);
+		centerPanel.add(new AlphaContainer(sfxPanel));
 		GridBagLayout gbl_sfxPanel = new GridBagLayout();
 		gbl_sfxPanel.columnWidths = new int[] {0};
 		gbl_sfxPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
@@ -223,6 +225,7 @@ public class OptionsPanel extends JPanel{
 		sliderVolume.setPaintTicks(true);
 		sliderVolume.setLabelTable(sliderVolume.createStandardLabels(50));
 		sliderVolume.setPaintLabels(true);
+		sliderVolume.setOpaque(false);
 		GridBagConstraints gbc_sliderVolume = new GridBagConstraints();
 		gbc_sliderVolume.insets = new Insets(0, 0, 5, 0);
 		gbc_sliderVolume.fill = GridBagConstraints.HORIZONTAL;
@@ -249,6 +252,7 @@ public class OptionsPanel extends JPanel{
 		sliderMusic.setPaintTicks(true);
 		sliderMusic.setPaintLabels(true);
 		sliderMusic.setLabelTable(sliderMusic.createStandardLabels(50));
+		sliderMusic.setOpaque(false);
 		GridBagConstraints gbc_sliderMusic = new GridBagConstraints();
 		gbc_sliderMusic.fill = GridBagConstraints.BOTH;
 		gbc_sliderMusic.gridx = 0;
@@ -259,13 +263,13 @@ public class OptionsPanel extends JPanel{
 		otherPanel.setOpaque(true);
 		otherPanel.setBackground(BACKGROUND_COLOR);
 		otherPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Network", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		centerPanel.add(otherPanel);
+		centerPanel.add(new AlphaContainer(otherPanel));
 		otherPanel.setLayout(new BorderLayout(0, 0));
 		
 		networkPanel = new JPanel();
 		networkPanel.setOpaque(true);
 		networkPanel.setBackground(BACKGROUND_COLOR);
-		otherPanel.add(networkPanel, BorderLayout.CENTER);
+		otherPanel.add(new AlphaContainer(networkPanel), BorderLayout.CENTER);
 		GridBagLayout gbl_networkPanel = new GridBagLayout();
 		gbl_networkPanel.columnWidths = new int[] {0};
 		gbl_networkPanel.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
@@ -289,7 +293,6 @@ public class OptionsPanel extends JPanel{
 		networkPanel.add(lblIP, gbc_lblIP);
 		
 		ipBox = new JComboBox<Inet4Address>(new Inet4Address[]{(Inet4Address) Inet4Address.getLoopbackAddress()});
-		//ipBox = new JComboBox<Inet4Address>();
 		GridBagConstraints gbc_ipBox = new GridBagConstraints();
 		gbc_ipBox.insets = new Insets(0, 0, 5, 0);
 		gbc_ipBox.fill = GridBagConstraints.HORIZONTAL;
@@ -324,14 +327,14 @@ public class OptionsPanel extends JPanel{
 		mixedPanel = new JPanel();
 		mixedPanel.setOpaque(true);
 		mixedPanel.setBackground(BACKGROUND_COLOR);
-		centerPanel.add(mixedPanel);
+		centerPanel.add(new AlphaContainer(mixedPanel));
 		mixedPanel.setLayout(new BoxLayout(mixedPanel, BoxLayout.Y_AXIS));
 		
 		gamePanel = new JPanel();
 		gamePanel.setOpaque(true);
 		gamePanel.setBackground(BACKGROUND_COLOR);
 		gamePanel.setBorder(new TitledBorder(null, "Game", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		mixedPanel.add(gamePanel);
+		mixedPanel.add(new AlphaContainer(gamePanel));
 		GridBagLayout gbl_gamePanel = new GridBagLayout();
 		gbl_gamePanel.columnWidths = new int[]{0};
 		gbl_gamePanel.rowHeights = new int[] {0, 0, 0, 0, 0};
@@ -377,7 +380,7 @@ public class OptionsPanel extends JPanel{
 		buttonPanel = new JPanel();
 		buttonPanel.setOpaque(true);
 		buttonPanel.setBackground(BACKGROUND_COLOR);
-		mixedPanel.add(buttonPanel);
+		mixedPanel.add(new AlphaContainer(buttonPanel));
 		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		resetButton = new JButton("Reset to Default");

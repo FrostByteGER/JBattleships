@@ -56,7 +56,7 @@ public class JBSGUI{
 	public void initGUI(Resolution res, ScreenMode mode){
 		mainFrame.setResizable(JBSCoreGame.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 100, res.getWidth(), res.getHeight());
+		mainFrame.setBounds(0, 0, res.getWidth(), res.getHeight());
 		
 		contentPane = new JPanel(){
 			/**
@@ -70,7 +70,7 @@ public class JBSGUI{
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.drawImage(getBackgroundImage(), 0, 0, this.getWidth(),this.getHeight(), null);
+				g.drawImage(backgroundImage, 0, 0, this.getWidth(),this.getHeight(), null);
 			}
 		};
 		contentPane.setLayout(new BorderLayout(0, 0));
