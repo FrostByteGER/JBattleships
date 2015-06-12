@@ -39,7 +39,6 @@ import javax.swing.JSlider;
 
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
-import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -86,19 +85,25 @@ public class OptionsPanel extends JPanel{
 	private JLabel lblDebugmode;
 	private JCheckBox chckbxDebug;
 	
+	public static final Color BACKGROUND_COLOR = new Color(0.9411f, 0.9411f, 0.9411f, 0.1f);
+	
 	/**
 	 * 
 	 */
 	public OptionsPanel(JBSGUI parent) {
 		this.parent = parent;
 		setLayout(new BorderLayout(0, 0));
+		setOpaque(false);
 		add(parent.generateHeader(), BorderLayout.NORTH);
 		centerPanel = new JPanel();
+		centerPanel.setOpaque(false);
 		add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		
 		buttonGroup = new ButtonGroup();
 		gfxPanel = new JPanel();
+		gfxPanel.setOpaque(true);
+		gfxPanel.setBackground(BACKGROUND_COLOR);
 		centerPanel.add(gfxPanel);
 		gfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Graphics", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagLayout gbl_gfxPanel = new GridBagLayout();
@@ -159,6 +164,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(lblMode, gbc_lblMode);
 		
 		rdbtnFull = new JRadioButton("Fullscreen");
+		rdbtnFull.setOpaque(false);
 		buttonGroup.add(rdbtnFull);
 		GridBagConstraints gbc_rdbtnFull = new GridBagConstraints();
 		gbc_rdbtnFull.fill = GridBagConstraints.HORIZONTAL;
@@ -168,6 +174,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnFull, gbc_rdbtnFull);
 		
 		rdbtnWin = new JRadioButton("Windowed");
+		rdbtnWin.setOpaque(false);
 		buttonGroup.add(rdbtnWin);
 		GridBagConstraints gbc_rdbtnWin = new GridBagConstraints();
 		gbc_rdbtnWin.fill = GridBagConstraints.HORIZONTAL;
@@ -177,6 +184,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnWin, gbc_rdbtnWin);
 		
 		rdbtnLess = new JRadioButton("Borderless");
+		rdbtnLess.setOpaque(false);
 		buttonGroup.add(rdbtnLess);
 		GridBagConstraints gbc_rdbtnLess = new GridBagConstraints();
 		gbc_rdbtnLess.fill = GridBagConstraints.HORIZONTAL;
@@ -185,6 +193,8 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnLess, gbc_rdbtnLess);
 		
 		sfxPanel = new JPanel();
+		sfxPanel.setOpaque(true);
+		sfxPanel.setBackground(BACKGROUND_COLOR);
 		sfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Audio", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		centerPanel.add(sfxPanel);
 		GridBagLayout gbl_sfxPanel = new GridBagLayout();
@@ -246,11 +256,15 @@ public class OptionsPanel extends JPanel{
 		sfxPanel.add(sliderMusic, gbc_sliderMusic);
 		
 		otherPanel = new JPanel();
+		otherPanel.setOpaque(true);
+		otherPanel.setBackground(BACKGROUND_COLOR);
 		otherPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Network", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		centerPanel.add(otherPanel);
 		otherPanel.setLayout(new BorderLayout(0, 0));
 		
 		networkPanel = new JPanel();
+		networkPanel.setOpaque(true);
+		networkPanel.setBackground(BACKGROUND_COLOR);
 		otherPanel.add(networkPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_networkPanel = new GridBagLayout();
 		gbl_networkPanel.columnWidths = new int[] {0};
@@ -308,10 +322,14 @@ public class OptionsPanel extends JPanel{
 		portField.setColumns(10);
 		
 		mixedPanel = new JPanel();
+		mixedPanel.setOpaque(true);
+		mixedPanel.setBackground(BACKGROUND_COLOR);
 		centerPanel.add(mixedPanel);
 		mixedPanel.setLayout(new BoxLayout(mixedPanel, BoxLayout.Y_AXIS));
 		
 		gamePanel = new JPanel();
+		gamePanel.setOpaque(true);
+		gamePanel.setBackground(BACKGROUND_COLOR);
 		gamePanel.setBorder(new TitledBorder(null, "Game", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		mixedPanel.add(gamePanel);
 		GridBagLayout gbl_gamePanel = new GridBagLayout();
@@ -349,6 +367,7 @@ public class OptionsPanel extends JPanel{
 		gamePanel.add(lblDebugmode, gbc_lblDebugmode);
 		
 		chckbxDebug = new JCheckBox("Debug-Mode");
+		chckbxDebug.setOpaque(false);
 		GridBagConstraints gbc_chckbxDebug = new GridBagConstraints();
 		gbc_chckbxDebug.anchor = GridBagConstraints.WEST;
 		gbc_chckbxDebug.gridx = 0;
@@ -356,6 +375,8 @@ public class OptionsPanel extends JPanel{
 		gamePanel.add(chckbxDebug, gbc_chckbxDebug);
 		
 		buttonPanel = new JPanel();
+		buttonPanel.setOpaque(true);
+		buttonPanel.setBackground(BACKGROUND_COLOR);
 		mixedPanel.add(buttonPanel);
 		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		

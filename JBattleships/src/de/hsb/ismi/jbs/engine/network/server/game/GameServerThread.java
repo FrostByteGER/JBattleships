@@ -70,7 +70,8 @@ public class GameServerThread extends Thread {
 						}
 						break;
 					case AUTHENTICATED:
-						server.handle(id, input);
+						//TODO: uncomment!
+						//server.handle(id, input);
 						break;
 					case BANNED:
 						server.removeClient(id);

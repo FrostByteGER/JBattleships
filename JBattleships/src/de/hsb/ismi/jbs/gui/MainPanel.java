@@ -34,7 +34,6 @@ public class MainPanel extends JPanel {
 	private JBSGUI parent;
 	private JPanel buttonPanel;
 	private JButton btnLocal;
-	private JButton btnLAN;
 	private JButton btnOnline;
 	private JButton btnProfiles;
 	private JButton btnOptions;
@@ -49,6 +48,7 @@ public class MainPanel extends JPanel {
 	 */
 	public MainPanel(JBSGUI parent) {
 		this.parent = parent;
+		this.setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		add(parent.generateHeader(), BorderLayout.NORTH);
 		
@@ -58,9 +58,9 @@ public class MainPanel extends JPanel {
 		add(buttonPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_buttonPanel = new GridBagLayout();
 		gbl_buttonPanel.columnWidths = new int[] {200};
-		gbl_buttonPanel.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_buttonPanel.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
 		gbl_buttonPanel.columnWeights = new double[]{0.0};
-		gbl_buttonPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_buttonPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		buttonPanel.setLayout(gbl_buttonPanel);
 		
 		btnLocal = new JButton("Local");
@@ -119,29 +119,23 @@ public class MainPanel extends JPanel {
 		gbc_btnLocal.gridy = 0;
 		buttonPanel.add(btnLocal, gbc_btnLocal);
 		
-		btnLAN = new JButton("LAN");
-		btnLAN.setAlignmentX(Component.CENTER_ALIGNMENT);
-		GridBagConstraints gbc_btnLAN = new GridBagConstraints();
-		gbc_btnLAN.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnLAN.insets = new Insets(0, 0, 5, 0);
-		gbc_btnLAN.gridx = 0;
-		gbc_btnLAN.gridy = 1;
-		buttonPanel.add(btnLAN, gbc_btnLAN);
-		
 		btnOnline = new JButton("Online");
+		btnOnline.addActionListener(e -> {
+			parent.swapContainer(new OnlinePanel(this.parent));
+		});
 		btnOnline.setAlignmentX(Component.CENTER_ALIGNMENT);
 		GridBagConstraints gbc_btnOnline = new GridBagConstraints();
 		gbc_btnOnline.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnOnline.insets = new Insets(0, 0, 5, 0);
 		gbc_btnOnline.gridx = 0;
-		gbc_btnOnline.gridy = 2;
+		gbc_btnOnline.gridy = 1;
 		buttonPanel.add(btnOnline, gbc_btnOnline);
 		
 		rigidArea = Box.createRigidArea(new Dimension(20, 5));
 		GridBagConstraints gbc_rigidArea = new GridBagConstraints();
 		gbc_rigidArea.insets = new Insets(0, 0, 5, 0);
 		gbc_rigidArea.gridx = 0;
-		gbc_rigidArea.gridy = 3;
+		gbc_rigidArea.gridy = 2;
 		buttonPanel.add(rigidArea, gbc_rigidArea);
 		
 		btnProfiles = new JButton("Profiles");
@@ -149,7 +143,7 @@ public class MainPanel extends JPanel {
 		gbc_btnProfiles.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnProfiles.insets = new Insets(0, 0, 5, 0);
 		gbc_btnProfiles.gridx = 0;
-		gbc_btnProfiles.gridy = 4;
+		gbc_btnProfiles.gridy = 3;
 		buttonPanel.add(btnProfiles, gbc_btnProfiles);
 		
 		btnOptions = new JButton("Options");
@@ -165,7 +159,7 @@ public class MainPanel extends JPanel {
 		gbc_btnOptions.insets = new Insets(0, 0, 5, 0);
 		gbc_btnOptions.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnOptions.gridx = 0;
-		gbc_btnOptions.gridy = 5;
+		gbc_btnOptions.gridy = 4;
 		buttonPanel.add(btnOptions, gbc_btnOptions);
 		
 		btnCredits = new JButton("Credits");
@@ -173,7 +167,7 @@ public class MainPanel extends JPanel {
 		gbc_btnCredits.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCredits.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCredits.gridx = 0;
-		gbc_btnCredits.gridy = 6;
+		gbc_btnCredits.gridy = 5;
 		buttonPanel.add(btnCredits, gbc_btnCredits);
 		
 		btnQuit = new JButton("Quit");
@@ -190,10 +184,9 @@ public class MainPanel extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
-		gbc_btnQuit.insets = new Insets(0, 0, 5, 0);
 		gbc_btnQuit.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnQuit.gridx = 0;
-		gbc_btnQuit.gridy = 7;
+		gbc_btnQuit.gridy = 6;
 		buttonPanel.add(btnQuit, gbc_btnQuit);
 		
 		versionPanel = new JPanel();
@@ -202,17 +195,8 @@ public class MainPanel extends JPanel {
 		fl_versionPanel.setAlignment(FlowLayout.RIGHT);
 		add(versionPanel, BorderLayout.SOUTH);
 		
-		versionLbl = new JLabel("PRE-ALPHA");
+		versionLbl = new JLabel("ALPHA 0.2");
 		versionPanel.add(versionLbl);
-	}
-	
-	/* (non-Javadoc)
-	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-	 */
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(parent.getBackgroundImage(), 0, 0, this.getWidth(),this.getHeight(), null);
 	}
 
 }

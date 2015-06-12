@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -57,6 +58,21 @@ public class JBSGUI{
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 100, res.getWidth(), res.getHeight());
 		
+		contentPane = new JPanel(){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -6588552075773032990L;
+
+			/* (non-Javadoc)
+			 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+			 */
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.drawImage(getBackgroundImage(), 0, 0, this.getWidth(),this.getHeight(), null);
+			}
+		};
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		//TODO: Remove add call
