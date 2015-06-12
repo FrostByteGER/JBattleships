@@ -22,7 +22,7 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
 import de.frostbyteger.messagelogger.MessageLogger;
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
@@ -215,7 +215,7 @@ public class GameFieldContainer extends JPanel {
 
 	public static void main(String[] args) {
 
-		new JBSCore(true);
+		new JBSCoreGame(true);
 		
 		GameManager pre = new GameManager();
 		
@@ -227,7 +227,7 @@ public class GameFieldContainer extends JPanel {
 		pre.setFrigateCount(3);
 		pre.setSubmarineCount(3);
 		
-		JBSCore core = new JBSCore();
+		JBSCoreGame core = new JBSCoreGame(true);
 		
 		JFrame f = new JFrame();
 		f.setBounds(100, 100, 1000, 800);

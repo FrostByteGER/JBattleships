@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.io.JBSParserException;
 import de.hsb.ismi.jbs.engine.io.parser.ConfigParser;
 
@@ -37,7 +37,7 @@ public class ConfigManager {
 	public boolean loadConfig(){
 		HashMap<String, HashMap<String, String>> data = new HashMap<>(0);
 		try {
-			ArrayList<String> raw = parser.parseConfig(JBSCore.DATA_PATH + CONFIG_PATH + CONFIG_NAME);
+			ArrayList<String> raw = parser.parseConfig(JBSCoreGame.DATA_PATH + CONFIG_PATH + CONFIG_NAME);
 			ArrayList<String> tempArray = null;
 			String category = null;
 			for(String s : raw){
@@ -64,7 +64,7 @@ public class ConfigManager {
 			}
 		} catch (IOException | JBSParserException e) {
 			e.printStackTrace();
-			//JBSCore.msgLogger.addException(e);
+			//JBSCoreGame.msgLogger.addException(e);
 			return false;
 		}
 		this.data = data;

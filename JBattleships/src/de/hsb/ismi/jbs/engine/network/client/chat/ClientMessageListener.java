@@ -4,6 +4,8 @@ public interface ClientMessageListener {
 	
 	public void messageReceived(String message);
 	
+	public void messageSent(String message);
+	
 	public void connectionLost(String IP);
 
 }

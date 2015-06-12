@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 
@@ -39,18 +39,23 @@ public class JBSGUI{
 	private BufferedImage backgroundImage = null;
 
 	/**
-	 * Create the frame and its components.
+	 * 
 	 */
-	public JBSGUI(Resolution res, ScreenMode mode) {
-		mainFrame.setResizable(JBSCore.RESIZABLE);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 100, res.getWidth(), res.getHeight());
-		
+	public JBSGUI() {
 		try {
 			backgroundImage = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Inits GUI
+	 */
+	public void initGUI(Resolution res, ScreenMode mode){
+		mainFrame.setResizable(JBSCoreGame.RESIZABLE);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.setBounds(100, 100, res.getWidth(), res.getHeight());
 		
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -66,13 +71,6 @@ public class JBSGUI{
 	}
 	
 	/**
-	 * Inits GUI
-	 */
-	public void initGUI(){
-		
-	}
-	
-	/**
 	 * Swaps the current center-component with the given one.
 	 * @param container
 	 */
@@ -80,7 +78,7 @@ public class JBSGUI{
 		contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
 		contentPane.add(container,BorderLayout.CENTER);
 		container.updateUI();
-		JBSCore.msgLogger.addMessage("Swapped JPanel!");
+		JBSCoreGame.ioQueue.insertInput("Swapped JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
 	}
 	
 	/**
@@ -88,12 +86,12 @@ public class JBSGUI{
 	 * <br>Restores the previous JPanel that was visible before a new one was called.
 	 */
 	public void restorePrevContainer(){
-		JBSCore.msgLogger.addMessage("DEPRECATED METHOD, DO NOT USE!");
+		JBSCoreGame.ioQueue.insertInput("DEPRECATED METHOD, DO NOT USE!", JBSCoreGame.MSG_LOGGER_KEY);
 		if(!panelStack.empty()){
 			//swapContainer(panelStack.pop());
-			//JBSCore.msgLogger.addMessage("Restored previous JPanel!");
+			//JBSCoreGame.msgLogger.addMessage("Restored previous JPanel!");
 		}else{
-			//JBSCore.msgLogger.addMessage("Stack is Empty!");
+			//JBSCoreGame.msgLogger.addMessage("Stack is Empty!");
 		}
 	}
 	

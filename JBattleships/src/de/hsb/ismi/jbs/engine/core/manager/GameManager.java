@@ -2,7 +2,7 @@ package de.hsb.ismi.jbs.engine.core.manager;
 
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
@@ -107,7 +107,7 @@ public class GameManager{
 	public boolean endGame(boolean force){
 		if((started && game.isGameOver()) || force){
 			started = false;
-			//JBSCore.msgLogger.addMessage("Game has ended. Winner is: " + game.getActivePlayer().getName());
+			//JBSCoreGame.msgLogger.addMessage("Game has ended. Winner is: " + game.getActivePlayer().getName());
 			System.out.println("Game has ended. Winner is: " + game.getActivePlayer().getName());
 			for(GameListener gl : listeners){
 				gl.fireEndedGame();

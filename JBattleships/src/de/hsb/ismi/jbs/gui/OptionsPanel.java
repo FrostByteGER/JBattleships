@@ -37,7 +37,7 @@ import java.util.HashMap;
 import javax.swing.ButtonGroup;
 import javax.swing.JSlider;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
@@ -123,7 +123,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(lblRes, gbc_lblRes);
 		
 				
-		DisplayMode[] modes = JBSCore.screenDeviceManager.getSupportedDisplayModes(new int[]{JBSCore.screenDeviceManager.getCurrentDisplayMode().getRefreshRate()});
+		DisplayMode[] modes = JBSCoreGame.screenDeviceManager.getSupportedDisplayModes(new int[]{JBSCoreGame.screenDeviceManager.getCurrentDisplayMode().getRefreshRate()});
 		Resolution[] res = new Resolution[modes.length];
 		for(int i = 0; i < modes.length; i++){
 			res[i] = Resolution.convertDisplayModeToResolution(modes[i]);
@@ -364,7 +364,7 @@ public class OptionsPanel extends JPanel{
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("reset")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 				}
 			}
 		});
@@ -376,12 +376,12 @@ public class OptionsPanel extends JPanel{
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("save")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 					Resolution r = (Resolution) resBox.getSelectedItem();
 					
 					// If a custom resolution was set in the Settings.cfg, the resBox won't possibly have a match, this prevents a NullPointerException!
 					if(r == null){
-						r = Resolution.convertDisplayModeToResolution(JBSCore.screenDeviceManager.getCurrentDisplayMode());
+						r = Resolution.convertDisplayModeToResolution(JBSCoreGame.screenDeviceManager.getCurrentDisplayMode());
 						resBox.setSelectedItem(r); // Prevents that the JComboBox selection is still null!
 					}
 					
@@ -389,7 +389,7 @@ public class OptionsPanel extends JPanel{
 					
 					if(rdbtnFull.isSelected()){
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_FULLSCREEN);
-						r = Resolution.convertDisplayModeToResolution(JBSCore.screenDeviceManager.getCurrentDisplayMode());
+						r = Resolution.convertDisplayModeToResolution(JBSCoreGame.screenDeviceManager.getCurrentDisplayMode());
 						JBattleships.game.changeResolution(r);
 						resBox.setSelectedItem(r);
 					}else if(rdbtnWin.isSelected()){
@@ -411,7 +411,7 @@ public class OptionsPanel extends JPanel{
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("back")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 					OptionsPanel.this.parent.swapContainer(OptionsPanel.this.parent.getMainPanel());
 				}
 			}

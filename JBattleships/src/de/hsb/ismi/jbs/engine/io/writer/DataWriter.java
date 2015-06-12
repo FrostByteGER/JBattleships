@@ -8,7 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.utility.Utility;
 
 /**
  * Writes given Data to a file.
@@ -29,7 +30,7 @@ public abstract class DataWriter {
 				writer.write(s);
 			}
 		} catch (IOException e) {
-			JBSCore.msgLogger.addException(e);
+			JBSCoreGame.ioQueue.insertInput(Utility.stackTraceToString(e), JBSCoreGame.MSG_LOGGER_KEY);
 			return false;
 		}
 		return true;
@@ -47,7 +48,7 @@ public abstract class DataWriter {
 				writer.write(s);
 			}
 		} catch (IOException e) {
-			JBSCore.msgLogger.addException(e);
+			JBSCoreGame.ioQueue.insertInput(Utility.stackTraceToString(e), JBSCoreGame.MSG_LOGGER_KEY);
 			return false;
 		}
 		return true;

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.swing.UIManager;
 
 import de.frostbyteger.messagelogger.MessageLogger;
+import de.hsb.ismi.jbs.engine.core.IOListener;
 import de.hsb.ismi.jbs.engine.core.JBSIOQueue;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
@@ -26,10 +27,10 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class JBSCore {
+public class JBSCoreGame {
 
 	/** The MessageLogger to log errors, exceptions and other stuff. */
-	public static MessageLogger msgLogger = new MessageLogger(JBSCore.DEBUG);
+	public static MessageLogger msgLogger = new MessageLogger(JBSCoreGame.DEBUG);
 	/** The Checksumgenerator to generate checksums from various objects, Strings or such. */
 	public static SHA256Generator shaGenerator = new SHA256Generator();
 	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
@@ -38,6 +39,8 @@ public class JBSCore {
 	public static JBSIOQueue<String> ioQueue = new JBSIOQueue<String>();
 	/** The Path of the Datafolder with all important content. */
 	public static final String DATA_PATH = "Data/";
+	/** TODO: JAVADOC */
+	public static final String MSG_LOGGER_KEY = "Logger";
 	/** Enables debug functionality and the MessageLogger. */
 	public static final boolean DEBUG = true;
 	/** Allows to resize the game window. */
@@ -53,12 +56,12 @@ public class JBSCore {
 	private int music = 100;
 	/** The game's current IP-address. */
 	private String ip = "0.0.0.0";
-	/** The game's current port. */
-	private int port = -1;
+	/** The game's current gamePort. */
+	private int gamePort = 15750;
 	/** The game's current language. */
 	private String language = "English";
-	/** The ChatServers curent port. */
-	private int chatPort = 5550;
+	/** The ChatServers curent gamePort. */
+	private int chatPort = 15751;
 	
 	/** The mainGUI of the game. */
 	private JBSGUI mainGUI = null;
@@ -73,13 +76,18 @@ public class JBSCore {
 	/**
 	 * 
 	 */
-	public JBSCore() {
-	}
-	
-	/**
-	 * 
-	 */
-	public JBSCore(boolean initGame) {
+	public JBSCoreGame(boolean initGame) {
+		ioQueue.addIOListener("Logger", new IOListener<String>() {
+			
+			@Override
+			public void outputReceived(String output, String notifierType) {				
+			}
+			
+			@Override
+			public void inputReceived(String input, String notifierType) {
+				msgLogger.addMessage(input);
+			}
+		});
 		if(initGame){
 			initGame();
 		}
@@ -98,15 +106,15 @@ public class JBSCore {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Initializes the game-GUI.
 	 */
-	public void initGUI(){
+	public void initGameGUI(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //ALWAYS SET BEFORE CREATING THE FRAME!
-					mainGUI = new JBSGUI(currentResolution, screenMode);
+					mainGUI = new JBSGUI();
+					mainGUI.initGUI(currentResolution, screenMode);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -180,7 +188,7 @@ public class JBSCore {
 			if (nt.size() > 0) {
 				try {
 					ip = nt.get("ip");
-					port = Integer.parseInt(nt.get("port"));
+					gamePort = Integer.parseInt(nt.get("gamePort"));
 				} catch (NumberFormatException nfe) {
 					return false;
 				}

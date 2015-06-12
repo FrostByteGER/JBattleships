@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.network.server.chat;
+package de.hsb.ismi.jbs.engine.network.server.game;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,32 +12,34 @@ import java.util.ArrayList;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class ChatServer extends Thread {
+public class GameServer extends Thread {
 	
-	private ArrayList<ChatServerThread> clients = new ArrayList<>(0);
+	private int port = -1;
 	private ServerSocket server = null;
-	private volatile boolean endThread = false;
+	private ArrayList<GameServerThread> clients = new ArrayList<>(0);
 	public static final int MAX_LOGIN_COUNT = 3;
+	private volatile boolean endServer = false;
 
-	/**
-	 * 
-	 * @param port
-	 */
-	public ChatServer(int port) {
-		super("ChatServer-Thread");
+
+	public GameServer(int port){
+		super("Game-Server");
+		this.port = port;
 		try {
-			System.out.println("Binding to port " + port + ", please wait...");
-			server = new ServerSocket(port);
+			System.out.println("Binding to port " + this.port + ", please wait...");
+			server = new ServerSocket(this.port);
 			System.out.println("Server started: " + server);
 			start();
 		} catch (IOException ioe) {
-			System.out.println("Can't bind to port " + port + ": " + ioe.getMessage());
+			System.out.println("Can't bind to port " + this.port + ": " + ioe.getMessage());
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	@Override
 	public void run() {
-		while (!endThread) {
+		while (!endServer) {
 			try {
 				System.out.println("Waiting for a client ...");
 				addThread(server.accept());
@@ -53,7 +55,7 @@ public class ChatServer extends Thread {
 	 * @param id
 	 * @return
 	 */
-	private ChatServerThread findClient(String id) {
+	private GameServerThread findClient(String id) {
 		for (int i = 0; i < clients.size(); i++)
 			if (clients.get(i).getUsername().equals(id)){
 				return clients.get(i);
@@ -67,7 +69,7 @@ public class ChatServer extends Thread {
 	 * @param input
 	 * @return
 	 */
-	public synchronized boolean authenticate(ChatServerThread client ,String input){
+	public synchronized boolean authenticate(GameServerThread client ,String input){
 		System.out.println("Client " + client.getUsername() + " requesting Authentification...");
 		if(findClient(input) == null){
 			findClient(client.getUsername()).setUsername(input);
@@ -78,38 +80,13 @@ public class ChatServer extends Thread {
 			return false;
 		}
 	}
-
-	/**
-	 * 
-	 * @param id
-	 * @param input
-	 */
-	public synchronized void handle(String id, String input) {
-		if(input.equals("/end")) {
-			findClient(id).send("/end");
-			removeClient(id);
-		}else if(input.startsWith("PLACEHOLDER")){
-			
-		}else{
-			System.out.println("Server received Message from " + id + ": " + input);
-			for (ChatServerThread cst : clients){
-				if(cst != findClient(id) && cst.getChatState() != ChatState.BANNED && cst.getChatState() != ChatState.LOGIN){
-					System.out.println("Server sending message: " + input + " to: " + cst.getUsername());
-					cst.send(id + ": " + input);
-				}else{
-					System.out.println("Skipped sending message to: " + cst.getUsername());
-				}
-				
-			}
-		}
-	}
-
+	
 	/**
 	 * 
 	 * @param id
 	 */
 	public synchronized void removeClient(String id) {
-		ChatServerThread toTerminate = findClient(id);
+		GameServerThread toTerminate = findClient(id);
 		System.out.println("Removing client thread " + id);
 		toTerminate.closeConnection();
 	}
@@ -118,10 +95,10 @@ public class ChatServer extends Thread {
 	 * Closes the whole server with all connections.
 	 */
 	public synchronized void closeServer(){
-		for(ChatServerThread cst : clients){
+		for(GameServerThread cst : clients){
 			cst.closeConnection();
 		}
-		endThread = true;
+		endServer = true;
 	}
 
 	/**
@@ -130,7 +107,7 @@ public class ChatServer extends Thread {
 	 */
 	private void addThread(Socket socket) {
 		System.out.println("Client accepted: " + socket);
-		ChatServerThread cst = new ChatServerThread(this, socket, socket.getInetAddress().toString());
+		GameServerThread cst = new GameServerThread(this, socket, socket.getInetAddress().toString());
 		clients.add(cst);
 		try {
 			cst.open();
@@ -139,4 +116,5 @@ public class ChatServer extends Thread {
 			System.out.println("Error opening thread: " + ioe);
 		}
 	}
+	
 }

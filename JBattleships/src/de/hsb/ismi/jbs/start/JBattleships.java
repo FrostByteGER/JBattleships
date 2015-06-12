@@ -3,7 +3,7 @@
  */
 package de.hsb.ismi.jbs.start;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 
 /**
  * @author Kevin Kuegler
@@ -13,15 +13,15 @@ import de.hsb.ismi.jbs.core.JBSCore;
  */
 public class JBattleships {
 	
-	public static JBSCore game = new JBSCore(true);
+	public static JBSCoreGame game = new JBSCoreGame(true);
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// Sets the Position so the MessageLogger is a bit better visible
-		JBSCore.msgLogger.getFrame().setLocation(10, 10);
-		game.initGUI();
+		JBSCoreGame.msgLogger.getFrame().setLocation(10, 10);
+		game.initGameGUI();
 	}
 }
 

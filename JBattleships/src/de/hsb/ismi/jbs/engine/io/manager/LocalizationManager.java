@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.io.JBSParserException;
 import de.hsb.ismi.jbs.engine.io.parser.LocalizationParser;
 
@@ -48,7 +48,7 @@ public class LocalizationManager {
 	@Deprecated 
 	public boolean loadLanguage(){
 		try {
-			activeLanguageData = parser.loadLanguage(JBSCore.DATA_PATH + LANGUAGE_PATH+activeLanguage+".txt");
+			activeLanguageData = parser.loadLanguage(JBSCoreGame.DATA_PATH + LANGUAGE_PATH+activeLanguage+".txt");
 		} catch (IOException | JBSParserException e) {
 			e.printStackTrace();
 			return false;
@@ -57,10 +57,10 @@ public class LocalizationManager {
 	}
 	
 	public boolean loadLanguageTable(){
-		File f = new File(JBSCore.DATA_PATH + LANGUAGE_PATH + LANGUAGE_TABLE_PATH);
+		File f = new File(JBSCoreGame.DATA_PATH + LANGUAGE_PATH + LANGUAGE_TABLE_PATH);
 		if(f.exists()){
 			try {
-					languageTable = parser.parseLanguageTable(JBSCore.DATA_PATH + LANGUAGE_PATH + LANGUAGE_TABLE_PATH);
+					languageTable = parser.parseLanguageTable(JBSCoreGame.DATA_PATH + LANGUAGE_PATH + LANGUAGE_TABLE_PATH);
 					return true;
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -82,7 +82,7 @@ public class LocalizationManager {
 	public boolean loadLanguage(String language){
 		if(!activeLanguage.equalsIgnoreCase(language)){
 			try {
-				activeLanguageData = parser.loadLanguage(JBSCore.DATA_PATH + LANGUAGE_PATH + language + ".cfg");
+				activeLanguageData = parser.loadLanguage(JBSCoreGame.DATA_PATH + LANGUAGE_PATH + language + ".cfg");
 				activeLanguage = language;
 			} catch (IOException | JBSParserException e) {
 				//e.printStackTrace();

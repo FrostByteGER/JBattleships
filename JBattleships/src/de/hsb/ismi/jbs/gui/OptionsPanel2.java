@@ -14,6 +14,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
+
 import java.awt.Component;
 
 import javax.swing.Box;
@@ -34,7 +35,8 @@ import java.awt.Dimension;
 import javax.swing.ButtonGroup;
 import javax.swing.JSlider;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
+
 import javax.swing.JTextField;
 
 /**
@@ -283,7 +285,7 @@ public class OptionsPanel2 extends JPanel{
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("reset")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 				}
 			}
 		});
@@ -295,7 +297,7 @@ public class OptionsPanel2 extends JPanel{
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("save")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 				}
 			}
 		});
@@ -307,7 +309,7 @@ public class OptionsPanel2 extends JPanel{
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("back")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel2.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 					OptionsPanel2.this.parent.swapContainer(OptionsPanel2.this.parent.getMainPanel());
 				}
 			}

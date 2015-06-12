@@ -29,7 +29,7 @@ import javax.swing.JCheckBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
@@ -112,7 +112,7 @@ public class PreGamePanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("cancel")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePanel.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 					PreGamePanel.this.parent.swapContainer(PreGamePanel.this.parent.getMainPanel());
 				}
 			}
@@ -179,8 +179,8 @@ public class PreGamePanel extends JPanel {
 						cce.printStackTrace();
 					}
 					gm.createGame(gameType, fs);
-					JBSCore.msgLogger.addMessage("Created Game!");
-					JBSCore.msgLogger.addMessage(gm.toString());
+					JBSCoreGame.ioQueue.insertInput("Created Game!", JBSCoreGame.MSG_LOGGER_KEY);
+					JBSCoreGame.ioQueue.insertInput(gm.toString(), JBSCoreGame.MSG_LOGGER_KEY);
 					
 					parent.swapContainer(new PreGamePlacingPanel(PreGamePanel.this.parent));
 					//parent.swapContainer(new ColorPickerPanel());

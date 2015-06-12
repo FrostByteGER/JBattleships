@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.network.server.chat;
+package de.hsb.ismi.jbs.engine.network.server.game;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -14,15 +14,15 @@ import java.net.Socket;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class ChatServerThread extends Thread {
+public class GameServerThread extends Thread {
 
-	private ChatServer server = null;
+	private GameServer server = null;
 	private Socket socket = null;
 	private String id = null;
 	private DataInputStream streamIn = null;
 	private DataOutputStream streamOut = null;
-	private boolean endThread = false;
-	private ChatState state = ChatState.LOGIN;
+	private boolean endServerThread = false;
+	private GameServerState state = GameServerState.LOGIN;
 	private int loginCount = 0;
 
 	/**
@@ -31,8 +31,8 @@ public class ChatServerThread extends Thread {
 	 * @param socket
 	 * @param id
 	 */
-	public ChatServerThread(ChatServer server, Socket socket, String id) {
-		super("ChatServerConnection-Thread");
+	public GameServerThread(GameServer server, Socket socket, String id) {
+		super("GameServerConnection-Thread");
 		this.server = server;
 		this.socket = socket;
 		this.id = id;
@@ -54,16 +54,16 @@ public class ChatServerThread extends Thread {
 	@Override
 	public void run() {
 		System.out.println("Server Thread " + id + " running.");
-		while (!endThread) {
+		while (!endServerThread) {
 			try {
 				String input = streamIn.readUTF();
 				switch(state){
 					case LOGIN: 
-						if(loginCount > ChatServer.MAX_LOGIN_COUNT){
-							state = ChatState.BANNED;
+						if(loginCount > GameServer.MAX_LOGIN_COUNT){
+							state = GameServerState.BANNED;
 						}
 						if(server.authenticate(this ,input)){
-							state = ChatState.AUTHENTICATED;
+							state = GameServerState.AUTHENTICATED;
 							loginCount++;
 						}else{
 							loginCount++;
@@ -99,7 +99,7 @@ public class ChatServerThread extends Thread {
 	 */
 	public synchronized void closeConnection(){
 		try {
-			endThread = true;
+			endServerThread = true;
 			if (socket != null){
 				socket.close();
 			}
@@ -117,14 +117,14 @@ public class ChatServerThread extends Thread {
 	/**
 	 * @return the state
 	 */
-	public final ChatState getChatState() {
+	public final GameServerState getChatState() {
 		return state;
 	}
 
 	/**
 	 * @param state the state to set
 	 */
-	public synchronized final void setChatState(ChatState state) {
+	public synchronized final void setChatState(GameServerState state) {
 		this.state = state;
 	}
 	

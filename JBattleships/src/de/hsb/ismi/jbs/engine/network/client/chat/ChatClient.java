@@ -8,72 +8,68 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-
-public class ChatClient implements Runnable{
+/**
+ * 
+ * @author Kevin Kuegler
+ * @version 1.00
+ */
+public class ChatClient extends Thread{
 	
-	private Socket socket;
-	private DataOutputStream dout;
-	private DataInputStream din;
+	private Socket socket = null;
+	private DataOutputStream outputStream = null;
+	private DataInputStream inputStream = null;
 	private ArrayList<ClientMessageListener> listeners = new ArrayList<>(0);
-	private String name;
-	private boolean active;
+	private String username = "undefined";
+	private boolean endThread = false;
 	
-	/*
-	public ChatClient(String ip, int port){
-		try{
-			socket = new Socket(ip, port);
-			din = new DataInputStream(socket.getInputStream());
-			dout = new DataOutputStream(socket.getOutputStream());
-			new Thread(this).start();
-		}catch(IOException ioe){
-			ioe.printStackTrace();
-		}
-	}
-	*/
-	
-	public ChatClient(){
-		socket = new Socket();
-		active = false;
-	}
-	
+	/**
+	 * 
+	 * @param ip
+	 * @param port
+	 * @param username
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public ChatClient(String ip, int port, String username) throws UnknownHostException, IOException{
-		this.name = username;
+		//super("ChatClient-Thread");
+		this.username = username;
 		socket = new Socket(ip, port);
-		active = true;
-		din = new DataInputStream(socket.getInputStream());
-		dout = new DataOutputStream(socket.getOutputStream());
+		inputStream = new DataInputStream(socket.getInputStream());
+		outputStream = new DataOutputStream(socket.getOutputStream());
 		sendAuthentification(username);
-		new Thread(this).start();
+		System.out.println(getName());
+		this.start();
 	}
 	
 	public void addMessageListener(ClientMessageListener listener){
 		this.listeners.add(listener);
 	}
 	
-	public void sendMessage(String message){
-		try {
-			System.out.println("Client sending Message: " + message);
-			dout.writeUTF(message);
-		} catch (IOException e) {
-			e.printStackTrace();
+	/**
+	 * Sends a message to the connected server.
+	 * @param message
+	 * @throws IOException 
+	 */
+	public void sendMessage(String message) throws IOException{
+		System.out.println("Client sending Message: " + message);
+		outputStream.writeUTF(message);
+		for(ClientMessageListener listener : listeners){
+			listener.messageSent(message);
 		}
 	}
 	
 	@Deprecated
-	public void sendAuthentification(String username, String password){
-		try {
-			dout.writeUTF(username + "/p" + password);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void sendAuthentification(String username, String password) throws IOException{
+		sendMessage(username + "|" + password);
 	}
 	
-	public void sendAuthentification(String username){
-		try {
-			dout.writeUTF(username);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	/**
+	 * 
+	 * @param username
+	 * @throws IOException
+	 */
+	public void sendAuthentification(String username) throws IOException{
+		sendMessage(username);
 	}
 
 	@Override
@@ -81,35 +77,35 @@ public class ChatClient implements Runnable{
 		try{
 			String message = null;
 			while(!socket.isClosed()){
-				message = din.readUTF();
-				System.out.println("Client received Message: " + message);
+				message = inputStream.readUTF();
+				System.out.println("Client " + getName() + "received Message: " + message);
 				for(ClientMessageListener listener : listeners){
 					listener.messageReceived(message);
 				}
 			}
 		}catch(SocketException se){
-			//se.printStackTrace();
-			active = false;
 			for(ClientMessageListener listener : listeners){
 				listener.connectionLost(socket.getInetAddress().getHostAddress());
 			}
 			
 		}catch(IOException ioe){
-			ioe.printStackTrace();
-			active = false;
 			for(ClientMessageListener listener : listeners){
 				listener.connectionLost(socket.getInetAddress().getHostAddress());
 			}
+
 		}finally{
-			active = false;
 			closeConnection();
 		}
 		
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean closeConnection(){
 		try {
-			active = false;
+			endThread = true;
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -119,17 +115,17 @@ public class ChatClient implements Runnable{
 	}
 
 	/**
-	 * @return the name
+	 * @return the username
 	 */
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param username the username to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String name) {
+		this.username = name;
 	}
 	
 	public boolean isClosed(){
@@ -137,12 +133,6 @@ public class ChatClient implements Runnable{
 	}
 
 	public boolean isActive() {
-		return active;
+		return endThread;
 	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-	
-	
 }
