@@ -33,6 +33,7 @@ public class ChatServerThread extends Thread {
 	 */
 	public ChatServerThread(ChatServer server, Socket socket, String id) {
 		super("ChatServerConnection-Thread");
+		setDaemon(true);
 		this.server = server;
 		this.socket = socket;
 		this.id = id;

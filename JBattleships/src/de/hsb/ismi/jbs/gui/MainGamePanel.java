@@ -25,7 +25,7 @@ import net.miginfocom.swing.MigLayout;
  * @author Kevin-Laptop Kuegler
  * @version 1.00
  */
-public class GameFieldContainer2 extends JPanel {
+public class MainGamePanel extends JPanel {
 
 	private Game game;
 	private RoundManager roundManager;
@@ -57,7 +57,7 @@ public class GameFieldContainer2 extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public GameFieldContainer2(JBSGUI parent) {
+	public MainGamePanel(JBSGUI parent) {
 		this.parent = parent;
 		this.game = JBattleships.game.getGameManager().getGame();
 		setLayout(new BorderLayout(0, 0));

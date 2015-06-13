@@ -24,7 +24,7 @@ public class GameStatistics {
 	private boolean flawlessWin = false;
 	
 	public GameStatistics() {
-		
+		//TODO: Add into game.
 	}
 
 	/**

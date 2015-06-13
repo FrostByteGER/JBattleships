@@ -33,6 +33,7 @@ public class GameServerThread extends Thread {
 	 */
 	public GameServerThread(GameServer server, Socket socket, String id) {
 		super("GameServerConnection-Thread");
+		setDaemon(true);
 		this.server = server;
 		this.socket = socket;
 		this.id = id;
