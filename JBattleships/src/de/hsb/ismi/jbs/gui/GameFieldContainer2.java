@@ -7,17 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
-import de.hsb.ismi.jbs.engine.network.client.chat.ChatClient;
-import de.hsb.ismi.jbs.engine.network.client.chat.ClientMessageListener;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.BorderLayout;
@@ -25,8 +19,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -113,82 +105,69 @@ public class GameFieldContainer2 extends JPanel {
 		
 		btnExit = new JButton("Exit Game");
 		btnExit.setActionCommand("exit");
-		btnExit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				parent.swapContainer(parent.getMainPanel());
-			}
+		btnExit.addActionListener(e -> {
+			parent.swapContainer(parent.getMainPanel());
 		});
 		btnShoot = new JButton("Shoot");
 		
 		btnShoot.setActionCommand("shoot");
-		btnShoot.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand() == "shoot"){
-					
-					if(game.getActivePlayerInt() == selectedGameField){
-						chat.setText(chat.getText()+"\nDont shoot yourself");
-					}else{
-						if(gameSidePanel.getSelectedship().canShot()){
-							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
-							roundManager.fireAnalyzeRound(game.getActivePlayer());
-							roundManager.fireEndRound(game.getActivePlayer());
-							JBSCoreGame.ioQueue.insertInput("Round ended for Player: " + game.getActivePlayer().getName(), JBSCoreGame.MSG_LOGGER_KEY);
-							roundManager.reset();
-							game.nextPlayer();
-							gameSidePanel.setPlayer(game.getActivePlayer());
-							gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
-							gameSidePanel.repaint();
-							activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
-							if(game.getActivePlayer() instanceof JBSAIPlayer){
-								JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
-								ai.processRound(game);
-								JBSCoreGame.ioQueue.insertInput("AI " + game.getActivePlayer().getName() + " ended its turn!", JBSCoreGame.MSG_LOGGER_KEY);
-								for(ActionListener a: btnEndRound.getActionListeners()) {
-								    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
+		btnShoot.addActionListener(e -> {
+				if(game.getActivePlayerInt() == selectedGameField){
+					chat.setText(chat.getText()+"\nDont shoot yourself");
+				}else{
+					if(gameSidePanel.getSelectedship().canShoot()){
+						roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
+						roundManager.fireAnalyzeRound(game.getActivePlayer());
+						roundManager.fireEndRound(game.getActivePlayer());
+						JBSCoreGame.ioQueue.insertInput("Round ended for Player: " + game.getActivePlayer().getName(), JBSCoreGame.MSG_LOGGER_KEY);
+						roundManager.reset();
+						game.nextPlayer();
+						gameSidePanel.setPlayer(game.getActivePlayer());
+						gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
+						gameSidePanel.repaint();
+						activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
+						if(game.getActivePlayer() instanceof JBSAIPlayer){
+							JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
+							ai.processRound(game);
+							JBSCoreGame.ioQueue.insertInput("AI " + game.getActivePlayer().getName() + " ended its turn!", JBSCoreGame.MSG_LOGGER_KEY);
+							for(ActionListener a: btnEndRound.getActionListeners()) {
+							    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
 
-										/**
-										 * 
-										 */
-										private static final long serialVersionUID = 7140433730255705194L;
-								    });
-								}
+									/**
+									 * 
+									 */
+									private static final long serialVersionUID = 7140433730255705194L;
+							    });
 							}
-						}else{
-							chat.setText(chat.getText()+"\nCan't shoot");
 						}
+					}else{
+						chat.setText(chat.getText()+"\nCan't shoot");
 					}
 				}
-			}
 		});
 		
 		btnEndRound = new JButton("End Round");
 		btnEndRound.setActionCommand("pass");
 		btnEndRound.addActionListener(e -> {
-			if(e.getActionCommand() == "pass"){
-				
-				roundManager.fireEndRound(game.getActivePlayer());
-				JBSCoreGame.ioQueue.insertInput("Round ended for Player: " + game.getActivePlayer().getName(), JBSCoreGame.MSG_LOGGER_KEY);
-				roundManager.reset();
-				game.nextPlayer();
-				gameSidePanel.setPlayer(game.getActivePlayer());
-				gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
-				gameSidePanel.repaint();
-				activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
-				if(game.getActivePlayer() instanceof JBSAIPlayer){
-					JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
-					ai.processRound(game);
-					JBSCoreGame.ioQueue.insertInput("AI " + game.getActivePlayer().getName() + " ended its turn!", JBSCoreGame.MSG_LOGGER_KEY);
-					for(ActionListener a: btnEndRound.getActionListeners()) {
-					    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
-							/**
-							 * 
-							 */
-							private static final long serialVersionUID = 7140433730255705194L;
-					    });
-					}
+			roundManager.fireEndRound(game.getActivePlayer());
+			JBSCoreGame.ioQueue.insertInput("Round ended for Player: " + game.getActivePlayer().getName(), JBSCoreGame.MSG_LOGGER_KEY);
+			roundManager.reset();
+			game.nextPlayer();
+			gameSidePanel.setPlayer(game.getActivePlayer());
+			gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
+			gameSidePanel.repaint();
+			activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
+			if(game.getActivePlayer() instanceof JBSAIPlayer){
+				JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
+				ai.processRound(game);
+				JBSCoreGame.ioQueue.insertInput("AI " + game.getActivePlayer().getName() + " ended its turn!", JBSCoreGame.MSG_LOGGER_KEY);
+				for(ActionListener a: btnEndRound.getActionListeners()) {
+				    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 7140433730255705194L;
+				    });
 				}
 			}
 		});
@@ -205,15 +184,8 @@ public class GameFieldContainer2 extends JPanel {
 		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setActionCommand("save");
 		btnSaveGame.addActionListener(e -> {
-			if (e.getActionCommand().equals("save")) {
-				try {
-					JAXBContext jaxb = JAXBContext.newInstance(Game.class);
-					Marshaller m = jaxb.createMarshaller();
-					m.marshal(JBattleships.game.getGameManager().getGame(), new File("Data/Saves/testsave.xml"));
-				} catch (JAXBException jaxbe) {
-					jaxbe.printStackTrace();
-				}
-			}
+			//TODO: Add SaveDialog
+			JBattleships.game.getDataManager().getPersistenceManager().saveGame("game_001.xml");
 		});
 		
 		lowerSidePanel.add(btnSaveGame);
@@ -229,49 +201,36 @@ public class GameFieldContainer2 extends JPanel {
 		
 		lowerMainPanel = new JPanel();
 		lowerMainPanel.setLayout(new BorderLayout());
-		//lowerMainPanel.add(new JScrollPane(chat), BorderLayout.CENTER);
-		
-		//gameFieldPanel.add(lowerMainPanel, BorderLayout.SOUTH);
-		
-
 		
 		uperMainPanel = new JPanel();
 		uperMainPanel.setLayout(new FlowLayout());
 		
 		JButton pbut = new JButton();
 		pbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Next"));
-		pbut.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {		
-				if(game.getPlayers().length-1>selectedGameField){
-					selectedGameField++;
+		pbut.addActionListener(e -> {	
+			if(game.getPlayers().length-1>selectedGameField){
+				selectedGameField++;
 
-				}else if(game.getPlayers().length-1 == selectedGameField){
-					selectedGameField = 0;
-				}
-				fieldNumber.setText(game.getPlayer(selectedGameField).getName());
-
-				gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
+			}else if(game.getPlayers().length-1 == selectedGameField){
+				selectedGameField = 0;
 			}
+			fieldNumber.setText(game.getPlayer(selectedGameField).getName());
+
+			gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 		});
 		
 		JButton mbut = new JButton();
 		mbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Previous"));
-		mbut.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(selectedGameField>0){
-					selectedGameField--;
+		mbut.addActionListener(e -> {
+			if(selectedGameField>0){
+				selectedGameField--;
 
-				}else if(selectedGameField == 0){
-					selectedGameField = game.getPlayers().length-1;
-				}
-				fieldNumber.setText(game.getPlayer(selectedGameField).getName());
-				
-				gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
+			}else if(selectedGameField == 0){
+				selectedGameField = game.getPlayers().length-1;
 			}
+			fieldNumber.setText(game.getPlayer(selectedGameField).getName());
+			
+			gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 		});
 		
 		fieldNumber = new JLabel();

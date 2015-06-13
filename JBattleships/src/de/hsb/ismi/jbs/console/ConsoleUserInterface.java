@@ -47,33 +47,35 @@ public class ConsoleUserInterface {
 			System.out.println("Playeramount " + playeramount);
 		} while (!readStringYN("Are the information correct? y/n"));
 
+		JBSPlayer[] players = new JBSPlayer[playeramount];
 		for (int i = 0; i < playeramount; i++) {
-			pm.addPlayer(new JBSPlayer(new JBSProfile()));
+			players[i] = new JBSPlayer();
 		}
-
+		int[] count = new int[4];
 		do {
 			cls();
 			System.out.println("Set Shipamount");
 			System.out.println();
+			
 			readIntMinMax("Corvetteamount 0-3", 0, 3);
-			pm.setCorvetteCount(intinput);
+			count[0] = intinput;
 			readIntMinMax("Destroyeramount 0-3", 0, 3);
-			pm.setDestroyerCount(intinput);
+			count[1] = intinput;
 			readIntMinMax("Frigateamount 0-3", 0, 3);
-			pm.setFrigateCount(intinput);
+			count[2] = intinput;
 			readIntMinMax("Submarineamount 0-3", 0, 3);
-			pm.setSubmarineCount(intinput);
+			count[3] = intinput;
 
 			cls();
 
-			System.out.println("Corvetteamount " + pm.getCorvetteCount());
-			System.out.println("Destroyeramount " + pm.getDestroyerCount());
-			System.out.println("Frigateamount " + pm.getFrigateCount());
-			System.out.println("Submarineamount " + pm.getSubmarineCount());
+			System.out.println("Corvetteamount " + count[0]);
+			System.out.println("Destroyeramount " + count[1]);
+			System.out.println("Frigateamount " + count[2]);
+			System.out.println("Submarineamount " + count[3]);
 
 		} while (!readStringYN("Are the information correct? y/n"));
 
-		game = pm.createGame(JBSGameType.GAME_LOCAL, fieldsize);
+		game = pm.createGame(JBSGameType.GAME_LOCAL, players, fieldsize, count);
 		for (int i = 0; i < game.getPlayers().length; i++) {
 			placeShips(i);
 		}
@@ -141,7 +143,7 @@ public class ConsoleUserInterface {
 					ship.setPositon(x, y, ship.getDirection());
 
 				} while (!game.getPlayer(playernumber).getPlayerField().shipCanBePlaced(ship));
-				System.out.println(game.getPlayer(playernumber).getPlayerField().setShip(ship));
+				System.out.println(game.getPlayer(playernumber).getPlayerField().addShip(ship));
 			}
 			game.getPlayer(playernumber).getPlayerField().printField(true);
 		} while (!readStringYN("Are the information correct? y/n"));
@@ -163,7 +165,7 @@ public class ConsoleUserInterface {
 		stringinput = "";
 
 		for (JBSShip s : game.getPlayers()[player].getShips()) {
-			if (s.canShot()) {
+			if (s.canShoot()) {
 				candosomething = true;
 			} else if (s.getCooldown() > 0) {
 				s.setCooldown(s.getCooldown() - 1);

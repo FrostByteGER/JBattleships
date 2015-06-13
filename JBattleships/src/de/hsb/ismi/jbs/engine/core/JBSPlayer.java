@@ -5,6 +5,7 @@ package de.hsb.ismi.jbs.engine.core;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -28,6 +29,10 @@ public class JBSPlayer {
 	@XmlElement(name = "PlayerField")
 	private JBSGameField playerField = null;
 
+	
+	public JBSPlayer(){
+		
+	}
 	
 	/**
 	 * 
@@ -135,6 +140,16 @@ public class JBSPlayer {
 		this.playerField = playerField;
 	}
 	
+	/**
+	 * Don't manually call! This method gets called by the JAXB {@link javax.xml.bind.Unmarshaller Unmarshaller}.
+	 * @param u
+	 * @param parent
+	 */
+	public void afterUnmarshal(Unmarshaller u, Object parent){
+		for(JBSShip ship : ships){
+			playerField.setShip(ship);
+		}
+	}
 	
 	
 	

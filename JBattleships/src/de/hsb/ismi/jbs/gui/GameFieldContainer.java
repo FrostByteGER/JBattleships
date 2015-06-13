@@ -88,7 +88,7 @@ public class GameFieldContainer extends JPanel {
 						chat.setText(chat.getText()+"\nDont shoot yourself");
 					}else{
 					
-						if(centerSiedPanel.getSelectedship().canShot()){
+						if(centerSiedPanel.getSelectedship().canShoot()){
 							
 							roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), centerSiedPanel.getSelectedship(), mainPanel.getSelectx(), mainPanel.getSelecty(), mainPanel.getDirection());
 							
@@ -215,27 +215,22 @@ public class GameFieldContainer extends JPanel {
 
 	public static void main(String[] args) {
 
+		//TODO: Warning, not updated to latest version, executing this, will crash!
 		new JBSCoreGame(true);
 		
 		GameManager pre = new GameManager();
 		
-		pre.addPlayer(new JBSPlayer(new JBSProfile()));
-		pre.addPlayer(new JBSPlayer(new JBSProfile()));
-		
-		pre.setDestroyerCount(1);	
-		pre.setCorvetteCount(4);
-		pre.setFrigateCount(3);
-		pre.setSubmarineCount(3);
+		JBSPlayer[] players = {new JBSPlayer(), new JBSPlayer()};
 		
 		JBSCoreGame core = new JBSCoreGame(true);
 		
 		JFrame f = new JFrame();
 		f.setBounds(100, 100, 1000, 800);
 		
-		Game game = pre.createGame(JBSGameType.GAME_LOCAL, 16);
+		Game game = pre.createGame(JBSGameType.GAME_LOCAL, players, 16,new int[]{1,4,3,3});
 		
 		game.getPlayers()[0].getShips().get(0).setPositon(0, 0, Direction.SOUTH);
-		game.getPlayers()[0].getPlayerField().setShip(game.getPlayers()[0].getShips().get(0));
+		game.getPlayers()[0].getPlayerField().addShip(game.getPlayers()[0].getShips().get(0));
 		game.getPlayers()[0].getShips().get(0).setHealth(3);
 		game.getPlayers()[0].getShips().get(0).setCooldown(2);
 		game.getPlayers()[1].getShips().get(0).setPositon(0, 0, Direction.SOUTH);

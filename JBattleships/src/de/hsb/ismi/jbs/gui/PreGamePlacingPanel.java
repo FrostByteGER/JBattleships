@@ -70,6 +70,8 @@ public class PreGamePlacingPanel extends JPanel {
 	private JBSPlayer activePlayer;
 	private GameManager gm;
 	private int activePlayerIndex;
+	private JBSPlayer[] players = null;
+	
 	private JLabel lblSelectedShip;
 		
 	/**
@@ -258,11 +260,11 @@ public class PreGamePlacingPanel extends JPanel {
 	 * Initiates the player-relevant data.
 	 */
 	private void initPlayerData(){
-		destroyersLeft = gm.getDestroyerCount();
-		frigatesLeft = gm.getFrigateCount();
-		corvettesLeft = gm.getCorvetteCount();
-		subsLeft = gm.getSubmarineCount();
-		activePlayer = gm.getPrePlayers().get(activePlayerIndex); //TODO: Be careful, might be null!
+		destroyersLeft = gm.getGame().getDestroyerCount();
+		frigatesLeft = gm.getGame().getFrigateCount();
+		corvettesLeft = gm.getGame().getCorvetteCount();
+		subsLeft = gm.getGame().getSubmarineCount();
+		activePlayer = gm.getGame().getPlayer(activePlayerIndex);
 		activePlayer.setPlayerField(new JBSGameField(gm.getFieldSize()));
 		fieldPanel = new GameFieldPanel(activePlayer.getPlayerField(), 400, gm.getFieldSize());
 		fieldPanel.setShowSelection(false);
@@ -273,7 +275,7 @@ public class PreGamePlacingPanel extends JPanel {
 					JBSCoreGame.ioQueue.insertInput("Fired Event " +  GameFieldActionListener.class.getSimpleName() + " from: " + instigator.getClass().getSimpleName(), JBSCoreGame.MSG_LOGGER_KEY);
 					GameFieldPanel gfp = (GameFieldPanel)instigator;
 					activeShip.setPositon(gfp.getSelectx(), gfp.getSelecty(), gfp.getDirection());
-					if(gfp.getGamefild().setShip(activeShip)){
+					if(gfp.getGamefild().addShip(activeShip)){
 						if(activeShip instanceof JBSDestroyer){
 							destroyersLeft--;
 							btnDestroyer.setText("Destroyers Left: " + destroyersLeft);	
@@ -331,7 +333,7 @@ public class PreGamePlacingPanel extends JPanel {
 		}else{
 			// Updates the panel with the new player-data since this is a human player!
 			updatePanel();
-			if(activePlayerIndex == gm.getPrePlayers().size() - 1){
+			if(activePlayerIndex == gm.getGame().getPlayers().length - 1){
 				btnContinue.setText("Start Game");
 			}
 		}
@@ -350,10 +352,10 @@ public class PreGamePlacingPanel extends JPanel {
 	 */
 	private void nextPlayer(){
 		//TODO: Add security question if destroyersLeft etc... is > 0
-		if(activePlayerIndex < gm.getPrePlayers().size() - 1){
+		if(activePlayerIndex < gm.getGame().getPlayers().length - 1){
 			activePlayerIndex++;
 			initPlayerData();
-		}else if(activePlayerIndex == gm.getPrePlayers().size() - 1){
+		}else if(activePlayerIndex == gm.getGame().getPlayers().length - 1){
 			gm.startGame();
 			parent.swapContainer(new GameFieldContainer2(parent));
 			JBSCoreGame.ioQueue.insertInput("Started Game!", JBSCoreGame.MSG_LOGGER_KEY);

@@ -94,7 +94,7 @@ public class JBSAIPlayer extends JBSPlayer {
 	public JBSShip processRound(Game game){
 		
 		for(JBSShip ship : getShips()){
-			if(ship.canShot()){
+			if(ship.canShoot()){
 				if(lasthit != lasthit){
 					//TODO
 				}else{
@@ -152,25 +152,25 @@ public class JBSAIPlayer extends JBSPlayer {
 		GameManager manager = JBattleships.game.getGameManager();
 		JBSShip ship = null;
 		
-		for(int i = 0 ; i < manager.getDestroyerCount() ; i++){		
+		for(int i = 0 ; i < manager.getGame().getDestroyerCount() ; i++){		
 			ship = new JBSDestroyer();		
 			placeShip(getPlayerField(), ship);
 			addShip(ship);
 		}
 		
-		for(int i = 0 ; i < manager.getFrigateCount() ; i++){		
+		for(int i = 0 ; i < manager.getGame().getFrigateCount() ; i++){		
 			ship = new JBSFrigate();
 			placeShip(getPlayerField(), ship);
 			addShip(ship);
 		}
 		
-		for(int i = 0 ; i < manager.getCorvetteCount() ; i++){
+		for(int i = 0 ; i < manager.getGame().getCorvetteCount() ; i++){
 			ship = new JBSCorvette();			
 			placeShip(getPlayerField(), ship);
 			addShip(ship);
 		}
 		
-		for(int i = 0 ; i < manager.getSubmarineCount(); i++){			
+		for(int i = 0 ; i < manager.getGame().getSubmarineCount(); i++){			
 			ship = new JBSSubmarine();			
 			placeShip(getPlayerField(), ship);
 			addShip(ship);
@@ -183,7 +183,7 @@ public class JBSAIPlayer extends JBSPlayer {
 			ship.setPositon(r.nextInt(field.getSize()), r.nextInt(field.getSize()), Direction.getRandomDirection(r));
 			
 			if(field.shipCanBePlaced(ship)){
-				field.setShip(ship);
+				field.addShip(ship);
 				break;
 			}
 		}	

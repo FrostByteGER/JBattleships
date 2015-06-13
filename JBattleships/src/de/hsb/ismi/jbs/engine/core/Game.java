@@ -26,7 +26,10 @@ public class Game {
 	private int activePlayer = 0;
 	@XmlElement(name = "NextPlayer")
 	private int nextPlayer = 0;
-	
+	@XmlElement(name = "ShipCount")
+	@XmlElementWrapper(name = "Ships")
+	private int[] shipCount = new int[]{0,0,0,0};
+
 	public Game(){
 		
 	}
@@ -36,11 +39,11 @@ public class Game {
 	 * @param gameField
 	 * @param players
 	 */
-	public Game(JBSGameType gameType, JBSPlayer[] players) {
-		super();
+	public Game(JBSGameType gameType, JBSPlayer[] players, int[] shipCount) {
 		this.gameType = gameType;
 		this.players = players;
 		this.activePlayer = 0;//TODO may change
+		this.shipCount = shipCount;
 	}
 
 	/**
@@ -165,4 +168,60 @@ public class Game {
 		}*/
 		return true;
 	}
+	
+	/**
+	 * @return the nextPlayer
+	 */
+	public final int getNextPlayer() {
+		return nextPlayer;
+	}
+
+	/**
+	 * @param nextPlayer the nextPlayer to set
+	 */
+	public final void setNextPlayer(int nextPlayer) {
+		this.nextPlayer = nextPlayer;
+	}
+
+	/**
+	 * @param activePlayer the activePlayer to set
+	 */
+	public final void setActivePlayer(int activePlayer) {
+		this.activePlayer = activePlayer;
+	}
+	
+	public final int[] getShipCount(){
+		return this.shipCount;
+	}
+	
+	public void setShipCount(int[] count){
+		shipCount = count;
+	}
+	
+	public void setDestroyerCount(int size){
+		shipCount[0] = size;
+	}
+	public void setFrigateCount(int size){
+		shipCount[1] = size;
+	}
+	public void setSubmarineCount(int size){
+		shipCount[2] = size;
+	}
+	public void setCorvetteCount(int size){
+		shipCount[3] = size;
+	}
+	
+	public int getDestroyerCount(){
+		return shipCount[0];
+	}
+	public int getFrigateCount(){
+		return shipCount[1];
+	}
+	public int getSubmarineCount(){
+		return shipCount[2];
+	}
+	public int getCorvetteCount(){
+		return shipCount[3];
+	}
+	
 }

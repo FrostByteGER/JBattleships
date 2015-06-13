@@ -11,19 +11,17 @@ import java.awt.Component;
 import javax.swing.JButton;
 
 import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.Box;
 
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
+
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import de.hsb.ismi.jbs.engine.core.JBSGameType;
 
 /**
  * @author Kevin Kuegler
@@ -65,51 +63,8 @@ public class MainPanel extends JPanel {
 		
 		btnLocal = new JButton("Local");
 		btnLocal.setActionCommand("local");
-		btnLocal.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("local")){
-					
-					parent.swapContainer(new PreGamePanel(parent, JBSGameType.GAME_LOCAL));
-					
-					/**
-					JBSPlayer[] p = new JBSPlayer[1];
-					p[0] = new JBSPlayer();
-					
-					JBSGameField[] fi = new JBSGameField[1];
-					fi[0] = new JBSGameField(p[0],16);
-					
-					DataManager dm = new DataManager();
-					
-					JBSPlayer[] players = new JBSPlayer[2];
-					
-					players[0] = new JBSPlayer();
-					
-					JBSShip s = new JBSDestroyer(dm);
-					
-					s.setHealth(3);
-					s.setCooldown(2);
-					
-					players[0].addShip(s);
-					players[0].addShip(new JBSCorvette(dm));
-					players[0].addShip(new JBSFrigate(dm));
-					players[0].addShip(new JBSSubmarine(dm));
-					players[0].addShip(new JBSDestroyer(dm));
-					players[0].addShip(new JBSCorvette(dm));
-					players[0].addShip(new JBSFrigate(dm));
-					players[0].addShip(new JBSSubmarine(dm));
-					players[0].addShip(new JBSDestroyer(dm));
-					players[0].addShip(new JBSCorvette(dm));
-					players[0].addShip(new JBSFrigate(dm));
-					players[0].addShip(new JBSSubmarine(dm));
-					
-					Game game = new Game(JBSGameType.GAME_LAN, fi, players);
-					
-					parent.swapContainer(new GameFieldContainer(game));
-					*/
-				}
-				
-			}
+		btnLocal.addActionListener(e -> {
+			parent.swapContainer(new PreLocalGameChoicePanel(parent));
 		});
 		btnLocal.setAlignmentX(Component.CENTER_ALIGNMENT);
 		GridBagConstraints gbc_btnLocal = new GridBagConstraints();
@@ -148,12 +103,8 @@ public class MainPanel extends JPanel {
 		
 		btnOptions = new JButton("Options");
 		btnOptions.setActionCommand("options");
-		btnOptions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("options")){
-					parent.swapContainer(parent.getOptionsPanel());
-				}
-			}
+		btnOptions.addActionListener(e -> {
+			parent.swapContainer(parent.getOptionsPanel());
 		});
 		GridBagConstraints gbc_btnOptions = new GridBagConstraints();
 		gbc_btnOptions.insets = new Insets(0, 0, 5, 0);
@@ -163,6 +114,10 @@ public class MainPanel extends JPanel {
 		buttonPanel.add(btnOptions, gbc_btnOptions);
 		
 		btnCredits = new JButton("Credits");
+		btnCredits.setActionCommand("credits");
+		btnCredits.addActionListener(e -> {
+			
+		});
 		GridBagConstraints gbc_btnCredits = new GridBagConstraints();
 		gbc_btnCredits.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCredits.fill = GridBagConstraints.HORIZONTAL;
@@ -172,16 +127,12 @@ public class MainPanel extends JPanel {
 		
 		btnQuit = new JButton("Quit");
 		btnQuit.setActionCommand("quit");
-		btnQuit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("quit")){
-					Frame[] frames = Frame.getFrames();  
-			        for (Frame f:frames){
-			        	f.dispose();
-			        }  
-			        System.exit(0);
-				}
+		btnQuit.addActionListener(e -> {
+			Frame[] frames = Frame.getFrames();  
+			for (Frame f:frames){
+				f.dispose();
 			}
+			System.exit(0);
 		});
 		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
 		gbc_btnQuit.fill = GridBagConstraints.HORIZONTAL;

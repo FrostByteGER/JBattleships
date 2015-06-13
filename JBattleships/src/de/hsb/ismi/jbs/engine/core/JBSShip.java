@@ -20,17 +20,17 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JBSShip {
 
-	@XmlTransient
+	@XmlElement(name = "CooldownLimit")
 	private int cooldownLimit;
 	@XmlElement(name = "Cooldown")
 	private int cooldown = -1;
-	@XmlTransient
+	@XmlElement(name = "Shiplength")
 	private int length = -1;
-	@XmlTransient
+	@XmlElement(name = "DamageType")
 	private JBSDamageType damageType;
-	@XmlTransient
+	@XmlElement(name = "Shotpower")
 	private int shotpower = -1;
-	@XmlTransient
+	@XmlElement(name = "Shipname")
 	private String name = "PLACEHOLDER";
 	@XmlElement(name = "ShipHealth")
 	private int health = -1;
@@ -191,7 +191,7 @@ public class JBSShip {
 		return (health > 0);
 	}
 	
-	public boolean canShot(){
+	public boolean canShoot(){
 		return isAlive() && cooldown == 0;
 	}
 	
@@ -215,6 +215,7 @@ public class JBSShip {
 	public void setPositon(int x, int y, Direction direction) {
 		this.position.setX(x);
 		this.position.setY(y);
+		this.direction = direction;
 		
 		for(int i = 0 ; i < shipActors.size() ; i++){
 			if(direction == Direction.NORTH){
@@ -248,6 +249,62 @@ public class JBSShip {
 
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+	}
+
+	/**
+	 * @return the shotpower
+	 */
+	public final int getShotpower() {
+		return shotpower;
+	}
+
+	/**
+	 * @param shotpower the shotpower to set
+	 */
+	public final void setShotpower(int shotpower) {
+		this.shotpower = shotpower;
+	}
+
+	/**
+	 * @return the position
+	 */
+	public final Vector2i getPosition() {
+		return position;
+	}
+
+	/**
+	 * @param position the position to set
+	 */
+	public final void setPosition(Vector2i position) {
+		this.position = position;
+	}
+
+	/**
+	 * @param cooldownLimit the cooldownLimit to set
+	 */
+	public final void setCooldownLimit(int cooldownLimit) {
+		this.cooldownLimit = cooldownLimit;
+	}
+
+	/**
+	 * @param length the length to set
+	 */
+	public final void setLength(int length) {
+		this.length = length;
+	}
+
+	/**
+	 * @param damageType the damageType to set
+	 */
+	public final void setDamageType(JBSDamageType damageType) {
+		this.damageType = damageType;
+	}
+
+	/**
+	 * @param shipActors the shipActors to set
+	 */
+	public final void setShipActors(ArrayList<JBSActor> shipActors) {
+		this.shipActors = shipActors;
 	}
 	
 	

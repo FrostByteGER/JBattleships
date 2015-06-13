@@ -38,6 +38,7 @@ import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 
 /**
  * @author Kevin Kuegler
@@ -76,6 +77,7 @@ public class PreGamePanel extends JPanel {
 	
 	/** The GameType of this Panel */
 	private JBSGameType gameType;
+	private ArrayList<JBSPlayer> players = new ArrayList<>(0);
 	
 	
 	/**
@@ -131,8 +133,7 @@ public class PreGamePanel extends JPanel {
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("continue")){
-					JBattleships.game.generateGame();
-					GameManager gm = JBattleships.game.getGameManager();
+					GameManager gm = JBattleships.game.generateGame();
 					for(PreGamePlayerPanel pregpp : playerPanels){
 						//TODO: add various checks!
 						boolean active = pregpp.isActiveSelected();
@@ -140,52 +141,42 @@ public class PreGamePanel extends JPanel {
 							boolean ai = pregpp.isAISelected();
 							String name = pregpp.getName();
 							if(ai){
-								gm.addPlayer(new JBSAIPlayer(name));
+								players.add(new JBSAIPlayer(name));
 							}else{
-								gm.addPlayer(new JBSPlayer(name));
+								players.add(new JBSPlayer(name));
 							}
 						}
 					}
-					int dc = 1;
+					int[] count = new int[4];
 					//destroyerSpinner.commitEdit(); TODO: Discard?
 					try{
-						dc = ((Integer)destroyerSpinner.getValue());
+						count[0] = ((Integer)destroyerSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.setDestroyerCount(dc);
-					
-					int fc = 1;
 					try{
-						fc = ((Integer)frigateSpinner.getValue());
+						count[1] = ((Integer)frigateSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.setFrigateCount(fc);
-					
-					int cc = 1;
 					try{
-						cc = ((Integer)corvetteSpinner.getValue());
+						count[2] = ((Integer)corvetteSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.setCorvetteCount(cc);
-					
-					int sc = 1;
 					try{
-						sc = ((Integer)subSpinner.getValue());
+						count[3] = ((Integer)subSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.setSubmarineCount(sc);
 					
-					int fs = 16;
+					int fieldSize = 16;
 					try{
-						fs = ((Integer)fieldSizeSpinner.getValue());
+						fieldSize = ((Integer)fieldSizeSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.createGame(gameType, fs);
+					gm.createGame(gameType,players.toArray(new JBSPlayer[players.size()]), fieldSize, count);
 					JBSCoreGame.ioQueue.insertInput("Created Game!", JBSCoreGame.MSG_LOGGER_KEY);
 					JBSCoreGame.ioQueue.insertInput(gm.toString(), JBSCoreGame.MSG_LOGGER_KEY);
 					

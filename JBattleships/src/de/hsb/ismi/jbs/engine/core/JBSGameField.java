@@ -6,6 +6,7 @@ package de.hsb.ismi.jbs.engine.core;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
@@ -17,16 +18,25 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JBSGameField {
 
-	@XmlTransient
+	@XmlElement(name = "GamefieldActor")
+	@XmlElementWrapper(name = "GamefieldActors")
 	private JBSActor[][] actorFields = null;
-	@XmlElement(name = "GameFieldSize")
-	private int size = -1;
+	@XmlElement(name = "GamefieldSize")
+	private int size = 0;
 	
 	// OLD TODO
 	@XmlTransient
 	public JBSActor water = new JBSActor("water");
 	@XmlTransient
 	public JBSActor waterHitDummy = new JBSActor("waterhit");
+	
+	/**
+	 * 
+	 */
+	public JBSGameField() {
+		water.setHit(false);
+		waterHitDummy.setHit(true);
+	}
 	
 	/**
 	 * @param size
@@ -135,7 +145,7 @@ public class JBSGameField {
 		return true;
 	}
 		
-	public boolean setShip(JBSShip ship){
+	public boolean addShip(JBSShip ship){
 		if(shipCanBePlaced(ship)){
 			for(JBSActor actor : ship.getShipActors()){
 				actorFields[actor.getLocation().getX()][actor.getLocation().getY()] = actor;
@@ -143,6 +153,12 @@ public class JBSGameField {
 			return true;
 		}
 		return false;
+	}
+	
+	public void setShip(JBSShip ship){
+		for(JBSActor actor : ship.getShipActors()){
+			actorFields[actor.getLocation().getX()][actor.getLocation().getY()] = actor;
+		}
 	}
 	
 	// DEBUG_MODE
