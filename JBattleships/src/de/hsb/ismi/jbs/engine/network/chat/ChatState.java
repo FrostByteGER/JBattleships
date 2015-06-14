@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.network.server.chat;
+package de.hsb.ismi.jbs.engine.network.chat;
 
 /**
  * @author Kevin-Laptop Kuegler
@@ -10,5 +10,6 @@ package de.hsb.ismi.jbs.engine.network.server.chat;
 public enum ChatState {
 	LOGIN,
 	AUTHENTICATED,
-	BANNED
+	BANNED,
+	CLOSED
 }

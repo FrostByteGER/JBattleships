@@ -23,8 +23,8 @@ import javax.swing.UIManager;
 import de.hsb.ismi.jbs.engine.core.IOListener;
 import de.hsb.ismi.jbs.engine.core.JBSIOQueue;
 import de.hsb.ismi.jbs.engine.io.parser.ResourceParser;
-import de.hsb.ismi.jbs.engine.network.client.chat.ChatClient;
-import de.hsb.ismi.jbs.engine.network.server.chat.ChatServer;
+import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
+import de.hsb.ismi.jbs.engine.network.chat.server.ChatServer;
 import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 
 /**

@@ -184,4 +184,18 @@ public class JBSGUI{
 		this.backgroundImage = backgroundImage;
 	}
 
+	/**
+	 * @return the mainFrame
+	 */
+	public final JFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	/**
+	 * @param mainFrame the mainFrame to set
+	 */
+	public final void setMainFrame(JFrame mainFrame) {
+		this.mainFrame = mainFrame;
+	}
+
 }

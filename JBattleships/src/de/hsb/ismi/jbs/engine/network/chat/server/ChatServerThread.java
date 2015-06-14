@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.network.server.game;
+package de.hsb.ismi.jbs.engine.network.chat.server;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -10,19 +10,21 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import de.hsb.ismi.jbs.engine.network.chat.ChatState;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class GameServerThread extends Thread {
+public class ChatServerThread extends Thread {
 
-	private GameServer server = null;
+	private ChatServer server = null;
 	private Socket socket = null;
 	private String id = null;
 	private DataInputStream streamIn = null;
 	private DataOutputStream streamOut = null;
-	private boolean endServerThread = false;
-	private GameServerState state = GameServerState.LOGIN;
+	private boolean endThread = false;
+	private ChatState state = ChatState.LOGIN;
 	private int loginCount = 0;
 
 	/**
@@ -31,8 +33,8 @@ public class GameServerThread extends Thread {
 	 * @param socket
 	 * @param id
 	 */
-	public GameServerThread(GameServer server, Socket socket, String id) {
-		super("GameServerConnection-Thread");
+	public ChatServerThread(ChatServer server, Socket socket, String id) {
+		super("ChatServerConnection-Thread");
 		setDaemon(true);
 		this.server = server;
 		this.socket = socket;
@@ -55,26 +57,27 @@ public class GameServerThread extends Thread {
 	@Override
 	public void run() {
 		System.out.println("Server Thread " + id + " running.");
-		while (!endServerThread) {
+		while (!endThread) {
 			try {
 				String input = streamIn.readUTF();
 				switch(state){
 					case LOGIN: 
-						if(loginCount > GameServer.MAX_LOGIN_COUNT){
-							state = GameServerState.BANNED;
+						if(loginCount > ChatServer.MAX_LOGIN_COUNT){
+							state = ChatState.BANNED;
 						}
 						if(server.authenticate(this ,input)){
-							state = GameServerState.AUTHENTICATED;
+							state = ChatState.AUTHENTICATED;
 							loginCount++;
+							server.handle(id, "/success");
 						}else{
 							loginCount++;
 						}
 						break;
 					case AUTHENTICATED:
-						//TODO: uncomment!
-						//server.handle(id, input);
+						server.handle(id, input);
 						break;
 					case BANNED:
+						server.handle(id, "/ban");
 						server.removeClient(id);
 						break;
 				}
@@ -101,7 +104,7 @@ public class GameServerThread extends Thread {
 	 */
 	public synchronized void closeConnection(){
 		try {
-			endServerThread = true;
+			endThread = true;
 			if (socket != null){
 				socket.close();
 			}
@@ -119,14 +122,14 @@ public class GameServerThread extends Thread {
 	/**
 	 * @return the state
 	 */
-	public final GameServerState getChatState() {
+	public final ChatState getChatState() {
 		return state;
 	}
 
 	/**
 	 * @param state the state to set
 	 */
-	public synchronized final void setChatState(GameServerState state) {
+	public synchronized final void setChatState(ChatState state) {
 		this.state = state;
 	}
 	

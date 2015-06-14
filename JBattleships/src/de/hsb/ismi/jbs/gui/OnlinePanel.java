@@ -4,14 +4,46 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
+
+
+
+
+
+
+
 import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
+
+
+
+
+
+
+
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+
+
+
+
+
+
+import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
+import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
+import de.hsb.ismi.jbs.start.JBattleships;
+
+
+
+
+
+
+
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Kevin Kuegler
@@ -34,6 +66,7 @@ public class OnlinePanel extends JPanel {
 		initPanel();
 	}
 	private void initPanel() {
+		
 		setLayout(new BorderLayout(0, 0));
 		setOpaque(false);
 		add(parent.generateHeader(), BorderLayout.NORTH);
@@ -49,7 +82,7 @@ public class OnlinePanel extends JPanel {
 		
 		btnJoin = new JButton("Join Game");
 		btnJoin.addActionListener(e -> {
-			
+			parent.swapContainer(new OnlineJoinPanel(parent));
 		});
 		GridBagConstraints gbc_btnJoin = new GridBagConstraints();
 		gbc_btnJoin.fill = GridBagConstraints.HORIZONTAL;
@@ -78,6 +111,7 @@ public class OnlinePanel extends JPanel {
 		gbc_btnCancel.gridx = 0;
 		gbc_btnCancel.gridy = 2;
 		centerPanel.add(btnCancel, gbc_btnCancel);
+
 	}
 
 }

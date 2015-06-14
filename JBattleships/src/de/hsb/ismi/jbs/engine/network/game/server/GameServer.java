@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.network.server.game;
+package de.hsb.ismi.jbs.engine.network.game.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -27,7 +27,7 @@ public class GameServer extends Thread {
 		try {
 			System.out.println("Binding to port " + this.port + ", please wait...");
 			server = new ServerSocket(this.port);
-			System.out.println("Server started: " + server);
+			System.out.println("Gameserver started: " + server);
 			start();
 		} catch (IOException ioe) {
 			System.out.println("Can't bind to port " + this.port + ": " + ioe.getMessage());

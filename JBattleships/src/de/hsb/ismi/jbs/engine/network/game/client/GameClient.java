@@ -1,26 +1,33 @@
-package de.hsb.ismi.jbs.engine.network.client.chat;
+/**
+ * 
+ */
+package de.hsb.ismi.jbs.engine.network.game.client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import de.hsb.ismi.jbs.engine.network.game.GameConnectionState;
+
 /**
- * 
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class ChatClient extends Thread{
-	
+public class GameClient extends Thread {
+
 	private Socket socket = null;
 	private DataOutputStream outputStream = null;
 	private DataInputStream inputStream = null;
-	private ArrayList<ClientMessageListener> listeners = new ArrayList<>(0);
+	private ArrayList<GameClientListener> listeners = new ArrayList<>(0);
 	private String username = "undefined";
 	private boolean endThread = false;
+	private GameConnectionState gameConnectionState = GameConnectionState.LOGIN;
+	
 	
 	/**
 	 * 
@@ -30,8 +37,8 @@ public class ChatClient extends Thread{
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
-	public ChatClient(String ip, int port, String username) throws UnknownHostException, IOException{
-		super("ChatClient-Thread");
+	public GameClient(String ip, int port, String username) throws UnknownHostException, IOException{
+		super("GameClient-Thread");
 		this.username = username;
 		socket = new Socket(ip, port);
 		inputStream = new DataInputStream(socket.getInputStream());
@@ -40,7 +47,25 @@ public class ChatClient extends Thread{
 		this.start();
 	}
 	
-	public void addMessageListener(ClientMessageListener listener){
+	/**
+	 * 
+	 * @param ip
+	 * @param port
+	 * @param username
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
+	public GameClient(InetAddress ip, int port, String username) throws UnknownHostException, IOException{
+		super("GameClient-Thread");
+		this.username = username;
+		socket = new Socket(ip, port);
+		inputStream = new DataInputStream(socket.getInputStream());
+		outputStream = new DataOutputStream(socket.getOutputStream());
+		sendAuthentification(username);
+		this.start();
+	}
+	
+	public void addMessageListener(GameClientListener listener){
 		this.listeners.add(listener);
 	}
 	
@@ -52,7 +77,7 @@ public class ChatClient extends Thread{
 	public void sendMessage(String message) throws IOException{
 		System.out.println("Client sending Message: " + message);
 		outputStream.writeUTF(message);
-		for(ClientMessageListener listener : listeners){
+		for(GameClientListener listener : listeners){
 			listener.messageSent(message);
 		}
 	}
@@ -76,19 +101,37 @@ public class ChatClient extends Thread{
 		try{
 			String message = null;
 			while(!socket.isClosed()){
-				message = inputStream.readUTF();
-				System.out.println("Client " + getName() + "received Message: " + message);
-				for(ClientMessageListener listener : listeners){
+				//Initial Authentification
+				while(gameConnectionState == GameConnectionState.LOGIN){
+					message = inputStream.readUTF();
+					System.out.println("Client " + getName() + "received Message: " + message);
+					if(message.equals("/end")){
+						gameConnectionState = GameConnectionState.CLOSED;
+						closeConnection();
+					}else if(message.equals("/ban")){
+						gameConnectionState = GameConnectionState.BANNED;
+						closeConnection();
+					}else if(message.equals("/success")){
+						gameConnectionState = GameConnectionState.AUTHENTICATED;
+					}
+				}
+				while(gameConnectionState == GameConnectionState.AUTHENTICATED){
+				}
+			
+			
+			
+				for(GameClientListener listener : listeners){
 					listener.messageReceived(message);
 				}
+				
 			}
 		}catch(SocketException se){
-			for(ClientMessageListener listener : listeners){
+			for(GameClientListener listener : listeners){
 				listener.connectionLost(socket.getInetAddress().getHostAddress());
 			}
 			
 		}catch(IOException ioe){
-			for(ClientMessageListener listener : listeners){
+			for(GameClientListener listener : listeners){
 				listener.connectionLost(socket.getInetAddress().getHostAddress());
 			}
 
@@ -134,4 +177,20 @@ public class ChatClient extends Thread{
 	public boolean isActive() {
 		return endThread;
 	}
+
+	/**
+	 * @return the gameConnectionState
+	 */
+	public final GameConnectionState getGameConnectionState() {
+		return gameConnectionState;
+	}
+
+	/**
+	 * @param gameConnectionState the gameConnectionState to set
+	 */
+	public final void setGameConnectionState(GameConnectionState gameConnectionState) {
+		this.gameConnectionState = gameConnectionState;
+	}
+	
+	
 }

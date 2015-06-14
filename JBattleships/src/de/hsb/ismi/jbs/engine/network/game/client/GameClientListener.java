@@ -1,6 +1,6 @@
-package de.hsb.ismi.jbs.engine.network.client.chat;
+package de.hsb.ismi.jbs.engine.network.game.client;
 
-public interface ClientMessageListener {
+public interface GameClientListener {
 	
 	public void messageReceived(String message);
 	

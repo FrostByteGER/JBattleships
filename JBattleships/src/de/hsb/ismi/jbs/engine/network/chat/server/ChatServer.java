@@ -1,12 +1,14 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.network.server.chat;
+package de.hsb.ismi.jbs.engine.network.chat.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+
+import de.hsb.ismi.jbs.engine.network.chat.ChatState;
 
 /**
  * @author Kevin Kuegler
@@ -88,8 +90,8 @@ public class ChatServer extends Thread {
 		if(input.equals("/end")) {
 			findClient(id).send("/end");
 			removeClient(id);
-		}else if(input.startsWith("PLACEHOLDER")){
-			
+		}else if(input.equals("/success")){
+			findClient(id).send("/success");
 		}else{
 			System.out.println("Server received Message from " + id + ": " + input);
 			for (ChatServerThread cst : clients){
