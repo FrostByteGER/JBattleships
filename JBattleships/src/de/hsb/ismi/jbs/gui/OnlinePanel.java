@@ -5,42 +5,9 @@ package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
 
-
-
-
-
-
-
 import java.awt.BorderLayout;
 
-
-
-
-
-
-
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-
-
-
-
-
-
-import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
-import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
-import de.hsb.ismi.jbs.start.JBattleships;
-
-
-
-
-
-
-
-import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -93,7 +60,7 @@ public class OnlinePanel extends JPanel {
 		
 		btnHost = new JButton("Host Game");
 		btnHost.addActionListener(e -> {
-			
+			parent.swapContainer(new OnlineHostPanel(parent));
 		});
 		GridBagConstraints gbc_btnHost = new GridBagConstraints();
 		gbc_btnHost.insets = new Insets(0, 0, 5, 0);
