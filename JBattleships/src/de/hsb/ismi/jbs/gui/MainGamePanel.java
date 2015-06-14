@@ -36,7 +36,7 @@ public class MainGamePanel extends JPanel {
 	private JBSGUI parent;
 	
 	private GameFieldPanel gameFieldPanel;
-	private GameSidePanel2 gameSidePanel;
+	private GameSidePanel gameSidePanel;
 	
 	private JPanel sidePanel;
 	private JPanel centerPanel;
@@ -92,7 +92,7 @@ public class MainGamePanel extends JPanel {
 		
 		roundManager = JBattleships.game.getGameManager().getRoundManager();
 		
-		gameSidePanel = new GameSidePanel2(game.getPlayers()[game.getActivePlayerInt()]);
+		gameSidePanel = new GameSidePanel(game.getPlayers()[game.getActivePlayerInt()]);
 		centerPanel.add(sidePanel, "cell 1 0,width :35%:,grow");
 		sidePanel.setLayout(new MigLayout("", "[grow]", "[grow][grow]"));
 		

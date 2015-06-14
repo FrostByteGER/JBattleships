@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 
-public class GameSidePanel2 extends JPanel {
+public class GameSidePanel extends JPanel {
 	
 	private JBSPlayer player;
 	private Color buttonColor;
@@ -32,9 +32,9 @@ public class GameSidePanel2 extends JPanel {
 	private int hovership;
 	private int hovery = 0;
 	
-	private GameSidePanel2 panel;
+	private GameSidePanel panel;
 	
-	public GameSidePanel2(JBSPlayer player) {
+	public GameSidePanel(JBSPlayer player) {
 				
 		this.player = player;
 		buttonColor = Color.LIGHT_GRAY;
