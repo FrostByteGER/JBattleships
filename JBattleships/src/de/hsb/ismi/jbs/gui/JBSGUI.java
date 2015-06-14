@@ -40,7 +40,7 @@ public class JBSGUI{
 	
 	private BufferedImage backgroundImage = null;
 	
-	public static final Color BACKGROUND_COLOR = new Color(0.9411f, 0.9411f, 0.9411f, 0.1f);
+	public static final Color BACKGROUND_COLOR = new Color(0.5411f, 0.5411f, 0.5411f, 0.4f);
 
 	/**
 	 * 
