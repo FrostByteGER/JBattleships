@@ -104,7 +104,10 @@ public class PreGamePlacingPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("cancel")){
 					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePlacingPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
-					PreGamePlacingPanel.this.parent.swapContainer(PreGamePlacingPanel.this.parent.getMainPanel());
+					
+					//TODO: Destroys the GUI-logic. Add reset Container method!
+					//parent.restorePrevContainer();
+					parent.restoreRootContainer(true);
 				}
 			}
 		});

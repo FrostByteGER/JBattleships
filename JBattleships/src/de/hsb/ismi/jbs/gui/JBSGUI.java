@@ -32,7 +32,6 @@ public class JBSGUI{
 
 	private JFrame mainFrame = new JFrame("JBattleships ALPHA");
 	private JPanel contentPane = new JPanel();
-	@Deprecated
 	private Stack<JPanel> panelStack  = new Stack<JPanel>();
 	
 	private MainPanel mainPanel = new MainPanel(this);
@@ -90,27 +89,62 @@ public class JBSGUI{
 	}
 	
 	/**
-	 * Swaps the current center-component with the given one.
+	 * Swaps the current center-component with the given one and adds the previous one to the stack.
 	 * @param container
 	 */
 	public void swapContainer(JPanel container){
-		contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
+		JPanel p = (JPanel) ((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER);
+		contentPane.remove(p);
+		contentPane.add(container,BorderLayout.CENTER);
+		panelStack.push(p);
+		container.updateUI();
+		JBSCoreGame.ioQueue.insertInput("Swapped JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+	}
+	
+	/**
+	 * Swaps the current center-component with the given one without adding the previous one to the stack.
+	 * Be careful, it destroys the stack-order!
+	 * @param container
+	 */
+	public void forceSwapContainer(JPanel container){
+		JPanel p = (JPanel) ((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER);
+		contentPane.remove(p);
 		contentPane.add(container,BorderLayout.CENTER);
 		container.updateUI();
 		JBSCoreGame.ioQueue.insertInput("Swapped JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
 	}
 	
 	/**
-	 * @deprecated
 	 * <br>Restores the previous JPanel that was visible before a new one was called.
 	 */
 	public void restorePrevContainer(){
-		JBSCoreGame.ioQueue.insertInput("DEPRECATED METHOD, DO NOT USE!", JBSCoreGame.MSG_LOGGER_KEY);
 		if(!panelStack.empty()){
-			//swapContainer(panelStack.pop());
-			//JBSCoreGame.msgLogger.addMessage("Restored previous JPanel!");
+			JPanel p = panelStack.pop();
+			contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
+			contentPane.add(p,BorderLayout.CENTER);
+			p.updateUI();
+			JBSCoreGame.ioQueue.insertInput("Restored previous JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
 		}else{
-			//JBSCoreGame.msgLogger.addMessage("Stack is Empty!");
+			JBSCoreGame.ioQueue.insertInput("Stack is Empty!", JBSCoreGame.MSG_LOGGER_KEY);
+		}
+	}
+	
+	/**
+	 * Restores the first JPanel that was visible before new ones were called.
+	 * Optionally clears the stack.
+	 */
+	public void restoreRootContainer(boolean clearStack){
+		if(!panelStack.empty()){
+			JPanel p = panelStack.firstElement();
+			contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
+			contentPane.add(p,BorderLayout.CENTER);
+			if(clearStack){
+				panelStack.clear();
+			}
+			p.updateUI();
+			JBSCoreGame.ioQueue.insertInput("Restored previous JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+		}else{
+			JBSCoreGame.ioQueue.insertInput("Stack is Empty!", JBSCoreGame.MSG_LOGGER_KEY);
 		}
 	}
 	

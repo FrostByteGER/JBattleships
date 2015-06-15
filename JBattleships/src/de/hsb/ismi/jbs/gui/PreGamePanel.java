@@ -118,13 +118,10 @@ public class PreGamePanel extends JPanel {
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.setActionCommand("cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("cancel")){
-					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
-					PreGamePanel.this.parent.swapContainer(PreGamePanel.this.parent.getMainPanel());
-				}
-			}
+		btnCancel.addActionListener(e -> {
+				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
+				parent.restorePrevContainer();
+				//PreGamePanel.this.parent.swapContainer(PreGamePanel.this.parent.getMainPanel());
 		});
 		buttonPanel.add(btnCancel);
 		
@@ -180,7 +177,7 @@ public class PreGamePanel extends JPanel {
 					JBSCoreGame.ioQueue.insertInput("Created Game!", JBSCoreGame.MSG_LOGGER_KEY);
 					JBSCoreGame.ioQueue.insertInput(gm.toString(), JBSCoreGame.MSG_LOGGER_KEY);
 					
-					parent.swapContainer(new PreGamePlacingPanel(PreGamePanel.this.parent));
+					parent.swapContainer(new PreGamePlacingPanel(parent));
 					//parent.swapContainer(new ColorPickerPanel());
 				}
 			}

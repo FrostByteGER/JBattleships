@@ -7,14 +7,16 @@ import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
 
 public class GameManager{
 	
 	private Game game = new Game();
 	private RoundManager roundManager = new RoundManager();
-	private boolean started = false;
 	
 	private ArrayList<GameListener> listeners = new ArrayList<GameListener>(0);
+	
+	private GameNetworkState gameState = GameNetworkState.LOBBY_PRE_CREATED;
 	
 	/**
 	 * 
@@ -28,7 +30,7 @@ public class GameManager{
 			p.setPlayerField(new JBSGameField(fieldSize));
 		}
 		game = new Game(gameType, players, shipCount);
-		
+		gameState = GameNetworkState.LOBBY_CREATED;
 		return game;
 	}
 	
@@ -39,7 +41,7 @@ public class GameManager{
 	public boolean startGame(){
 		if(game != null){
 			roundManager = new RoundManager();
-			started = true;
+			gameState = GameNetworkState.GAME_STARTED;
 			for(GameListener gl : listeners){
 				gl.fireStartedGame();
 			}
@@ -55,8 +57,8 @@ public class GameManager{
 	 * @return True if game is over.
 	 */
 	public boolean endGame(boolean force){
-		if((started && game.isGameOver()) || force){
-			started = false;
+		if((gameState == GameNetworkState.GAME_STARTED && game.isGameOver()) || force){
+			gameState = GameNetworkState.GAME_ENDED;
 			//JBSCoreGame.msgLogger.addMessage("Game has ended. Winner is: " + game.getActivePlayer().getName());
 			System.out.println("Game has ended. Winner is: " + game.getActivePlayer().getName());
 			for(GameListener gl : listeners){
@@ -127,10 +129,17 @@ public class GameManager{
 	}
 
 	/**
-	 * @return the started
+	 * @return the gameState
 	 */
-	public final boolean hasStarted() {
-		return started;
+	public final GameNetworkState getGameState() {
+		return gameState;
+	}
+
+	/**
+	 * @param gameState the gameState to set
+	 */
+	public final void setGameState(GameNetworkState gameState) {
+		this.gameState = gameState;
 	}
 
 }

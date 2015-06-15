@@ -82,6 +82,8 @@ public class GameServerThread extends Thread {
 						//server.handle(id, "/ban");
 						server.removeClient(id);
 						break;
+					case CLOSED:
+						break;
 			}
 				
 			} catch (IOException ioe) {

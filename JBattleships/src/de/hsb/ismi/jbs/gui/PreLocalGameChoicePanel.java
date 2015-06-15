@@ -83,7 +83,7 @@ public class PreLocalGameChoicePanel extends JPanel {
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(e -> {
-			parent.swapContainer(parent.getMainPanel());
+			parent.restoreRootContainer(true);
 		});
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;

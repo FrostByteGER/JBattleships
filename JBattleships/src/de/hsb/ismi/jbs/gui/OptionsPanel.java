@@ -434,7 +434,7 @@ public class OptionsPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("back")){
 					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
-					OptionsPanel.this.parent.swapContainer(OptionsPanel.this.parent.getMainPanel());
+					parent.restoreRootContainer(true);
 				}
 			}
 		});
