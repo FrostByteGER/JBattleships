@@ -13,6 +13,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import de.hsb.ismi.jbs.engine.network.game.GameConnectionState;
+import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
 
 /**
  * @author Kevin Kuegler
@@ -27,6 +28,8 @@ public class GameClient extends Thread {
 	private String username = "undefined";
 	private boolean endThread = false;
 	private GameConnectionState gameConnectionState = GameConnectionState.LOGIN;
+	
+	private GameNetworkState gameNetworkState = GameNetworkState.LOBBY_PRE_CREATED;
 	
 	
 	/**
@@ -113,9 +116,27 @@ public class GameClient extends Thread {
 						closeConnection();
 					}else if(message.equals("/success")){
 						gameConnectionState = GameConnectionState.AUTHENTICATED;
+						gameNetworkState = GameNetworkState.LOBBY_WAITING;
 					}
 				}
 				while(gameConnectionState == GameConnectionState.AUTHENTICATED){
+					
+					while(gameNetworkState == GameNetworkState.LOBBY_WAITING || gameNetworkState == GameNetworkState.LOBBY_READY){
+						
+					}
+					
+					while(gameNetworkState == GameNetworkState.LOBBY_SHIPS_SELECTING){
+						
+					}
+					
+					
+					//////////////
+					//////////////
+					//////////////
+					//////////////
+					//////////////
+					//////////////
+					
 				}
 			
 			
@@ -190,6 +211,20 @@ public class GameClient extends Thread {
 	 */
 	public final void setGameConnectionState(GameConnectionState gameConnectionState) {
 		this.gameConnectionState = gameConnectionState;
+	}
+
+	/**
+	 * @return the gameNetworkState
+	 */
+	public final GameNetworkState getGameNetworkState() {
+		return gameNetworkState;
+	}
+
+	/**
+	 * @param gameNetworkState the gameNetworkState to set
+	 */
+	public final void setGameNetworkState(GameNetworkState gameNetworkState) {
+		this.gameNetworkState = gameNetworkState;
 	}
 	
 	

@@ -40,6 +40,7 @@ public class JBSGUI{
 	private BufferedImage backgroundImage = null;
 	
 	public static final Color BACKGROUND_COLOR = new Color(0.5411f, 0.5411f, 0.5411f, 0.4f);
+	public static final Font SERVER_FONT = new Font("Tahoma", Font.PLAIN, 22);
 
 	/**
 	 * 
