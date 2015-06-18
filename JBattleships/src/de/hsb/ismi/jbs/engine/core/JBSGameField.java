@@ -103,6 +103,7 @@ public class JBSGameField {
 				actorFields[x][y].setName("waterhit");
 				return false;
 			}
+			
 			return true;
 		}
 	}

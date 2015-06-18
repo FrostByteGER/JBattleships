@@ -3,6 +3,8 @@
  */
 package de.hsb.ismi.jbs.engine.ai;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -44,6 +46,9 @@ public class JBSAIPlayer extends JBSPlayer {
 	private int hity = 0;
 	@XmlElement(name = "HitFieldIndex")
 	private int hitfield = 0;
+	@XmlElement(name = "HitFields")
+	private HashMap<Integer, ArrayList<Integer>> hitfields;
+		
 	//TODO: What?
 	@XmlElement(name = "hasHit")
 	private boolean hit = false;
@@ -87,6 +92,14 @@ public class JBSAIPlayer extends JBSPlayer {
 						hitfield = (lasthitfield+i)%game.getPlayers().length;
 						
 						if(game.getPlayer(hitfield).isAlive() && game.getPlayer(hitfield) != this){
+							
+							for(int x = 0 ; x < game.getPlayer(hitfield).getPlayerField().getSize() ; x++){
+								for(int y = 0 ; y < game.getPlayer(hitfield).getPlayerField().getSize() ; y++){
+									
+								}
+							}
+							
+							
 							
 							while(true){
 								hitx = r.nextInt(game.getActivePlayer().getPlayerField().getSize()-1);
@@ -304,41 +317,6 @@ public class JBSAIPlayer extends JBSPlayer {
 	 */
 	public final void setLasthit(boolean lasthit) {
 		this.lasthit = lasthit;
-	}
-	
-	/**
-	 * @return the hitdirection
-	 */
-	public Direction getHitdirection() {
-		return hitdirection;
-	}
-
-	/**
-	 * @return the hitx
-	 */
-	public int getHitx() {
-		return hitx;
-	}
-
-	/**
-	 * @return the hity
-	 */
-	public int getHity() {
-		return hity;
-	}
-
-	/**
-	 * @return the hitfield
-	 */
-	public int getHitfield() {
-		return hitfield;
-	}
-
-	/**
-	 * @return the hit
-	 */
-	public boolean isHit() {
-		return hit;
 	}
 	
 }
