@@ -13,13 +13,13 @@ public interface IOListener<T> {
 	 * 
 	 * @param input
 	 */
-	public void InputReceived(T input);
+	public void inputReceived(T input, String notifierType);
 	
 	/**
 	 * 
 	 * @param output
 	 */
-	public void OutputReceived(T output);
+	public void outputReceived(T output, String notifierType);
 	
 	//public void InputRequested(T input);
 	

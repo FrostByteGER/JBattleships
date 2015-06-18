@@ -15,7 +15,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.io.parser.ResourceParser;
 import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 
@@ -54,7 +54,7 @@ public class ResourceManager{
 		File f = new File(RESOURCE_TABLE_PATH);
 		if(f.exists()){
 			//TODO: Remove True
-			if(JBSCore.shaGenerator.generateSHA256(f).equals(RESOURCE_TABLE_SHA) || true){
+			if(JBSCoreGame.shaGenerator.generateSHA256(f).equals(RESOURCE_TABLE_SHA) || true){
 				try {
 					ArrayList<String> table = parser.parseResourceTable(RESOURCE_TABLE_PATH);
 					resourceTable = new String[table.size()];

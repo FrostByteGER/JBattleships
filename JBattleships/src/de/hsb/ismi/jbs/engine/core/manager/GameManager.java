@@ -2,83 +2,35 @@ package de.hsb.ismi.jbs.engine.core.manager;
 
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.core.JBSCore;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
 
 public class GameManager{
 	
 	private Game game = new Game();
-	private ArrayList<JBSPlayer> players = new ArrayList<JBSPlayer>(2);
-	private int[] shipcount = new int[]{0,0,0,0};
 	private RoundManager roundManager = new RoundManager();
-	private boolean started = false;
 	
 	private ArrayList<GameListener> listeners = new ArrayList<GameListener>(0);
 	
+	private GameNetworkState gameState = GameNetworkState.LOBBY_PRE_CREATED;
+	
+	/**
+	 * 
+	 */
 	public GameManager() {
-	}
-	
-	public void addPlayer(JBSPlayer player){
-		players.add(player);
-	}
-	
-	public void setDestroyerCount(int size){
-		shipcount[0] = size;
-	}
-	public void setFrigateCount(int size){
-		shipcount[1] = size;
-	}
-	public void setSubmarineCount(int size){
-		shipcount[2] = size;
-	}
-	public void setCorvetteCount(int size){
-		shipcount[3] = size;
-	}
-	
-	public int getDestroyerCount(){
-		return shipcount[0];
-	}
-	public int getFrigateCount(){
-		return shipcount[1];
-	}
-	public int getSubmarineCount(){
-		return shipcount[2];
-	}
-	public int getCorvetteCount(){
-		return shipcount[3];
-	}
-	
-	public Game createGame(JBSGameType type ,int fieldsize){
 		
-		for(JBSPlayer p : players){
-			p.setPlayerField(new JBSGameField(fieldsize));
-		}
-	
-		JBSPlayer[] tplayers = new JBSPlayer[players.size()];
+	}
 
-		for(int i = 0 ; i < tplayers.length ; i++){
-			tplayers[i] = players.get(i);
-			/*
-			for(int j = 0 ; j < shipcount[0] ; j++){
-				tplayers[i].addShip(new JBSDestroyer());
-			}
-			for(int j = 0 ; j < shipcount[1] ; j++){
-				tplayers[i].addShip(new JBSFrigate());
-			}
-			for(int j = 0 ; j < shipcount[2] ; j++){
-				tplayers[i].addShip(new JBSSubmarine());
-			}
-			for(int j = 0 ; j < shipcount[3] ; j++){
-				tplayers[i].addShip(new JBSCorvette());
-			}
-			*/
+	public Game createGame(JBSGameType gameType , JBSPlayer[] players, int fieldSize, int[] shipCount){
+		for(JBSPlayer p : players){
+			p.setPlayerField(new JBSGameField(fieldSize));
 		}
-		game = new Game(type, tplayers);
-		
+		game = new Game(gameType, players, shipCount);
+		gameState = GameNetworkState.LOBBY_CREATED;
 		return game;
 	}
 	
@@ -89,7 +41,7 @@ public class GameManager{
 	public boolean startGame(){
 		if(game != null){
 			roundManager = new RoundManager();
-			started = true;
+			gameState = GameNetworkState.GAME_STARTED;
 			for(GameListener gl : listeners){
 				gl.fireStartedGame();
 			}
@@ -105,9 +57,9 @@ public class GameManager{
 	 * @return True if game is over.
 	 */
 	public boolean endGame(boolean force){
-		if((started && game.isGameOver()) || force){
-			started = false;
-			//JBSCore.msgLogger.addMessage("Game has ended. Winner is: " + game.getActivePlayer().getName());
+		if((gameState == GameNetworkState.GAME_STARTED && game.isGameOver()) || force){
+			gameState = GameNetworkState.GAME_ENDED;
+			//JBSCoreGame.msgLogger.addMessage("Game has ended. Winner is: " + game.getActivePlayer().getName());
 			System.out.println("Game has ended. Winner is: " + game.getActivePlayer().getName());
 			for(GameListener gl : listeners){
 				gl.fireEndedGame();
@@ -123,14 +75,7 @@ public class GameManager{
 	 */
 	@Override
 	public String toString() {
-		return "GameManager | Players: " + players.size() + " | ShipCount: " + (shipcount[0] + shipcount[1] + shipcount[2] + shipcount[3]);
-	}
-
-	/**
-	 * @return the players
-	 */
-	public final ArrayList<JBSPlayer> getPrePlayers() {
-		return players;
+		return "GameManager";
 	}
 	
 	public final int getFieldSize(){
@@ -160,6 +105,41 @@ public class GameManager{
 	
 	public final void addGameListener(GameListener gl){
 		listeners.add(gl);
+	}
+
+	/**
+	 * @return the listeners
+	 */
+	public final ArrayList<GameListener> getListeners() {
+		return listeners;
+	}
+
+	/**
+	 * @param listeners the listeners to set
+	 */
+	public final void setListeners(ArrayList<GameListener> listeners) {
+		this.listeners = listeners;
+	}
+
+	/**
+	 * @param game the game to set
+	 */
+	public final void setGame(Game game) {
+		this.game = game;
+	}
+
+	/**
+	 * @return the gameState
+	 */
+	public final GameNetworkState getGameState() {
+		return gameState;
+	}
+
+	/**
+	 * @param gameState the gameState to set
+	 */
+	public final void setGameState(GameNetworkState gameState) {
+		this.gameState = gameState;
 	}
 
 }

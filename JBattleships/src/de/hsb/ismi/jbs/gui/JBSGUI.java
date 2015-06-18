@@ -1,9 +1,11 @@
 package de.hsb.ismi.jbs.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 
@@ -30,28 +32,49 @@ public class JBSGUI{
 
 	private JFrame mainFrame = new JFrame("JBattleships ALPHA");
 	private JPanel contentPane = new JPanel();
-	@Deprecated
 	private Stack<JPanel> panelStack  = new Stack<JPanel>();
 	
 	private MainPanel mainPanel = new MainPanel(this);
 	private OptionsPanel optionsPanel = new OptionsPanel(this);
 	
 	private BufferedImage backgroundImage = null;
+	
+	public static final Color BACKGROUND_COLOR = new Color(0.5411f, 0.5411f, 0.5411f, 0.4f);
 
 	/**
-	 * Create the frame and its components.
+	 * 
 	 */
-	public JBSGUI(Resolution res, ScreenMode mode) {
-		mainFrame.setResizable(JBSCore.RESIZABLE);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 100, res.getWidth(), res.getHeight());
-		
+	public JBSGUI() {
 		try {
 			backgroundImage = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Inits GUI
+	 */
+	public void initGUI(Resolution res, ScreenMode mode){
+		mainFrame.setResizable(JBSCoreGame.RESIZABLE);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.setBounds(0, 0, res.getWidth(), res.getHeight());
 		
+		contentPane = new JPanel(){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -6588552075773032990L;
+
+			/* (non-Javadoc)
+			 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+			 */
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.drawImage(backgroundImage, 0, 0, this.getWidth(),this.getHeight(), null);
+			}
+		};
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		//TODO: Remove add call
@@ -66,34 +89,62 @@ public class JBSGUI{
 	}
 	
 	/**
-	 * Inits GUI
-	 */
-	public void initGUI(){
-		
-	}
-	
-	/**
-	 * Swaps the current center-component with the given one.
+	 * Swaps the current center-component with the given one and adds the previous one to the stack.
 	 * @param container
 	 */
 	public void swapContainer(JPanel container){
-		contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
+		JPanel p = (JPanel) ((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER);
+		contentPane.remove(p);
 		contentPane.add(container,BorderLayout.CENTER);
+		panelStack.push(p);
 		container.updateUI();
-		JBSCore.msgLogger.addMessage("Swapped JPanel!");
+		JBSCoreGame.ioQueue.insertInput("Swapped JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
 	}
 	
 	/**
-	 * @deprecated
+	 * Swaps the current center-component with the given one without adding the previous one to the stack.
+	 * Be careful, it destroys the stack-order!
+	 * @param container
+	 */
+	public void forceSwapContainer(JPanel container){
+		JPanel p = (JPanel) ((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER);
+		contentPane.remove(p);
+		contentPane.add(container,BorderLayout.CENTER);
+		container.updateUI();
+		JBSCoreGame.ioQueue.insertInput("Swapped JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+	}
+	
+	/**
 	 * <br>Restores the previous JPanel that was visible before a new one was called.
 	 */
 	public void restorePrevContainer(){
-		JBSCore.msgLogger.addMessage("DEPRECATED METHOD, DO NOT USE!");
 		if(!panelStack.empty()){
-			//swapContainer(panelStack.pop());
-			//JBSCore.msgLogger.addMessage("Restored previous JPanel!");
+			JPanel p = panelStack.pop();
+			contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
+			contentPane.add(p,BorderLayout.CENTER);
+			p.updateUI();
+			JBSCoreGame.ioQueue.insertInput("Restored previous JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
 		}else{
-			//JBSCore.msgLogger.addMessage("Stack is Empty!");
+			JBSCoreGame.ioQueue.insertInput("Stack is Empty!", JBSCoreGame.MSG_LOGGER_KEY);
+		}
+	}
+	
+	/**
+	 * Restores the first JPanel that was visible before new ones were called.
+	 * Optionally clears the stack.
+	 */
+	public void restoreRootContainer(boolean clearStack){
+		if(!panelStack.empty()){
+			JPanel p = panelStack.firstElement();
+			contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
+			contentPane.add(p,BorderLayout.CENTER);
+			if(clearStack){
+				panelStack.clear();
+			}
+			p.updateUI();
+			JBSCoreGame.ioQueue.insertInput("Restored previous JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+		}else{
+			JBSCoreGame.ioQueue.insertInput("Stack is Empty!", JBSCoreGame.MSG_LOGGER_KEY);
 		}
 	}
 	
@@ -165,6 +216,20 @@ public class JBSGUI{
 	 */
 	public final void setBackgroundImage(BufferedImage backgroundImage) {
 		this.backgroundImage = backgroundImage;
+	}
+
+	/**
+	 * @return the mainFrame
+	 */
+	public final JFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	/**
+	 * @param mainFrame the mainFrame to set
+	 */
+	public final void setMainFrame(JFrame mainFrame) {
+		this.mainFrame = mainFrame;
 	}
 
 }

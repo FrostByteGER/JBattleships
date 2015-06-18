@@ -5,4 +5,4 @@
  * @author Kevin Kuegler
  * @version 1.00
  */
-package de.hsb.ismi.jbs.engine.network.server.chat;
+package de.hsb.ismi.jbs.engine.network.chat.client;

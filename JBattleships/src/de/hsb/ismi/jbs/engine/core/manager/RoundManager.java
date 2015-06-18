@@ -31,7 +31,7 @@ public class RoundManager implements RoundListener{
 	 * 
 	 */
 	private boolean processRound(){
-		if(ship.isAlive() && ship.canShot()){
+		if(ship.isAlive() && ship.canShoot()){
 			boolean hit = ship.shoot(x, y, direction, target.getPlayerField());
 			
 			JBattleships.game.getGameManager().getGame().checkShipsHealth();
@@ -47,7 +47,6 @@ public class RoundManager implements RoundListener{
 	 */
 	private void analyzeRound(){
 		target.getPlayerField().isFieldWaterHit(x, y);
-		//TODO: Fire GameEnd event!
 		if(JBattleships.game.getGameManager().getGame().isGameOver()){
 			fireEndRound(source);
 			JBattleships.game.getGameManager().endGame(false);

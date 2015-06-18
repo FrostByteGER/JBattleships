@@ -20,9 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import de.hsb.ismi.jbs.engine.core.IOListener;
+import de.hsb.ismi.jbs.engine.core.JBSIOQueue;
 import de.hsb.ismi.jbs.engine.io.parser.ResourceParser;
-import de.hsb.ismi.jbs.engine.network.client.chat.ChatClient;
-import de.hsb.ismi.jbs.engine.network.server.chat.ChatServer;
+import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
+import de.hsb.ismi.jbs.engine.network.chat.server.ChatServer;
 import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 
 /**
@@ -42,19 +44,56 @@ public class TestingClassKevin {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		/*
+		JBSIOQueue<String> queue = new JBSIOQueue<>("a", new IOListener<String>() {
+
+			@Override
+			public void inputReceived(String input, String notifierType) {
+				System.out.println("Got a input: " + input);
+			}
+
+			@Override
+			public void outputReceived(String output, String notifierType) {
+				System.out.println("Got b output: " + output);
+				
+			}
+		});
+		
+		queue.addIOListener("b", new IOListener<String>() {
+
+			@Override
+			public void inputReceived(String input, String notifierType) {
+				System.out.println("Got a input: " + input);
+			}
+
+			@Override
+			public void outputReceived(String output, String notifierType) {
+				System.out.println("Got b output: " + output);
+			}
+		});
+		
+		queue.insertInput("IIIINPUT", "a");
+		queue.insertOutput("OOOUTPUT", "a");
+		
+		queue.insertInput("IIIINPUT", "b");
+		queue.insertOutput("OOOUTPUT", "b");
+		
+		queue.insertInput("IIIINPUT", "c");
+		queue.insertOutput("OOOUTPUT", "c");
+		*/
+		
 		
 		ChatServer server = new ChatServer(36322);
 		try {
 			ChatClient client = new ChatClient("localhost",36322, "Kevin");
-			//client.sendMessage("rofl");
+			client.sendMessage("rofl");
 			
-			//ChatClient client2 = new ChatClient("localhost",36322, "Kevin");
+			ChatClient client2 = new ChatClient("localhost",36322, "Kevin");
 			//ChatClient client3 = new ChatClient("localhost",36322, "Jan");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 		
 		

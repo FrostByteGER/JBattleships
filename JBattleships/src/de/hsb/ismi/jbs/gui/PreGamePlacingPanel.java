@@ -7,9 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
-import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
 import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.core.JBSFrigate;
@@ -33,14 +32,9 @@ import javax.swing.border.TitledBorder;
 import java.awt.Font;
 
 import javax.swing.JTextArea;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.SystemColor;
-import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JLabel;
@@ -52,17 +46,19 @@ import javax.swing.JLabel;
 public class PreGamePlacingPanel extends JPanel {
 	
 	private JBSGUI parent;
+	
+	private JPanel centerPanel;
 	private JPanel header;
 	private JPanel buttonPanel;
+	private JPanel shipPanel;
+	
 	private JButton btnCancel;
 	private JButton btnContinue;
 	private GameFieldPanel fieldPanel;
-	private JPanel shipPanel;
 	private JButton btnDestroyer;
 	private JButton btnFrigate;
 	private JButton btnCorvette;
 	private JButton btnSubmarine;
-	private JPanel centerPanel;
 	private JTextArea textArea;
 	
 	private int destroyersLeft = 0;
@@ -74,10 +70,10 @@ public class PreGamePlacingPanel extends JPanel {
 	private JBSPlayer activePlayer;
 	private GameManager gm;
 	private int activePlayerIndex;
+	private JBSPlayer[] players = null;
+	
 	private JLabel lblSelectedShip;
-	
-	private boolean lastPlayer;
-	
+		
 	/**
 	 * 
 	 * @param parent
@@ -93,11 +89,12 @@ public class PreGamePlacingPanel extends JPanel {
 	 * Initiates the Panel.
 	 */
 	public void initPanel(){
-		lastPlayer = false;
 		this.header = parent.generateHeader();
 		setLayout(new BorderLayout(0, 0));
+		setOpaque(false);
 		add(header, BorderLayout.NORTH);
 		buttonPanel = new JPanel();
+		buttonPanel.setOpaque(false);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		add(buttonPanel, BorderLayout.SOUTH);
 		
@@ -106,8 +103,11 @@ public class PreGamePlacingPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("cancel")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePlacingPanel.this.getClass());
-					PreGamePlacingPanel.this.parent.swapContainer(PreGamePlacingPanel.this.parent.getMainPanel());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePlacingPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
+					
+					//TODO: Destroys the GUI-logic. Add reset Container method!
+					//parent.restorePrevContainer();
+					parent.restoreRootContainer(true);
 				}
 			}
 		});
@@ -125,6 +125,7 @@ public class PreGamePlacingPanel extends JPanel {
 		buttonPanel.add(btnContinue);
 		
 		centerPanel = new JPanel();
+		centerPanel.setOpaque(false);
 		add(centerPanel, BorderLayout.CENTER);
 		
 		GridBagConstraints gbc_fieldPanel = new GridBagConstraints();
@@ -140,7 +141,9 @@ public class PreGamePlacingPanel extends JPanel {
 
 		
 		shipPanel = new JPanel();
-		centerPanel.add(shipPanel, "cell 1 0,grow");
+		shipPanel.setOpaque(true);
+		shipPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		centerPanel.add(new AlphaContainer(shipPanel), "cell 1 0,grow");
 		shipPanel.setBorder(new TitledBorder(null, "Ship List", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_shipPanel = new GridBagLayout();
 		gbl_shipPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
@@ -154,6 +157,7 @@ public class PreGamePlacingPanel extends JPanel {
 		textArea.setText("Choose a shiptype and left-click on the board to place your ship. Use right-click to change the direction.");
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
+		textArea.setOpaque(false);
 		textArea.setBackground(SystemColor.menu);
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.insets = new Insets(0, 0, 5, 0);
@@ -259,11 +263,11 @@ public class PreGamePlacingPanel extends JPanel {
 	 * Initiates the player-relevant data.
 	 */
 	private void initPlayerData(){
-		destroyersLeft = gm.getDestroyerCount();
-		frigatesLeft = gm.getFrigateCount();
-		corvettesLeft = gm.getCorvetteCount();
-		subsLeft = gm.getSubmarineCount();
-		activePlayer = gm.getPrePlayers().get(activePlayerIndex); //TODO: Be careful, might be null!
+		destroyersLeft = gm.getGame().getDestroyerCount();
+		frigatesLeft = gm.getGame().getFrigateCount();
+		corvettesLeft = gm.getGame().getCorvetteCount();
+		subsLeft = gm.getGame().getSubmarineCount();
+		activePlayer = gm.getGame().getPlayer(activePlayerIndex);
 		activePlayer.setPlayerField(new JBSGameField(gm.getFieldSize()));
 		fieldPanel = new GameFieldPanel(activePlayer.getPlayerField(), 400, gm.getFieldSize());
 		fieldPanel.setShowSelection(false);
@@ -271,10 +275,10 @@ public class PreGamePlacingPanel extends JPanel {
 			@Override
 			public void clickFired(JPanel instigator) {
 				if(instigator instanceof GameFieldPanel && activeShip != null){
-					JBSCore.msgLogger.addMessage("Fired Event " +  GameFieldActionListener.class.getSimpleName() + " from: " + instigator.getClass().getSimpleName());
+					JBSCoreGame.ioQueue.insertInput("Fired Event " +  GameFieldActionListener.class.getSimpleName() + " from: " + instigator.getClass().getSimpleName(), JBSCoreGame.MSG_LOGGER_KEY);
 					GameFieldPanel gfp = (GameFieldPanel)instigator;
 					activeShip.setPositon(gfp.getSelectx(), gfp.getSelecty(), gfp.getDirection());
-					if(gfp.getGamefild().setShip(activeShip)){
+					if(gfp.getGamefild().addShip(activeShip)){
 						if(activeShip instanceof JBSDestroyer){
 							destroyersLeft--;
 							btnDestroyer.setText("Destroyers Left: " + destroyersLeft);	
@@ -289,12 +293,12 @@ public class PreGamePlacingPanel extends JPanel {
 							btnSubmarine.setText("Submarines Left: " + subsLeft);	
 						}
 						activePlayer.addShip(activeShip);
-						JBSCore.msgLogger.addMessage("Successfully placed " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection());
+						JBSCoreGame.ioQueue.insertInput("Successfully placed " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection(), JBSCoreGame.MSG_LOGGER_KEY);
 						
 						activeShip = null;
 						lblSelectedShip.setText("Selected Ship: None");
 					}else{
-						JBSCore.msgLogger.addMessage("Could not place " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection());
+						JBSCoreGame.ioQueue.insertInput("Could not place " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection(), JBSCoreGame.MSG_LOGGER_KEY);
 					}
 				}
 			}
@@ -332,9 +336,8 @@ public class PreGamePlacingPanel extends JPanel {
 		}else{
 			// Updates the panel with the new player-data since this is a human player!
 			updatePanel();
-			if(activePlayerIndex == gm.getPrePlayers().size() - 1){
+			if(activePlayerIndex == gm.getGame().getPlayers().length - 1){
 				btnContinue.setText("Start Game");
-				lastPlayer = true;
 			}
 		}
 	}
@@ -352,14 +355,13 @@ public class PreGamePlacingPanel extends JPanel {
 	 */
 	private void nextPlayer(){
 		//TODO: Add security question if destroyersLeft etc... is > 0
-		if(activePlayerIndex < gm.getPrePlayers().size() - 1){
+		if(activePlayerIndex < gm.getGame().getPlayers().length - 1){
 			activePlayerIndex++;
 			initPlayerData();
-		}else if(activePlayerIndex == gm.getPrePlayers().size() - 1){
+		}else if(activePlayerIndex == gm.getGame().getPlayers().length - 1){
 			gm.startGame();
-			parent.swapContainer(new GameFieldContainer2(parent));
-			
-			JBSCore.msgLogger.addMessage("Started Game!");
+			parent.swapContainer(new MainGamePanel(parent));
+			JBSCoreGame.ioQueue.insertInput("Started Game!", JBSCoreGame.MSG_LOGGER_KEY);
 		}
 	}
 

@@ -5,6 +5,11 @@ package de.hsb.ismi.jbs.engine.ai;
 
 import java.util.Random;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
@@ -23,50 +28,43 @@ import de.hsb.ismi.jbs.start.JBattleships;
  * @author Kevin-Laptop Kuegler
  * @version 1.00
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class JBSAIPlayer extends JBSPlayer {
 	
-	public static int DIFFICULTIE_DUM;
-	public static int DIFFICULTIE_LOW;
-	public static int DIFFICULTIE_MID;
-	public static int DIFFICULTIE_PRO;
+	public static int DIFFICULTY_RETARDED;
+	public static int DIFFICULTY_EASY;
+	public static int DIFFICULTY_MEDIUM;
+	public static int DIFFICULTY_HARD;
 	
-	private Direction hitdirection;
-	private int hitx;
-	private int hity;
-	private int hitfield;
-	
-	private boolean hit;
-	
-	private Direction lasthitdirection;
-	private int lasthitx;
-	private int lasthity;
-	private int lasthitfield;
-	
-	private boolean lasthit;
-	
-	private Random r;
+	@XmlElement(name = "HitDirection")
+	private Direction hitdirection = Direction.NONE;
+	@XmlElement(name = "HitX")
+	private int hitx = 0;
+	@XmlElement(name = "HitY")
+	private int hity = 0;
+	@XmlElement(name = "HitFieldIndex")
+	private int hitfield = 0;
+	//TODO: What?
+	@XmlElement(name = "hasHit")
+	private boolean hit = false;
+	@XmlElement(name = "LastHitDirection")
+	private Direction lasthitdirection = Direction.NONE;
+	@XmlElement(name = "LastHitX")
+	private int lasthitx = 0;
+	@XmlElement(name = "LastHitY")
+	private int lasthity = 0;
+	@XmlElement(name = "LastHitFieldIndex")
+	private int lasthitfield = 0;
+	@XmlElement(name = "HasLastShotHit")
+	private boolean lasthit = false;
+	@XmlTransient
+	private Random r = new Random();
 	
 	/**
 	 * 
 	 */
 	public JBSAIPlayer() {
 		super(new JBSProfile());
-		
-		hitdirection = Direction.NONE;
-		hitx = -1;
-		hity = -1;
-		hitfield = -1;
-		
-		hit = false;
-		
-		lasthitdirection = Direction.NONE;
-		lasthitx = -1;
-		lasthity = -1;
-		lasthitfield = -1;
-		
-		lasthit = false;
-		
-		r = new Random();		
 	}
 
 	/**
@@ -74,27 +72,12 @@ public class JBSAIPlayer extends JBSPlayer {
 	 */
 	public JBSAIPlayer(String name) {
 		super(name);
-		hitdirection = Direction.NONE;
-		hitx = 0;
-		hity = 0;
-		hitfield = 0;
-		
-		hit = false;	
-		
-		lasthitdirection = Direction.NONE;
-		lasthitx = 0;
-		lasthity = 0;
-		lasthitfield = 0;
-		
-		lasthit = false;
-		
-		r = new Random();	
 	}
 
 	public JBSShip processRound(Game game){
 		
 		for(JBSShip ship : getShips()){
-			if(ship.canShot()){
+			if(ship.canShoot()){
 				if(lasthit != lasthit){
 					//TODO
 				}else{
@@ -146,25 +129,25 @@ public class JBSAIPlayer extends JBSPlayer {
 		GameManager manager = JBattleships.game.getGameManager();
 		JBSShip ship = null;
 		
-		for(int i = 0 ; i < manager.getDestroyerCount() ; i++){		
+		for(int i = 0 ; i < manager.getGame().getDestroyerCount() ; i++){		
 			ship = new JBSDestroyer();		
 			placeShip(getPlayerField(), ship);
 			addShip(ship);
 		}
 		
-		for(int i = 0 ; i < manager.getFrigateCount() ; i++){		
+		for(int i = 0 ; i < manager.getGame().getFrigateCount() ; i++){		
 			ship = new JBSFrigate();
 			placeShip(getPlayerField(), ship);
 			addShip(ship);
 		}
 		
-		for(int i = 0 ; i < manager.getCorvetteCount() ; i++){
+		for(int i = 0 ; i < manager.getGame().getCorvetteCount() ; i++){
 			ship = new JBSCorvette();			
 			placeShip(getPlayerField(), ship);
 			addShip(ship);
 		}
 		
-		for(int i = 0 ; i < manager.getSubmarineCount(); i++){			
+		for(int i = 0 ; i < manager.getGame().getSubmarineCount(); i++){			
 			ship = new JBSSubmarine();			
 			placeShip(getPlayerField(), ship);
 			addShip(ship);
@@ -177,10 +160,150 @@ public class JBSAIPlayer extends JBSPlayer {
 			ship.setPositon(r.nextInt(field.getSize()), r.nextInt(field.getSize()), Direction.getRandomDirection(r));
 			
 			if(field.shipCanBePlaced(ship)){
-				field.setShip(ship);
+				field.addShip(ship);
 				break;
 			}
 		}	
+	}
+
+	/**
+	 * @return the hitdirection
+	 */
+	public final Direction getHitdirection() {
+		return hitdirection;
+	}
+
+	/**
+	 * @param hitdirection the hitdirection to set
+	 */
+	public final void setHitdirection(Direction hitdirection) {
+		this.hitdirection = hitdirection;
+	}
+
+	/**
+	 * @return the hitx
+	 */
+	public final int getHitx() {
+		return hitx;
+	}
+
+	/**
+	 * @param hitx the hitx to set
+	 */
+	public final void setHitx(int hitx) {
+		this.hitx = hitx;
+	}
+
+	/**
+	 * @return the hity
+	 */
+	public final int getHity() {
+		return hity;
+	}
+
+	/**
+	 * @param hity the hity to set
+	 */
+	public final void setHity(int hity) {
+		this.hity = hity;
+	}
+
+	/**
+	 * @return the hitfield
+	 */
+	public final int getHitfield() {
+		return hitfield;
+	}
+
+	/**
+	 * @param hitfield the hitfield to set
+	 */
+	public final void setHitfield(int hitfield) {
+		this.hitfield = hitfield;
+	}
+
+	/**
+	 * @return the hit
+	 */
+	public final boolean isHit() {
+		return hit;
+	}
+
+	/**
+	 * @param hit the hit to set
+	 */
+	public final void setHit(boolean hit) {
+		this.hit = hit;
+	}
+
+	/**
+	 * @return the lasthitdirection
+	 */
+	public final Direction getLasthitdirection() {
+		return lasthitdirection;
+	}
+
+	/**
+	 * @param lasthitdirection the lasthitdirection to set
+	 */
+	public final void setLasthitdirection(Direction lasthitdirection) {
+		this.lasthitdirection = lasthitdirection;
+	}
+
+	/**
+	 * @return the lasthitx
+	 */
+	public final int getLasthitx() {
+		return lasthitx;
+	}
+
+	/**
+	 * @param lasthitx the lasthitx to set
+	 */
+	public final void setLasthitx(int lasthitx) {
+		this.lasthitx = lasthitx;
+	}
+
+	/**
+	 * @return the lasthity
+	 */
+	public final int getLasthity() {
+		return lasthity;
+	}
+
+	/**
+	 * @param lasthity the lasthity to set
+	 */
+	public final void setLasthity(int lasthity) {
+		this.lasthity = lasthity;
+	}
+
+	/**
+	 * @return the lasthitfield
+	 */
+	public final int getLasthitfield() {
+		return lasthitfield;
+	}
+
+	/**
+	 * @param lasthitfield the lasthitfield to set
+	 */
+	public final void setLasthitfield(int lasthitfield) {
+		this.lasthitfield = lasthitfield;
+	}
+
+	/**
+	 * @return the lasthit
+	 */
+	public final boolean isLasthit() {
+		return lasthit;
+	}
+
+	/**
+	 * @param lasthit the lasthit to set
+	 */
+	public final void setLasthit(boolean lasthit) {
+		this.lasthit = lasthit;
 	}
 	
 	/**

@@ -25,11 +25,7 @@ public class PreGamePlayerPanel extends JPanel {
 	 * Creates a new PreGamePlayerPanel with a preset nameField String.
 	 */
 	public PreGamePlayerPanel() {
-		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
-		add(lblName);
-		add(nameField);
-		add(checkboxAI);
-		add(checkboxActive);
+		initGUI();
 	}
 	
 	/**
@@ -37,12 +33,21 @@ public class PreGamePlayerPanel extends JPanel {
 	 * @param fieldContent The content of the nameField.
 	 */
 	public PreGamePlayerPanel(String fieldContent) {
+		nameField = new JTextField(fieldContent, 10);
+		initGUI();
+	}
+	
+	/**
+	 * 
+	 */
+	private void initGUI(){
 		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(lblName);
-		nameField = new JTextField(fieldContent, 10);
 		add(nameField);
 		add(checkboxAI);
 		add(checkboxActive);
+		checkboxAI.setOpaque(false);
+		checkboxActive.setOpaque(false);
 	}
 
 	/**

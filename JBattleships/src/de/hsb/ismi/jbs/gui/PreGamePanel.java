@@ -29,7 +29,7 @@ import javax.swing.JCheckBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
@@ -38,6 +38,7 @@ import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 
 /**
  * @author Kevin Kuegler
@@ -46,15 +47,18 @@ import java.awt.Font;
 public class PreGamePanel extends JPanel {
 
 	private JBSGUI parent;
+	
 	private JPanel header;
 	private JPanel centerPanel;
 	private JPanel buttonPanel;
-	private JButton btnCancel;
-	private JButton btnContinue;
 	private JPanel settingsPanel;
-	private JPanel mixed;
+	private JPanel mixedPanel;
 	private JPanel shipPanel;
 	private JPanel playerPanel;
+	
+	private JButton btnCancel;
+	private JButton btnContinue;
+
 	private PreGamePlayerPanel[] playerPanels;
 	private JLabel lblDestroyer;
 	private JSpinner destroyerSpinner;
@@ -73,12 +77,14 @@ public class PreGamePanel extends JPanel {
 	
 	/** The GameType of this Panel */
 	private JBSGameType gameType;
+	private ArrayList<JBSPlayer> players = new ArrayList<>(0);
 	
 	
 	/**
 	 * Create the panel.
 	 */
 	public PreGamePanel(JBSGUI parent, JBSGameType type) {
+		setOpaque(false);
 		btnGroup = new JBSButtonGroup();
 		playerPanels = new PreGamePlayerPanel[8];
 		for(int i = 0;i < playerPanels.length;i++){
@@ -99,23 +105,23 @@ public class PreGamePanel extends JPanel {
 		
 		
 		centerPanel = new JPanel();
+		centerPanel.setOpaque(true);
+		centerPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		centerPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Main Settings", TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 25), new Color(0, 0, 0)));
-		add(centerPanel, BorderLayout.CENTER);
+		add(new AlphaContainer(centerPanel), BorderLayout.CENTER);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		
 		buttonPanel = new JPanel();
+		buttonPanel.setOpaque(false);
 		centerPanel.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.setActionCommand("cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("cancel")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePanel.this.getClass());
-					PreGamePanel.this.parent.swapContainer(PreGamePanel.this.parent.getMainPanel());
-				}
-			}
+		btnCancel.addActionListener(e -> {
+				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
+				parent.restorePrevContainer();
+				//PreGamePanel.this.parent.swapContainer(PreGamePanel.this.parent.getMainPanel());
 		});
 		buttonPanel.add(btnCancel);
 		
@@ -124,8 +130,7 @@ public class PreGamePanel extends JPanel {
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("continue")){
-					JBattleships.game.generateGame();
-					GameManager gm = JBattleships.game.getGameManager();
+					GameManager gm = JBattleships.game.generateGame();
 					for(PreGamePlayerPanel pregpp : playerPanels){
 						//TODO: add various checks!
 						boolean active = pregpp.isActiveSelected();
@@ -133,56 +138,46 @@ public class PreGamePanel extends JPanel {
 							boolean ai = pregpp.isAISelected();
 							String name = pregpp.getName();
 							if(ai){
-								gm.addPlayer(new JBSAIPlayer(name));
+								players.add(new JBSAIPlayer(name));
 							}else{
-								gm.addPlayer(new JBSPlayer(name));
+								players.add(new JBSPlayer(name));
 							}
 						}
 					}
-					int dc = 1;
+					int[] count = new int[4];
 					//destroyerSpinner.commitEdit(); TODO: Discard?
 					try{
-						dc = ((Integer)destroyerSpinner.getValue());
+						count[0] = ((Integer)destroyerSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.setDestroyerCount(dc);
-					
-					int fc = 1;
 					try{
-						fc = ((Integer)frigateSpinner.getValue());
+						count[1] = ((Integer)frigateSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.setFrigateCount(fc);
-					
-					int cc = 1;
 					try{
-						cc = ((Integer)corvetteSpinner.getValue());
+						count[2] = ((Integer)corvetteSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.setCorvetteCount(cc);
-					
-					int sc = 1;
 					try{
-						sc = ((Integer)subSpinner.getValue());
+						count[3] = ((Integer)subSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.setSubmarineCount(sc);
 					
-					int fs = 16;
+					int fieldSize = 16;
 					try{
-						fs = ((Integer)fieldSizeSpinner.getValue());
+						fieldSize = ((Integer)fieldSizeSpinner.getValue());
 					}catch(ClassCastException cce){
 						cce.printStackTrace();
 					}
-					gm.createGame(gameType, fs);
-					JBSCore.msgLogger.addMessage("Created Game!");
-					JBSCore.msgLogger.addMessage(gm.toString());
+					gm.createGame(gameType,players.toArray(new JBSPlayer[players.size()]), fieldSize, count);
+					JBSCoreGame.ioQueue.insertInput("Created Game!", JBSCoreGame.MSG_LOGGER_KEY);
+					JBSCoreGame.ioQueue.insertInput(gm.toString(), JBSCoreGame.MSG_LOGGER_KEY);
 					
-					parent.swapContainer(new PreGamePlacingPanel(PreGamePanel.this.parent));
+					parent.swapContainer(new PreGamePlacingPanel(parent));
 					//parent.swapContainer(new ColorPickerPanel());
 				}
 			}
@@ -190,16 +185,22 @@ public class PreGamePanel extends JPanel {
 		buttonPanel.add(btnContinue);
 		
 		settingsPanel = new JPanel();
+		settingsPanel.setOpaque(false);
+		settingsPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		centerPanel.add(settingsPanel, BorderLayout.CENTER);
 		settingsPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		mixed = new JPanel();
-		mixed.setBorder(new TitledBorder(null, "Other:", TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 18), null));
-		settingsPanel.add(mixed);
-		mixed.setLayout(new GridLayout(0, 1, 0, 0));
+		mixedPanel = new JPanel();
+		mixedPanel.setOpaque(false);
+		mixedPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		mixedPanel.setBorder(new TitledBorder(null, "Other:", TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 18), null));
+		settingsPanel.add(mixedPanel);
+		mixedPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		otherPanel = new JPanel();
-		mixed.add(otherPanel);
+		otherPanel.setOpaque(false);
+		otherPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		mixedPanel.add(otherPanel);
 		GridBagLayout gbl_otherPanel = new GridBagLayout();
 		gbl_otherPanel.columnWidths = new int[]{0, 0, 0};
 		gbl_otherPanel.rowHeights = new int[]{0, 0, 0};
@@ -230,6 +231,7 @@ public class PreGamePanel extends JPanel {
 		otherPanel.add(fieldSizeSpinner, gbc_fieldSizeSpinner);
 		
 		chckbxUseNavalMines = new JCheckBox("Use Naval Mines?");
+		chckbxUseNavalMines.setOpaque(false);
 		GridBagConstraints gbc_chckbxUseNavalMines = new GridBagConstraints();
 		gbc_chckbxUseNavalMines.insets = new Insets(0, 0, 0, 5);
 		gbc_chckbxUseNavalMines.gridx = 0;
@@ -237,6 +239,7 @@ public class PreGamePanel extends JPanel {
 		otherPanel.add(chckbxUseNavalMines, gbc_chckbxUseNavalMines);
 		
 		chckbxUseCannon = new JCheckBox("Use Coastal Artillery?");
+		chckbxUseCannon.setOpaque(false);
 		GridBagConstraints gbc_chckbxUseCannon = new GridBagConstraints();
 		gbc_chckbxUseCannon.weighty = 1.0;
 		gbc_chckbxUseCannon.weightx = 1.0;
@@ -245,14 +248,19 @@ public class PreGamePanel extends JPanel {
 		otherPanel.add(chckbxUseCannon, gbc_chckbxUseCannon);
 		
 		playerPanel = new JPanel();
+		playerPanel.setOpaque(false);
+		playerPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		playerPanel.setBorder(new TitledBorder(null, "Players", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		mixed.add(playerPanel);
+		mixedPanel.add(new AlphaContainer(playerPanel));
 		playerPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		for(PreGamePlayerPanel pgpp : playerPanels){
+			pgpp.setOpaque(false);
 			playerPanel.add(pgpp);
 		}
 		
 		shipPanel = new JPanel();
+		shipPanel.setOpaque(false);
+		shipPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		shipPanel.setBorder(new TitledBorder(null, "Ship Settings:", TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 18), null));
 		settingsPanel.add(shipPanel);
 		GridBagLayout gbl_shipPanel = new GridBagLayout();

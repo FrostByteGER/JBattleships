@@ -9,12 +9,16 @@ import java.util.HashMap;
 import javax.swing.UIManager;
 
 import de.frostbyteger.messagelogger.MessageLogger;
+import de.hsb.ismi.jbs.engine.core.IOListener;
 import de.hsb.ismi.jbs.engine.core.JBSIOQueue;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
-import de.hsb.ismi.jbs.engine.network.server.chat.ChatServer;
+import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
+import de.hsb.ismi.jbs.engine.network.chat.server.ChatServer;
+import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
+import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
@@ -26,10 +30,10 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class JBSCore {
+public class JBSCoreGame {
 
 	/** The MessageLogger to log errors, exceptions and other stuff. */
-	public static MessageLogger msgLogger = new MessageLogger(JBSCore.DEBUG);
+	public static MessageLogger msgLogger = new MessageLogger(JBSCoreGame.DEBUG_MODE);
 	/** The Checksumgenerator to generate checksums from various objects, Strings or such. */
 	public static SHA256Generator shaGenerator = new SHA256Generator();
 	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
@@ -38,8 +42,10 @@ public class JBSCore {
 	public static JBSIOQueue<String> ioQueue = new JBSIOQueue<String>();
 	/** The Path of the Datafolder with all important content. */
 	public static final String DATA_PATH = "Data/";
+	/** TODO: JAVADOC */
+	public static final String MSG_LOGGER_KEY = "Logger";
 	/** Enables debug functionality and the MessageLogger. */
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG_MODE = true;
 	/** Allows to resize the game window. */
 	public static final boolean RESIZABLE = false;
 	
@@ -53,12 +59,12 @@ public class JBSCore {
 	private int music = 100;
 	/** The game's current IP-address. */
 	private String ip = "0.0.0.0";
-	/** The game's current port. */
-	private int port = -1;
 	/** The game's current language. */
 	private String language = "English";
-	/** The ChatServers curent port. */
-	private int chatPort = 5550;
+	/** The ChatServers curent gamePort. */
+	private int chatPort = 15751;
+	/** The game's current gamePort. */
+	private int gamePort = 15750;
 	
 	/** The mainGUI of the game. */
 	private JBSGUI mainGUI = null;
@@ -69,17 +75,34 @@ public class JBSCore {
 	
 	/** The ChatServer of the game. */
 	private ChatServer chatServer = null;
+	/** */
+	private GameServer gameServer = null;
+	/** */
+	private ChatClient chatClient = null;
+	/** */
+	private GameClient gameClient = null;
 	
 	/**
 	 * 
 	 */
-	public JBSCore() {
-	}
-	
-	/**
-	 * 
-	 */
-	public JBSCore(boolean initGame) {
+	public JBSCoreGame(boolean initGame) {
+		ioQueue.addIOListener("Logger", new IOListener<String>() {
+			
+			@Override
+			public void outputReceived(String output, String notifierType) {	
+				if(DEBUG_MODE){
+					
+				}
+			}
+			
+			@Override
+			public void inputReceived(String input, String notifierType) {
+				if(DEBUG_MODE){
+					msgLogger.addMessage(input);
+				}
+				
+			}
+		});
 		if(initGame){
 			initGame();
 		}
@@ -98,15 +121,15 @@ public class JBSCore {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Initializes the game-GUI.
 	 */
-	public void initGUI(){
+	public void initGameGUI(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //ALWAYS SET BEFORE CREATING THE FRAME!
-					mainGUI = new JBSGUI(currentResolution, screenMode);
+					mainGUI = new JBSGUI();
+					mainGUI.initGUI(currentResolution, screenMode);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -180,7 +203,7 @@ public class JBSCore {
 			if (nt.size() > 0) {
 				try {
 					ip = nt.get("ip");
-					port = Integer.parseInt(nt.get("port"));
+					gamePort = Integer.parseInt(nt.get("gamePort"));
 				} catch (NumberFormatException nfe) {
 					return false;
 				}
@@ -284,11 +307,71 @@ public class JBSCore {
 	}
 
 	/**
-	 * @param chatServer the chatServer to set
+	 * Generates a new ChatServer.
+	 * @return The created ChatServer
 	 */
 	public final ChatServer generateChatServer() {
 		this.chatServer = new ChatServer(chatPort);
 		return this.chatServer;
 	}
+
+	/**
+	 * @return the gameServer
+	 */
+	public final GameServer getGameServer() {
+		return gameServer;
+	}
+	
+	/**
+	 * Generates a new GameServer.
+	 * @return The created GameServer
+	 */
+	public final GameServer generateGameServer() {
+		this.gameServer = new GameServer(gamePort);
+		return this.gameServer;
+	}
+
+	/**
+	 * @return the chatClient
+	 */
+	public final ChatClient getChatClient() {
+		return chatClient;
+	}
+
+	/**
+	 * @param chatClient the chatClient to set
+	 */
+	public final void setChatClient(ChatClient chatClient) {
+		this.chatClient = chatClient;
+	}
+
+	/**
+	 * @return the gameClient
+	 */
+	public final GameClient getGameClient() {
+		return gameClient;
+	}
+
+	/**
+	 * @param gameClient the gameClient to set
+	 */
+	public final void setGameClient(GameClient gameClient) {
+		this.gameClient = gameClient;
+	}
+
+	/**
+	 * @return the chatPort
+	 */
+	public final int getChatPort() {
+		return chatPort;
+	}
+
+	/**
+	 * @return the gamePort
+	 */
+	public final int getGamePort() {
+		return gamePort;
+	}
+
 
 }

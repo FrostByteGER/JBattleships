@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.io.JBSParserException;
 import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
 import de.hsb.ismi.jbs.engine.io.writer.OptionsWriter;
@@ -45,7 +45,7 @@ public class OptionsManager {
 		HashMap<String, HashMap<String, String>> data = new HashMap<>(0);
 		String currentCategory = "";
 		try {
-			raw = parser.parseOptions(JBSCore.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME);
+			raw = parser.parseOptions(JBSCoreGame.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME);
 			for(String s : raw){
 				if(s.equals(CATEGORIES[0]) || s.equals(CATEGORIES[1]) || s.equals(CATEGORIES[2]) || s.equals(CATEGORIES[3])){
 					if(!currentCategory.equals(s) && !currentCategory.isEmpty()){
@@ -70,11 +70,11 @@ public class OptionsManager {
 			}
 			//TODO: Combine catches?
 		} catch (FileNotFoundException fnfe) {
-			//JBSCore.msgLogger.addException(e);
+			//JBSCoreGame.msgLogger.addException(e);
 			fnfe.printStackTrace();
 			return false;
 		} catch (IOException ioe) {
-			//JBSCore.msgLogger.addException(e);
+			//JBSCoreGame.msgLogger.addException(e);
 			ioe.printStackTrace();
 			return false;
 		} catch(JBSParserException jpe){
@@ -92,7 +92,7 @@ public class OptionsManager {
 	 * @return
 	 */
 	public boolean saveOptions(HashMap<String,String[]> data){
-		return writer.writeOptions(JBSCore.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME + "2", data, CATEGORIES);
+		return writer.writeOptions(JBSCoreGame.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME + "2", data, CATEGORIES);
 	}
 	
 	/**

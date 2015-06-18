@@ -1,14 +1,15 @@
 /**
  * 
  */
-package de.hsb.ismi.jbs.engine.network.server.chat;
+package de.hsb.ismi.jbs.engine.network.game;
 
 /**
  * @author Kevin-Laptop Kuegler
  * @version 1.00
  */
-public enum ChatState {
+public enum GameConnectionState {
 	LOGIN,
 	AUTHENTICATED,
-	BANNED
+	BANNED,
+	CLOSED
 }

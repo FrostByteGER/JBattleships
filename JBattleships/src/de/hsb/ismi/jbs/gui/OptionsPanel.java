@@ -37,9 +37,8 @@ import java.util.HashMap;
 import javax.swing.ButtonGroup;
 import javax.swing.JSlider;
 
-import de.hsb.ismi.jbs.core.JBSCore;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
-import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -55,11 +54,16 @@ import javax.swing.JCheckBox;
 public class OptionsPanel extends JPanel{
 	
 	private JBSGUI parent;
+	
 	private JPanel centerPanel;
 	private JPanel gfxPanel;
 	private JPanel sfxPanel;
 	private JPanel otherPanel;
 	private JPanel buttonPanel;
+	private JPanel networkPanel;
+	private JPanel mixedPanel;
+	private JPanel gamePanel;
+
 	private JButton resetButton;
 	private JButton saveButton;
 	private JButton backButton;
@@ -74,13 +78,10 @@ public class OptionsPanel extends JPanel{
 	private JSlider sliderVolume;
 	private JSlider sliderMusic;
 	private JLabel lblMusic;
-	private JPanel networkPanel;
 	private JLabel lblIP;
 	private JComboBox<Inet4Address> ipBox;
 	private JLabel lblPort;
 	private JTextField portField;
-	private JPanel mixedPanel;
-	private JPanel gamePanel;
 	private JLabel lblLang;
 	private JComboBox<String> langBox;
 	private JLabel lblDebugmode;
@@ -92,14 +93,18 @@ public class OptionsPanel extends JPanel{
 	public OptionsPanel(JBSGUI parent) {
 		this.parent = parent;
 		setLayout(new BorderLayout(0, 0));
+		setOpaque(false);
 		add(parent.generateHeader(), BorderLayout.NORTH);
 		centerPanel = new JPanel();
+		centerPanel.setOpaque(false);
 		add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		
 		buttonGroup = new ButtonGroup();
 		gfxPanel = new JPanel();
-		centerPanel.add(gfxPanel);
+		gfxPanel.setOpaque(true);
+		gfxPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		centerPanel.add(new AlphaContainer(gfxPanel));
 		gfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Graphics", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagLayout gbl_gfxPanel = new GridBagLayout();
 		gbl_gfxPanel.columnWidths = new int[]{0, 0};
@@ -123,7 +128,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(lblRes, gbc_lblRes);
 		
 				
-		DisplayMode[] modes = JBSCore.screenDeviceManager.getSupportedDisplayModes(new int[]{JBSCore.screenDeviceManager.getCurrentDisplayMode().getRefreshRate()});
+		DisplayMode[] modes = JBSCoreGame.screenDeviceManager.getSupportedDisplayModes(new int[]{JBSCoreGame.screenDeviceManager.getCurrentDisplayMode().getRefreshRate()});
 		Resolution[] res = new Resolution[modes.length];
 		for(int i = 0; i < modes.length; i++){
 			res[i] = Resolution.convertDisplayModeToResolution(modes[i]);
@@ -159,6 +164,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(lblMode, gbc_lblMode);
 		
 		rdbtnFull = new JRadioButton("Fullscreen");
+		rdbtnFull.setOpaque(false);
 		buttonGroup.add(rdbtnFull);
 		GridBagConstraints gbc_rdbtnFull = new GridBagConstraints();
 		gbc_rdbtnFull.fill = GridBagConstraints.HORIZONTAL;
@@ -168,6 +174,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnFull, gbc_rdbtnFull);
 		
 		rdbtnWin = new JRadioButton("Windowed");
+		rdbtnWin.setOpaque(false);
 		buttonGroup.add(rdbtnWin);
 		GridBagConstraints gbc_rdbtnWin = new GridBagConstraints();
 		gbc_rdbtnWin.fill = GridBagConstraints.HORIZONTAL;
@@ -177,6 +184,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnWin, gbc_rdbtnWin);
 		
 		rdbtnLess = new JRadioButton("Borderless");
+		rdbtnLess.setOpaque(false);
 		buttonGroup.add(rdbtnLess);
 		GridBagConstraints gbc_rdbtnLess = new GridBagConstraints();
 		gbc_rdbtnLess.fill = GridBagConstraints.HORIZONTAL;
@@ -185,8 +193,10 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnLess, gbc_rdbtnLess);
 		
 		sfxPanel = new JPanel();
+		sfxPanel.setOpaque(true);
+		sfxPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		sfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Audio", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		centerPanel.add(sfxPanel);
+		centerPanel.add(new AlphaContainer(sfxPanel));
 		GridBagLayout gbl_sfxPanel = new GridBagLayout();
 		gbl_sfxPanel.columnWidths = new int[] {0};
 		gbl_sfxPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
@@ -213,6 +223,7 @@ public class OptionsPanel extends JPanel{
 		sliderVolume.setPaintTicks(true);
 		sliderVolume.setLabelTable(sliderVolume.createStandardLabels(50));
 		sliderVolume.setPaintLabels(true);
+		sliderVolume.setOpaque(false);
 		GridBagConstraints gbc_sliderVolume = new GridBagConstraints();
 		gbc_sliderVolume.insets = new Insets(0, 0, 5, 0);
 		gbc_sliderVolume.fill = GridBagConstraints.HORIZONTAL;
@@ -239,6 +250,7 @@ public class OptionsPanel extends JPanel{
 		sliderMusic.setPaintTicks(true);
 		sliderMusic.setPaintLabels(true);
 		sliderMusic.setLabelTable(sliderMusic.createStandardLabels(50));
+		sliderMusic.setOpaque(false);
 		GridBagConstraints gbc_sliderMusic = new GridBagConstraints();
 		gbc_sliderMusic.fill = GridBagConstraints.BOTH;
 		gbc_sliderMusic.gridx = 0;
@@ -246,12 +258,16 @@ public class OptionsPanel extends JPanel{
 		sfxPanel.add(sliderMusic, gbc_sliderMusic);
 		
 		otherPanel = new JPanel();
+		otherPanel.setOpaque(true);
+		otherPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		otherPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Network", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		centerPanel.add(otherPanel);
+		centerPanel.add(new AlphaContainer(otherPanel));
 		otherPanel.setLayout(new BorderLayout(0, 0));
 		
 		networkPanel = new JPanel();
-		otherPanel.add(networkPanel, BorderLayout.CENTER);
+		networkPanel.setOpaque(true);
+		networkPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		otherPanel.add(new AlphaContainer(networkPanel), BorderLayout.CENTER);
 		GridBagLayout gbl_networkPanel = new GridBagLayout();
 		gbl_networkPanel.columnWidths = new int[] {0};
 		gbl_networkPanel.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
@@ -275,7 +291,6 @@ public class OptionsPanel extends JPanel{
 		networkPanel.add(lblIP, gbc_lblIP);
 		
 		ipBox = new JComboBox<Inet4Address>(new Inet4Address[]{(Inet4Address) Inet4Address.getLoopbackAddress()});
-		//ipBox = new JComboBox<Inet4Address>();
 		GridBagConstraints gbc_ipBox = new GridBagConstraints();
 		gbc_ipBox.insets = new Insets(0, 0, 5, 0);
 		gbc_ipBox.fill = GridBagConstraints.HORIZONTAL;
@@ -308,12 +323,16 @@ public class OptionsPanel extends JPanel{
 		portField.setColumns(10);
 		
 		mixedPanel = new JPanel();
-		centerPanel.add(mixedPanel);
+		mixedPanel.setOpaque(true);
+		mixedPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		centerPanel.add(new AlphaContainer(mixedPanel));
 		mixedPanel.setLayout(new BoxLayout(mixedPanel, BoxLayout.Y_AXIS));
 		
 		gamePanel = new JPanel();
+		gamePanel.setOpaque(true);
+		gamePanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		gamePanel.setBorder(new TitledBorder(null, "Game", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		mixedPanel.add(gamePanel);
+		mixedPanel.add(new AlphaContainer(gamePanel));
 		GridBagLayout gbl_gamePanel = new GridBagLayout();
 		gbl_gamePanel.columnWidths = new int[]{0};
 		gbl_gamePanel.rowHeights = new int[] {0, 0, 0, 0, 0};
@@ -349,6 +368,7 @@ public class OptionsPanel extends JPanel{
 		gamePanel.add(lblDebugmode, gbc_lblDebugmode);
 		
 		chckbxDebug = new JCheckBox("Debug-Mode");
+		chckbxDebug.setOpaque(false);
 		GridBagConstraints gbc_chckbxDebug = new GridBagConstraints();
 		gbc_chckbxDebug.anchor = GridBagConstraints.WEST;
 		gbc_chckbxDebug.gridx = 0;
@@ -356,7 +376,9 @@ public class OptionsPanel extends JPanel{
 		gamePanel.add(chckbxDebug, gbc_chckbxDebug);
 		
 		buttonPanel = new JPanel();
-		mixedPanel.add(buttonPanel);
+		buttonPanel.setOpaque(true);
+		buttonPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		mixedPanel.add(new AlphaContainer(buttonPanel));
 		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		resetButton = new JButton("Reset to Default");
@@ -364,7 +386,7 @@ public class OptionsPanel extends JPanel{
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("reset")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 				}
 			}
 		});
@@ -376,12 +398,12 @@ public class OptionsPanel extends JPanel{
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("save")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 					Resolution r = (Resolution) resBox.getSelectedItem();
 					
 					// If a custom resolution was set in the Settings.cfg, the resBox won't possibly have a match, this prevents a NullPointerException!
 					if(r == null){
-						r = Resolution.convertDisplayModeToResolution(JBSCore.screenDeviceManager.getCurrentDisplayMode());
+						r = Resolution.convertDisplayModeToResolution(JBSCoreGame.screenDeviceManager.getCurrentDisplayMode());
 						resBox.setSelectedItem(r); // Prevents that the JComboBox selection is still null!
 					}
 					
@@ -389,7 +411,7 @@ public class OptionsPanel extends JPanel{
 					
 					if(rdbtnFull.isSelected()){
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_FULLSCREEN);
-						r = Resolution.convertDisplayModeToResolution(JBSCore.screenDeviceManager.getCurrentDisplayMode());
+						r = Resolution.convertDisplayModeToResolution(JBSCoreGame.screenDeviceManager.getCurrentDisplayMode());
 						JBattleships.game.changeResolution(r);
 						resBox.setSelectedItem(r);
 					}else if(rdbtnWin.isSelected()){
@@ -411,8 +433,8 @@ public class OptionsPanel extends JPanel{
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("back")){
-					JBSCore.msgLogger.addMessage("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass());
-					OptionsPanel.this.parent.swapContainer(OptionsPanel.this.parent.getMainPanel());
+					JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + OptionsPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
+					parent.restoreRootContainer(true);
 				}
 			}
 		});

@@ -3,16 +3,12 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
-import java.awt.Graphics;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import de.hsb.ismi.jbs.engine.rendering.RenderInterface;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
-import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * @author Kevin Kuegler
@@ -34,14 +30,19 @@ public class JBSActor extends JBSObject{
 	@XmlElement(name = "Name")
 	private String name;
 	@XmlTransient
-	private JBSActorComponent components = null;
+	private JBSActorComponent components = new JBSActorComponent(new String[]{"watertest64.png"});
 	
-
+	/**
+	 * 
+	 */
+	public JBSActor() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * 
 	 */
 	public JBSActor(String name) {
-		components =  new JBSActorComponent(new String[]{"watertest64.png"});
 		//components =  new JBSActorComponent(new String[]{"watertest64.png","watertest64_1.png","watertest64_2.png"});
 
 		this.name = name; // TODO

@@ -15,6 +15,7 @@ public class DataManager {
 	private LocalizationManager localizationM;
 	private ResourceManager resourceM;
 	private ProfileManager profileM;
+	private GamePersistenceManager persistenceM = new GamePersistenceManager();
 	
 	/**
 	 * 
@@ -79,6 +80,20 @@ public class DataManager {
 	 */
 	public final ProfileManager getProfileManager() {
 		return profileM;
+	}
+
+	/**
+	 * @return the persistenceM
+	 */
+	public final GamePersistenceManager getPersistenceManager() {
+		return persistenceM;
+	}
+
+	/**
+	 * @param persistenceManager the persistenceManager to set
+	 */
+	public final void setPersistenceManager(GamePersistenceManager persistenceManager) {
+		this.persistenceM = persistenceManager;
 	}
 
 }
