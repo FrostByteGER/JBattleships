@@ -39,7 +39,7 @@ public class JBSShip {
 	private int health = -1;
 	@XmlElement(name = "ShipElement")
 	@XmlElementWrapper(name = "ShipElements")
-	private ArrayList<JBSActor> shipActors = new ArrayList<JBSActor>(0);
+	private ArrayList<JBSShipActor> shipActors = new ArrayList<JBSShipActor>(0);
 	@XmlElement(name = "Position")
 	private Vector2i position = new Vector2i();
 	@XmlElement(name = "Direction")
@@ -63,7 +63,7 @@ public class JBSShip {
 		this.damageType = damageType;
 		this.length = length;
 		this.health = length;
-		this.shipActors = new ArrayList<JBSActor>();
+		this.shipActors = new ArrayList<JBSShipActor>();
 		if(JBSDamageType.DAMAGE_SMALL == damageType){
 			shotpower = 1;
 		}else if(JBSDamageType.DAMAGE_MEDIUM == damageType){
@@ -87,7 +87,7 @@ public class JBSShip {
 		this.health = length;
 		this.position = location;
 		this.direction = direction;
-		this.shipActors = new ArrayList<JBSActor>();
+		this.shipActors = new ArrayList<JBSShipActor>();
 		if(JBSDamageType.DAMAGE_SMALL == damageType){
 			shotpower = 1;
 		}else if(JBSDamageType.DAMAGE_MEDIUM == damageType){
@@ -97,7 +97,7 @@ public class JBSShip {
 		}
 	}
 	
-	public void addShipPart(JBSActor part) {
+	public void addShipPart(JBSShipActor part) {
 		shipActors.add(part);
 	}
 	
@@ -175,11 +175,11 @@ public class JBSShip {
 	 */
 	public boolean checkHealth() {
 		
-		health = length;
-		
 		if(!isAlive()){
 			return false;
 		}
+		
+		health = length;
 		
 		for(JBSActor actor : this.shipActors){
 			if(actor.isHit()){
@@ -242,7 +242,7 @@ public class JBSShip {
 		return position;
 	}
 	
-	public ArrayList<JBSActor> getShipActors() {
+	public ArrayList<JBSShipActor> getShipActors() {
 		return shipActors;
 	}
 
@@ -306,7 +306,7 @@ public class JBSShip {
 	/**
 	 * @param shipActors the shipActors to set
 	 */
-	public final void setShipActors(ArrayList<JBSActor> shipActors) {
+	public final void setShipActors(ArrayList<JBSShipActor> shipActors) {
 		this.shipActors = shipActors;
 	}
 	

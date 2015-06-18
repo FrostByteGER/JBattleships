@@ -3,6 +3,7 @@
  */
 package de.hsb.ismi.jbs.start;
 
+import java.io.IOException;
 
 /**
  * This Class may be used to test anything you like.

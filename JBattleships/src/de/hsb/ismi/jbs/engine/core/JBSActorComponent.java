@@ -17,11 +17,10 @@ import de.hsb.ismi.jbs.start.JBattleships;
 public class JBSActorComponent extends JBSObject {
 
 	private AnimationSequence[] animation;
-	
+		
 	private String imagePath;
 	private JBSActor parent;
-	private BufferedImage imagesorce;
-	private BufferedImage[][]images;
+	private BufferedImage[][] images;
 	private BufferedImage[][] resizeimages;
 	
 	private int imagecount;
@@ -30,30 +29,6 @@ public class JBSActorComponent extends JBSObject {
 	private int animationamount;
 	
 	private int size = 64;
-
-	
-	
-	/**
-	 * 
-	 */
-	public JBSActorComponent(BufferedImage imagesorce) {
-		
-		this.imagesorce  = imagesorce;
-		this.animationamount = imagesorce.getHeight()/size;
-		this.imageamount = imagesorce.getWidth()/size;
-		
-		//imagesorce.getSubimage(imagecount*size,activanimation*size , size, size)
-		
-		images = new BufferedImage[animationamount][imageamount];
-		resizeimages = new BufferedImage[animationamount][imageamount];
-		
-		for(int i = 0 ; i < animationamount ; i++){
-			for(int j = 0 ; j < imageamount ; j++){
-				images[i][j] = imagesorce.getSubimage(j*size,i*size , size, size);
-				resizeimages[i][j] = imagesorce.getSubimage(j*size,i*size , size, size);
-			}
-		}		
-	}
 	
 	public JBSActorComponent(String[] animationname) {
 		
@@ -75,7 +50,7 @@ public class JBSActorComponent extends JBSObject {
 	public JBSActorComponent(boolean replicated) {
 		super(replicated);
 		
-	}
+	} 
 
 	/**
 	 * @param imagePath
@@ -217,5 +192,4 @@ public class JBSActorComponent extends JBSObject {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-	
 }

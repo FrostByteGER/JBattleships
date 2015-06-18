@@ -3,6 +3,8 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
@@ -11,6 +13,11 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
  */
 public class JBSShipActor extends JBSActor {
 
+	@XmlElement(name = "Parent")
+	private JBSShip parent;
+	
+	
+	
 	/**
 	 * 
 	 */
@@ -21,8 +28,9 @@ public class JBSShipActor extends JBSActor {
 	/**
 	 * @param name
 	 */
-	public JBSShipActor(String name) {
+	public JBSShipActor(String name ,JBSShip parent) {
 		super(name);
+		this.parent = parent;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -47,4 +55,11 @@ public class JBSShipActor extends JBSActor {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @return the parent
+	 */
+	public JBSShip getParent() {
+		return parent;
+	}
+	
 }

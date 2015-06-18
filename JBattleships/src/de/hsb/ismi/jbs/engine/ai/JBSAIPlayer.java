@@ -3,8 +3,11 @@
  */
 package de.hsb.ismi.jbs.engine.ai;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,9 +22,10 @@ import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSProfile;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
+import de.hsb.ismi.jbs.engine.core.JBSShipActor;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
-import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
+import de.hsb.ismi.jbs.engine.utility.Vector2i;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -44,6 +48,14 @@ public class JBSAIPlayer extends JBSPlayer {
 	private int hity = 0;
 	@XmlElement(name = "HitFieldIndex")
 	private int hitfield = 0;
+	
+	@XmlElement(name = "HitFields")
+	private ArrayList<Vector2i> hitfields;
+	@XmlElement(name = "HitShip")
+	private JBSShip hitship;
+	@XmlElement(name = "LastHits")
+	private ArrayList<Vector2i> lasthits;
+	
 	//TODO: What?
 	@XmlElement(name = "hasHit")
 	private boolean hit = false;
@@ -65,6 +77,7 @@ public class JBSAIPlayer extends JBSPlayer {
 	 */
 	public JBSAIPlayer() {
 		super(new JBSProfile());
+		init();
 	}
 
 	/**
@@ -72,22 +85,83 @@ public class JBSAIPlayer extends JBSPlayer {
 	 */
 	public JBSAIPlayer(String name) {
 		super(name);
+		init();
 	}
-
+	
+	private void init(){
+		hitfields = new ArrayList<Vector2i>();
+		lasthits = new ArrayList<Vector2i>();
+	}
+	
 	public JBSShip processRound(Game game){
+		
+		System.out.println(lasthit);
 		
 		for(JBSShip ship : getShips()){
 			if(ship.canShoot()){
-				if(lasthit != lasthit){
-					//TODO
+				
+				hitx = 0;
+				hity = 0;
+				
+				if(lasthit){
+					for(int x = 0 ; x < game.getPlayer(lasthitfield).getPlayerField().getSize() && hitx == 0 ; x++){
+						for(int y = 0 ; y < game.getPlayer(lasthitfield).getPlayerField().getSize() && hitx == 0 ; y++){
+														
+							if(game.getPlayer(lasthitfield).getPlayerField().getField(x, y) instanceof JBSShipActor &&
+									game.getPlayer(lasthitfield).getPlayerField().getField(x, y).isHit()){
+								
+								if(game.getPlayer(lasthitfield).getPlayerField().getField(x, y-1) != null){
+									if(!game.getPlayer(lasthitfield).getPlayerField().getField(x, y-1).isHit()){
+										hitx = x;
+										hity = y-1;
+									}
+								}
+								if(game.getPlayer(lasthitfield).getPlayerField().getField(x+1, y) != null){
+									if(!game.getPlayer(lasthitfield).getPlayerField().getField(x+1, y).isHit()){
+										hitx = x+1;
+										hity = y;
+									}
+								}
+								if(game.getPlayer(lasthitfield).getPlayerField().getField(x, y+1) != null){
+									if(!game.getPlayer(lasthitfield).getPlayerField().getField(x, y+1).isHit()){
+										hitx = x;
+										hity = y+1;
+									}
+								}
+								if(game.getPlayer(lasthitfield).getPlayerField().getField(x-1, y) != null){
+									if(!game.getPlayer(lasthitfield).getPlayerField().getField(x-1, y).isHit()){
+										hitx = x-1;
+										hity = y;
+									}
+								}					
+							}
+						}
+					}
+					
+					hitdirection = Direction.getRandomDirection(r);
+					
+					hit = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(lasthitfield), this, ship, hitx, hity, hitdirection);
+					JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
+					JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
+					
+					if(game.getPlayer(lasthitfield).getPlayerField().getField(hitx, hity) instanceof JBSShipActor){
+						JBSShipActor tempactor = (JBSShipActor)game.getPlayer(lasthitfield).getPlayerField().getField(hitx, hity);
+												
+						if(!tempactor.getParent().checkHealth()){
+							lasthit = false;
+						}	
+					}
+					
+					break;
+					
 				}else{
 					hitfield = r.nextInt(game.getPlayers().length);
 					for(int i = 0 ; i < game.getPlayers().length ; i++){
 						
-						hitfield = (lasthitfield+i)%game.getPlayers().length;
+						hitfield = (hitfield+i)%game.getPlayers().length;
 						
 						if(game.getPlayer(hitfield).isAlive() && game.getPlayer(hitfield) != this){
-							
+								
 							while(true){
 								hitx = r.nextInt(game.getActivePlayer().getPlayerField().getSize()-1);
 								hity = r.nextInt(game.getActivePlayer().getPlayerField().getSize()-1);
@@ -95,23 +169,19 @@ public class JBSAIPlayer extends JBSPlayer {
 								if(!game.getPlayer(hitfield).getPlayerField().getField(hitx, hity).isHit()){
 									break;
 								}
-							}
-							
+							}	
 							hitdirection = Direction.getRandomDirection(r);
 							
-							//hit = ship.shoot(hitx, hity, hitdirection, game.getPlayer(hitfield).getPlayerField());
-							RoundManager rm = JBattleships.game.getGameManager().getRoundManager();
-							hit = rm.fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
-							rm.fireAnalyzeRound(this);
-							rm.fireEndRound(this);
+							System.out.println(lasthit+" "+hitx+" "+hity+" "+hitfield);
+							
+							hit = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
+							JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
 							
 							
-							if(hit){
-								lasthitx = hitx;
-								lasthity = hity;
-								lasthitdirection = hitdirection;
-								lasthit = hit;
-							}
+							lasthitfield  = hitfield;
+							lasthit = hit;		
+							
 							
 						}else{
 							continue;
