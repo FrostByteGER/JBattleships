@@ -68,7 +68,7 @@ public class GameManager{
 		if((gameState == GameNetworkState.GAME_STARTED && game.isGameOver()) || force){
 			gameState = GameNetworkState.GAME_ENDED;
 			//JBSCoreGame.msgLogger.addMessage("Game has ended. Winner is: " + game.getActivePlayer().getName());
-			System.out.println("Game has ended. Winner is: " + game.getActivePlayer().getName());
+			//System.out.println("Game has ended. Winner is: " + game.getActivePlayer().getName());
 			for(GameListener gl : listeners){
 				gl.fireEndedGame();
 			}

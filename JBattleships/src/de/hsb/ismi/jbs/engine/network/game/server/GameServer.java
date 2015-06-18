@@ -6,7 +6,17 @@ package de.hsb.ismi.jbs.engine.network.game.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.RemoteServer;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+
+import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.engine.core.RoundListener;
+import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * @author Kevin Kuegler
@@ -15,20 +25,30 @@ import java.util.ArrayList;
 public class GameServer extends Thread {
 	
 	private int port = -1;
+	private int rmiPort = -1;
+	private int roundListenerPort = 15748;
 	private ServerSocket server = null;
 	private ArrayList<GameServerThread> clients = new ArrayList<>(0);
 	public static final int MAX_LOGIN_COUNT = 3;
-	private volatile boolean endServer = false;
+	private volatile boolean endServer = false;	
+	
 
 
-	public GameServer(int port){
+	public GameServer(int port, int port2){
 		super("Game-Server");
 		this.port = port;
+		this.rmiPort = port2;
+		
+		try {
+			LocateRegistry.createRegistry(rmiPort);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
 		try {
 			System.out.println("Binding to port " + this.port + ", please wait...");
 			server = new ServerSocket(this.port);
 			System.out.println("Gameserver started: " + server);
-			start();
 		} catch (IOException ioe) {
 			System.out.println("Can't bind to port " + this.port + ": " + ioe.getMessage());
 		}
@@ -115,6 +135,19 @@ public class GameServer extends Thread {
 		} catch (IOException ioe) {
 			System.out.println("Error opening thread: " + ioe);
 		}
+	}
+	
+	public void startServer(){
+		try {
+			RoundListener rlStub = (RoundListener) UnicastRemoteObject.exportObject(JBattleships.game.getGameManager().getRoundManager(), roundListenerPort);
+			RemoteServer.setLog(System.out);
+			Registry registry = LocateRegistry.getRegistry(rmiPort);
+			registry.rebind(":" + roundListenerPort + "/RoundListener", rlStub);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		System.out.println("RoundListener added!");
+		//start();
 	}
 	
 }

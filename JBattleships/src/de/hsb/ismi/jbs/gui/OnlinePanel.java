@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 
 
 
+
 import java.awt.BorderLayout;
+
 
 
 
@@ -18,10 +20,13 @@ import javax.swing.JButton;
 
 
 
+
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
+import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 
 
 
@@ -79,9 +84,11 @@ public class OnlinePanel extends JPanel {
 		btnHost = new JButton("Host Game");
 		btnHost.addActionListener(e -> {
 			JBSCoreGame game = JBattleships.game;
-			game.generateGameServer();
+			GameServer server = game.generateGameServer();
+			game.generateGame();
+			server.startServer();
 			try {
-				game.setGameClient(new GameClient("localhost", game.getGamePort(), game.getDataManager().getProfileManager().getActiveProfile().getName()));
+				//game.setGameClient(new GameClient("localhost", game.getGamePort(), game.getDataManager().getProfileManager().getActiveProfile().getName()));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				return;

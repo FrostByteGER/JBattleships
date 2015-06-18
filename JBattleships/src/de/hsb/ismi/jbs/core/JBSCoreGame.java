@@ -65,6 +65,8 @@ public class JBSCoreGame {
 	private int chatPort = 15751;
 	/** The game's current gamePort. */
 	private int gamePort = 15750;
+	/** */
+	private int gamePort2 = 15749;
 	
 	/** The mainGUI of the game. */
 	private JBSGUI mainGUI = null;
@@ -327,7 +329,7 @@ public class JBSCoreGame {
 	 * @return The created GameServer
 	 */
 	public final GameServer generateGameServer() {
-		this.gameServer = new GameServer(gamePort);
+		this.gameServer = new GameServer(gamePort, gamePort2);
 		return this.gameServer;
 	}
 
