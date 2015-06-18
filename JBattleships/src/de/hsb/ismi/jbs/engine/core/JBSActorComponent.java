@@ -32,7 +32,6 @@ public class JBSActorComponent extends JBSObject {
 	
 	public JBSActorComponent(String[] animationname) {
 		
-		this.statikimage = null;
 		this.animation = new AnimationSequence[animationname.length];
 		this.animationamount = animationname.length;
 		

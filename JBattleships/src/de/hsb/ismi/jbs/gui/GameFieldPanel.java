@@ -185,27 +185,9 @@ public class GameFieldPanel extends JPanel {
 					//g.setColor(Color.BLUE);
 					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}else{
-					/*
-					if(gamefild.getField(i, j).getRotation() == Direction.NORTH){
-						at.rotate(0);
-					}else if(gamefild.getField(i, j).getRotation() == Direction.EAST){
-						at.rotate(0.25);
-					}else if(gamefild.getField(i, j).getRotation() == Direction.SOUTH){
-						at.rotate(0.5);
-					}else if(gamefild.getField(i, j).getRotation() == Direction.WEST){
-						at.rotate(0.75);
-					}*/
-					
-					//g2 = (Graphics2D) g;
-					
 
-					
-					//g2.drawImage(gamefild.getField(i, j).getComponents().getStatikimage(),at,null);
-					
-					
-					
-					//g.setColor(Color.GRAY);
-					//g.fillRect(gridsize*i+xofset, gridsize*j+yofset, gridsize, gridsize);
+					g.setColor(Color.GRAY);
+					g.fillRect(gridsize*i+xofset, gridsize*j+yofset, gridsize, gridsize);
 				}
 				if(gamefild.getField(i, j).isHit()){
 					
