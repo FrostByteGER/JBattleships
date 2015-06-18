@@ -88,7 +88,7 @@ public class PreGamePanel extends JPanel {
 		btnGroup = new JBSButtonGroup();
 		playerPanels = new PreGamePlayerPanel[8];
 		for(int i = 0;i < playerPanels.length;i++){
-			PreGamePlayerPanel pp = new PreGamePlayerPanel();
+			PreGamePlayerPanel pp = new PreGamePlayerPanel(false, type);
 			pp.setName("Player" + " #" + (i + 1));
 			btnGroup.add(pp.getCheckboxActive());
 			playerPanels[i] = pp;

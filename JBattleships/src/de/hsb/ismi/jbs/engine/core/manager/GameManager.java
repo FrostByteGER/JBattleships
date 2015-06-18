@@ -25,6 +25,14 @@ public class GameManager{
 		
 	}
 
+	/**
+	 * Creates the GameObject with its data. 
+	 * @param gameType
+	 * @param players
+	 * @param fieldSize
+	 * @param shipCount
+	 * @return
+	 */
 	public Game createGame(JBSGameType gameType , JBSPlayer[] players, int fieldSize, int[] shipCount){
 		for(JBSPlayer p : players){
 			p.setPlayerField(new JBSGameField(fieldSize));

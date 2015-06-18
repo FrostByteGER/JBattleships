@@ -5,9 +5,27 @@ package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
 
+
+
+
 import java.awt.BorderLayout;
 
+
+
+
 import javax.swing.JButton;
+
+
+
+
+import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
+import de.hsb.ismi.jbs.start.JBattleships;
+
+
+
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -60,7 +78,15 @@ public class OnlinePanel extends JPanel {
 		
 		btnHost = new JButton("Host Game");
 		btnHost.addActionListener(e -> {
-			parent.swapContainer(new OnlineHostPanel(parent));
+			JBSCoreGame game = JBattleships.game;
+			game.generateGameServer();
+			try {
+				game.setGameClient(new GameClient("localhost", game.getGamePort(), game.getDataManager().getProfileManager().getActiveProfile().getName()));
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				return;
+			}
+			parent.swapContainer(new LobbyPanel(parent, JBSGameType.GAME_ONLINE, true));
 		});
 		GridBagConstraints gbc_btnHost = new GridBagConstraints();
 		gbc_btnHost.insets = new Insets(0, 0, 5, 0);

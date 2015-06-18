@@ -16,6 +16,8 @@ public class ProfileManager {
 	private final String Profile_PATH = "Data/Profiles/";
 	private String profileName;
 	
+	private int activeProfile = 0;
+	
 	public ProfileManager(){
 		parser = new ProfileParser();
 		profileData = new HashMap<>();
@@ -55,5 +57,9 @@ public class ProfileManager {
 	
 	public JBSProfile[] getProfilesById(int[] id){
 		return null;
+	}
+	
+	public JBSProfile getActiveProfile(){
+		return new JBSProfile("Local");
 	}
 }
