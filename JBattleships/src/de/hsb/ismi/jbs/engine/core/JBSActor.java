@@ -6,6 +6,7 @@ package de.hsb.ismi.jbs.engine.core;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
@@ -15,6 +16,7 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
  * @version 1.00
  */
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({JBSShipActor.class})
 public class JBSActor extends JBSObject{
 	
 	@XmlTransient

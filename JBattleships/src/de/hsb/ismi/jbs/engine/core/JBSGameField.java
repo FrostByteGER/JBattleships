@@ -68,6 +68,9 @@ public class JBSGameField {
 	}
 	
 	public JBSActor getField(int x,int y){
+		if(x < 0 || y < 0 || x > size-1 || y > size-1){
+			return null;
+		}
 		return actorFields[x][y];
 	}
 	
@@ -98,13 +101,35 @@ public class JBSGameField {
 		if(x > size-1 || y > size-1 || y < 0 || x < 0){
 			return false;
 		}else{
-			actorFields[x][y].setHit(true);
-			if(actorFields[x][y].getName().equals("water")){
-				actorFields[x][y].setName("waterhit");
-				return false;
+			if(!actorFields[x][y].isHit()){
+				actorFields[x][y].setHit(true);
+				if(actorFields[x][y].getName().equals("water")){
+					actorFields[x][y].setName("waterhit");
+					return false;
+				}
+				if(actorFields[x][y] instanceof JBSShipActor){
+					JBSShipActor temp = (JBSShipActor)actorFields[x][y];
+					
+					//TODO
+					
+					if(!temp.getParent().checkHealth()){
+						shootAroundShip(temp.getParent());
+					}	
+				}
+				
+				return true;
 			}
-			
-			return true;
+			return false;
+		}
+	}
+	
+	public void shootAroundShip(JBSShip ship){
+		for(JBSShipActor a : ship.getShipActors()){
+			for(int i = -1 ; i < 2 ; i++){
+				for(int j = -1 ; j < 2 ; j++){
+					shootField(a.getLocation().getX()+i, a.getLocation().getY()+j);
+				}
+			}
 		}
 	}
 	
