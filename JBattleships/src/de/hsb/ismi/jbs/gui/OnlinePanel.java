@@ -89,6 +89,7 @@ public class OnlinePanel extends JPanel {
 			server.startServer();
 			try {
 				//game.setGameClient(new GameClient("localhost", game.getGamePort(), game.getDataManager().getProfileManager().getActiveProfile().getName()));
+				//game.getGameClient().startClient();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				return;

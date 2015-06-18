@@ -3,6 +3,8 @@
  */
 package de.hsb.ismi.jbs.engine.core.manager;
 
+import java.rmi.RemoteException;
+
 import de.hsb.ismi.jbs.engine.core.Direction;
 import de.hsb.ismi.jbs.engine.core.RoundListener;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
@@ -110,6 +112,14 @@ public class RoundManager implements RoundListener{
 		this.y = -1;
 		this.direction = null;
 		ended = false;
+	}
+
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#printRMITest(int)
+	 */
+	@Override
+	public void printRMITest(int x) throws RemoteException {
+		System.out.println("RMI reference was: " + x);
 	}
 	
 }

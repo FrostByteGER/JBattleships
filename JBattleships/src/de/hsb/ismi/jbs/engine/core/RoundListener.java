@@ -37,5 +37,7 @@ public interface RoundListener extends Remote{
 	 * @throws RemoteException
 	 */
 	public void fireEndRound(JBSPlayer source) throws RemoteException;
+	
+	public void printRMITest(int x) throws RemoteException;
 
 }

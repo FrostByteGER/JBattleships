@@ -4,8 +4,12 @@
 package de.hsb.ismi.jbs.engine.network.game.server;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.AlreadyBoundException;
+import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -16,6 +20,7 @@ import java.util.ArrayList;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.RoundListener;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -139,15 +144,22 @@ public class GameServer extends Thread {
 	
 	public void startServer(){
 		try {
-			RoundListener rlStub = (RoundListener) UnicastRemoteObject.exportObject(JBattleships.game.getGameManager().getRoundManager(), roundListenerPort);
-			RemoteServer.setLog(System.out);
-			Registry registry = LocateRegistry.getRegistry(rmiPort);
-			registry.rebind(":" + roundListenerPort + "/RoundListener", rlStub);
+			LocateRegistry.createRegistry(15700);
+			RoundListener rlStub = (RoundListener) UnicastRemoteObject.exportObject(JBattleships.game.getGameManager().getRoundManager(), 15700);
+			//RemoteServer.setLog(System.out);
+			Naming.bind("rmi://192.168.178.20:" + 15700 + "/RoundListener", rlStub);
+			System.out.println("RoundListener added!");
+			//start();
 		} catch (RemoteException e) {
 			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AlreadyBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println("RoundListener added!");
-		//start();
+
 	}
 	
 }

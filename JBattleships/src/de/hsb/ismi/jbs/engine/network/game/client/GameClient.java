@@ -7,11 +7,18 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
+import de.hsb.ismi.jbs.engine.core.RoundListener;
 import de.hsb.ismi.jbs.engine.network.game.GameConnectionState;
 import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
 
@@ -21,6 +28,7 @@ import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
  */
 public class GameClient extends Thread {
 
+	private int rmiPort = 15747;
 	private Socket socket = null;
 	private DataOutputStream outputStream = null;
 	private DataInputStream inputStream = null;
@@ -43,11 +51,14 @@ public class GameClient extends Thread {
 	public GameClient(String ip, int port, String username) throws UnknownHostException, IOException{
 		super("GameClient-Thread");
 		this.username = username;
+		
+		
+		/*
 		socket = new Socket(ip, port);
 		inputStream = new DataInputStream(socket.getInputStream());
 		outputStream = new DataOutputStream(socket.getOutputStream());
 		sendAuthentification(username);
-		this.start();
+		//this.start();*/
 	}
 	
 	/**
@@ -61,11 +72,11 @@ public class GameClient extends Thread {
 	public GameClient(InetAddress ip, int port, String username) throws UnknownHostException, IOException{
 		super("GameClient-Thread");
 		this.username = username;
-		socket = new Socket(ip, port);
+		/*socket = new Socket(ip, port);
 		inputStream = new DataInputStream(socket.getInputStream());
 		outputStream = new DataOutputStream(socket.getOutputStream());
 		sendAuthentification(username);
-		this.start();
+		this.start();*/
 	}
 	
 	public void addMessageListener(GameClientListener listener){
@@ -225,6 +236,23 @@ public class GameClient extends Thread {
 	 */
 	public final void setGameNetworkState(GameNetworkState gameNetworkState) {
 		this.gameNetworkState = gameNetworkState;
+	}
+	
+	public void startClient(){
+		try {
+			RoundListener rlStub = (RoundListener) Naming.lookup("rmi://localhost:" + 15700 + "/RoundListener");
+			rlStub.printRMITest(1337);
+			//start();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
