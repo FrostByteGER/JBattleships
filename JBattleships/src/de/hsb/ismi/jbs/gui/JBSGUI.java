@@ -142,7 +142,7 @@ public class JBSGUI{
 				panelStack.clear();
 			}
 			p.updateUI();
-			JBSCoreGame.ioQueue.insertInput("Restored previous JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+			JBSCoreGame.ioQueue.insertInput("Restored Rootpanel!", JBSCoreGame.MSG_LOGGER_KEY);
 		}else{
 			JBSCoreGame.ioQueue.insertInput("Stack is Empty!", JBSCoreGame.MSG_LOGGER_KEY);
 		}

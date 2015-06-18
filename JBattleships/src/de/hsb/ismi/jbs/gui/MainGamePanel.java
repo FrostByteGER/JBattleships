@@ -106,7 +106,6 @@ public class MainGamePanel extends JPanel {
 		btnExit = new JButton("Exit Game");
 		btnExit.setActionCommand("exit");
 		btnExit.addActionListener(e -> {
-			parent.swapContainer(parent.getMainPanel());
 			parent.restoreRootContainer(true);
 		});
 		btnShoot = new JButton("Shoot");

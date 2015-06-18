@@ -95,11 +95,7 @@ public class JBSAIPlayer extends JBSPlayer {
 								if(!game.getPlayer(hitfield).getPlayerField().getField(hitx, hity).isHit()){
 									break;
 								}
-								
-								
 							}
-							
-							
 							
 							hitdirection = Direction.getRandomDirection(r);
 							
@@ -128,8 +124,6 @@ public class JBSAIPlayer extends JBSPlayer {
 		return null;
 	}
 
-	
-	
 	public void placeShips(){
 		
 		GameManager manager = JBattleships.game.getGameManager();
