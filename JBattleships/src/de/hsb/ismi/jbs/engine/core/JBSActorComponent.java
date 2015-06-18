@@ -17,9 +17,7 @@ import de.hsb.ismi.jbs.start.JBattleships;
 public class JBSActorComponent extends JBSObject {
 
 	private AnimationSequence[] animation;
-	
-	private BufferedImage statikimage; 
-	
+		
 	private String imagePath;
 	private JBSActor parent;
 	private BufferedImage[][] images;
@@ -194,19 +192,5 @@ public class JBSActorComponent extends JBSObject {
 	 */
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
-	}
-
-	/**
-	 * @return the statikimage
-	 */
-	public BufferedImage getStatikimage() {
-		return statikimage;
-	}
-
-	/**
-	 * @param statikimage the statikimage to set
-	 */
-	public void setStatikimage(BufferedImage statikimage) {
-		this.statikimage = statikimage;
 	}
 }

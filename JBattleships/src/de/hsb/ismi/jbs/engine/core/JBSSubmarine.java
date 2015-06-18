@@ -20,10 +20,6 @@ public class JBSSubmarine extends JBSShip {
 		addShipPart(new JBSActor("JBSSubmarine"));
 		addShipPart(new JBSActor("JBSSubmarine"));
 		
-		for(JBSActor a : getShipActors()){
-			a.getComponents().setStatikimage(JBattleships.game.getDataManager().getResourceManager().getTexture("boattest.png"));
-		}
-		
 	}
 
 }

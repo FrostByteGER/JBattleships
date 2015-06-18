@@ -196,11 +196,11 @@ public class GameFieldPanel extends JPanel {
 						at.rotate(0.75);
 					}*/
 					
-					g2 = (Graphics2D) g;
+					//g2 = (Graphics2D) g;
 					
 
 					
-					g2.drawImage(gamefild.getField(i, j).getComponents().getStatikimage(),at,null);
+					//g2.drawImage(gamefild.getField(i, j).getComponents().getStatikimage(),at,null);
 					
 					
 					

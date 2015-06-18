@@ -22,9 +22,5 @@ public class JBSFrigate extends JBSShip {
 		addShipPart(new JBSActor("JBSFrigate"));
 		addShipPart(new JBSActor("JBSFrigate"));
 		
-		for(JBSActor a : getShipActors()){
-			a.getComponents().setStatikimage(JBattleships.game.getDataManager().getResourceManager().getTexture("boattest.png"));
-		}
-		
 	}
 }
