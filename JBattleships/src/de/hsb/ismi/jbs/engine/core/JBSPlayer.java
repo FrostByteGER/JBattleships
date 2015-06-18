@@ -3,6 +3,7 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.xml.bind.Unmarshaller;
@@ -21,10 +22,10 @@ import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({JBSAIPlayer.class})
-public class JBSPlayer {
+public class JBSPlayer implements Serializable{
 	
 	@XmlElement(name = "PlayerProfile")
-	private JBSProfile profile = new JBSProfile();
+	private transient JBSProfile profile = new JBSProfile();
 	@XmlElement(name = "Ship")
 	@XmlElementWrapper(name = "PlayerShips")
 	private ArrayList<JBSShip> ships = new ArrayList<JBSShip>(0);

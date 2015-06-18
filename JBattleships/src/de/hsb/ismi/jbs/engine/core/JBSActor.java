@@ -19,8 +19,9 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 @XmlSeeAlso({JBSShipActor.class})
 public class JBSActor extends JBSObject{
 	
+	//TODO: maybe remove transient!
 	@XmlTransient
-	private JBSPlayer player = null;
+	private transient JBSPlayer player = null;
 	@XmlElement(name = "ActorLocation")
 	private Vector2i location = new Vector2i();
 	@XmlElement(name = "ActorRotation")

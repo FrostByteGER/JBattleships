@@ -3,13 +3,19 @@
  */
 package de.hsb.ismi.jbs.engine.utility;
 
+import java.io.Serializable;
+
 /**
  * Simple Vector class. Used to save x and y coordinates.
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class Vector2i {
+public class Vector2i implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3218412936645480940L;
 	/** X-Coordinate */
 	private int x;
 	/** Y-Coordinate */

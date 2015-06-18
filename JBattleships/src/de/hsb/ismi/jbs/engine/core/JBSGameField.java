@@ -3,6 +3,8 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -16,7 +18,7 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
  * @version 1.00
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class JBSGameField {
+public class JBSGameField implements Serializable{
 
 	@XmlElement(name = "GamefieldActor")
 	@XmlElementWrapper(name = "GamefieldActors")
@@ -26,9 +28,9 @@ public class JBSGameField {
 	
 	// OLD TODO
 	@XmlTransient
-	public JBSActor water = new JBSActor("water");
+	private transient JBSActor water = new JBSActor("water");
 	@XmlTransient
-	public JBSActor waterHitDummy = new JBSActor("waterhit");
+	private transient JBSActor waterHitDummy = new JBSActor("waterhit");
 	
 	/**
 	 * 
