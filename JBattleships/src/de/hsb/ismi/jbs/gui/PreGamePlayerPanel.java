@@ -56,15 +56,15 @@ public class PreGamePlayerPanel extends JPanel {
 		add(nameField);
 		checkboxAI.setFont(JBSGUI.SERVER_FONT);
 		add(checkboxAI);
-		
+		btnKick.setFont(JBSGUI.SERVER_FONT);
 		checkboxAI.addItemListener(i -> {
-			btnKick.setEnabled(checkboxAI.isSelected());
+			btnKick.setEnabled(!checkboxAI.isSelected());
 		});
 		checkboxActive.setFont(JBSGUI.SERVER_FONT);
 		
 		checkboxActive.addItemListener(i -> {
 			btnKick.setEnabled(checkboxActive.isSelected());
-			nameField.setEditable(checkboxActive.isSelected());
+			checkboxAI.setEnabled(checkboxActive.isSelected());
 		});
 		
 		checkboxAI.setSelected(false);

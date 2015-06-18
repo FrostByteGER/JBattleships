@@ -82,18 +82,19 @@ public class LobbyPanel extends JPanel {
 			
 			if(i == 0){
 				p.setName(JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName());
+				p.setActiveSelected(true);
+				p.setAISelected(false);
+				p.getBtnKick().setEnabled(false);
 				p.getCheckboxAI().setEnabled(false);
 				p.getCheckboxActive().setEnabled(false);
 			}
 			p.setOpaque(false);
 			btnGroup.add(p.getCheckboxActive());
 			p.setActiveSelected(true);
+			p.getNameField().setEditable(false);
 			playerPanel.add(p);
 			playerPanels[i] = p;
 		}
-		playerPanels[0].setActiveSelected(true);
-		playerPanels[0].getBtnKick().setEnabled(false);
-
 	}
 	
 	private class HostButtonPanel extends JPanel{
