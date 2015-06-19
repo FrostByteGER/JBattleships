@@ -3,24 +3,30 @@
  */
 package de.hsb.ismi.jbs.engine.network.game.server;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.RoundListener;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
-import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -29,34 +35,46 @@ import de.hsb.ismi.jbs.start.JBattleships;
  */
 public class GameServer extends Thread {
 	
-	private int port = -1;
-	private int rmiPort = -1;
-	private int roundListenerPort = 15748;
+	private int gamePort = 15750;
+	private int roundListenerPort = 15751;
+	private int gameListenerPort = 15752;
+	
+	private InetAddress ip = null;
+
 	private ServerSocket server = null;
 	private ArrayList<GameServerThread> clients = new ArrayList<>(0);
 	public static final int MAX_LOGIN_COUNT = 3;
 	private volatile boolean endServer = false;	
 	
+	private GameManager gm;
+	
+	private RoundListener roundLStub;
+	private GameListener gameLStub;
+	
 
 
-	public GameServer(int port, int port2){
+	public GameServer(int gamePort, int roundListenerPort, int gameListenerPort){
 		super("Game-Server");
-		this.port = port;
-		this.rmiPort = port2;
-		
-		try {
-			LocateRegistry.createRegistry(rmiPort);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		this.gamePort = gamePort;
+		this.roundListenerPort = roundListenerPort;
+		this.gameListenerPort = gameListenerPort;
 
 		try {
-			System.out.println("Binding to port " + this.port + ", please wait...");
-			server = new ServerSocket(this.port);
+			System.out.println("Binding to gamePort " + this.gamePort + ", please wait...");
+			server = new ServerSocket(this.gamePort);
 			System.out.println("Gameserver started: " + server);
 		} catch (IOException ioe) {
-			System.out.println("Can't bind to port " + this.port + ": " + ioe.getMessage());
+			System.out.println("Can't bind to gamePort " + this.gamePort + ": " + ioe.getMessage());
 		}
+		
+		try {
+			URL url = new URL("http://ipecho.net/plain");
+			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+			ip = InetAddress.getByName(in.readLine());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
 	}
 
 	/* (non-Javadoc)
@@ -143,23 +161,34 @@ public class GameServer extends Thread {
 	}
 	
 	public void startServer(){
+		JBSCoreGame game = JBattleships.game;
+		
 		try {
-			LocateRegistry.createRegistry(15700);
-			RoundListener rlStub = (RoundListener) UnicastRemoteObject.exportObject(JBattleships.game.getGameManager().getRoundManager(), 15700);
-			//RemoteServer.setLog(System.out);
-			Naming.bind("rmi://192.168.178.20:" + 15700 + "/RoundListener", rlStub);
-			System.out.println("RoundListener added!");
-			//start();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (AlreadyBoundException e) {
-			// TODO Auto-generated catch block
+			RemoteServer.setLog(new FileOutputStream(new File("Data/Server.log")));
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
+		
+		try {
+			// RoundListener Stub
+			LocateRegistry.createRegistry(roundListenerPort);
+			roundLStub = (RoundListener) UnicastRemoteObject.exportObject(game.getGameManager().getRoundManager(), roundListenerPort);
+			Naming.bind("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + roundListenerPort + "/RoundListener", roundLStub);
+			
+			// GameListener Stub
+			LocateRegistry.createRegistry(gameListenerPort);
+			gameLStub = (GameListener) UnicastRemoteObject.exportObject(game.getGameManager(), gameListenerPort);
+			Naming.bind("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + gameListenerPort + "/GameListener", gameLStub);
+		} catch (MalformedURLException mue) {
+			mue.printStackTrace();
+		} catch(RemoteException re){
+			re.printStackTrace();
+		} catch(AlreadyBoundException abe){
+			abe.printStackTrace();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		start();
 	}
 	
 }

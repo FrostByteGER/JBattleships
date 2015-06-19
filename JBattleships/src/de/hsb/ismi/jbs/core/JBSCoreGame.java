@@ -62,11 +62,13 @@ public class JBSCoreGame {
 	/** The game's current language. */
 	private String language = "English";
 	/** The ChatServers curent gamePort. */
-	private int chatPort = 15751;
+	private int chatPort = 15753;
 	/** The game's current gamePort. */
 	private int gamePort = 15750;
 	/** */
-	private int gamePort2 = 15749;
+	private int roundListenerPort = 15751;
+	/** */
+	private int gameListenerPort = 15752;
 	
 	/** The mainGUI of the game. */
 	private JBSGUI mainGUI = null;
@@ -329,7 +331,7 @@ public class JBSCoreGame {
 	 * @return The created GameServer
 	 */
 	public final GameServer generateGameServer() {
-		this.gameServer = new GameServer(gamePort, gamePort2);
+		this.gameServer = new GameServer(gamePort, roundListenerPort, gameListenerPort);
 		return this.gameServer;
 	}
 
@@ -373,6 +375,20 @@ public class JBSCoreGame {
 	 */
 	public final int getGamePort() {
 		return gamePort;
+	}
+
+	/**
+	 * @return the roundListenerPort
+	 */
+	public final int getRoundListenerPort() {
+		return roundListenerPort;
+	}
+
+	/**
+	 * @return the gameListenerPort
+	 */
+	public final int getGameListenerPort() {
+		return gameListenerPort;
 	}
 
 

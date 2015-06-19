@@ -5,35 +5,25 @@ package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
 
-
-
-
-
 import java.awt.BorderLayout;
-
-
-
-
 
 import javax.swing.JButton;
 
-
-
-
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
 import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.start.JBattleships;
 
-
-
-
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  * @author Kevin Kuegler
@@ -88,9 +78,13 @@ public class OnlinePanel extends JPanel {
 			game.generateGame();
 			server.startServer();
 			try {
-				//game.setGameClient(new GameClient("localhost", game.getGamePort(), game.getDataManager().getProfileManager().getActiveProfile().getName()));
-				//game.getGameClient().startClient();
-			} catch (Exception e1) {
+				game.setGameClient(new GameClient(InetAddress.getByName("78.52.34.94"), "Kevin", 15750, 15751, 15752));
+				game.getGameClient().startClient();
+			} catch (RemoteException re) {
+				re.printStackTrace();
+			} catch (MalformedURLException mue) {
+				mue.printStackTrace();
+			}catch (Exception e1) {
 				e1.printStackTrace();
 				return;
 			}

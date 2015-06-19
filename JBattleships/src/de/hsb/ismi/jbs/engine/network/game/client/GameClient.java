@@ -18,6 +18,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
+import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.RoundListener;
 import de.hsb.ismi.jbs.engine.network.game.GameConnectionState;
 import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
@@ -28,7 +29,12 @@ import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
  */
 public class GameClient extends Thread {
 
-	private int rmiPort = 15747;
+	private int gamePort = 15750;
+	private int roundListenerPort = 15751;
+	private int gameListenerPort = 15752;
+	
+	private InetAddress ip = null;
+	
 	private Socket socket = null;
 	private DataOutputStream outputStream = null;
 	private DataInputStream inputStream = null;
@@ -40,43 +46,19 @@ public class GameClient extends Thread {
 	private GameNetworkState gameNetworkState = GameNetworkState.LOBBY_PRE_CREATED;
 	
 	
-	/**
-	 * 
-	 * @param ip
-	 * @param port
-	 * @param username
-	 * @throws UnknownHostException
-	 * @throws IOException
-	 */
-	public GameClient(String ip, int port, String username) throws UnknownHostException, IOException{
-		super("GameClient-Thread");
-		this.username = username;
-		
-		
-		/*
-		socket = new Socket(ip, port);
-		inputStream = new DataInputStream(socket.getInputStream());
-		outputStream = new DataOutputStream(socket.getOutputStream());
-		sendAuthentification(username);
-		//this.start();*/
-	}
+	private RoundListener roundLStub;
+	private GameListener gameLStub;
 	
-	/**
-	 * 
-	 * @param ip
-	 * @param port
-	 * @param username
-	 * @throws UnknownHostException
-	 * @throws IOException
-	 */
-	public GameClient(InetAddress ip, int port, String username) throws UnknownHostException, IOException{
+	public GameClient(InetAddress ip, String username, int gamePort, int roundListenerPort, int gameListenerPort) throws UnknownHostException, IOException{
 		super("GameClient-Thread");
+		this.ip = ip;
 		this.username = username;
-		/*socket = new Socket(ip, port);
+		this.gamePort = gamePort;
+		this.roundListenerPort = roundListenerPort;
+		this.gameListenerPort = gameListenerPort;
+		socket = new Socket(ip, gamePort);
 		inputStream = new DataInputStream(socket.getInputStream());
 		outputStream = new DataOutputStream(socket.getOutputStream());
-		sendAuthentification(username);
-		this.start();*/
 	}
 	
 	public void addMessageListener(GameClientListener listener){
@@ -240,19 +222,31 @@ public class GameClient extends Thread {
 	
 	public void startClient(){
 		try {
-			RoundListener rlStub = (RoundListener) Naming.lookup("rmi://localhost:" + 15700 + "/RoundListener");
-			rlStub.printRMITest(1337);
-			//start();
+			sendAuthentification(username);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+			roundLStub = (RoundListener) Naming.lookup("rmi://" + "78.52.34.94" + ":" + roundListenerPort + "/RoundListener");
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotBoundException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		/*try {
+			gameLStub = (GameListener) Naming.lookup("rmi://" + ip.getHostAddress() + ":" + gameListenerPort + "/GameListener");
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+*/
 	}
 	
 	

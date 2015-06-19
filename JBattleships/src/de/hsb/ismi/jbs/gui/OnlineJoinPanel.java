@@ -146,11 +146,13 @@ public class OnlineJoinPanel extends JPanel {
 			usernameField.setBackground(Color.WHITE);
 			int chatPort = JBattleships.game.getChatPort();
 			int gamePort = JBattleships.game.getGamePort();
+			int rlPort = JBattleships.game.getRoundListenerPort();
+			int glPort = JBattleships.game.getGameListenerPort();
 			try {
 				JBattleships.game.generateGameServer();
 				JBattleships.game.generateChatServer();
-				JBattleships.game.setGameClient(new GameClient(ip, gamePort, username));
-				JBattleships.game.setChatClient(new ChatClient(ip, chatPort, username));
+				JBattleships.game.setGameClient(new GameClient(ip, username, gamePort, rlPort, glPort));
+				//JBattleships.game.setChatClient(new ChatClient(ip, chatPort, username));
 
 			} catch (IOException ioe) {
 				JPanel glasspane = new JPanel();
