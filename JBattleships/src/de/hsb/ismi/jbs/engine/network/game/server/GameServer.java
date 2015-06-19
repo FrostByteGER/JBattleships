@@ -66,15 +66,6 @@ public class GameServer extends Thread {
 		} catch (IOException ioe) {
 			System.out.println("Can't bind to gamePort " + this.gamePort + ": " + ioe.getMessage());
 		}
-		
-		try {
-			URL url = new URL("http://ipecho.net/plain");
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-			ip = InetAddress.getByName(in.readLine());
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
 	}
 
 	/* (non-Javadoc)
@@ -189,6 +180,41 @@ public class GameServer extends Thread {
 			e.printStackTrace();
 		}
 		start();
+	}
+	
+	/**
+	 * Returns the external IP of the Server. If echo-servers do not respond, returns the local address.<br>
+	 * If something else happened, returns null.
+	 * @return The external ip of the server, local address if no online connection or null of network-interface offline.
+	 */
+	public InetAddress getIPAddress(){
+		InetAddress ip = null;
+		URL url = null;
+		try {
+			 url = new URL("http://ipecho.net/plain");
+		} catch (IOException ioe1) {
+			ioe1.printStackTrace();
+			try {
+				 url = new URL("http://checkip.amazonaws.com/");
+			} catch (IOException ioe2) {
+				ioe2.printStackTrace();
+			}
+		}
+
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+			ip = InetAddress.getByName(in.readLine());
+			this.ip = ip;
+		} catch (IOException ioe3) {
+			ioe3.printStackTrace();
+			try {
+				return InetAddress.getLocalHost();
+			} catch (UnknownHostException uhe) {
+				uhe.printStackTrace();
+			}
+		}
+		return ip;
+		
 	}
 	
 }
