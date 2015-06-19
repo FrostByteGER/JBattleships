@@ -60,7 +60,7 @@ public class JBSCoreGame {
 	/** The game's current IP-address. */
 	private String ip = "0.0.0.0";
 	/** The game's current language. */
-	private String language = "English";
+	private String language = "German";
 	/** The ChatServers curent gamePort. */
 	private int chatPort = 15753;
 	/** The game's current gamePort. */
@@ -208,6 +208,8 @@ public class JBSCoreGame {
 				try {
 					ip = nt.get("ip");
 					gamePort = Integer.parseInt(nt.get("gamePort"));
+					roundListenerPort = Integer.parseInt(nt.get("gamePort2"));
+					gameListenerPort = Integer.parseInt(nt.get("gamePort3"));
 				} catch (NumberFormatException nfe) {
 					return false;
 				}

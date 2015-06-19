@@ -151,7 +151,7 @@ public class GameServer extends Thread {
 		}
 	}
 	
-	public void startServer(){
+	public boolean startServer(){
 		JBSCoreGame game = JBattleships.game;
 		
 		try {
@@ -172,14 +172,20 @@ public class GameServer extends Thread {
 			Naming.bind("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + gameListenerPort + "/GameListener", gameLStub);
 		} catch (MalformedURLException mue) {
 			mue.printStackTrace();
+			return false;
 		} catch(RemoteException re){
 			re.printStackTrace();
+			return false;
 		} catch(AlreadyBoundException abe){
 			abe.printStackTrace();
+			return false;
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
+			return false;
 		}
+		System.out.println("Stub creation successfull!");
 		start();
+		return true;
 	}
 	
 	/**

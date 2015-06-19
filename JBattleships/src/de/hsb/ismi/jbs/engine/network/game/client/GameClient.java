@@ -228,7 +228,7 @@ public class GameClient extends Thread {
 		}
 		
 		try {
-			roundLStub = (RoundListener) Naming.lookup("rmi://" + "78.52.34.94" + ":" + roundListenerPort + "/RoundListener");
+			roundLStub = (RoundListener) Naming.lookup("rmi://" + ip.getHostAddress() + ":" + roundListenerPort + "/RoundListener");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
@@ -237,7 +237,7 @@ public class GameClient extends Thread {
 			e.printStackTrace();
 		}
 		
-		/*try {
+		try {
 			gameLStub = (GameListener) Naming.lookup("rmi://" + ip.getHostAddress() + ":" + gameListenerPort + "/GameListener");
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -246,7 +246,6 @@ public class GameClient extends Thread {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-*/
 	}
 	
 	
