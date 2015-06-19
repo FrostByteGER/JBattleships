@@ -35,21 +35,22 @@ import de.hsb.ismi.jbs.start.JBattleships;
  */
 public class GameServer extends Thread {
 	
+	// Server Connection Data
+	private InetAddress ip = InetAddress.getLoopbackAddress();
 	private int gamePort = 15750;
 	private int roundListenerPort = 15751;
 	private int gameListenerPort = 15752;
 	
-	private InetAddress ip = null;
-
+	// Server Data
 	private ServerSocket server = null;
 	private ArrayList<GameServerThread> clients = new ArrayList<>(0);
 	public static final int MAX_LOGIN_COUNT = 3;
 	private volatile boolean endServer = false;	
 	
-	private GameManager gm;
-	
-	private RoundListener roundLStub;
-	private GameListener gameLStub;
+	//Game Data
+	private GameManager gm = new GameManager();
+	private RoundListener roundLStub = null;
+	private GameListener gameLStub = null;
 	
 
 
@@ -171,6 +172,7 @@ public class GameServer extends Thread {
 			gameLStub = (GameListener) UnicastRemoteObject.exportObject(game.getGameManager(), gameListenerPort);
 			Naming.bind("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + gameListenerPort + "/GameListener", gameLStub);
 		} catch (MalformedURLException mue) {
+			//TODO: Do something here!
 			mue.printStackTrace();
 			return false;
 		} catch(RemoteException re){
@@ -221,6 +223,69 @@ public class GameServer extends Thread {
 		}
 		return ip;
 		
+	}
+
+	/**
+	 * @return the gamePort
+	 */
+	public final int getGamePort() {
+		return gamePort;
+	}
+
+	/**
+	 * @param gamePort the gamePort to set
+	 */
+	public final void setGamePort(int gamePort) {
+		this.gamePort = gamePort;
+	}
+
+	/**
+	 * @return the roundListenerPort
+	 */
+	public final int getRoundListenerPort() {
+		return roundListenerPort;
+	}
+
+	/**
+	 * @param roundListenerPort the roundListenerPort to set
+	 */
+	public final void setRoundListenerPort(int roundListenerPort) {
+		this.roundListenerPort = roundListenerPort;
+	}
+
+	/**
+	 * @return the gameListenerPort
+	 */
+	public final int getGameListenerPort() {
+		return gameListenerPort;
+	}
+
+	/**
+	 * @param gameListenerPort the gameListenerPort to set
+	 */
+	public final void setGameListenerPort(int gameListenerPort) {
+		this.gameListenerPort = gameListenerPort;
+	}
+
+	/**
+	 * @return the ip
+	 */
+	public final InetAddress getServerIP() {
+		return ip;
+	}
+
+	/**
+	 * @return the gm
+	 */
+	public final GameManager getServerGameManager() {
+		return gm;
+	}
+
+	/**
+	 * @param gm the gm to set
+	 */
+	public final void setServerGameManager(GameManager gm) {
+		this.gm = gm;
 	}
 	
 }

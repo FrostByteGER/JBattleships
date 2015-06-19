@@ -91,20 +91,16 @@ public class JBSCoreGame {
 	 */
 	public JBSCoreGame(boolean initGame) {
 		ioQueue.addIOListener("Logger", new IOListener<String>() {
-			
 			@Override
 			public void outputReceived(String output, String notifierType) {	
 				if(DEBUG_MODE){
-					
 				}
 			}
-			
 			@Override
 			public void inputReceived(String input, String notifierType) {
 				if(DEBUG_MODE){
 					msgLogger.addMessage(input);
 				}
-				
 			}
 		});
 		if(initGame){
@@ -117,11 +113,38 @@ public class JBSCoreGame {
 	 * @return
 	 */
 	public boolean initGame(){
-		if(initResources() && initSettings() && initLocalization() && initConfigs() && initProfiles()){
-			return true;
-		}else{
+		
+		boolean res = initResources();
+		boolean set = initSettings();
+		boolean loc = initLocalization();
+		boolean con = initConfigs();
+		boolean pro = initProfiles();
+		if(!res){
 			return false;
+		}else{
+			//TODO:
 		}
+		if(!set){
+		}else{
+			
+			
+		}
+		if(!loc){
+			
+		}else{
+			
+		}
+		if(!con){
+			
+		}else{
+			
+		}
+		if(!pro){
+			
+		}else{
+			
+		}
+		return true;
 	}
 	
 	/**
