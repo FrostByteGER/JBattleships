@@ -22,6 +22,11 @@ import javax.swing.border.TitledBorder;
  */
 public class ChatPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2409409062479437761L;
+	
 	private JTextArea chatArea = new JTextArea();
 	private JTextField inputField = new JTextField();
 	private final JButton btnEnter = new JButton("Enter");
@@ -72,23 +77,20 @@ public class ChatPanel extends JPanel {
 		add(scrollPane, gbc_textArea);
 		
 		GridBagConstraints gbc_inputField = new GridBagConstraints();
-		gbc_inputField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_inputField.fill = GridBagConstraints.BOTH;
 		gbc_inputField.gridx = 0;
 		gbc_inputField.gridy = 1;
 		add(inputField, gbc_inputField);
 		
 		GridBagConstraints gbc_btnEnter = new GridBagConstraints();
+		gbc_btnEnter.fill = GridBagConstraints.VERTICAL;
 		gbc_btnEnter.gridx = 1;
 		gbc_btnEnter.gridy = 1;
-		btnEnter.setActionCommand("enter");
-		btnEnter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("enter")){
-					if (!inputField.getText().equals("")) {
-						addTextToChat(inputField.getText());
-						inputField.setText("");
-					}
-				}
+		btnEnter.setFont(JBSGUI.SERVER_FONT);
+		btnEnter.addActionListener(e -> {
+			if (!inputField.getText().equals("")) {
+				addTextToChat(inputField.getText());
+				inputField.setText("");
 			}
 		});
 		add(btnEnter, gbc_btnEnter);

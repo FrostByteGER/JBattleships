@@ -84,29 +84,30 @@ public class LobbyPanel extends JPanel {
 		rightPanel.setOpaque(false);
 		centerPanel.add(rightPanel);
 		GridBagLayout gbl_rightPanel = new GridBagLayout();
-		gbl_rightPanel.columnWidths = new int[]{291, 0};
-		gbl_rightPanel.rowHeights = new int[]{269, 124, 0};
-		gbl_rightPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_rightPanel.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_rightPanel.columnWidths = new int[] {0};
+		gbl_rightPanel.rowHeights = new int[] {0, 124};
+		gbl_rightPanel.columnWeights = new double[]{1.0};
+		gbl_rightPanel.rowWeights = new double[]{1.0, 1.0};
 		rightPanel.setLayout(gbl_rightPanel);
 		
 		playerPanel.setOpaque(false);
 		playerPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		playerPanel.setBorder(new TitledBorder(null, "Players", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 22), null));
 		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.weighty = 0.7;
 		gbc.fill = GridBagConstraints.BOTH;
-		gbc.insets = new Insets(0, 0, 5, 0);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		AlphaContainer alphaContainer = new AlphaContainer(playerPanel);
-		rightPanel.add(alphaContainer, gbc);
+		rightPanel.add(new AlphaContainer(playerPanel), gbc);
 		playerPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		
 		GridBagConstraints gbc_chatPanel = new GridBagConstraints();
+		gbc_chatPanel.weighty = 0.3;
 		gbc_chatPanel.fill = GridBagConstraints.BOTH;
 		gbc_chatPanel.gridx = 0;
 		gbc_chatPanel.gridy = 1;
-		rightPanel.add(chatPanel, gbc_chatPanel);
+		chatPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		rightPanel.add(new AlphaContainer(chatPanel), gbc_chatPanel);
 		
 		for(int i  = 0; i < 8; i++){
 			PreGamePlayerPanel p = new PreGamePlayerPanel(isHost , type);
