@@ -12,6 +12,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultFormatter;
 
 import java.awt.Insets;
+import java.rmi.RemoteException;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.JComponent;
@@ -19,9 +23,13 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 
+import de.hsb.ismi.jbs.engine.network.game.LobbyInfo;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
@@ -33,6 +41,7 @@ public class ServerPanel extends JPanel {
 	
 	private JPanel infoPanel = new JPanel();
 	private JPanel serverSettingsPanel = new JPanel();
+	
 	private JLabel lblServerlIPText = new JLabel("Server IP:");
 	private JLabel lblPlayers = new JLabel("Players:");
 	private JLabel lblClientIPText = new JLabel("Client IP:");
@@ -68,7 +77,10 @@ public class ServerPanel extends JPanel {
 	private JSeparator infoSeperator = new JSeparator();
 	private JSeparator settingsSeperator = new JSeparator();
 	
+
 	private boolean isHost = false;
+	
+	private Timer updateTimer = new Timer(true);
 
 	/**
 	 * Create the panel.
@@ -411,13 +423,10 @@ public class ServerPanel extends JPanel {
 		serverSettingsPanel.add(submarineSpinner, gbc_submarineSpinner);
 		
 		serverSettingsPanel.setOpaque(false);
-		//TODO: Uncomment
-		//if(isHost){
+
+		if(isHost){
 			add(serverSettingsPanel, "cell 0 1,grow");
-			
-
-		//}
-
+		}
 	}
 
 	/**
@@ -455,9 +464,55 @@ public class ServerPanel extends JPanel {
 		return chckbxUseCoastalArtillery.isSelected();
 	}
 	
+	/**
+	 * 
+	 */
 	private void calculateTotalShips(){
-		int count = getDestroyerCount() + getFrigateCount() + getCorvetteCount() + getSubmarineCount();
+		int count = 0;
+		if(isHost){
+			count = getDestroyerCount() + getFrigateCount() + getCorvetteCount() + getSubmarineCount();
+		}else{
+			count = Integer.parseInt(lblDestroyerCount.getText()) + Integer.parseInt(lblFrigateCount.getText()) + Integer.parseInt(lblCorvetteCount.getText()) + Integer.parseInt(lblSubmarineCount.getText());
+		}
 		lblTotalShipCount.setText(Integer.toString(count));
+	}
+	
+	/**
+	 * 
+	 * @param time
+	 * @param interval
+	 */
+	public void setUpdateTimer(long time, long interval){
+		updateTimer = new Timer(true);
+		updateTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				try {
+					if(!isHost){
+						System.out.println("Requesting LobbyData");
+					}
+					LobbyInfo info = JBattleships.game.getGameClient().getGameServerListener().getLobbyData();
+					lblDestroyerCount.setText(Integer.toString(info.getDestroyers()));
+					lblFrigateCount.setText(Integer.toString(info.getFrigates()));
+					lblCorvetteCount.setText(Integer.toString(info.getCorvettes()));
+					lblSubmarineCount.setText(Integer.toString(info.getSubmarines()));
+					lblFieldSizeNumber.setText(Integer.toString(info.getFieldSize()));
+					lblPlayerCount.setText(Integer.toString(info.getConnectedPlayers().length));
+					chckbxNavalMinesUsed.setSelected(info.useNavalMines());
+					chckbxCoastalArtilleryUsed.setSelected(info.useCoastalArtillery());
+					calculateTotalShips();
+					if(!isHost){
+						System.out.println(info.toString());
+					}
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}, time, interval);
+	}
+	
+	public void stopUpdateTimer(){
+		updateTimer.cancel();
 	}
 	
 	
@@ -484,5 +539,4 @@ public class ServerPanel extends JPanel {
 		}
 		
 	}
-
 }

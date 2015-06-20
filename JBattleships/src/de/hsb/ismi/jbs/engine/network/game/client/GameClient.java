@@ -20,6 +20,7 @@ import de.hsb.ismi.jbs.engine.core.JBSGameListener;
 import de.hsb.ismi.jbs.engine.core.JBSRoundListener;
 import de.hsb.ismi.jbs.engine.network.game.GameConnectionState;
 import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
+import de.hsb.ismi.jbs.engine.network.game.GameServerListener;
 
 /**
  * @author Kevin Kuegler
@@ -32,6 +33,7 @@ public class GameClient extends Thread {
 	private int gamePort = 15750;
 	private int roundListenerPort = 15751;
 	private int gameListenerPort = 15752;
+	private int gameServerListenerPort = 15753;
 	
 	
 	// Client Data
@@ -46,16 +48,18 @@ public class GameClient extends Thread {
 	private GameConnectionState gameConnectionState = GameConnectionState.LOGIN;
 	private GameNetworkState gameNetworkState = GameNetworkState.LOBBY_PRE_CREATED;
 	
-	private JBSRoundListener roundLStub;
-	private JBSGameListener gameLStub;
+	private JBSRoundListener roundLStub = null;
+	private JBSGameListener gameLStub = null;
+	private GameServerListener gameServerLStub = null;
 	
-	public GameClient(InetAddress ip, String username, int gamePort, int roundListenerPort, int gameListenerPort) throws UnknownHostException, IOException{
+	public GameClient(InetAddress ip, String username, int gamePort, int roundListenerPort, int gameListenerPort, int gameServerListenerPort) throws UnknownHostException, IOException{
 		super("GameClient-Thread");
 		this.ip = ip;
 		this.username = username;
 		this.gamePort = gamePort;
 		this.roundListenerPort = roundListenerPort;
 		this.gameListenerPort = gameListenerPort;
+		this.gameServerListenerPort = gameServerListenerPort;
 		socket = new Socket(ip, gamePort);
 		inputStream = new DataInputStream(socket.getInputStream());
 		outputStream = new DataOutputStream(socket.getOutputStream());
@@ -205,6 +209,17 @@ public class GameClient extends Thread {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			gameServerLStub = (GameServerListener) Naming.lookup("rmi://" + ip.getHostAddress() + ":" + gameServerListenerPort + "/JBSGameServerListener");
+			
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -325,6 +340,13 @@ public class GameClient extends Thread {
 	 */
 	public final JBSGameListener getGameListener() {
 		return gameLStub;
+	}
+
+	/**
+	 * @return the gameServerLStub
+	 */
+	public final GameServerListener getGameServerListener() {
+		return gameServerLStub;
 	}
 	
 	

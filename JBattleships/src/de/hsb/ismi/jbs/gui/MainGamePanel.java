@@ -43,7 +43,7 @@ public class MainGamePanel extends JPanel {
 	private JPanel lowerSidePanel;
 	private JPanel lowerMainPanel;
 	private JPanel uperMainPanel;
-	private ChatPanel chatPanel;
+	private BattleLogChatPanel chatPanel;
 	
 	private JLabel fieldNumber;
 	private JLabel activePlayerlbl;
@@ -84,7 +84,7 @@ public class MainGamePanel extends JPanel {
 				chatVisibility = false;
 				break;
 		}
-		chatPanel = new ChatPanel(chatVisibility);
+		chatPanel = new BattleLogChatPanel(chatVisibility);
 		sidePanel = new JPanel();
 		
 		

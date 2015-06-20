@@ -30,7 +30,7 @@ public class ChatServer extends Thread {
 		try {
 			System.out.println("Binding to port " + port + ", please wait...");
 			server = new ServerSocket(port);
-			System.out.println("Server started: " + server);
+			System.out.println("ChatServer started: " + server);
 			start();
 		} catch (IOException ioe) {
 			System.out.println("Can't bind to port " + port + ": " + ioe.getMessage());

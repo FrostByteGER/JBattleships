@@ -32,7 +32,7 @@ public class Game implements Serializable{
 	private int fieldSize = 10;
 	@XmlElement(name = "ShipCount")
 	@XmlElementWrapper(name = "Ships")
-	private int[] shipCount = new int[]{0,0,0,0};
+	private int[] shipCount = new int[]{1,2,3,4};
 
 	public Game(){
 		

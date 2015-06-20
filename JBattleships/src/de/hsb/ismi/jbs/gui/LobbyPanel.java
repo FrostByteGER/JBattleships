@@ -19,6 +19,10 @@ import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
 import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.start.JBattleships;
+import net.miginfocom.swing.MigLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 /**
  * @author Kevin-Laptop Kuegler
@@ -32,18 +36,22 @@ public class LobbyPanel extends JPanel {
 	
 	private JPanel centerPanel = new JPanel();
 	private JPanel playerPanel = new JPanel();
+	private ServerPanel serverPanel = new ServerPanel(true);
 	
 	private JBSGameType gameType;
 	private ArrayList<JBSPlayer> players = new ArrayList<>(0);
-	private ServerPanel serverPanel = new ServerPanel(true);
+	
 	
 	private JBSButtonGroup btnGroup;
 	
 	private final PreGamePlayerPanel[] playerPanels = new PreGamePlayerPanel[8];
+	private JPanel rightPanel;
+	
+	private ChatPanel chatPanel = new ChatPanel();
 	
 	
 	/**
-	 * Create the panel.
+	 * Create the chatPanel.
 	 */
 	public LobbyPanel(JBSGUI parent, JBSGameType type, boolean isHost) {
 		setOpaque(false);
@@ -67,22 +75,44 @@ public class LobbyPanel extends JPanel {
 		}else{
 			add(new ClientButtonPanel(), BorderLayout.SOUTH);
 		}
-		
-		playerPanel.setOpaque(false);
-		playerPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		playerPanel.setBorder(new TitledBorder(null, "Players", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 22), null));
 		centerPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		serverPanel = new ServerPanel(isHost);
 		centerPanel.add(new AlphaContainer(serverPanel));
-		centerPanel.add(new AlphaContainer(playerPanel));
+		
+		rightPanel = new JPanel();
+		rightPanel.setOpaque(false);
+		centerPanel.add(rightPanel);
+		GridBagLayout gbl_rightPanel = new GridBagLayout();
+		gbl_rightPanel.columnWidths = new int[]{291, 0};
+		gbl_rightPanel.rowHeights = new int[]{269, 124, 0};
+		gbl_rightPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_rightPanel.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		rightPanel.setLayout(gbl_rightPanel);
+		
+		playerPanel.setOpaque(false);
+		playerPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		playerPanel.setBorder(new TitledBorder(null, "Players", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 22), null));
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.insets = new Insets(0, 0, 5, 0);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		AlphaContainer alphaContainer = new AlphaContainer(playerPanel);
+		rightPanel.add(alphaContainer, gbc);
 		playerPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		
+		GridBagConstraints gbc_chatPanel = new GridBagConstraints();
+		gbc_chatPanel.fill = GridBagConstraints.BOTH;
+		gbc_chatPanel.gridx = 0;
+		gbc_chatPanel.gridy = 1;
+		rightPanel.add(chatPanel, gbc_chatPanel);
+		
 		for(int i  = 0; i < 8; i++){
-			PreGamePlayerPanel p = new PreGamePlayerPanel(isHost , type, "Player #" + (i + 1));
+			PreGamePlayerPanel p = new PreGamePlayerPanel(isHost , type);
 			
 			if(i == 0){
-				p.setName(JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName());
+				//p.setName(JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName());
 				p.setActiveSelected(true);
 				p.setAISelected(false);
 				p.getBtnKick().setEnabled(false);
@@ -93,9 +123,24 @@ public class LobbyPanel extends JPanel {
 			btnGroup.add(p.getCheckboxActive());
 			p.setActiveSelected(true);
 			p.getNameField().setEditable(false);
+			p.setPosition(i + 1);
+			if(isHost){
+				JBattleships.game.getGameServer().addConnectionListener((cst, position) -> {
+					if(position == p.getPosition()){
+						p.setName(cst.getUsername());
+					}
+					
+				});
+			}
 			playerPanel.add(p);
 			playerPanels[i] = p;
 		}
+		
+		
+	}
+	
+	public void setUpdateTimer(long time, long interval){
+		serverPanel.setUpdateTimer(time, interval);
 	}
 	
 	private class HostButtonPanel extends JPanel{
@@ -119,11 +164,15 @@ public class LobbyPanel extends JPanel {
 			add(btnCancel);
 			
 			btnStart.setText("Start Game");
-			btnStart.setEnabled(false);
+			btnStart.setEnabled(true);
 			btnStart.addActionListener(e -> {
 				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + LobbyPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 				GameClient client = JBattleships.game.getGameClient();
-				
+				try {
+					System.out.println(client.getGameServerListener().getLobbyData().toString());
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 				//client.getGameListener().createGame(gameType, players, fieldSize, shipCount);
 			});
 			add(btnStart);

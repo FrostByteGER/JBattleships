@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 
 
 
+
 import java.awt.BorderLayout;
+
 
 
 
@@ -18,12 +20,15 @@ import javax.swing.JButton;
 
 
 
+
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.network.chat.server.ChatServer;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
 import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 
 
 
@@ -85,18 +90,20 @@ public class OnlinePanel extends JPanel {
 		
 		btnHost = new JButton("Host Game");
 		btnHost.addActionListener(e -> {
+			
 			JBSCoreGame game = JBattleships.game;
-			GameServer server = new GameServer(15750, 15751, 15752);
+			GameServer server = new GameServer(15750, 15751, 15752, 15753);
+			
 			game.setGameServer(server);
 			GameManager gm = new GameManager();
 			game.setGameManager(gm);
 			server.setServerGameManager(gm);
-			//game.generateGame();
-			
-			
+			game.setChatServer(new ChatServer(15754));
+			LobbyPanel p = new LobbyPanel(parent, JBSGameType.GAME_ONLINE, true);
 			try {
 				server.startServer();
-				game.setGameClient(new GameClient(InetAddress.getByName("localhost"), "Kevin", 15750, 15751, 15752));
+				p.setUpdateTimer(100L, 1000L);
+				game.setGameClient(new GameClient(InetAddress.getByName("localhost"), "Kevin", 15750, 15751, 15752, 15753));
 				game.getGameClient().startClient();
 			} catch(RemoteException re) {
 				re.printStackTrace();
@@ -107,7 +114,7 @@ public class OnlinePanel extends JPanel {
 			} catch(IOException ioe){
 				ioe.printStackTrace();
 			}
-			parent.swapContainer(new LobbyPanel(parent, JBSGameType.GAME_ONLINE, true));
+			parent.swapContainer(p);
 		});
 		GridBagConstraints gbc_btnHost = new GridBagConstraints();
 		gbc_btnHost.insets = new Insets(0, 0, 5, 0);

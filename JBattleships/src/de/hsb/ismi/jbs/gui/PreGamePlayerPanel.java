@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * Wrapper JPanel class that contains the elements for player
@@ -20,10 +21,12 @@ import de.hsb.ismi.jbs.engine.core.JBSGameType;
 public class PreGamePlayerPanel extends JPanel {
 
 	private JLabel lblName = new JLabel("Name:");
-	private JTextField nameField = new JTextField("Undefined", 10);
+	private JTextField nameField = new JTextField("", 10);
 	private JCheckBox checkboxAI = new JCheckBox("AI?");
 	private JCheckBox checkboxActive = new JCheckBox("Active?");
 	private JButton btnKick = new JButton("Kick Player");
+	
+	private int position = 1;
 	
 	/**
 	 * Creates a new PreGamePlayerPanel with a preset nameField String.
@@ -38,7 +41,7 @@ public class PreGamePlayerPanel extends JPanel {
 	 * @param fieldContent The content of the nameField.
 	 */
 	public PreGamePlayerPanel(boolean isHost, JBSGameType gameType, String fieldContent) {
-		nameField = new JTextField(fieldContent, 10);
+		nameField.setText(fieldContent);
 		initGUI(isHost, gameType);
 	}
 	
@@ -54,18 +57,28 @@ public class PreGamePlayerPanel extends JPanel {
 		checkboxAI.setFont(JBSGUI.SERVER_FONT);
 		add(checkboxAI);
 		btnKick.setFont(JBSGUI.SERVER_FONT);
-		checkboxAI.addItemListener(i -> {
-			btnKick.setEnabled(!checkboxAI.isSelected());
-		});
+
 		checkboxActive.setFont(JBSGUI.SERVER_FONT);
 		
-		checkboxActive.addItemListener(i -> {
-			btnKick.setEnabled(checkboxActive.isSelected());
-			checkboxAI.setEnabled(checkboxActive.isSelected());
-		});
-		
+		if(isHost){
+			add(checkboxActive);
+			checkboxAI.addItemListener(i -> {
+				btnKick.setEnabled(!checkboxAI.isSelected());
+			});
+			
+			checkboxActive.addItemListener(i -> {
+				if(!checkboxAI.isSelected()){
+					btnKick.setEnabled(checkboxActive.isSelected());
+				}
+				checkboxAI.setEnabled(checkboxActive.isSelected());
+				JBattleships.game.getGameServer().removeClient(nameField.getText());
+				nameField.setText("");
+			});
+		}else{
+			checkboxAI.setEnabled(false);
+			checkboxActive.setEnabled(false);
+		}
 		checkboxAI.setSelected(false);
-		add(checkboxActive);
 		checkboxAI.setOpaque(false);
 		checkboxActive.setOpaque(false);
 		if(isHost && gameType == JBSGameType.GAME_ONLINE){
@@ -147,6 +160,20 @@ public class PreGamePlayerPanel extends JPanel {
 	 */
 	public final JButton getBtnKick() {
 		return btnKick;
+	}
+
+	/**
+	 * @return the position
+	 */
+	public final int getPosition() {
+		return position;
+	}
+
+	/**
+	 * @param position the position to set
+	 */
+	public final void setPosition(int position) {
+		this.position = position;
 	}
 
 }

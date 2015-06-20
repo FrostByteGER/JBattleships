@@ -3,63 +3,57 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import java.awt.BorderLayout;
-import javax.swing.JTextArea;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 /**
- * @author Kevin-Laptop Kuegler
+ * @author Kevin Kuegler
  * @version 1.00
  */
 public class ChatPanel extends JPanel {
 	
-	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	private JPanel chatPanel = new JPanel();
-	private JPanel logPanel = new JPanel();
 	private JTextArea chatArea = new JTextArea();
 	private JTextField inputField = new JTextField();
-	private JTextArea logArea = new JTextArea();
-
-	private boolean showChatPanel = true;
 	private final JButton btnEnter = new JButton("Enter");
+	
+	private static final int MAX_LINE_COUNT = 255;
+
 	/**
 	 * Create the panel.
 	 */
-	public ChatPanel(boolean showChatPanel) {
+	public ChatPanel() {
+		initPanel();
+	}
+	
+	private void initPanel(){
+		setBorder(new TitledBorder(null, "Chat:", TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.SERVER_FONT, null));
 		inputField.setActionCommand("enter");
-		inputField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("enter")){
-					if (!inputField.getText().equals("")) {
-						addTextToChat(inputField.getText());
-						inputField.setText("");
-					}
-				}
+		inputField.addActionListener(e -> {
+			if (!inputField.getText().equals("")) {
+				addTextToChat(inputField.getText());
+				inputField.setText("");
 			}
 		});
 		inputField.setColumns(10);
-		setLayout(new BorderLayout(0, 0));
-		
-		add(tabbedPane);
-		
-		this.showChatPanel = showChatPanel;
-		if (showChatPanel) {
-			tabbedPane.addTab("Chat", null, chatPanel, null);
-		}
+		setOpaque(false);
+		chatArea.setOpaque(false);
+
 		GridBagLayout gbl_chatPanel = new GridBagLayout();
 		gbl_chatPanel.columnWidths = new int[] {220, 0};
 		gbl_chatPanel.rowHeights = new int[] {22, 0};
 		gbl_chatPanel.columnWeights = new double[]{1.0, 0.0};
 		gbl_chatPanel.rowWeights = new double[]{0.0, 0.0};
-		chatPanel.setLayout(gbl_chatPanel);
+		setLayout(gbl_chatPanel);
 		
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.gridwidth = 2;
@@ -69,13 +63,19 @@ public class ChatPanel extends JPanel {
 		gbc_textArea.gridx = 0;
 		gbc_textArea.gridy = 0;
 		chatArea.setEditable(false);
-		chatPanel.add(chatArea, gbc_textArea);
+		
+		JScrollPane scrollPane = new JScrollPane(chatArea);
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+		add(scrollPane, gbc_textArea);
 		
 		GridBagConstraints gbc_inputField = new GridBagConstraints();
 		gbc_inputField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_inputField.gridx = 0;
 		gbc_inputField.gridy = 1;
-		chatPanel.add(inputField, gbc_inputField);
+		add(inputField, gbc_inputField);
 		
 		GridBagConstraints gbc_btnEnter = new GridBagConstraints();
 		gbc_btnEnter.gridx = 1;
@@ -91,39 +91,7 @@ public class ChatPanel extends JPanel {
 				}
 			}
 		});
-		chatPanel.add(btnEnter, gbc_btnEnter);
-		
-		tabbedPane.addTab("Battle-Log", null, logPanel, null);
-		logPanel.setLayout(new BorderLayout(0, 0));
-		
-		logArea.setEditable(false);
-		logPanel.add(logArea);
-
-	}
-	
-	
-	
-	/**
-	 * @return the showChatPanel
-	 */
-	public final boolean isShowChatPanel() {
-		return showChatPanel;
-	}
-	
-	/**
-	 * @param showChatPanel the showChatPanel to set
-	 */
-	public final void setShowChatPanel(boolean showChatPanel) {
-		
-		if(showChatPanel && !this.showChatPanel){
-			tabbedPane.removeTabAt(0);
-			tabbedPane.removeTabAt(1);
-			tabbedPane.addTab("Chat", chatPanel);
-			tabbedPane.addTab("Battle-Log", logPanel);
-		}else if(!showChatPanel && this.showChatPanel){
-			tabbedPane.removeTabAt(0);
-		}
-		this.showChatPanel = showChatPanel;
+		add(btnEnter, gbc_btnEnter);
 	}
 	
 	/**
@@ -135,18 +103,13 @@ public class ChatPanel extends JPanel {
 	}
 	
 	/**
-	 * Adds the given text to the battlelog
-	 * @param text Text to add
-	 */
-	public void addTextToBattleLog(String text){
-		logArea.append(text + System.lineSeparator());
-	}
-	
-	/**
 	 * Adds the given text to the chat
 	 * @param text Text to add
 	 */
 	public void addTextToChat(String text){
+		if(chatArea.getLineCount() > MAX_LINE_COUNT){
+			chatArea.setText("");
+		}
 		chatArea.append(text + System.lineSeparator());
 	}
 	

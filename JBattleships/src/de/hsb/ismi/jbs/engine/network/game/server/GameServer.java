@@ -21,24 +21,30 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.JBSGameListener;
+import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSRoundListener;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.network.game.GameServerListener;
+import de.hsb.ismi.jbs.engine.network.game.LobbyInfo;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class GameServer extends Thread {
+public class GameServer extends Thread implements GameServerListener{
 	
 	// Server Connection Data
 	private InetAddress ip = InetAddress.getLoopbackAddress();
 	private int gamePort = 15750;
 	private int roundListenerPort = 15751;
 	private int gameListenerPort = 15752;
+	private int gameServerListenerPort = 15753;
 	
 	// Server Data
 	private ServerSocket server = null;
@@ -46,18 +52,24 @@ public class GameServer extends Thread {
 	public static final int MAX_LOGIN_COUNT = 3;
 	private volatile boolean endServer = false;	
 	
+	private Vector<ConnectionListener> connectionListeners = new Vector<>(0);
+	
 	//Game Data
 	private GameManager gm = new GameManager();
+	
 	private JBSRoundListener roundLStub = null;
 	private JBSGameListener gameLStub = null;
+	private GameServerListener gameServerLStub = null;
+	
 	
 
 
-	public GameServer(int gamePort, int roundListenerPort, int gameListenerPort){
+	public GameServer(int gamePort, int roundListenerPort, int gameListenerPort, int gameServerListenerPort){
 		super("Game-Server");
 		this.gamePort = gamePort;
 		this.roundListenerPort = roundListenerPort;
 		this.gameListenerPort = gameListenerPort;
+		this.gameServerListenerPort = gameServerListenerPort;
 
 		try {
 			System.out.println("Binding to gamePort " + this.gamePort + ", please wait...");
@@ -107,6 +119,9 @@ public class GameServer extends Thread {
 		System.out.println("Client " + client.getUsername() + " requesting Authentification...");
 		if(findClient(input) == null){
 			findClient(client.getUsername()).setUsername(input);
+			for(ConnectionListener cl : connectionListeners){
+				cl.PlayerConnected(client, clients.size());
+			}
 			System.out.println("Authentification successfull.");
 			return true;
 		} else{
@@ -121,8 +136,12 @@ public class GameServer extends Thread {
 	 */
 	public synchronized void removeClient(String id) {
 		GameServerThread toTerminate = findClient(id);
-		System.out.println("Removing client thread " + id);
-		toTerminate.closeConnection();
+		System.out.println("Trying to remove Client " + id);
+		if(toTerminate != null){
+			System.out.println("Removing client thread " + id);
+			toTerminate.closeConnection();
+		}
+
 	}
 	
 	/**
@@ -169,6 +188,10 @@ public class GameServer extends Thread {
 		LocateRegistry.createRegistry(gameListenerPort);
 		gameLStub = (JBSGameListener) UnicastRemoteObject.exportObject(game.getGameManager(), gameListenerPort);
 		Naming.rebind("rmi://" + ip.getHostAddress() + ":" + gameListenerPort + "/JBSGameListener", gameLStub);
+
+		LocateRegistry.createRegistry(gameServerListenerPort);
+		gameServerLStub = (GameServerListener) UnicastRemoteObject.exportObject(this, gameServerListenerPort);
+		Naming.rebind("rmi://" + ip.getHostAddress() + ":" + gameServerListenerPort + "/JBSGameServerListener", gameServerLStub);
 
 		System.out.println("Stub creation successfull!");
 		start();
@@ -270,6 +293,42 @@ public class GameServer extends Thread {
 	 */
 	public final void setServerGameManager(GameManager gm) {
 		this.gm = gm;
+	}
+	
+	public void addConnectionListener(ConnectionListener cl){
+		connectionListeners.addElement(cl);
+	}
+	
+	public void removeConnectionListener(ConnectionListener cl){
+		connectionListeners.remove(cl);
+	}
+
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.network.game.GameServerListener#getLobbyData()
+	 */
+	@Override
+	public LobbyInfo getLobbyData() throws RemoteException {
+		LobbyInfo data = new LobbyInfo();
+		Game g = gm.getGame();
+		data.setDestroyers(g.getDestroyerCount());
+		data.setFrigates(g.getFrigateCount());
+		data.setCorvettes(g.getCorvetteCount());
+		data.setSubmarines(g.getSubmarineCount());
+		data.setFieldSize(g.getFieldSize());
+		JBSPlayer[] players = new JBSPlayer[clients.size()];
+		for(int i = 0; i < clients.size(); i++){
+			players[i] = new JBSPlayer(clients.get(i).getUsername());
+		}
+		return data;
+	}
+
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.network.game.GameServerListener#getGameData()
+	 */
+	@Override
+	public void getGameData() throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

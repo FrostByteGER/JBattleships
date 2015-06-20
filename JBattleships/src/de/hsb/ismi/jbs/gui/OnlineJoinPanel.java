@@ -21,6 +21,7 @@ import java.util.TimerTask;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -32,9 +33,12 @@ import javax.swing.JTextField;
 
 
 
+
+import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 
 
 
@@ -93,7 +97,7 @@ public class OnlineJoinPanel extends JPanel {
 		gbc_lblServerIp.gridy = 0;
 		centerPanel.add(lblServerIp, gbc_lblServerIp);
 		
-		ipField = new JTextField();
+		ipField = new JTextField("localhost");
 		ipField.setHorizontalAlignment(JTextField.CENTER);
 		GridBagConstraints gbc_ipField = new GridBagConstraints();
 		gbc_ipField.insets = new Insets(0, 0, 5, 0);
@@ -148,10 +152,16 @@ public class OnlineJoinPanel extends JPanel {
 			int gamePort = JBattleships.game.getGamePort();
 			int rlPort = JBattleships.game.getRoundListenerPort();
 			int glPort = JBattleships.game.getGameListenerPort();
+			int gslPort = JBattleships.game.getGameServerListenerPort();
 			try {
-				//JBattleships.game.setGameServer();
-				JBattleships.game.generateChatServer();
-				JBattleships.game.setGameClient(new GameClient(ip, username, gamePort, rlPort, glPort));
+				GameClient client = new GameClient(ip, username, gamePort, rlPort, glPort, gslPort);
+				ChatClient chat = new ChatClient(ip, chatPort, username);
+				JBattleships.game.setChatClient(chat);
+				JBattleships.game.setGameClient(client);
+				client.startClient();
+				LobbyPanel p = new LobbyPanel(parent, JBSGameType.GAME_ONLINE, false);
+				p.setUpdateTimer(100L, 1000L);
+				parent.swapContainer(p);
 				//JBattleships.game.setChatClient(new ChatClient(ip, chatPort, username));
 
 			} catch (IOException ioe) {
