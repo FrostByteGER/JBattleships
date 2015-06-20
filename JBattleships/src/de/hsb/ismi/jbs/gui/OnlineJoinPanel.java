@@ -149,7 +149,7 @@ public class OnlineJoinPanel extends JPanel {
 			int rlPort = JBattleships.game.getRoundListenerPort();
 			int glPort = JBattleships.game.getGameListenerPort();
 			try {
-				JBattleships.game.generateGameServer();
+				//JBattleships.game.setGameServer();
 				JBattleships.game.generateChatServer();
 				JBattleships.game.setGameClient(new GameClient(ip, username, gamePort, rlPort, glPort));
 				//JBattleships.game.setChatClient(new ChatClient(ip, chatPort, username));

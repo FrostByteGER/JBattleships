@@ -4,18 +4,18 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.GameListener;
+import de.hsb.ismi.jbs.engine.core.JBSGameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
 
-public class GameManager implements GameListener{
+public class GameManager implements JBSGameListener{
 	
 	private Game game = new Game();
 	private RoundManager roundManager = new RoundManager();
 	
-	private ArrayList<GameListener> listeners = new ArrayList<GameListener>(0);
+	private ArrayList<JBSGameListener> listeners = new ArrayList<JBSGameListener>(0);
 	
 	private GameNetworkState gameState = GameNetworkState.LOBBY_PRE_CREATED;
 	
@@ -24,6 +24,17 @@ public class GameManager implements GameListener{
 	 */
 	public GameManager() {
 		
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.core.JBSGameListener#createGame(de.hsb.ismi.jbs.engine.core.JBSGameType)
+	 */
+	@Override
+	public Game createGame(JBSGameType gameType) throws RemoteException{
+		game = new Game();
+		game.setGameType(gameType);
+		gameState = GameNetworkState.LOBBY_CREATED;
+		return game;
 	}
 
 	/**
@@ -34,7 +45,8 @@ public class GameManager implements GameListener{
 	 * @param shipCount
 	 * @return
 	 */
-	public Game createGame(JBSGameType gameType , JBSPlayer[] players, int fieldSize, int[] shipCount){
+	@Override
+	public Game createGame(JBSGameType gameType , JBSPlayer[] players, int fieldSize, int[] shipCount) throws RemoteException{
 		for(JBSPlayer p : players){
 			p.setPlayerField(new JBSGameField(fieldSize));
 		}
@@ -43,19 +55,55 @@ public class GameManager implements GameListener{
 		return game;
 	}
 	
-	/**
-	 * Starts the actual match with the current data.
-	 * @return
-	 */
-	public boolean startGame(){
+
+	@Override
+	public boolean startGame() throws RemoteException {
 		if(game != null){
 			roundManager = new RoundManager();
 			gameState = GameNetworkState.GAME_STARTED;
-			for(GameListener gl : listeners){
+			/*
+			for(JBSGameListener gl : listeners){
 				try {
-					gl.fireStartedGame();
+					gl.startGame();
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}*/
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public boolean endGame() throws RemoteException {
+		if((gameState == GameNetworkState.GAME_STARTED && game.isGameOver())){
+			gameState = GameNetworkState.GAME_ENDED;
+			/*
+			for(JBSGameListener gl : listeners){
+				try {
+					gl.endGame();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}*/
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	@Deprecated
+	public boolean startGame2(){
+		if(game != null){
+			roundManager = new RoundManager();
+			gameState = GameNetworkState.GAME_STARTED;
+			for(JBSGameListener gl : listeners){
+				try {
+					gl.startGame();
+				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
 			}
@@ -64,22 +112,15 @@ public class GameManager implements GameListener{
 			return false;
 		}
 	}
-	
-	/**
-	 * Ends the game.
-	 * @param force Forces the game to end.
-	 * @return True if game is over.
-	 */
-	public boolean endGame(boolean force){
+
+	@Deprecated
+	public boolean endGame2(boolean force){
 		if((gameState == GameNetworkState.GAME_STARTED && game.isGameOver()) || force){
 			gameState = GameNetworkState.GAME_ENDED;
-			//JBSCoreGame.msgLogger.addMessage("Game has ended. Winner is: " + game.getActivePlayer().getName());
-			//System.out.println("Game has ended. Winner is: " + game.getActivePlayer().getName());
-			for(GameListener gl : listeners){
+			for(JBSGameListener gl : listeners){
 				try {
-					gl.fireEndedGame();
+					gl.endGame();
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -122,21 +163,21 @@ public class GameManager implements GameListener{
 		this.roundManager = roundManager;
 	}
 	
-	public final void addGameListener(GameListener gl){
+	public final void addGameListener(JBSGameListener gl){
 		listeners.add(gl);
 	}
 
 	/**
 	 * @return the listeners
 	 */
-	public final ArrayList<GameListener> getListeners() {
+	public final ArrayList<JBSGameListener> getListeners() {
 		return listeners;
 	}
 
 	/**
 	 * @param listeners the listeners to set
 	 */
-	public final void setListeners(ArrayList<GameListener> listeners) {
+	public final void setListeners(ArrayList<JBSGameListener> listeners) {
 		this.listeners = listeners;
 	}
 
@@ -159,24 +200,6 @@ public class GameManager implements GameListener{
 	 */
 	public final void setGameState(GameNetworkState gameState) {
 		this.gameState = gameState;
-	}
-
-	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.core.GameListener#fireStartedGame()
-	 */
-	@Override
-	public void fireStartedGame() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.core.GameListener#fireEndedGame()
-	 */
-	@Override
-	public void fireEndedGame() throws RemoteException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

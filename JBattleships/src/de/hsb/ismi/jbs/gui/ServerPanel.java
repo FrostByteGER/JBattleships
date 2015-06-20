@@ -4,15 +4,26 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+
 import javax.swing.border.TitledBorder;
+import javax.swing.text.DefaultFormatter;
+
 import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+
+import de.hsb.ismi.jbs.start.JBattleships;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 /**
  * @author Kevin-Laptop Kuegler
@@ -40,23 +51,30 @@ public class ServerPanel extends JPanel {
 	private JLabel lblSubmarineCount = new JLabel("4");
 	private JCheckBox chckbxNavalMinesUsed = new JCheckBox("Naval Mines");
 	private JCheckBox chckbxCoastalArtilleryUsed = new JCheckBox("Coastal Artillery");
+	private JLabel lblFieldsize = new JLabel("Player Fieldsize:");
+	private JLabel lblFieldSizeNumber = new JLabel("10");
 	private JLabel lblDestroyerspinner = new JLabel("Destroyers:");
 	private JLabel lblFrigateSpinner = new JLabel("Frigates:");
 	private JLabel lblCorvetteSpinner = new JLabel("Corvettes:");
 	private JLabel lblSubmarineSpinner = new JLabel("Submarines:");
-	private JSpinner destroyerSpinner = new JSpinner();
-	private JSpinner frigateSpinner = new JSpinner();
-	private JSpinner corvetteSpinner = new JSpinner();
-	private JSpinner submarineSpinner = new JSpinner();
+	private JLabel lblPlayerFieldsize = new JLabel("Player Fieldsize:");
+	private JBSSpinner destroyerSpinner = new JBSSpinner();
+	private JBSSpinner frigateSpinner = new JBSSpinner();
+	private JBSSpinner corvetteSpinner = new JBSSpinner();
+	private JBSSpinner submarineSpinner = new JBSSpinner();
+	private JBSSpinner sizeSpinner = new JBSSpinner();
 	private JCheckBox chckbxUseNavalMines = new JCheckBox("Use Naval Mines");
 	private JCheckBox chckbxUseCoastalArtillery = new JCheckBox("Use Coastal Artillery");
+	private JSeparator infoSeperator = new JSeparator();
+	private JSeparator settingsSeperator = new JSeparator();
 	
-	
+	private boolean isHost = false;
 
 	/**
 	 * Create the panel.
 	 */
 	public ServerPanel(boolean isHost) {
+		this.isHost = isHost;
 		setBackground(JBSGUI.BACKGROUND_COLOR);
 		setLayout(new MigLayout("", "[300px,grow,fill]", "[120px,grow][92px,grow,fill]"));
 		infoPanel.setBorder(new TitledBorder(null, "Server Infos:", TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.SERVER_FONT, null));
@@ -84,6 +102,15 @@ public class ServerPanel extends JPanel {
 		gbc_lblServerIP.gridy = 0;
 		lblServerIP.setFont(JBSGUI.SERVER_FONT);
 		infoPanel.add(lblServerIP, gbc_lblServerIP);
+		
+		GridBagConstraints gbc_infoSeperator = new GridBagConstraints();
+		gbc_infoSeperator.gridheight = 5;
+		gbc_infoSeperator.fill = GridBagConstraints.VERTICAL;
+		gbc_infoSeperator.insets = new Insets(0, 0, 5, 5);
+		gbc_infoSeperator.gridx = 2;
+		gbc_infoSeperator.gridy = 0;
+		infoSeperator.setOrientation(SwingConstants.VERTICAL);
+		infoPanel.add(infoSeperator, gbc_infoSeperator);
 		
 		GridBagConstraints gbc_lblDestroyers = new GridBagConstraints();
 		gbc_lblDestroyers.fill = GridBagConstraints.BOTH;
@@ -197,6 +224,22 @@ public class ServerPanel extends JPanel {
 		lblSubmarineCount.setFont(JBSGUI.SERVER_FONT);
 		infoPanel.add(lblSubmarineCount, gbc_lblSubmarineCount);
 		
+		GridBagConstraints gbc_lblFieldsize = new GridBagConstraints();
+		gbc_lblFieldsize.fill = GridBagConstraints.BOTH;
+		gbc_lblFieldsize.insets = new Insets(0, 0, 0, 5);
+		gbc_lblFieldsize.gridx = 0;
+		gbc_lblFieldsize.gridy = 4;
+		lblFieldsize.setFont(JBSGUI.SERVER_FONT);
+		infoPanel.add(lblFieldsize, gbc_lblFieldsize);
+		
+		GridBagConstraints gbc_lblFieldSizeNumber = new GridBagConstraints();
+		gbc_lblFieldSizeNumber.fill = GridBagConstraints.BOTH;
+		gbc_lblFieldSizeNumber.insets = new Insets(0, 0, 0, 5);
+		gbc_lblFieldSizeNumber.gridx = 1;
+		gbc_lblFieldSizeNumber.gridy = 4;
+		lblFieldSizeNumber.setFont(JBSGUI.SERVER_FONT);
+		infoPanel.add(lblFieldSizeNumber, gbc_lblFieldSizeNumber);
+		
 		GridBagConstraints gbc_chckbxNavalMinesUsed = new GridBagConstraints();
 		gbc_chckbxNavalMinesUsed.fill = GridBagConstraints.BOTH;
 		gbc_chckbxNavalMinesUsed.insets = new Insets(0, 0, 0, 5);
@@ -219,9 +262,9 @@ public class ServerPanel extends JPanel {
 		
 		GridBagLayout gbl_serverSettingsPanel = new GridBagLayout();
 		gbl_serverSettingsPanel.columnWidths = new int[] {0, 100, 30, 0, 0};
-		gbl_serverSettingsPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_serverSettingsPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_serverSettingsPanel.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_serverSettingsPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_serverSettingsPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		serverSettingsPanel.setLayout(gbl_serverSettingsPanel);
 		
 		GridBagConstraints gbc_lblDestroyerspinner = new GridBagConstraints();
@@ -239,6 +282,11 @@ public class ServerPanel extends JPanel {
 		gbc_destroyerSpinner.gridy = 0;
 		destroyerSpinner.setFont(JBSGUI.SERVER_FONT);
 		destroyerSpinner.setModel(new SpinnerNumberModel(1, 0, 32, 1));
+		destroyerSpinner.addChangeListener(e -> {
+			JBattleships.game.getGameServer().getServerGameManager().getGame().setDestroyerCount(getDestroyerCount());
+			lblDestroyerCount.setText(Integer.toString(getDestroyerCount()));
+			calculateTotalShips();
+		});
 		serverSettingsPanel.add(destroyerSpinner, gbc_destroyerSpinner);
 		
 		GridBagConstraints gbc_chckbxUseNavalMines = new GridBagConstraints();
@@ -251,6 +299,15 @@ public class ServerPanel extends JPanel {
 		chckbxUseNavalMines.addItemListener(i -> {
 			chckbxNavalMinesUsed.setSelected(chckbxUseNavalMines.isSelected());
 		});
+		
+		GridBagConstraints gbc_settingsSeperator = new GridBagConstraints();
+		gbc_settingsSeperator.fill = GridBagConstraints.VERTICAL;
+		gbc_settingsSeperator.gridheight = 5;
+		gbc_settingsSeperator.insets = new Insets(0, 0, 5, 5);
+		gbc_settingsSeperator.gridx = 2;
+		gbc_settingsSeperator.gridy = 0;
+		settingsSeperator.setOrientation(SwingConstants.VERTICAL);
+		serverSettingsPanel.add(settingsSeperator, gbc_settingsSeperator);
 		serverSettingsPanel.add(chckbxUseNavalMines, gbc_chckbxUseNavalMines);
 		
 		GridBagConstraints gbc_lblFrigateSpinner = new GridBagConstraints();
@@ -268,6 +325,11 @@ public class ServerPanel extends JPanel {
 		gbc_frigateSpinner.gridy = 1;
 		frigateSpinner.setFont(JBSGUI.SERVER_FONT);
 		frigateSpinner.setModel(new SpinnerNumberModel(2, 0, 32, 1));
+		frigateSpinner.addChangeListener(e -> {
+			JBattleships.game.getGameServer().getServerGameManager().getGame().setFrigateCount(getFrigateCount());
+			lblFrigateCount.setText(Integer.toString(getFrigateCount()));
+			calculateTotalShips();
+		});
 		serverSettingsPanel.add(frigateSpinner, gbc_frigateSpinner);
 		
 		GridBagConstraints gbc_chckbxUseCoastalArtillery = new GridBagConstraints();
@@ -297,29 +359,130 @@ public class ServerPanel extends JPanel {
 		gbc_corvetteSpinner.gridy = 2;
 		corvetteSpinner.setFont(JBSGUI.SERVER_FONT);
 		corvetteSpinner.setModel(new SpinnerNumberModel(3, 0, 32, 1));
+		corvetteSpinner.addChangeListener(e -> {
+			JBattleships.game.getGameServer().getServerGameManager().getGame().setCorvetteCount(getCorvetteCount());
+			lblCorvetteCount.setText(Integer.toString(getCorvetteCount()));
+			calculateTotalShips();
+		});
 		serverSettingsPanel.add(corvetteSpinner, gbc_corvetteSpinner);
 		
 		GridBagConstraints gbc_lblSubmarineSpinner = new GridBagConstraints();
 		gbc_lblSubmarineSpinner.fill = GridBagConstraints.BOTH;
-		gbc_lblSubmarineSpinner.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSubmarineSpinner.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSubmarineSpinner.gridx = 0;
 		gbc_lblSubmarineSpinner.gridy = 3;
 		lblSubmarineSpinner.setFont(JBSGUI.SERVER_FONT);
 		serverSettingsPanel.add(lblSubmarineSpinner, gbc_lblSubmarineSpinner);
 		
 		GridBagConstraints gbc_submarineSpinner = new GridBagConstraints();
-		gbc_submarineSpinner.insets = new Insets(0, 0, 0, 5);
+		gbc_submarineSpinner.insets = new Insets(0, 0, 5, 5);
 		gbc_submarineSpinner.fill = GridBagConstraints.BOTH;
 		gbc_submarineSpinner.gridx = 1;
 		gbc_submarineSpinner.gridy = 3;
 		submarineSpinner.setFont(JBSGUI.SERVER_FONT);
 		submarineSpinner.setModel(new SpinnerNumberModel(4, 0, 32, 1));
+		submarineSpinner.addChangeListener(e -> {
+			JBattleships.game.getGameServer().getServerGameManager().getGame().setSubmarineCount(getSubmarineCount());
+			lblSubmarineCount.setText(Integer.toString(getSubmarineCount()));
+			calculateTotalShips();
+		});
+		
+		GridBagConstraints gbc_lblPlayerFieldsize = new GridBagConstraints();
+		gbc_lblPlayerFieldsize.fill = GridBagConstraints.BOTH;
+		gbc_lblPlayerFieldsize.insets = new Insets(0, 0, 0, 5);
+		gbc_lblPlayerFieldsize.gridx = 0;
+		gbc_lblPlayerFieldsize.gridy = 4;
+		lblPlayerFieldsize.setFont(JBSGUI.SERVER_FONT);
+		serverSettingsPanel.add(lblPlayerFieldsize, gbc_lblPlayerFieldsize);
+		
+		GridBagConstraints gbc_sizeSpinner = new GridBagConstraints();
+		gbc_sizeSpinner.fill = GridBagConstraints.BOTH;
+		gbc_sizeSpinner.insets = new Insets(0, 0, 0, 5);
+		gbc_sizeSpinner.gridx = 1;
+		gbc_sizeSpinner.gridy = 4;
+		sizeSpinner.setFont(JBSGUI.SERVER_FONT);
+		sizeSpinner.setModel(new SpinnerNumberModel(10, 0, 20, 1));
+		sizeSpinner.addChangeListener(e -> {
+			JBattleships.game.getGameServer().getServerGameManager().getGame().setFieldSize(getFieldSize());
+			lblFieldSizeNumber.setText(Integer.toString(getFieldSize()));
+			calculateTotalShips();
+		});
+		serverSettingsPanel.add(sizeSpinner, gbc_sizeSpinner);
 		serverSettingsPanel.add(submarineSpinner, gbc_submarineSpinner);
+		
 		serverSettingsPanel.setOpaque(false);
+		//TODO: Uncomment
 		//if(isHost){
 			add(serverSettingsPanel, "cell 0 1,grow");
+			
+
 		//}
 
+	}
+
+	/**
+	 * @return the isHost
+	 */
+	public final boolean isHost() {
+		return isHost;
+	}
+	
+	public final int getDestroyerCount(){
+		return ((Number)destroyerSpinner.getValue()).intValue();
+	}
+	
+	public final int getFrigateCount(){
+		return ((Number)frigateSpinner.getValue()).intValue();
+	}
+	
+	public final int getCorvetteCount(){
+		return ((Number)corvetteSpinner.getValue()).intValue();
+	}
+	
+	public final int getSubmarineCount(){
+		return ((Number)submarineSpinner.getValue()).intValue();
+	}
+	
+	public final int getFieldSize(){
+		return ((Number)sizeSpinner.getValue()).intValue();
+	}
+	
+	public final boolean useNavalMines(){
+		return chckbxUseNavalMines.isSelected();
+	}
+	
+	public final boolean useCoastalArtillery(){
+		return chckbxUseCoastalArtillery.isSelected();
+	}
+	
+	private void calculateTotalShips(){
+		int count = getDestroyerCount() + getFrigateCount() + getCorvetteCount() + getSubmarineCount();
+		lblTotalShipCount.setText(Integer.toString(count));
+	}
+	
+	
+	/**
+	 * 
+	 * @author Kevin Kuegler
+	 * @version 1.00
+	 */
+	private class JBSSpinner extends JSpinner{
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 4624225435363924879L;
+
+		/**
+		 * 
+		 */
+		public JBSSpinner() {
+		    JComponent comp = this.getEditor();
+		    JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
+		    DefaultFormatter formatter = (DefaultFormatter) field.getFormatter();
+		    formatter.setCommitsOnValidEdit(true);
+		}
+		
 	}
 
 }

@@ -10,7 +10,7 @@ import javax.swing.JTextArea;
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.GameListener;
+import de.hsb.ismi.jbs.engine.core.JBSGameListener;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -116,9 +116,9 @@ public class MainGamePanel extends JPanel {
 					chat.setText(chat.getText()+"\nDont shoot yourself");
 				}else{
 					if(gameSidePanel.getSelectedship().canShoot()){
-						roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
-						roundManager.fireAnalyzeRound(game.getActivePlayer());
-						roundManager.fireEndRound(game.getActivePlayer());
+						roundManager.processRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
+						roundManager.analyzeRound(game.getActivePlayer());
+						roundManager.endRound(game.getActivePlayer());
 						JBSCoreGame.ioQueue.insertInput("Round ended for Player: " + game.getActivePlayer().getName(), JBSCoreGame.MSG_LOGGER_KEY);
 						roundManager.reset();
 						game.nextPlayer();
@@ -149,7 +149,7 @@ public class MainGamePanel extends JPanel {
 		btnEndRound = new JButton("End Round");
 		btnEndRound.setActionCommand("pass");
 		btnEndRound.addActionListener(e -> {
-			roundManager.fireEndRound(game.getActivePlayer());
+			roundManager.endRound(game.getActivePlayer());
 			JBSCoreGame.ioQueue.insertInput("Round ended for Player: " + game.getActivePlayer().getName(), JBSCoreGame.MSG_LOGGER_KEY);
 			roundManager.reset();
 			game.nextPlayer();
@@ -245,7 +245,7 @@ public class MainGamePanel extends JPanel {
 		
 		gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 		
-		JBattleships.game.getGameManager().addGameListener(new GameListener() {
+		JBattleships.game.getGameManager().addGameListener(new JBSGameListener() {
 			
 			@Override
 			public void fireStartedGame() {

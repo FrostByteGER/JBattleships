@@ -6,7 +6,7 @@ package de.hsb.ismi.jbs.engine.core.manager;
 import java.rmi.RemoteException;
 
 import de.hsb.ismi.jbs.engine.core.Direction;
-import de.hsb.ismi.jbs.engine.core.RoundListener;
+import de.hsb.ismi.jbs.engine.core.JBSRoundListener;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.start.JBattleships;
@@ -15,7 +15,7 @@ import de.hsb.ismi.jbs.start.JBattleships;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class RoundManager implements RoundListener{
+public class RoundManager implements JBSRoundListener{
 	
 	private boolean ended = false;
 	
@@ -31,8 +31,24 @@ public class RoundManager implements RoundListener{
 	
 	/**
 	 * 
+	 * @return
 	 */
-	private boolean processRound(){
+	public boolean hasRoundEnded(){
+		return ended;
+	}
+
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.core.JBSRoundListener#fireRound(de.hsb.ismi.jbs.engine.core.JBSPlayer, de.hsb.ismi.jbs.engine.core.JBSPlayer, de.hsb.ismi.jbs.engine.core.JBSShip, int, int, de.hsb.ismi.jbs.engine.core.Direction)
+	 */
+	@Override
+	public boolean processRound(JBSPlayer target, JBSPlayer source, JBSShip ship, int x, int y, Direction direction) {
+		this.target = target;
+		this.source = source;
+		this.ship = ship;
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+		
 		if(ship.isAlive() && ship.canShoot()){
 			boolean hit = ship.shoot(x, y, direction, target.getPlayerField());
 			
@@ -44,55 +60,26 @@ public class RoundManager implements RoundListener{
 		}
 	}
 	
-	/**
-	 * 
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.core.JBSRoundListener#fireAnalyzeRound()
 	 */
-	private void analyzeRound(){
+	@Override
+	public void analyzeRound(JBSPlayer source) {
+		this.source = source;
 		target.getPlayerField().isFieldWaterHit(x, y);
 		if(JBattleships.game.getGameManager().getGame().isGameOver()){
-			fireEndRound(source);
-			JBattleships.game.getGameManager().endGame(false);
+			endRound(source);
+			JBattleships.game.getGameManager().endGame2(false);
 		}else{
 		}
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean hasRoundEnded(){
-		return ended;
-	}
 
 	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireRound(de.hsb.ismi.jbs.engine.core.JBSPlayer, de.hsb.ismi.jbs.engine.core.JBSPlayer, de.hsb.ismi.jbs.engine.core.JBSShip, int, int, de.hsb.ismi.jbs.engine.core.Direction)
+	 * @see de.hsb.ismi.jbs.engine.core.JBSRoundListener#fireEndRound()
 	 */
 	@Override
-	public boolean fireRound(JBSPlayer target, JBSPlayer source, JBSShip ship, int x, int y, Direction direction) {
-		this.target = target;
-		this.source = source;
-		this.ship = ship;
-		this.x = x;
-		this.y = y;
-		this.direction = direction;
-		return processRound();
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireAnalyzeRound()
-	 */
-	@Override
-	public void fireAnalyzeRound(JBSPlayer source) {
-		this.source = source;
-		analyzeRound();
-	}
-	
-
-	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireEndRound()
-	 */
-	@Override
-	public void fireEndRound(JBSPlayer source) {
+	public void endRound(JBSPlayer source) {
 		this.source = source;
 		source.decreaseCooldownAll();
 		if(ship != null){
@@ -115,7 +102,7 @@ public class RoundManager implements RoundListener{
 	}
 
 	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#printRMITest(int)
+	 * @see de.hsb.ismi.jbs.engine.core.JBSRoundListener#printRMITest(int)
 	 */
 	@Override
 	public void printRMITest(int x) throws RemoteException {

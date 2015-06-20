@@ -15,7 +15,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -24,8 +23,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import de.hsb.ismi.jbs.core.JBSCoreGame;
-import de.hsb.ismi.jbs.engine.core.GameListener;
-import de.hsb.ismi.jbs.engine.core.RoundListener;
+import de.hsb.ismi.jbs.engine.core.JBSGameListener;
+import de.hsb.ismi.jbs.engine.core.JBSRoundListener;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -49,8 +48,8 @@ public class GameServer extends Thread {
 	
 	//Game Data
 	private GameManager gm = new GameManager();
-	private RoundListener roundLStub = null;
-	private GameListener gameLStub = null;
+	private JBSRoundListener roundLStub = null;
+	private JBSGameListener gameLStub = null;
 	
 
 
@@ -152,7 +151,7 @@ public class GameServer extends Thread {
 		}
 	}
 	
-	public boolean startServer(){
+	public void startServer() throws RemoteException, MalformedURLException, UnknownHostException{
 		JBSCoreGame game = JBattleships.game;
 		
 		try {
@@ -160,34 +159,19 @@ public class GameServer extends Thread {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
+		// JBSRoundListener Stub
+		LocateRegistry.createRegistry(roundListenerPort);
+		roundLStub = (JBSRoundListener) UnicastRemoteObject.exportObject(game.getGameManager().getRoundManager(), roundListenerPort);
+		Naming.rebind("rmi://" + ip.getHostAddress() + ":" + roundListenerPort + "/JBSRoundListener", roundLStub);
 		
-		try {
-			// RoundListener Stub
-			LocateRegistry.createRegistry(roundListenerPort);
-			roundLStub = (RoundListener) UnicastRemoteObject.exportObject(game.getGameManager().getRoundManager(), roundListenerPort);
-			Naming.bind("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + roundListenerPort + "/RoundListener", roundLStub);
-			
-			// GameListener Stub
-			LocateRegistry.createRegistry(gameListenerPort);
-			gameLStub = (GameListener) UnicastRemoteObject.exportObject(game.getGameManager(), gameListenerPort);
-			Naming.bind("rmi://" + InetAddress.getLocalHost().getHostAddress() + ":" + gameListenerPort + "/GameListener", gameLStub);
-		} catch (MalformedURLException mue) {
-			//TODO: Do something here!
-			mue.printStackTrace();
-			return false;
-		} catch(RemoteException re){
-			re.printStackTrace();
-			return false;
-		} catch(AlreadyBoundException abe){
-			abe.printStackTrace();
-			return false;
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			return false;
-		}
+		// JBSGameListener Stub
+		LocateRegistry.createRegistry(gameListenerPort);
+		gameLStub = (JBSGameListener) UnicastRemoteObject.exportObject(game.getGameManager(), gameListenerPort);
+		Naming.rebind("rmi://" + ip.getHostAddress() + ":" + gameListenerPort + "/JBSGameListener", gameLStub);
+
 		System.out.println("Stub creation successfull!");
 		start();
-		return true;
 	}
 	
 	/**

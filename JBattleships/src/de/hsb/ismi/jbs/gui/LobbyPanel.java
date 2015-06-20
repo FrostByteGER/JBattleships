@@ -16,6 +16,8 @@ import javax.swing.border.TitledBorder;
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
+import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
+import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -31,7 +33,6 @@ public class LobbyPanel extends JPanel {
 	private JPanel centerPanel = new JPanel();
 	private JPanel playerPanel = new JPanel();
 	
-	/** The GameType of this Panel */
 	private JBSGameType gameType;
 	private ArrayList<JBSPlayer> players = new ArrayList<>(0);
 	private ServerPanel serverPanel = new ServerPanel(true);
@@ -121,7 +122,9 @@ public class LobbyPanel extends JPanel {
 			btnStart.setEnabled(false);
 			btnStart.addActionListener(e -> {
 				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + LobbyPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
-
+				GameClient client = JBattleships.game.getGameClient();
+				
+				//client.getGameListener().createGame(gameType, players, fieldSize, shipCount);
 			});
 			add(btnStart);
 		}

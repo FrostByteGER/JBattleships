@@ -3,6 +3,8 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -15,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Game")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Game {
+public class Game implements Serializable{
 
 	@XmlElement(name = "GameType")
 	private JBSGameType gameType = null;
@@ -26,6 +28,8 @@ public class Game {
 	private int activePlayer = 0;
 	@XmlElement(name = "NextPlayer")
 	private int nextPlayer = 0;
+	@XmlElement(name = "PlayerFieldSize")
+	private int fieldSize = 10;
 	@XmlElement(name = "ShipCount")
 	@XmlElementWrapper(name = "Ships")
 	private int[] shipCount = new int[]{0,0,0,0};
@@ -222,6 +226,20 @@ public class Game {
 	}
 	public int getCorvetteCount(){
 		return shipCount[3];
+	}
+
+	/**
+	 * @return the fieldSize
+	 */
+	public final int getFieldSize() {
+		return fieldSize;
+	}
+
+	/**
+	 * @param fieldSize the fieldSize to set
+	 */
+	public final void setFieldSize(int fieldSize) {
+		this.fieldSize = fieldSize;
 	}
 	
 }

@@ -319,6 +319,14 @@ public class JBSCoreGame {
 	public final GameManager getGameManager() {
 		return gameManager;
 	}
+	
+	/**
+	 * 
+	 * @param g
+	 */
+	public final void setGameManager(GameManager g){
+		this.gameManager = g;
+	}
 
 	/**
 	 * Generates a new GameManager
@@ -355,9 +363,8 @@ public class JBSCoreGame {
 	 * Generates a new GameServer.
 	 * @return The created GameServer
 	 */
-	public final GameServer generateGameServer() {
-		this.gameServer = new GameServer(gamePort, roundListenerPort, gameListenerPort);
-		return this.gameServer;
+	public final void setGameServer(GameServer server) {
+		this.gameServer = server;
 	}
 
 	/**

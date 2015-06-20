@@ -16,8 +16,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.engine.core.GameListener;
-import de.hsb.ismi.jbs.engine.core.RoundListener;
+import de.hsb.ismi.jbs.engine.core.JBSGameListener;
+import de.hsb.ismi.jbs.engine.core.JBSRoundListener;
 import de.hsb.ismi.jbs.engine.network.game.GameConnectionState;
 import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
 
@@ -46,8 +46,8 @@ public class GameClient extends Thread {
 	private GameConnectionState gameConnectionState = GameConnectionState.LOGIN;
 	private GameNetworkState gameNetworkState = GameNetworkState.LOBBY_PRE_CREATED;
 	
-	private RoundListener roundLStub;
-	private GameListener gameLStub;
+	private JBSRoundListener roundLStub;
+	private JBSGameListener gameLStub;
 	
 	public GameClient(InetAddress ip, String username, int gamePort, int roundListenerPort, int gameListenerPort) throws UnknownHostException, IOException{
 		super("GameClient-Thread");
@@ -97,21 +97,26 @@ public class GameClient extends Thread {
 		try{
 			String message = null;
 			while(!socket.isClosed()){
+				
+				
 				//Initial Authentification
 				while(gameConnectionState == GameConnectionState.LOGIN){
 					message = inputStream.readUTF();
 					System.out.println("Client " + getName() + "received Message: " + message);
 					if(message.equals("/end")){
 						gameConnectionState = GameConnectionState.CLOSED;
-						closeConnection();
+						closeClient();
 					}else if(message.equals("/ban")){
 						gameConnectionState = GameConnectionState.BANNED;
-						closeConnection();
+						closeClient();
 					}else if(message.equals("/success")){
 						gameConnectionState = GameConnectionState.AUTHENTICATED;
 						gameNetworkState = GameNetworkState.LOBBY_WAITING;
 					}
 				}
+				
+				
+				// Game Network Logic
 				while(gameConnectionState == GameConnectionState.AUTHENTICATED){
 					
 					while(gameNetworkState == GameNetworkState.LOBBY_WAITING || gameNetworkState == GameNetworkState.LOBBY_READY){
@@ -150,7 +155,7 @@ public class GameClient extends Thread {
 			}
 
 		}finally{
-			closeConnection();
+			closeClient();
 		}
 		
 	}
@@ -159,7 +164,7 @@ public class GameClient extends Thread {
 	 * 
 	 * @return
 	 */
-	public boolean closeConnection(){
+	public boolean closeClient(){
 		try {
 			endThread = true;
 			socket.close();
@@ -181,7 +186,8 @@ public class GameClient extends Thread {
 		}
 		
 		try {
-			roundLStub = (RoundListener) Naming.lookup("rmi://" + ip.getHostAddress() + ":" + roundListenerPort + "/RoundListener");
+			roundLStub = (JBSRoundListener) Naming.lookup("rmi://" + ip.getHostAddress() + ":" + roundListenerPort + "/JBSRoundListener");
+			roundLStub.printRMITest(1337);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
@@ -191,7 +197,7 @@ public class GameClient extends Thread {
 		}
 		
 		try {
-			gameLStub = (GameListener) Naming.lookup("rmi://" + ip.getHostAddress() + ":" + gameListenerPort + "/GameListener");
+			gameLStub = (JBSGameListener) Naming.lookup("rmi://" + ip.getHostAddress() + ":" + gameListenerPort + "/JBSGameListener");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
@@ -310,14 +316,14 @@ public class GameClient extends Thread {
 	/**
 	 * @return the roundLStub
 	 */
-	public final RoundListener getRoundListener() {
+	public final JBSRoundListener getRoundListener() {
 		return roundLStub;
 	}
 
 	/**
 	 * @return the gameLStub
 	 */
-	public final GameListener getGameListener() {
+	public final JBSGameListener getGameListener() {
 		return gameLStub;
 	}
 	

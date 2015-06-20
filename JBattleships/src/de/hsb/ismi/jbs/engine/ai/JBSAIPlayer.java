@@ -140,9 +140,9 @@ public class JBSAIPlayer extends JBSPlayer {
 					
 					hitdirection = Direction.getRandomDirection(r);
 					
-					hit = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(lasthitfield), this, ship, hitx, hity, hitdirection);
-					JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
-					JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
+					hit = JBattleships.game.getGameManager().getRoundManager().processRound(game.getPlayer(lasthitfield), this, ship, hitx, hity, hitdirection);
+					JBattleships.game.getGameManager().getRoundManager().analyzeRound(this);
+					JBattleships.game.getGameManager().getRoundManager().endRound(this);
 					
 					if(game.getPlayer(lasthitfield).getPlayerField().getField(hitx, hity) instanceof JBSShipActor){
 						JBSShipActor tempactor = (JBSShipActor)game.getPlayer(lasthitfield).getPlayerField().getField(hitx, hity);
@@ -174,9 +174,9 @@ public class JBSAIPlayer extends JBSPlayer {
 							
 							System.out.println(lasthit+" "+hitx+" "+hity+" "+hitfield);
 							
-							hit = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
-							JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
-							JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
+							hit = JBattleships.game.getGameManager().getRoundManager().processRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							JBattleships.game.getGameManager().getRoundManager().analyzeRound(this);
+							JBattleships.game.getGameManager().getRoundManager().endRound(this);
 							
 							
 							lasthitfield  = hitfield;

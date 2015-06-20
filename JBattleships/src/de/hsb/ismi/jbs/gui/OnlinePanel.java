@@ -7,7 +7,9 @@ import javax.swing.JPanel;
 
 
 
+
 import java.awt.BorderLayout;
+
 
 
 
@@ -15,12 +17,14 @@ import javax.swing.JButton;
 
 
 
+
 import de.hsb.ismi.jbs.core.JBSCoreGame;
-import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
+import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
 import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 
 
 
@@ -31,8 +35,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
@@ -84,10 +86,16 @@ public class OnlinePanel extends JPanel {
 		btnHost = new JButton("Host Game");
 		btnHost.addActionListener(e -> {
 			JBSCoreGame game = JBattleships.game;
-			GameServer server = game.generateGameServer();
-			game.generateGame();
-			server.startServer();
+			GameServer server = new GameServer(15750, 15751, 15752);
+			game.setGameServer(server);
+			GameManager gm = new GameManager();
+			game.setGameManager(gm);
+			server.setServerGameManager(gm);
+			//game.generateGame();
+			
+			
 			try {
+				server.startServer();
 				game.setGameClient(new GameClient(InetAddress.getByName("localhost"), "Kevin", 15750, 15751, 15752));
 				game.getGameClient().startClient();
 			} catch(RemoteException re) {

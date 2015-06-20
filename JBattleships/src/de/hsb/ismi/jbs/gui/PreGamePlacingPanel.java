@@ -359,7 +359,7 @@ public class PreGamePlacingPanel extends JPanel {
 			activePlayerIndex++;
 			initPlayerData();
 		}else if(activePlayerIndex == gm.getGame().getPlayers().length - 1){
-			gm.startGame();
+			gm.startGame2();
 			parent.swapContainer(new MainGamePanel(parent));
 			JBSCoreGame.ioQueue.insertInput("Started Game!", JBSCoreGame.MSG_LOGGER_KEY);
 		}

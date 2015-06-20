@@ -3,8 +3,6 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import java.awt.event.ItemListener;
-
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,7 +11,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
-import java.awt.Font;
 
 /**
  * Wrapper JPanel class that contains the elements for player
