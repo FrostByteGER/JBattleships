@@ -6,6 +6,7 @@ package de.hsb.ismi.jbs.core;
 import java.awt.EventQueue;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import de.frostbyteger.messagelogger.MessageLogger;
@@ -45,9 +46,11 @@ public class JBSCoreGame {
 	/** TODO: JAVADOC */
 	public static final String MSG_LOGGER_KEY = "Logger";
 	/** Enables debug functionality and the MessageLogger. */
-	public static final boolean DEBUG_MODE = true;
+	public static final boolean DEBUG_MODE = false;
 	/** Allows to resize the game window. */
 	public static final boolean RESIZABLE = false;
+	/** Minimum Java version to run the game. */
+	public static final double MIN_JAVA_VERSION = 1.8;
 	
 	/** Contains the game's current resolution. */
 	private Resolution currentResolution = new Resolution(800, 600);
@@ -92,6 +95,19 @@ public class JBSCoreGame {
 	 * 
 	 */
 	public JBSCoreGame(boolean initGame) {
+		
+		// Version check
+		//TODO: move to own method.
+		Double version = Double.parseDouble(System.getProperty("java.specification.version"));
+		if(version < MIN_JAVA_VERSION) {
+			JOptionPane.showMessageDialog(null, "Incorrect Java Version: " + version + "\nVersion " + MIN_JAVA_VERSION + " or higher is required!", "Incorrect Java Version", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+		}
+		
+		
+		
+		
+		
 		ioQueue.addIOListener("Logger", new IOListener<String>() {
 			@Override
 			public void outputReceived(String output, String notifierType) {	
