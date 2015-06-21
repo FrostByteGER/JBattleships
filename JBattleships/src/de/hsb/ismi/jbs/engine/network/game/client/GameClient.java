@@ -117,7 +117,7 @@ public class GameClient extends Thread {
 					for(GameClientListener listener : listeners){
 						listener.messageReceived(message);
 					}
-					if(message.equals("/end") || message.equals("/duplicateusername")){
+					if(message.equals("/end") || message.equals("/duplicateusername") || message.equals("/kick")){
 						gameConnectionState = GameConnectionState.CLOSED;
 						closeClient();
 					}else if(message.equals("/ban")){

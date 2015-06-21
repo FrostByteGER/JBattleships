@@ -90,6 +90,11 @@ public class GameServerThread extends Thread {
 					case CLOSED:
 						closeConnection();
 						break;
+					case KICKED:
+						send("/kick");
+						server.removeClient(id);
+						closeConnection();
+						break;
 					case FULL:
 						send("/full");
 						System.err.println("SENDING FULL");

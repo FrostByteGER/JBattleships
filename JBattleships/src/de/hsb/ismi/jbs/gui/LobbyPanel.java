@@ -153,14 +153,22 @@ public class LobbyPanel extends JPanel {
 			
 			@Override
 			public void messageReceived(String message) {
-				// Unused
+				if(message.equals("/kick")){
+					stopUpdateTimer();
+					OnlineConnectionPanel p = new OnlineConnectionPanel(parent, LobbyPanel.this, 
+							                  "You have been kicked.", 
+							                  true, false);
+					parent.swapContainer(p);
+					p.setTimer(parent::restoreRootContainer, Boolean.TRUE, 4000L);
+				}
+
 			}
 			
 			@Override
 			public void connectionLost(String IP) {
 				stopUpdateTimer();
 				OnlineConnectionPanel p = new OnlineConnectionPanel(parent, LobbyPanel.this, 
-						                  "Connection to server " + client.getServerIP().getHostAddress() + "lost.", 
+						                  "Connection to server " + IP + " lost.", 
 						                  true, false);
 				parent.swapContainer(p);
 				p.setTimer(parent::restoreRootContainer, Boolean.TRUE, 4000L);

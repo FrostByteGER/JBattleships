@@ -183,6 +183,15 @@ public class GameServer extends Thread implements GameServerListener{
 		}
 		endServer = true;
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public void kickPlayer(String id){
+		GameServerThread client = findClient(id);
+		client.setConnectionState(GameConnectionState.KICKED);
+	}
 
 	/**
 	 * 

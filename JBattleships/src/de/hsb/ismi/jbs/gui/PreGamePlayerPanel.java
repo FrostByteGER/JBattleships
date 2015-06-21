@@ -74,6 +74,10 @@ public class PreGamePlayerPanel extends JPanel {
 				JBattleships.game.getGameServer().removeClient(nameField.getText());
 				nameField.setText("");
 			});
+			
+			btnKick.addActionListener(e -> {
+				JBattleships.game.getGameServer().kickPlayer(nameField.getText());
+			});
 		}else{
 			checkboxAI.setEnabled(false);
 			checkboxActive.setEnabled(false);
