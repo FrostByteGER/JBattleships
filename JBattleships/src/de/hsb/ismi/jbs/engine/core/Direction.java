@@ -11,13 +11,13 @@ import java.util.Random;
  */
 public enum Direction {
 	
+	NONE(-1),
 	NORTH(0),
 	EAST(1),
 	SOUTH(2),
 	WEST(3),
 	HORIZONTAL(4),
-	VERTICAL(5),
-	NONE(-1);
+	VERTICAL(5);
 	
 	public final int value;
 	

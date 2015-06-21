@@ -28,12 +28,12 @@ public class ChatServer extends Thread {
 	public ChatServer(int port) {
 		super("ChatServer-Thread");
 		try {
-			System.out.println("Binding to port " + port + ", please wait...");
+			System.err.println("ChatServer: Binding to port " + port + ", please wait...");
 			server = new ServerSocket(port);
-			System.out.println("ChatServer started: " + server);
+			System.err.println("ChatServer: ChatServer started: " + server);
 			start();
 		} catch (IOException ioe) {
-			System.out.println("Can't bind to port " + port + ": " + ioe.getMessage());
+			System.err.println("ChatServer: Can't bind to port " + port + ": " + ioe.getMessage());
 		}
 	}
 
@@ -41,10 +41,10 @@ public class ChatServer extends Thread {
 	public void run() {
 		while (!endThread) {
 			try {
-				System.out.println("Waiting for a client ...");
+				System.err.println("ChatServer: Waiting for a client ...");
 				addThread(server.accept());
 			} catch (IOException ioe) {
-				System.out.println("Server accept error: " + ioe);
+				System.err.println("ChatServer: Server accept error: " + ioe);
 				closeServer();
 			}
 		}
@@ -70,13 +70,13 @@ public class ChatServer extends Thread {
 	 * @return
 	 */
 	public synchronized boolean authenticate(ChatServerThread client ,String input){
-		System.out.println("Client " + client.getUsername() + " requesting Authentification...");
+		System.err.println("ChatServer: Client " + client.getUsername() + " requesting Authentification...");
 		if(findClient(input) == null){
 			findClient(client.getUsername()).setUsername(input);
-			System.out.println("Authentification successfull.");
+			System.err.println("ChatServer: Authentification successfull.");
 			return true;
 		} else{
-			System.out.println("Authentification Denied, Duplicate Username.");
+			System.err.println("ChatServer: Authentification Denied, Duplicate Username.");
 			return false;
 		}
 	}
@@ -93,13 +93,13 @@ public class ChatServer extends Thread {
 		}else if(input.equals("/success")){
 			findClient(id).send("/success");
 		}else{
-			System.out.println("Server received Message from " + id + ": " + input);
+			System.err.println("ChatServer: Server received Message from " + id + ": " + input);
 			for (ChatServerThread cst : clients){
 				if(cst != findClient(id) && cst.getChatState() != ChatState.BANNED && cst.getChatState() != ChatState.LOGIN){
-					System.out.println("Server sending message: " + input + " to: " + cst.getUsername());
+					System.err.println("ChatServer: Server sending message: " + input + " to: " + cst.getUsername());
 					cst.send(id + ": " + input);
 				}else{
-					System.out.println("Skipped sending message to: " + cst.getUsername());
+					System.err.println("ChatServer: Skipped sending message to: " + cst.getUsername());
 				}
 				
 			}
@@ -112,7 +112,7 @@ public class ChatServer extends Thread {
 	 */
 	public synchronized void removeClient(String id) {
 		ChatServerThread toTerminate = findClient(id);
-		System.out.println("Removing client thread " + id);
+		System.err.println("ChatServer: Removing client thread " + id);
 		toTerminate.closeConnection();
 	}
 	
@@ -131,14 +131,14 @@ public class ChatServer extends Thread {
 	 * @param socket
 	 */
 	private void addThread(Socket socket) {
-		System.out.println("Client accepted: " + socket);
+		System.err.println("ChatServer: Client accepted: " + socket);
 		ChatServerThread cst = new ChatServerThread(this, socket, socket.getInetAddress().toString());
 		clients.add(cst);
 		try {
 			cst.open();
 			cst.start();
 		} catch (IOException ioe) {
-			System.out.println("Error opening thread: " + ioe);
+			System.err.println("ChatServer: Error opening thread: " + ioe);
 		}
 	}
 }

@@ -15,6 +15,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.hsb.ismi.jbs.engine.core.JBSGameListener;
 import de.hsb.ismi.jbs.engine.core.JBSRoundListener;
@@ -29,10 +30,10 @@ import de.hsb.ismi.jbs.engine.network.game.GameServerListener;
 public class GameClient extends Thread {
 
 	// Client Connection Data
-	private InetAddress ip = InetAddress.getLoopbackAddress();
-	private int gamePort = 15750;
-	private int roundListenerPort = 15751;
-	private int gameListenerPort = 15752;
+	private InetAddress ip             = InetAddress.getLoopbackAddress();
+	private int gamePort               = 15750;
+	private int roundListenerPort      = 15751;
+	private int gameListenerPort       = 15752;
 	private int gameServerListenerPort = 15753;
 	
 	
@@ -40,16 +41,17 @@ public class GameClient extends Thread {
 	private Socket socket = null;
 	private DataOutputStream outputStream = null;
 	private DataInputStream inputStream = null;
-	private ArrayList<GameClientListener> listeners = new ArrayList<>(0);
+	private CopyOnWriteArrayList<GameClientListener> listeners = new CopyOnWriteArrayList<>();
 	private String username = "undefined";
-	private boolean endThread = false;
+	private boolean endClient = false;
 	
 	// Game Data
 	private GameConnectionState gameConnectionState = GameConnectionState.LOGIN;
-	private GameNetworkState gameNetworkState = GameNetworkState.LOBBY_PRE_CREATED;
+	private GameNetworkState gameNetworkState       = GameNetworkState.LOBBY_PRE_CREATED;
 	
-	private JBSRoundListener roundLStub = null;
-	private JBSGameListener gameLStub = null;
+	// Stubs
+	private JBSRoundListener roundLStub        = null;
+	private JBSGameListener gameLStub          = null;
 	private GameServerListener gameServerLStub = null;
 	
 	public GameClient(InetAddress ip, String username, int gamePort, int roundListenerPort, int gameListenerPort, int gameServerListenerPort) throws UnknownHostException, IOException{
@@ -69,13 +71,18 @@ public class GameClient extends Thread {
 		this.listeners.add(listener);
 	}
 	
+	@Deprecated
+	public synchronized void removeMessageListener(GameClientListener listener){
+		//this.listeners.remove(listener);
+	}
+	
 	/**
 	 * Sends a message to the connected server.
 	 * @param message
 	 * @throws IOException 
 	 */
 	public void sendMessage(String message) throws IOException{
-		System.out.println("Client sending Message: " + message);
+		System.err.println("GameClient: Client sending Message: " + message);
 		outputStream.writeUTF(message);
 		for(GameClientListener listener : listeners){
 			listener.messageSent(message);
@@ -100,18 +107,25 @@ public class GameClient extends Thread {
 	public void run() {
 		try{
 			String message = null;
-			while(!socket.isClosed()){
+			while(!endClient){
 				
 				
 				//Initial Authentification
 				while(gameConnectionState == GameConnectionState.LOGIN){
 					message = inputStream.readUTF();
-					System.out.println("Client " + getName() + "received Message: " + message);
-					if(message.equals("/end")){
+					System.err.println("GameClient: Client " + getName() + " received Message: " + message);
+					for(GameClientListener listener : listeners){
+						listener.messageReceived(message);
+					}
+					if(message.equals("/end") || message.equals("/duplicateusername")){
 						gameConnectionState = GameConnectionState.CLOSED;
 						closeClient();
 					}else if(message.equals("/ban")){
 						gameConnectionState = GameConnectionState.BANNED;
+						closeClient();
+					}else if(message.equals("/full")){
+						gameConnectionState = GameConnectionState.FULL;
+						System.err.println("GameClient: LOBBY FULL");
 						closeClient();
 					}else if(message.equals("/success")){
 						gameConnectionState = GameConnectionState.AUTHENTICATED;
@@ -122,7 +136,7 @@ public class GameClient extends Thread {
 				
 				// Game Network Logic
 				while(gameConnectionState == GameConnectionState.AUTHENTICATED){
-					
+					message = inputStream.readUTF();
 					while(gameNetworkState == GameNetworkState.LOBBY_WAITING || gameNetworkState == GameNetworkState.LOBBY_READY){
 						
 					}
@@ -140,24 +154,19 @@ public class GameClient extends Thread {
 					//////////////
 					
 				}
-			
-			
-			
-				for(GameClientListener listener : listeners){
-					listener.messageReceived(message);
-				}
-				
 			}
 		}catch(SocketException se){
-			for(GameClientListener listener : listeners){
-				listener.connectionLost(socket.getInetAddress().getHostAddress());
+			if(!endClient){
+				for(GameClientListener listener : listeners){
+					listener.connectionLost(socket.getInetAddress().getHostAddress());
+				}
 			}
-			
 		}catch(IOException ioe){
-			for(GameClientListener listener : listeners){
-				listener.connectionLost(socket.getInetAddress().getHostAddress());
+			if(!endClient){
+				for(GameClientListener listener : listeners){
+					listener.connectionLost(socket.getInetAddress().getHostAddress());
+				}
 			}
-
 		}finally{
 			closeClient();
 		}
@@ -165,13 +174,15 @@ public class GameClient extends Thread {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Closes the connection to the server. After successfully closing, the client object <b>cannot</b> be restarted!
+	 * @return True if client was closed successful. False if an error occured.
 	 */
 	public boolean closeClient(){
 		try {
-			endThread = true;
+			endClient = true;
+			gameConnectionState = GameConnectionState.CLOSED;
 			socket.close();
+			System.err.println("GameClient: Closed Connection");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -183,6 +194,8 @@ public class GameClient extends Thread {
 	 * 
 	 */
 	public void startClient(){
+		
+		start();
 		try {
 			sendAuthentification(username);
 		} catch (IOException e1) {
@@ -220,6 +233,7 @@ public class GameClient extends Thread {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	/**
@@ -241,7 +255,7 @@ public class GameClient extends Thread {
 	}
 
 	public boolean isActive() {
-		return endThread;
+		return endClient;
 	}
 
 	/**

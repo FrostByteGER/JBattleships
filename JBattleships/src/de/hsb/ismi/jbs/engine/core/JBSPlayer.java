@@ -26,11 +26,14 @@ public class JBSPlayer implements Serializable{
 	
 	@XmlElement(name = "PlayerProfile")
 	private transient JBSProfile profile = new JBSProfile();
+	
 	@XmlElement(name = "Ship")
 	@XmlElementWrapper(name = "PlayerShips")
 	private ArrayList<JBSShip> ships = new ArrayList<JBSShip>(0);
+	
 	@XmlElement(name = "Alive")
 	private boolean isAlive = true;
+	
 	@XmlElement(name = "PlayerField")
 	private JBSGameField playerField = null;
 

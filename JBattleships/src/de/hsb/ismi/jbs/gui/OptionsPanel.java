@@ -421,7 +421,7 @@ public class OptionsPanel extends JPanel{
 					}
 					//TODO: Doesn't work fully yet!
 					boolean check = JBattleships.game.getDataManager().getOptionsManager().saveOptions(new HashMap<String, String[]>());
-					System.out.println("Saving was: " + check);
+					System.err.println("Saving was: " + check);
 				}
 			}
 		});

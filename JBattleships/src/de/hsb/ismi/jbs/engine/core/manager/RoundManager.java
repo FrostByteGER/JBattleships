@@ -106,7 +106,7 @@ public class RoundManager implements JBSRoundListener{
 	 */
 	@Override
 	public void printRMITest(int x) throws RemoteException {
-		System.out.println("RMI reference was: " + x);
+		System.err.println("RMI reference was: " + x);
 	}
 	
 }

@@ -141,7 +141,7 @@ public class ScreenDeviceManager {
 		ScreenDeviceManager rm = new ScreenDeviceManager();
 		DisplayMode[] modes = rm.getSupportedDisplayModes(new int[]{60});
 		for(DisplayMode m : modes){
-			System.out.println(DisplayModeToString(m, true));
+			System.err.println(DisplayModeToString(m, true));
 		}
 	}
 	*/

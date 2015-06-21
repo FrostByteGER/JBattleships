@@ -49,12 +49,12 @@ public class TestingClassKevin {
 
 			@Override
 			public void inputReceived(String input, String notifierType) {
-				System.out.println("Got a input: " + input);
+				System.err.println("Got a input: " + input);
 			}
 
 			@Override
 			public void outputReceived(String output, String notifierType) {
-				System.out.println("Got b output: " + output);
+				System.err.println("Got b output: " + output);
 				
 			}
 		});
@@ -63,12 +63,12 @@ public class TestingClassKevin {
 
 			@Override
 			public void inputReceived(String input, String notifierType) {
-				System.out.println("Got a input: " + input);
+				System.err.println("Got a input: " + input);
 			}
 
 			@Override
 			public void outputReceived(String output, String notifierType) {
-				System.out.println("Got b output: " + output);
+				System.err.println("Got b output: " + output);
 			}
 		});
 		

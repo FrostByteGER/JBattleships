@@ -74,7 +74,7 @@ public class ChatClient extends Thread{
 	 * @throws IOException 
 	 */
 	public void sendMessage(String message) throws IOException{
-		System.out.println("Client sending Message: " + message);
+		System.err.println("ChatClient: Client sending Message: " + message);
 		outputStream.writeUTF(message);
 		for(ChatClientMessageListener listener : listeners){
 			listener.messageSent(message);
@@ -101,7 +101,7 @@ public class ChatClient extends Thread{
 			String message = null;
 			while(!socket.isClosed()){
 				message = inputStream.readUTF();
-				System.out.println("Client " + getName() + "received Message: " + message);
+				System.err.println("ChatClient: Client " + getName() + " received Message: " + message);
 				if(message.equals("/end")){
 					chatState = ChatState.CLOSED;
 					closeConnection();

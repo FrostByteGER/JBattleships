@@ -95,7 +95,7 @@ public class JBSAIPlayer extends JBSPlayer {
 	
 	public JBSShip processRound(Game game){
 		
-		System.out.println(lasthit);
+		System.err.println(lasthit);
 		
 		for(JBSShip ship : getShips()){
 			if(ship.canShoot()){
@@ -172,7 +172,7 @@ public class JBSAIPlayer extends JBSPlayer {
 							}	
 							hitdirection = Direction.getRandomDirection(r);
 							
-							System.out.println(lasthit+" "+hitx+" "+hity+" "+hitfield);
+							System.err.println(lasthit+" "+hitx+" "+hity+" "+hitfield);
 							
 							hit = JBattleships.game.getGameManager().getRoundManager().processRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
 							JBattleships.game.getGameManager().getRoundManager().analyzeRound(this);

@@ -5,47 +5,20 @@ package de.hsb.ismi.jbs.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.Timer;
-import java.util.TimerTask;
-
-
-
-
-
-
-
-
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-
-
-
-
-
-
-
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
+import de.hsb.ismi.jbs.engine.network.game.client.GameClientListener;
 import de.hsb.ismi.jbs.start.JBattleships;
-
-
-
-
-
-
-
-
 
 import javax.swing.JLabel;
 
@@ -66,6 +39,7 @@ public class OnlineJoinPanel extends JPanel {
 	private JButton btnJoin;
 	private JTextField usernameField;
 	private JLabel lblServerIp;
+	
 	
 	/**
 	 * Create the panel.
@@ -126,7 +100,8 @@ public class OnlineJoinPanel extends JPanel {
 
 		btnJoin = new JButton("Join");
 		btnJoin.addActionListener(e -> {
-			
+
+			// IP
 			String ipString = ipField.getText();
 			if(ipString.isEmpty()){
 				ipField.setBackground(Color.PINK);
@@ -142,57 +117,59 @@ public class OnlineJoinPanel extends JPanel {
 			}
 			ipField.setBackground(Color.WHITE);
 			
+			// Username
 			String username = usernameField.getText();
 			if(username.isEmpty()){
 				usernameField.setBackground(Color.PINK);
 				return;
 			}
 			usernameField.setBackground(Color.WHITE);
+			
+			// Get Connection Data
 			int chatPort = JBattleships.game.getChatPort();
 			int gamePort = JBattleships.game.getGamePort();
 			int rlPort = JBattleships.game.getRoundListenerPort();
 			int glPort = JBattleships.game.getGameListenerPort();
 			int gslPort = JBattleships.game.getGameServerListenerPort();
+			
+			// Connect
 			try {
 				GameClient client = new GameClient(ip, username, gamePort, rlPort, glPort, gslPort);
 				ChatClient chat = new ChatClient(ip, chatPort, username);
 				JBattleships.game.setChatClient(chat);
 				JBattleships.game.setGameClient(client);
+				client.addMessageListener(new GameClientListener() {
+					
+					@Override
+					public void messageSent(String message) {
+						// Unused
+					}
+					@Override
+					public void messageReceived(String message) {
+						if(message.equals("/success")){
+							LobbyPanel p = new LobbyPanel(parent, JBSGameType.GAME_ONLINE, false);
+							p.setUpdateTimer(100L, 1000L);
+							parent.swapContainer(p);
+						}else if(message.equals("/duplicateusername")){
+							new OnlineConnectionPanel(parent, centerPanel, "Duplicate Username!", true, true).setTimer(parent::restorePrevContainer, Boolean.TRUE, 2000L);
+						}else if(message.equals("/ban")){
+							new OnlineConnectionPanel(parent, centerPanel, "You have been banned!", true, true).setTimer(parent::restorePrevContainer, Boolean.TRUE, 2000L);
+						}else if(message.equals("/end")){
+							new OnlineConnectionPanel(parent, centerPanel, "Host has closed the lobby.", true, true).setTimer(parent::restorePrevContainer, Boolean.TRUE, 2000L);
+						}else if(message.equals("/full")){
+							new OnlineConnectionPanel(parent, centerPanel, "Lobby already full.", true, true).setTimer(parent::restorePrevContainer, Boolean.TRUE, 2000L);
+						}
+					}
+					@Override
+					public void connectionLost(String IP) {
+						//new ConnectionPanel("Connection to server " + client.getServerIP().getHostAddress() +" lost.", true).setTimer(2000L);
+					}
+				});
 				client.startClient();
-				LobbyPanel p = new LobbyPanel(parent, JBSGameType.GAME_ONLINE, false);
-				p.setUpdateTimer(100L, 1000L);
-				parent.swapContainer(p);
-				//JBattleships.game.setChatClient(new ChatClient(ip, chatPort, username));
+
 
 			} catch (IOException ioe) {
-				JPanel glasspane = new JPanel();
-				GridBagLayout gbl_glass = new GridBagLayout();
-				gbl_glass.columnWidths = new int[] {200};
-				gbl_glass.columnWeights = new double[]{0.0};
-				gbl_glass.rowWeights = new double[]{0.0};
-				glasspane.setLayout(gbl_glass);
-				
-				JLabel lblServerNotFound = new JLabel("Error joining server!");
-				lblServerNotFound.setFont(new Font("Tahoma", Font.BOLD, 20));
-				GridBagConstraints gbc_lblServerNotFound = new GridBagConstraints();
-				gbc_lblServerNotFound.insets = new Insets(0, 0, 5, 0);
-				gbc_lblServerNotFound.gridx = 0;
-				gbc_lblServerNotFound.gridy = 0;
-				glasspane.add(lblServerNotFound, gbc_lblServerNotFound);
-				
-				parent.getMainFrame().setGlassPane(glasspane);
-				glasspane.setOpaque(false);
-				centerPanel.setVisible(false);
-				glasspane.setVisible(true);
-				Timer t = new Timer();
-				t.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						glasspane.setVisible(false);
-						centerPanel.setVisible(true);
-					}
-				}, 2000);
-				//uhe.printStackTrace();
+				new OnlineConnectionPanel(parent, centerPanel, "Error joing Server", true, true).setTimer(parent::restorePrevContainer, Boolean.TRUE, 2000L);
 			}
 		});
 		GridBagConstraints gbc_btnJoin = new GridBagConstraints();

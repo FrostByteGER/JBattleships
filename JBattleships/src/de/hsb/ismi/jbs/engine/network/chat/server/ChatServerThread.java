@@ -56,7 +56,7 @@ public class ChatServerThread extends Thread {
 
 	@Override
 	public void run() {
-		System.out.println("Server Thread " + id + " running.");
+		System.err.println("ChatServerThread: Thread " + id + " running.");
 		while (!endThread) {
 			try {
 				String input = streamIn.readUTF();
@@ -80,10 +80,14 @@ public class ChatServerThread extends Thread {
 						server.handle(id, "/ban");
 						server.removeClient(id);
 						break;
+					case CLOSED:
+						server.handle(id, "/end");
+						server.removeClient(id);
+						break;
 				}
 				
 			} catch (IOException ioe) {
-				System.out.println(id + " ERROR reading: " + ioe.getMessage());
+				System.err.println("ChatServerThread: " + id + " ERROR reading: " + ioe.getMessage());
 				server.removeClient(id);
 				closeConnection();
 			}

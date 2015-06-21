@@ -80,8 +80,6 @@ public class ServerPanel extends JPanel {
 
 	private boolean isHost = false;
 	
-	private Timer updateTimer = new Timer(true);
-
 	/**
 	 * Create the panel.
 	 */
@@ -467,7 +465,7 @@ public class ServerPanel extends JPanel {
 	/**
 	 * 
 	 */
-	private void calculateTotalShips(){
+	protected void calculateTotalShips(){
 		int count = 0;
 		if(isHost){
 			count = getDestroyerCount() + getFrigateCount() + getCorvetteCount() + getSubmarineCount();
@@ -477,45 +475,64 @@ public class ServerPanel extends JPanel {
 		lblTotalShipCount.setText(Integer.toString(count));
 	}
 	
+
 	/**
-	 * 
-	 * @param time
-	 * @param interval
+	 * @return the lblPlayerCount
 	 */
-	public void setUpdateTimer(long time, long interval){
-		updateTimer = new Timer(true);
-		updateTimer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				try {
-					if(!isHost){
-						System.out.println("Requesting LobbyData");
-					}
-					LobbyInfo info = JBattleships.game.getGameClient().getGameServerListener().getLobbyData();
-					lblDestroyerCount.setText(Integer.toString(info.getDestroyers()));
-					lblFrigateCount.setText(Integer.toString(info.getFrigates()));
-					lblCorvetteCount.setText(Integer.toString(info.getCorvettes()));
-					lblSubmarineCount.setText(Integer.toString(info.getSubmarines()));
-					lblFieldSizeNumber.setText(Integer.toString(info.getFieldSize()));
-					lblPlayerCount.setText(Integer.toString(info.getConnectedPlayers().length));
-					chckbxNavalMinesUsed.setSelected(info.useNavalMines());
-					chckbxCoastalArtilleryUsed.setSelected(info.useCoastalArtillery());
-					calculateTotalShips();
-					if(!isHost){
-						System.out.println(info.toString());
-					}
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-			}
-		}, time, interval);
+	public final JLabel getPlayerCountLabel() {
+		return lblPlayerCount;
 	}
-	
-	public void stopUpdateTimer(){
-		updateTimer.cancel();
+
+	/**
+	 * @return the lblDestroyerCount
+	 */
+	public final JLabel getDestroyerCountLabel() {
+		return lblDestroyerCount;
 	}
-	
-	
+
+	/**
+	 * @return the lblFrigateCount
+	 */
+	public final JLabel getFrigateCountLabel() {
+		return lblFrigateCount;
+	}
+
+	/**
+	 * @return the lblCorvetteCount
+	 */
+	public final JLabel getCorvetteCountLabel() {
+		return lblCorvetteCount;
+	}
+
+	/**
+	 * @return the lblSubmarineCount
+	 */
+	public final JLabel getSubmarineCountLabel() {
+		return lblSubmarineCount;
+	}
+
+	/**
+	 * @return the chckbxNavalMinesUsed
+	 */
+	public final JCheckBox getNavalMinesCheckbox() {
+		return chckbxNavalMinesUsed;
+	}
+
+	/**
+	 * @return the chckbxCoastalArtilleryUsed
+	 */
+	public final JCheckBox getCoastalArtilleryCheckbox() {
+		return chckbxCoastalArtilleryUsed;
+	}
+
+	/**
+	 * @return the lblFieldSizeNumber
+	 */
+	public final JLabel getFieldSizeLabel() {
+		return lblFieldSizeNumber;
+	}
+
+
 	/**
 	 * 
 	 * @author Kevin Kuegler

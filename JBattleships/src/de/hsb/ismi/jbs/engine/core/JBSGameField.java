@@ -191,38 +191,38 @@ public class JBSGameField implements Serializable{
 	
 	// DEBUG_MODE
 	public void printField(boolean visible){
-		System.out.print("x/y");
+		System.err.print("x/y");
 		for(int i = 0 ; i < actorFields.length ;i++){
 			
 			if(i < 10){
-				System.out.print(" "+i+" ");
+				System.err.print(" "+i+" ");
 			}else{
-				System.out.print(i+" ");
+				System.err.print(i+" ");
 			}
 		}
-		System.out.println();
+		System.err.println();
 		for(int i = 0 ; i < actorFields.length ; i++){
 			if(i < 10){
-				System.out.print(i+"  ");
+				System.err.print(i+"  ");
 			}else{
-				System.out.print(i+" ");
+				System.err.print(i+" ");
 			}
 			for(int j = 0 ; j < actorFields[i].length ; j++){
 				
 				if(actorFields[i][j] == water){
-					System.out.print("--");
+					System.err.print("--");
 				}else if(actorFields[i][j] == waterHitDummy){
-					System.out.print("~~");
+					System.err.print("~~");
 				}else if(visible){
-					System.out.print("BB");
+					System.err.print("BB");
 				}else if(actorFields[i][j].isHit()){
-					System.out.print("XX");
+					System.err.print("XX");
 				}else{
-					System.out.print("--");
+					System.err.print("--");
 				}
-				System.out.print(" ");
+				System.err.print(" ");
 			}
-			System.out.println();
+			System.err.println();
 		}
 	}
 	

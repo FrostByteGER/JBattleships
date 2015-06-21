@@ -138,8 +138,12 @@ public class GameManager implements JBSGameListener{
 		return "GameManager";
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public final int getFieldSize(){
-		return game.getPlayer(0).getPlayerField().getSize(); //TODO: Change, could be null!
+		return game.getFieldSize();
 	}
 
 	/**

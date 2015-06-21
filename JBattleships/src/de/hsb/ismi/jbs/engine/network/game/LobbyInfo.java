@@ -21,7 +21,7 @@ public class LobbyInfo implements Serializable{
 	private boolean useCoastalArtillery = false;
 	private boolean useNavalMines = false;
 	
-	private JBSPlayer[] connectedPlayers = new JBSPlayer[0];
+	private String[] connectedPlayers = new String[0];
 	
 	/**
 	 * 
@@ -59,7 +59,7 @@ public class LobbyInfo implements Serializable{
 	 * @param useNavalMines
 	 * @param connectedPlayers
 	 */
-	public LobbyInfo(int fieldSize, int destroyers, int frigates, int corvettes, int submarines, boolean useCoastalArtillery, boolean useNavalMines, JBSPlayer[] connectedPlayers) {
+	public LobbyInfo(int fieldSize, int destroyers, int frigates, int corvettes, int submarines, boolean useCoastalArtillery, boolean useNavalMines, String[] connectedPlayers) {
 		this.fieldSize = fieldSize;
 		this.destroyers = destroyers;
 		this.frigates = frigates;
@@ -171,14 +171,14 @@ public class LobbyInfo implements Serializable{
 	/**
 	 * @return the connectedPlayers
 	 */
-	public final JBSPlayer[] getConnectedPlayers() {
+	public final String[] getConnectedPlayers() {
 		return connectedPlayers;
 	}
 
 	/**
 	 * @param connectedPlayers the connectedPlayers to set
 	 */
-	public final void setConnectedPlayers(JBSPlayer[] connectedPlayers) {
+	public final void setConnectedPlayers(String[] connectedPlayers) {
 		this.connectedPlayers = connectedPlayers;
 	}
 	

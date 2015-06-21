@@ -11,5 +11,6 @@ public enum GameConnectionState {
 	LOGIN,
 	AUTHENTICATED,
 	BANNED,
-	CLOSED
+	CLOSED,
+	FULL;
 }

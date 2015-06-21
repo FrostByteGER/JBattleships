@@ -131,6 +131,24 @@ public class JBSGUI{
 	}
 	
 	/**
+	 * <br>Restores the previous JPanel that was visible before a new one was called.
+	 */
+	public void restorePrevContainer(boolean clearStack){
+		if(!panelStack.empty()){
+			JPanel p = panelStack.pop();
+			contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
+			contentPane.add(p,BorderLayout.CENTER);
+			p.updateUI();
+			if(clearStack){
+				panelStack.clear();
+			}
+			JBSCoreGame.ioQueue.insertInput("Restored previous JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+		}else{
+			JBSCoreGame.ioQueue.insertInput("Stack is Empty!", JBSCoreGame.MSG_LOGGER_KEY);
+		}
+	}
+	
+	/**
 	 * Restores the first JPanel that was visible before new ones were called.
 	 * Optionally clears the stack.
 	 */

@@ -5,9 +5,6 @@ package de.hsb.ismi.jbs.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,10 +19,12 @@ import javax.swing.border.TitledBorder;
  */
 public class ChatPanel extends JPanel {
 	
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2409409062479437761L;
+	private static final long serialVersionUID = -4342585729435357807L;
 	
 	private JTextArea chatArea = new JTextArea();
 	private JTextField inputField = new JTextField();
