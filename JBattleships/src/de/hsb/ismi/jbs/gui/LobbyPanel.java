@@ -218,17 +218,18 @@ public class LobbyPanel extends JPanel {
 					for(int j = index; j < playerPanels.length; j++){
 						String s = names[j];
 						// Null means, this slot is unoccupied by a player. So we set its name to nothing. The null is used to distinct.
-						if(s == null && !playerPanels[j].isAISelected()){
-							playerPanels[j].setName("");
-							playerPanels[j].getBtnKick().setEnabled(false);
-						}else{
-							if(playerPanels[j].isActiveSelected() && !playerPanels[j].isAISelected()){
-								playerPanels[j].setName(s);
-								playerPanels[j].getBtnKick().setEnabled(true);
-							}
-
-						}
 						
+						for(int k = index; k < playerPanels.length; k++){
+							if(s != null && !playerPanels[k].isAISelected() && playerPanels[k].isActiveSelected()){
+								playerPanels[k].setName(s);
+								playerPanels[k].getBtnKick().setEnabled(true);
+								break;
+							}else if(s == null && !playerPanels[k].isAISelected()){
+								playerPanels[k].setName("");
+								playerPanels[k].getBtnKick().setEnabled(false);
+							}
+						}
+					
 					}
 				} catch (RemoteException e) {
 					e.printStackTrace();
