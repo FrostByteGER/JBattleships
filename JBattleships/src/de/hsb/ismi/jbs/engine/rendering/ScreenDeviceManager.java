@@ -16,8 +16,10 @@ public class ScreenDeviceManager {
 
 	private GraphicsEnvironment ge;
 	private GraphicsDevice currentAdapter;
+	/** Minimum bit-depth. Everything below it will be discarded. */
 	private final int supportedBitDepth = 32;
-	private final Resolution minResolution = new Resolution(800, 600);
+	/** Minimum Game-Resolution. Everything below it will be discarded. */
+	private final Resolution minResolution = new Resolution(1024, 600);
 	
 	/**
 	 * 
