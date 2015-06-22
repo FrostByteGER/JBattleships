@@ -41,7 +41,7 @@ public class JBSCoreGame {
 	/** TODO: JAVADOC */
 	public static final String MSG_LOGGER_KEY = "Logger";
 	/** Enables debug functionality and the MessageLogger. */
-	public static final boolean DEBUG_MODE = true;
+	public static boolean DEBUG_MODE = true;
 	/** Allows to resize the game window. */
 	public static final boolean RESIZABLE = false;
 	
@@ -197,6 +197,18 @@ public class JBSCoreGame {
 					gamePort = Integer.parseInt(nt.get("gamePort"));
 					roundListenerPort = Integer.parseInt(nt.get("gamePort2"));
 					gameListenerPort = Integer.parseInt(nt.get("gamePort3"));
+				} catch (NumberFormatException nfe) {
+					return false;
+				}
+			} else {
+				return false;
+			}
+			
+			HashMap<String, String> gt = om.getGameData();
+			if (gt.size() > 0) {
+				try {
+					DEBUG_MODE = Boolean.parseBoolean(gt.get("debug-mode"));
+					language = gt.get("language");
 				} catch (NumberFormatException nfe) {
 					return false;
 				}

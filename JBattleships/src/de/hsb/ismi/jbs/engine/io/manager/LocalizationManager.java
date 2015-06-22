@@ -80,14 +80,12 @@ public class LocalizationManager {
 	 * @return Indicates if an error occured during the loading. True if none was encountered.
 	 */
 	public boolean loadLanguage(String language){
-		if(!activeLanguage.equalsIgnoreCase(language)){
-			try {
-				activeLanguageData = parser.loadLanguage(JBSCoreGame.DATA_PATH + LANGUAGE_PATH + language + ".cfg");
-				activeLanguage = language;
-			} catch (IOException | JBSParserException e) {
-				e.printStackTrace();
-				return false;
-			}
+		try {
+			activeLanguageData = parser.loadLanguage(JBSCoreGame.DATA_PATH + LANGUAGE_PATH + language + ".cfg");
+			activeLanguage = language;
+		} catch (IOException | JBSParserException e) {
+			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}
