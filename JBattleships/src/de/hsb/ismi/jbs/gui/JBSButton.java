@@ -43,7 +43,7 @@ public class JBSButton extends JButton {
 	
 	private void JBSInit() {
 		setUI(new BasicButtonUI());
-		setBackground(Color.BLUE);
+		setBackground(defaultColor);
 		setForeground(Color.WHITE);
 		setFocusPainted(false);
 		setFont(JBSGUI.SERVER_FONT);

@@ -4,7 +4,6 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 
@@ -12,11 +11,8 @@ import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.Box;
-
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 

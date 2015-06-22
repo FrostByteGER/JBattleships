@@ -4,38 +4,27 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
-
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
-
 import java.awt.FlowLayout;
-
 import javax.swing.border.TitledBorder;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.JCheckBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.start.JBattleships;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -56,8 +45,8 @@ public class PreGamePanel extends JPanel {
 	private JPanel shipPanel;
 	private JPanel playerPanel;
 	
-	private JButton btnCancel;
-	private JButton btnContinue;
+	private JBSButton btnCancel;
+	private JBSButton btnContinue;
 
 	private PreGamePlayerPanel[] playerPanels;
 	private JLabel lblDestroyer;
@@ -116,16 +105,16 @@ public class PreGamePanel extends JPanel {
 		centerPanel.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JBSButton("Cancel");
 		btnCancel.setActionCommand("cancel");
 		btnCancel.addActionListener(e -> {
 				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 				parent.restorePrevContainer();
 				//PreGamePanel.this.parent.swapContainer(PreGamePanel.this.parent.getMainPanel());
 		});
-		buttonPanel.add(btnCancel);
+		buttonPanel.add(new AlphaContainer(btnCancel) );
 		
-		btnContinue = new JButton("Continue");
+		btnContinue = new JBSButton("Continue");
 		btnContinue.setActionCommand("continue");
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -182,7 +171,7 @@ public class PreGamePanel extends JPanel {
 				}
 			}
 		});
-		buttonPanel.add(btnContinue);
+		buttonPanel.add(new AlphaContainer(btnContinue) );
 		
 		settingsPanel = new JPanel();
 		settingsPanel.setOpaque(false);

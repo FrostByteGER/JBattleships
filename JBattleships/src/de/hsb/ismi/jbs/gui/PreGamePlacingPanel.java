@@ -3,10 +3,8 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
@@ -18,7 +16,6 @@ import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.start.JBattleships;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -26,14 +23,10 @@ import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.border.TitledBorder;
-
 import java.awt.Font;
-
 import javax.swing.JTextArea;
 import net.miginfocom.swing.MigLayout;
-
 import java.awt.SystemColor;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,13 +45,13 @@ public class PreGamePlacingPanel extends JPanel {
 	private JPanel buttonPanel;
 	private JPanel shipPanel;
 	
-	private JButton btnCancel;
-	private JButton btnContinue;
+	private JBSButton btnCancel;
+	private JBSButton btnContinue;
 	private GameFieldPanel fieldPanel;
-	private JButton btnDestroyer;
-	private JButton btnFrigate;
-	private JButton btnCorvette;
-	private JButton btnSubmarine;
+	private JBSButton btnDestroyer;
+	private JBSButton btnFrigate;
+	private JBSButton btnCorvette;
+	private JBSButton btnSubmarine;
 	private JTextArea textArea;
 	
 	private int destroyersLeft = 0;
@@ -98,7 +91,7 @@ public class PreGamePlacingPanel extends JPanel {
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		add(buttonPanel, BorderLayout.SOUTH);
 		
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JBSButton("Cancel");
 		btnCancel.setActionCommand("cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -111,9 +104,9 @@ public class PreGamePlacingPanel extends JPanel {
 				}
 			}
 		});
-		buttonPanel.add(btnCancel);
+		buttonPanel.add(new AlphaContainer(btnCancel) );
 		
-		btnContinue = new JButton("Continue");
+		btnContinue = new JBSButton("Continue");
 		btnContinue.setActionCommand("continue");
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,7 +115,7 @@ public class PreGamePlacingPanel extends JPanel {
 				}
 			}
 		});
-		buttonPanel.add(btnContinue);
+		buttonPanel.add(new AlphaContainer(btnContinue) );
 		
 		centerPanel = new JPanel();
 		centerPanel.setOpaque(false);
@@ -166,7 +159,7 @@ public class PreGamePlacingPanel extends JPanel {
 		gbc_textArea.gridy = 0;
 		shipPanel.add(textArea, gbc_textArea);
 		
-		btnDestroyer = new JButton("Destroyers Left: " + destroyersLeft);
+		btnDestroyer = new JBSButton("Destroyers Left: " + destroyersLeft);
 		btnDestroyer.setActionCommand("placedest");
 		btnDestroyer.addActionListener(new ActionListener() {
 			@Override
@@ -193,9 +186,9 @@ public class PreGamePlacingPanel extends JPanel {
 		gbc_btnDestroyer.insets = new Insets(0, 5, 5, 0);
 		gbc_btnDestroyer.gridx = 0;
 		gbc_btnDestroyer.gridy = 2;
-		shipPanel.add(btnDestroyer, gbc_btnDestroyer);
+		shipPanel.add(new AlphaContainer(btnDestroyer) , gbc_btnDestroyer);
 		
-		btnFrigate = new JButton("Frigates Left: " + frigatesLeft);
+		btnFrigate = new JBSButton("Frigates Left: " + frigatesLeft);
 		btnFrigate.setActionCommand("placefrig");
 		btnFrigate.addActionListener(new ActionListener() {
 			@Override
@@ -214,9 +207,9 @@ public class PreGamePlacingPanel extends JPanel {
 		gbc_btnFrigate.insets = new Insets(0, 5, 5, 0);
 		gbc_btnFrigate.gridx = 0;
 		gbc_btnFrigate.gridy = 3;
-		shipPanel.add(btnFrigate, gbc_btnFrigate);
+		shipPanel.add(new AlphaContainer(btnFrigate) , gbc_btnFrigate);
 		
-		btnCorvette = new JButton("Corvettes Left: " + corvettesLeft);
+		btnCorvette = new JBSButton("Corvettes Left: " + corvettesLeft);
 		btnCorvette.setActionCommand("placecorv");
 		btnCorvette.addActionListener(new ActionListener() {
 			@Override
@@ -235,9 +228,9 @@ public class PreGamePlacingPanel extends JPanel {
 		gbc_btnCorvette.insets = new Insets(0, 5, 5, 0);
 		gbc_btnCorvette.gridx = 0;
 		gbc_btnCorvette.gridy = 4;
-		shipPanel.add(btnCorvette, gbc_btnCorvette);
+		shipPanel.add(new AlphaContainer(btnCorvette) , gbc_btnCorvette);
 		
-		btnSubmarine = new JButton("Submarines Left: " + subsLeft);
+		btnSubmarine = new JBSButton("Submarines Left: " + subsLeft);
 		btnSubmarine.setActionCommand("placesub");
 		btnSubmarine.addActionListener(new ActionListener() {
 			@Override
@@ -256,7 +249,7 @@ public class PreGamePlacingPanel extends JPanel {
 		gbc_btnSubmarine.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSubmarine.gridx = 0;
 		gbc_btnSubmarine.gridy = 5;
-		shipPanel.add(btnSubmarine, gbc_btnSubmarine);
+		shipPanel.add(new AlphaContainer(btnSubmarine) , gbc_btnSubmarine);
 	}
 	
 	/**
