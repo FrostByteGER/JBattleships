@@ -168,7 +168,6 @@ public class GameServer extends Thread implements GameServerListener{
 			toTerminate.closeConnection();
 			clients.remove(toTerminate);
 		}
-
 	}
 	
 	/**
@@ -191,6 +190,7 @@ public class GameServer extends Thread implements GameServerListener{
 	public void kickPlayer(String id){
 		GameServerThread client = findClient(id);
 		client.setConnectionState(GameConnectionState.KICKED);
+		client.kickPlayer();
 	}
 
 	/**

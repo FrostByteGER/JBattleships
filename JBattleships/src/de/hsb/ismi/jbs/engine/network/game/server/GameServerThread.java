@@ -63,43 +63,7 @@ public class GameServerThread extends Thread {
 			try {
 				String input = streamIn.readUTF();
 				System.err.println("GameServerThread: Received input: " + input);
-				switch(state){
-					case LOGIN: 
-						if(loginCount > ChatServer.MAX_LOGIN_COUNT){
-							state = GameConnectionState.BANNED;
-						}
-						if(server.authenticate(this ,input)){
-							state = GameConnectionState.AUTHENTICATED;
-							loginCount++;
-							send("/success");
-						}else{
-							loginCount++;
-							send("/duplicateusername");
-							server.removeClient(id);
-							closeConnection();
-						}
-						break;
-					case AUTHENTICATED:
-						//server.handle(id, input);
-						break;
-					case BANNED:
-						send("/ban");
-						server.removeClient(id);
-						closeConnection();
-						break;
-					case CLOSED:
-						closeConnection();
-						break;
-					case KICKED:
-						send("/kick");
-						server.removeClient(id);
-						closeConnection();
-						break;
-					case FULL:
-						send("/full");
-						System.err.println("SENDING FULL");
-						closeConnection();
-			}
+				processInput(input);
 				
 			} catch (IOException ioe) {
 				System.err.println("GameServerThread: " + id + " ERROR reading: " + ioe.getMessage());
@@ -108,6 +72,65 @@ public class GameServerThread extends Thread {
 			}
 		}
 	}
+	
+	/**
+	 * Processes the given input.
+	 * @param input
+	 */
+	public void processInput(String input){
+		switch(state){
+			case LOGIN: 
+				if(loginCount > ChatServer.MAX_LOGIN_COUNT){
+					state = GameConnectionState.BANNED;
+				}
+				if(server.authenticate(this ,input)){
+					state = GameConnectionState.AUTHENTICATED;
+					loginCount++;
+					send("/success");
+				}else{
+					loginCount++;
+					send("/duplicateusername");
+					server.removeClient(id);
+					closeConnection();
+				}
+				break;
+			case AUTHENTICATED:
+				//server.handle(id, input);
+				break;
+			case BANNED:
+				banPlayer();
+				break;
+			case CLOSED:
+				closeConnection();
+				break;
+			case KICKED:
+				kickPlayer();
+				break;
+			case FULL:
+				send("/full");
+				System.err.println("SENDING FULL");
+				closeConnection();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void kickPlayer(){
+		send("/kick");
+		server.removeClient(id);
+		closeConnection();
+	}
+	
+	/**
+	 * 
+	 */
+	public void banPlayer(){
+		send("/ban");
+		server.removeClient(id);
+		closeConnection();
+	}
+
 
 	/**
 	 * Opens the connection.

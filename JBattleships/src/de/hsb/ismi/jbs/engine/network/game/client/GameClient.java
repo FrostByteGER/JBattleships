@@ -137,6 +137,10 @@ public class GameClient extends Thread {
 				// Game Network Logic
 				while(gameConnectionState == GameConnectionState.AUTHENTICATED){
 					message = inputStream.readUTF();
+					System.err.println("GameClient: Client " + getName() + " received Message: " + message);
+					for(GameClientListener listener : listeners){
+						listener.messageReceived(message);
+					}
 					while(gameNetworkState == GameNetworkState.LOBBY_WAITING || gameNetworkState == GameNetworkState.LOBBY_READY){
 						
 					}
@@ -170,6 +174,10 @@ public class GameClient extends Thread {
 		}finally{
 			closeClient();
 		}
+		
+	}
+	
+	public void processInput(String input){
 		
 	}
 	
