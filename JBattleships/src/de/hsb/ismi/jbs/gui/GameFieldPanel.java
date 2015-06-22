@@ -182,9 +182,10 @@ public class GameFieldPanel extends JPanel {
 					//g.setColor(Color.BLUE);
 					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}else{
-
-					g.setColor(Color.GRAY);
-					g.fillRect(gridsize*i+xofset, gridsize*j+yofset, gridsize, gridsize);
+					g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
+					
+					//g.setColor(Color.GRAY);
+					//g.fillRect(gridsize*i+xofset, gridsize*j+yofset, gridsize, gridsize);
 				}
 				if(gamefild.getField(i, j).isHit()){
 					
