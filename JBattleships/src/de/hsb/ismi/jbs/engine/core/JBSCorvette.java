@@ -3,7 +3,6 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
-import de.hsb.ismi.jbs.gui.ShipStatLabel;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
