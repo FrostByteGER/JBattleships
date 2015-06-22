@@ -106,6 +106,7 @@ public class ResourceParser extends DataParser{
 	 * @throws IOException 
 	 */
 	public AnimationSequence parseAnimation(String path) throws IOException{
+		
 		int width = AnimationSequence.SPRITE_WIDTH;
 		int height = AnimationSequence.SPRITE_HEIGHT;
 		BufferedImage sourceSprite = parseImage(path);
