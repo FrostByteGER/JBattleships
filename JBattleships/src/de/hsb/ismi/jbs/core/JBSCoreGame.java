@@ -15,10 +15,6 @@ import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
-import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
-import de.hsb.ismi.jbs.engine.network.chat.server.ChatServer;
-import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
-import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
@@ -61,14 +57,14 @@ public class JBSCoreGame {
 	private String ip = "0.0.0.0";
 	/** The game's current language. */
 	private String language = "German";
-	/** The ChatServers curent gamePort. */
-	private int chatPort = 15753;
 	/** The game's current gamePort. */
 	private int gamePort = 15750;
 	/** */
 	private int roundListenerPort = 15751;
 	/** */
 	private int gameListenerPort = 15752;
+	/** The ChatServers curent gamePort. */
+	private int chatPort = 15754;
 	
 	/** The mainGUI of the game. */
 	private JBSGUI mainGUI = null;
@@ -76,15 +72,6 @@ public class JBSCoreGame {
 	private GameManager gameManager = null;
 	/** The dataManager of the game. */
 	private DataManager dataManager = new DataManager();
-	
-	/** The ChatServer of the game. */
-	private ChatServer chatServer = null;
-	/** */
-	private GameServer gameServer = null;
-	/** */
-	private ChatClient chatClient = null;
-	/** */
-	private GameClient gameClient = null;
 	
 	/**
 	 * 
@@ -303,66 +290,6 @@ public class JBSCoreGame {
 	public final GameManager generateGame() {
 		this.gameManager = new GameManager();
 		return this.gameManager;
-	}
-
-	/**
-	 * @return the chatServer
-	 */
-	public final ChatServer getChatServer() {
-		return chatServer;
-	}
-
-	/**
-	 * Generates a new ChatServer.
-	 * @return The created ChatServer
-	 */
-	public final ChatServer generateChatServer() {
-		this.chatServer = new ChatServer(chatPort);
-		return this.chatServer;
-	}
-
-	/**
-	 * @return the gameServer
-	 */
-	public final GameServer getGameServer() {
-		return gameServer;
-	}
-	
-	/**
-	 * Generates a new GameServer.
-	 * @return The created GameServer
-	 */
-	public final GameServer generateGameServer() {
-		this.gameServer = new GameServer(gamePort, roundListenerPort, gameListenerPort);
-		return this.gameServer;
-	}
-
-	/**
-	 * @return the chatClient
-	 */
-	public final ChatClient getChatClient() {
-		return chatClient;
-	}
-
-	/**
-	 * @param chatClient the chatClient to set
-	 */
-	public final void setChatClient(ChatClient chatClient) {
-		this.chatClient = chatClient;
-	}
-
-	/**
-	 * @return the gameClient
-	 */
-	public final GameClient getGameClient() {
-		return gameClient;
-	}
-
-	/**
-	 * @param gameClient the gameClient to set
-	 */
-	public final void setGameClient(GameClient gameClient) {
-		this.gameClient = gameClient;
 	}
 
 	/**

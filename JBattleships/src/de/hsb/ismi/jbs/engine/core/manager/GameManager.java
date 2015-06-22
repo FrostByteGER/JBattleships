@@ -8,7 +8,6 @@ import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
-import de.hsb.ismi.jbs.engine.network.game.GameNetworkState;
 
 public class GameManager implements GameListener{
 	
@@ -16,8 +15,6 @@ public class GameManager implements GameListener{
 	private RoundManager roundManager = new RoundManager();
 	
 	private ArrayList<GameListener> listeners = new ArrayList<GameListener>(0);
-	
-	private GameNetworkState gameState = GameNetworkState.LOBBY_PRE_CREATED;
 	
 	/**
 	 * 
@@ -39,7 +36,6 @@ public class GameManager implements GameListener{
 			p.setPlayerField(new JBSGameField(fieldSize));
 		}
 		game = new Game(gameType, players, shipCount);
-		gameState = GameNetworkState.LOBBY_CREATED;
 		return game;
 	}
 	
@@ -50,7 +46,6 @@ public class GameManager implements GameListener{
 	public boolean startGame(){
 		if(game != null){
 			roundManager = new RoundManager();
-			gameState = GameNetworkState.GAME_STARTED;
 			for(GameListener gl : listeners){
 				try {
 					gl.fireStartedGame();
@@ -71,10 +66,7 @@ public class GameManager implements GameListener{
 	 * @return True if game is over.
 	 */
 	public boolean endGame(boolean force){
-		if((gameState == GameNetworkState.GAME_STARTED && game.isGameOver()) || force){
-			gameState = GameNetworkState.GAME_ENDED;
-			//JBSCoreGame.msgLogger.addMessage("Game has ended. Winner is: " + game.getActivePlayer().getName());
-			//System.out.println("Game has ended. Winner is: " + game.getActivePlayer().getName());
+		if(game.isGameOver() || force){
 			for(GameListener gl : listeners){
 				try {
 					gl.fireEndedGame();
@@ -145,20 +137,6 @@ public class GameManager implements GameListener{
 	 */
 	public final void setGame(Game game) {
 		this.game = game;
-	}
-
-	/**
-	 * @return the gameState
-	 */
-	public final GameNetworkState getGameState() {
-		return gameState;
-	}
-
-	/**
-	 * @param gameState the gameState to set
-	 */
-	public final void setGameState(GameNetworkState gameState) {
-		this.gameState = gameState;
 	}
 
 	/* (non-Javadoc)

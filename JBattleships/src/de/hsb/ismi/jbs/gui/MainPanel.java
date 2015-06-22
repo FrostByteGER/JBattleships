@@ -3,16 +3,11 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 
-import javax.swing.JButton;
-
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -23,11 +18,7 @@ import javax.swing.Box;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
-import javax.swing.plaf.basic.BasicButtonUI;
-
 import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * @author Kevin Kuegler
@@ -38,7 +29,6 @@ public class MainPanel extends JPanel {
 	private JBSGUI parent;
 	private JPanel buttonPanel;
 	private JBSButton btnLocal;
-	private JBSButton btnOnline;
 	private JBSButton btnProfiles;
 	private JBSButton btnOptions;
 	private JBSButton btnCredits;
@@ -80,18 +70,6 @@ public class MainPanel extends JPanel {
 		gbc_btnLocal.gridy = 0;
 		
 		buttonPanel.add(new AlphaContainer( btnLocal), gbc_btnLocal);
-
-		btnOnline = new JBSButton("Online");
-		btnOnline.addActionListener(e -> {
-			parent.swapContainer(new OnlinePanel(this.parent));
-		});
-		btnOnline.setAlignmentX(Component.CENTER_ALIGNMENT);
-		GridBagConstraints gbc_btnOnline = new GridBagConstraints();
-		gbc_btnOnline.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnOnline.insets = new Insets(0, 0, 5, 0);
-		gbc_btnOnline.gridx = 0;
-		gbc_btnOnline.gridy = 1;
-		buttonPanel.add(new AlphaContainer(btnOnline), gbc_btnOnline);
 		
 		rigidArea = Box.createRigidArea(new Dimension(20, 5));
 		GridBagConstraints gbc_rigidArea = new GridBagConstraints();
