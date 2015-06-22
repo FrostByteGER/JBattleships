@@ -41,11 +41,10 @@ public class MainGamePanel extends JPanel {
 	private JPanel lowerSidePanel;
 	private JPanel lowerMainPanel;
 	private JPanel uperMainPanel;
-	private ChatPanel chatPanel;
+	private BattleLogPanel battleLogPanel;
 	
 	private JLabel fieldNumber;
 	private JLabel activePlayerlbl;
-	private JTextArea chat;
 	private JBSButton btnExit;
 	private JBSButton btnShoot;
 	private JBSButton btnEndRound;
@@ -64,27 +63,9 @@ public class MainGamePanel extends JPanel {
 		add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new MigLayout("", "[grow][grow]", "[grow]"));
 		
-		boolean chatVisibility;
-		switch(game.getGameType()) {
-			case GAME_ONLINE:
-				chatVisibility = true;
-				break;
-			case GAME_LAN:
-				chatVisibility = true;
-				break;
-			case GAME_LOCAL:
-				chatVisibility = false;
-				break;
-			case GAME_SOLO:
-				chatVisibility = false;
-				break;
-			default:
-				chatVisibility = false;
-				break;
-		}
-		chatPanel = new ChatPanel(chatVisibility);
 		sidePanel = new JPanel();
 		
+		battleLogPanel = new BattleLogPanel();
 		
 		selectedGameField = 0;
 		
@@ -94,24 +75,24 @@ public class MainGamePanel extends JPanel {
 		centerPanel.add(sidePanel, "cell 1 0,width :35%:,grow");
 		sidePanel.setLayout(new MigLayout("", "[grow]", "[grow][grow]"));
 		
-		activePlayerlbl = new JLabel("Active Player: " + game.getActivePlayer().getName());
+		activePlayerlbl = new JLabel(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER") + " " + game.getActivePlayer().getName());
 		activePlayerlbl.setFont(new Font("Tahoma", Font.BOLD, 20));
 		sidePanel.add(activePlayerlbl, "cell 0 0,height :10%:,grow");
 		sidePanel.add(new AlphaContainer(gameSidePanel) , "cell 0 1,height :65%:,grow");
 
-		sidePanel.add(chatPanel, "cell 0 2,height :25%:,grow");
+		sidePanel.add(battleLogPanel, "cell 0 2,height :25%:,grow");
 		
-		btnExit = new JBSButton("Exit Game");
+		btnExit = new JBSButton(JBattleships.game.getLocalization("GAME_EXIT_MATCH"));
 		btnExit.setActionCommand("exit");
 		btnExit.addActionListener(e -> {
 			parent.restoreRootContainer(true);
 		});
-		btnShoot = new JBSButton("Shoot");
+		btnShoot = new JBSButton(JBattleships.game.getLocalization("GAME_SHOOT"));
 		
 		btnShoot.setActionCommand("shoot");
 		btnShoot.addActionListener(e -> {
 				if(game.getActivePlayerInt() == selectedGameField){
-					chat.setText(chat.getText()+"\nDont shoot yourself");
+					//chat.setText(chat.getText()+"\nDont shoot yourself");
 				}else{
 					if(gameSidePanel.getSelectedship().canShoot()){
 						roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
@@ -123,7 +104,7 @@ public class MainGamePanel extends JPanel {
 						gameSidePanel.setPlayer(game.getActivePlayer());
 						gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 						gameSidePanel.repaint();
-						activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
+						activePlayerlbl.setText(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER") + " " + game.getActivePlayer().getName());
 						if(game.getActivePlayer() instanceof JBSAIPlayer){
 							JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 							ai.processRound(game);
@@ -139,12 +120,12 @@ public class MainGamePanel extends JPanel {
 							}
 						}
 					}else{
-						chat.setText(chat.getText()+"\nCan't shoot");
+						//chat.setText(chat.getText()+"\nCan't shoot");
 					}
 				}
 		});
 		
-		btnEndRound = new JBSButton("End Round");
+		btnEndRound = new JBSButton(JBattleships.game.getLocalization("GAME_END_ROUND"));
 		btnEndRound.setActionCommand("pass");
 		btnEndRound.addActionListener(e -> {
 			roundManager.fireEndRound(game.getActivePlayer());
@@ -154,7 +135,7 @@ public class MainGamePanel extends JPanel {
 			gameSidePanel.setPlayer(game.getActivePlayer());
 			gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 			gameSidePanel.repaint();
-			activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
+			activePlayerlbl.setText(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER") + " " + game.getActivePlayer().getName());
 			if(game.getActivePlayer() instanceof JBSAIPlayer){
 				JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 				ai.processRound(game);
@@ -179,8 +160,7 @@ public class MainGamePanel extends JPanel {
 		
 		add(lowerSidePanel,BorderLayout.SOUTH);
 		
-		btnSaveGame = new JBSButton("Save Game");
-		btnSaveGame.setActionCommand("save");
+		btnSaveGame = new JBSButton(JBattleships.game.getLocalization("GAME_SAVE"));
 		btnSaveGame.addActionListener(e -> {
 			//TODO: Add SaveDialog
 			JBattleships.game.getDataManager().getPersistenceManager().saveGame("game_001.xml");
@@ -192,10 +172,6 @@ public class MainGamePanel extends JPanel {
 		gameFieldPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
 		gameFieldPanel.setLayout(new BorderLayout(0, 0));
 		centerPanel.add(new AlphaContainer(gameFieldPanel) , "cell 0 0,width :65%:,grow");
-
-		
-		chat = new JTextArea();
-		chat.setText("Chat Text");
 		
 		lowerMainPanel = new JPanel();
 		lowerMainPanel.setLayout(new BorderLayout());
@@ -204,7 +180,7 @@ public class MainGamePanel extends JPanel {
 		uperMainPanel.setLayout(new FlowLayout());
 		
 		JBSButton pbut = new JBSButton();
-		pbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Next"));
+		pbut.setText(JBattleships.game.getLocalization("GAME_NEXT"));
 		pbut.addActionListener(e -> {	
 			if(game.getPlayers().length-1>selectedGameField){
 				selectedGameField++;
@@ -218,7 +194,7 @@ public class MainGamePanel extends JPanel {
 		});
 		
 		JBSButton mbut = new JBSButton();
-		mbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Previous"));
+		mbut.setText(JBattleships.game.getLocalization("GAME_PREVIOUS"));
 		mbut.addActionListener(e -> {
 			if(selectedGameField>0){
 				selectedGameField--;
@@ -247,7 +223,7 @@ public class MainGamePanel extends JPanel {
 			
 			@Override
 			public void fireStartedGame() {
-				activePlayerlbl.setText("Active Player: " + game.getActivePlayer().getName());
+				activePlayerlbl.setText(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER")  + " " + game.getActivePlayer().getName());
 			}
 			
 			@Override

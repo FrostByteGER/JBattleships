@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * The core GUI-class, everything starts here.
@@ -30,7 +31,7 @@ import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
  */
 public class JBSGUI{
 
-	private JFrame mainFrame = new JFrame("JBattleships ALPHA");
+	private JFrame mainFrame = new JFrame();
 	private JPanel contentPane = new JPanel();
 	private Stack<JPanel> panelStack  = new Stack<JPanel>();
 	
@@ -40,12 +41,13 @@ public class JBSGUI{
 	private BufferedImage backgroundImage = null;
 	
 	public static final Color BACKGROUND_COLOR = new Color(0.5411f, 0.5411f, 0.5411f, 0.4f);
-	public static final Font SERVER_FONT = new Font("Tahoma", Font.PLAIN, 22);
+	public static final Font MAIN_FONT = new Font("Tahoma", Font.PLAIN, 22);
 
 	/**
 	 * 
 	 */
 	public JBSGUI() {
+		mainFrame.setTitle(JBattleships.game.getLocalization("GAME_TITLE"));
 		try {
 			backgroundImage = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
 		} catch (IOException ioe) {
@@ -157,7 +159,7 @@ public class JBSGUI{
 		JPanel headerPanel = new JPanel();
 		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 		headerPanel.add(Box.createVerticalStrut(20));
-		JLabel headerLbl = new JLabel("JBattleships");
+		JLabel headerLbl = new JLabel(JBattleships.game.getLocalization("GAME_HEADER"));
 		headerLbl.setFont(new Font("Tahoma", Font.BOLD, 40));
 		headerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 		headerPanel.add(headerLbl);

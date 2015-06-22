@@ -52,7 +52,7 @@ public class PreLocalGameChoicePanel extends JPanel {
 		gbl_centerPanel.rowWeights = new double[]{0.0, 0.0, 0.0};
 		centerPanel.setLayout(gbl_centerPanel);
 		
-		btnNewGame = new JBSButton("New Game");
+		btnNewGame = new JBSButton(JBattleships.game.getLocalization("GAME_NEW"));
 		btnNewGame.addActionListener(e -> {
 			parent.swapContainer(new PreGamePanel(parent, JBSGameType.GAME_LOCAL));
 		});
@@ -63,7 +63,7 @@ public class PreLocalGameChoicePanel extends JPanel {
 		gbc_btnNewGame.gridy = 0;
 		centerPanel.add(new AlphaContainer(btnNewGame) , gbc_btnNewGame);
 		
-		btnLoadGame = new JBSButton("Load Game");
+		btnLoadGame = new JBSButton(JBattleships.game.getLocalization("GAME_LOAD"));
 		btnLoadGame.addActionListener(e -> {
 			JBattleships.game.getDataManager().getPersistenceManager().loadGame(GamePersistenceManager.GAME_SAVE_PATH + "game_001.xml");
 			//Dont create this after starting the game, causes the fireStartedGame Event NOT to be called!
@@ -78,7 +78,7 @@ public class PreLocalGameChoicePanel extends JPanel {
 		gbc_btnLoadGame.gridy = 1;
 		centerPanel.add(new AlphaContainer(btnLoadGame) , gbc_btnLoadGame);
 		
-		btnCancel = new JBSButton("Cancel");
+		btnCancel = new JBSButton(JBattleships.game.getLocalization("GAME_CANCEL"));
 		btnCancel.addActionListener(e -> {
 			parent.restoreRootContainer(true);
 		});

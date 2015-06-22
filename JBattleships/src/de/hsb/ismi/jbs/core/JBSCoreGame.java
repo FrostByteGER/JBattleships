@@ -319,6 +319,10 @@ public class JBSCoreGame {
 	public final int getGameListenerPort() {
 		return gameListenerPort;
 	}
+	
+	public final String getLocalization(String key){
+		return dataManager.getLocalizationManager().getLocalization(key);
+	}
 
 
 }

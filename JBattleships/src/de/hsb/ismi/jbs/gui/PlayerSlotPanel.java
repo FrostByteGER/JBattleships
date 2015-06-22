@@ -3,8 +3,6 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import java.awt.event.ItemListener;
-
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,34 +11,35 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
-import java.awt.Font;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * Wrapper JPanel class that contains the elements for player
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class PreGamePlayerPanel extends JPanel {
+public class PlayerSlotPanel extends JPanel {
 
-	private JLabel lblName = new JLabel("Name:");
-	private JTextField nameField = new JTextField("Undefined", 10);
-	private JCheckBox checkboxAI = new JCheckBox("AI?");
-	private JCheckBox checkboxActive = new JCheckBox("Active?");
-	private JBSButton btnKick = new JBSButton("Kick Player");
+	private JLabel lblName = new JLabel();
+	private JTextField nameField = new JTextField(10);
+	private JCheckBox checkboxAI = new JCheckBox();
+	private JCheckBox checkboxActive = new JCheckBox();
+	@Deprecated
+	private JBSButton btnKick = new JBSButton();
 	
 	/**
-	 * Creates a new PreGamePlayerPanel with a preset nameField String.
+	 * Creates a new PlayerSlotPanel with a preset nameField String.
 	 * @wbp.parser.constructor
 	 */
-	public PreGamePlayerPanel(boolean isHost, JBSGameType gameType) {
+	public PlayerSlotPanel(boolean isHost, JBSGameType gameType) {
 		initGUI(isHost, gameType);
 	}
 	
 	/**
-	 * Creates a new PreGamePlayerPanel with a given nameField String.
+	 * Creates a new PlayerSlotPanel with a given nameField String.
 	 * @param fieldContent The content of the nameField.
 	 */
-	public PreGamePlayerPanel(boolean isHost, JBSGameType gameType, String fieldContent) {
+	public PlayerSlotPanel(boolean isHost, JBSGameType gameType, String fieldContent) {
 		nameField = new JTextField(fieldContent, 10);
 		initGUI(isHost, gameType);
 	}
@@ -49,18 +48,25 @@ public class PreGamePlayerPanel extends JPanel {
 	 * 
 	 */
 	private void initGUI(boolean isHost, JBSGameType gameType){
-		lblName.setFont(JBSGUI.SERVER_FONT);
+		lblName = new JLabel(JBattleships.game.getLocalization("GAME_PLAYER_NAME"));
+		nameField = new JTextField(JBattleships.game.getLocalization("GAME_PLAYER"), 10);
+		checkboxAI = new JCheckBox(JBattleships.game.getLocalization("GAME_IS_AI"));
+		checkboxActive = new JCheckBox(JBattleships.game.getLocalization("GAME_IS_ACTIVE"));
+		btnKick = new JBSButton(JBattleships.game.getLocalization("GAME_KICK_PLAYER"));
+		
+		lblName.setFont(JBSGUI.MAIN_FONT);
 		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(lblName);
-		nameField.setFont(JBSGUI.SERVER_FONT);
+		nameField.setFont(JBSGUI.MAIN_FONT);
 		add(nameField);
-		checkboxAI.setFont(JBSGUI.SERVER_FONT);
+		checkboxAI.setFont(JBSGUI.MAIN_FONT);
+		checkboxAI.setEnabled(false);
 		add(checkboxAI);
-		btnKick.setFont(JBSGUI.SERVER_FONT);
+		btnKick.setFont(JBSGUI.MAIN_FONT);
 		checkboxAI.addItemListener(i -> {
 			btnKick.setEnabled(!checkboxAI.isSelected());
 		});
-		checkboxActive.setFont(JBSGUI.SERVER_FONT);
+		checkboxActive.setFont(JBSGUI.MAIN_FONT);
 		
 		checkboxActive.addItemListener(i -> {
 			btnKick.setEnabled(checkboxActive.isSelected());
