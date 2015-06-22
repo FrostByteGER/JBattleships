@@ -69,9 +69,7 @@ public class LobbyPlayerSlotPanel extends JPanel {
 				if(!checkboxAI.isSelected()){
 					btnKick.setEnabled(checkboxAI.isSelected());
 					setName("");
-					JBattleships.game.getGameServer().setCurrentPlayerCount(JBattleships.game.getGameServer().getCurrentPlayerCount() + 1);
 				}else{
-					JBattleships.game.getGameServer().setCurrentPlayerCount(JBattleships.game.getGameServer().getCurrentPlayerCount() - 1);
 					setName("CPU #" + position);
 				}
 				System.out.println(JBattleships.game.getGameServer().getCurrentPlayerCount());

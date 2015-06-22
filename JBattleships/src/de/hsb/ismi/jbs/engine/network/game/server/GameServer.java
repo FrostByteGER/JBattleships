@@ -33,6 +33,7 @@ import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.network.game.GameConnectionState;
 import de.hsb.ismi.jbs.engine.network.game.GameServerListener;
 import de.hsb.ismi.jbs.engine.network.game.LobbyInfo;
+import de.hsb.ismi.jbs.engine.utility.Utility;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -57,7 +58,9 @@ public class GameServer extends Thread implements GameServerListener{
 	/** The main server socket. */
 	private ServerSocket server                = null;
 	/** Array of clients that have connected to the server. */
-	private List<GameServerThread> clients     = Collections.synchronizedList(new ArrayList<>(0));
+	private ArrayList<GameServerThread> clients = new ArrayList<>(MAX_PLAYER_COUNT);
+	private boolean[] openSlots = {true, true, true, true, true, true, true, true};
+	private boolean[] aiSlots = new boolean[8];
 	/** The maximum login count till the server kills the connection to a client. <br> TODO: add arraylist of banned IPs. */
 	public static final int MAX_LOGIN_COUNT    = 3;
 	/** The maximum player/client count on this server. Connect more clients than this number, the server will reject the connection. */
@@ -93,7 +96,7 @@ public class GameServer extends Thread implements GameServerListener{
 		this.roundListenerPort = roundListenerPort;
 		this.gameListenerPort = gameListenerPort;
 		this.gameServerListenerPort = gameServerListenerPort;
-
+		clients = (ArrayList<GameServerThread>) Utility.fillList(clients, null, MAX_PLAYER_COUNT);
 		try {
 			System.err.println("GameServer: Binding to gamePort " + this.gamePort + ", please wait...");
 			server = new ServerSocket(this.gamePort);
@@ -125,11 +128,9 @@ public class GameServer extends Thread implements GameServerListener{
 	 * @return
 	 */
 	private GameServerThread findClient(String id) {
-		synchronized(clients){
-			for (int i = 0; i < clients.size(); i++){
-				if (clients.get(i).getUsername().equals(id)){
-					return clients.get(i);
-				}
+		for (int i = 0; i < clients.size(); i++){
+			if (clients.get(i) != null &&clients.get(i).getUsername().equals(id)){
+				return clients.get(i);
 			}
 		}
 		return null;
@@ -168,7 +169,7 @@ public class GameServer extends Thread implements GameServerListener{
 		if(toTerminate != null){
 			System.err.println("GameServer: Removing client thread " + id);
 			toTerminate.closeConnection();
-			clients.remove(toTerminate);
+			clients.set(clients.indexOf(toTerminate), null);
 		}
 	}
 	
@@ -176,11 +177,8 @@ public class GameServer extends Thread implements GameServerListener{
 	 * Closes the whole server with all connections.
 	 */
 	public synchronized void closeServer(){
-		//TODO: Synchronized may be obsolete
-		synchronized(clients){
-			for(GameServerThread cst : clients){
-				cst.closeConnection();
-			}
+		for(GameServerThread cst : clients){
+			cst.closeConnection();
 		}
 		endServer = true;
 	}
@@ -204,15 +202,21 @@ public class GameServer extends Thread implements GameServerListener{
 	private synchronized void addThread(Socket socket) {
 		System.err.println("GameServer: Client accepted: " + socket);
 		GameServerThread cst = new GameServerThread(this, socket, socket.getInetAddress().toString());
-		
 		try {
 			cst.open();
 			cst.start();
-			if(clients.size() >= currentPlayerCount){
+			int index = -1;
+			for(int i = 0; i < clients.size(); i++){
+				if(clients.get(i) == null && openSlots[i] == true && aiSlots[i] == false){
+					index = i;
+				}
+			}
+			
+			if(index == -1){
 				cst.setConnectionState(GameConnectionState.FULL);
 				System.err.println("GameServer: Lobby full");
 			}else{
-				clients.add(cst);
+				clients.set(index, cst);
 				System.err.println("GameServer: Added new Client: " + cst.getUsername());
 			}
 			
@@ -221,6 +225,12 @@ public class GameServer extends Thread implements GameServerListener{
 		}
 	}
 	
+	/**
+	 * 
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 * @throws UnknownHostException
+	 */
 	public void startServer() throws RemoteException, MalformedURLException, UnknownHostException{
 		JBSCoreGame game = JBattleships.game;
 		
@@ -291,12 +301,16 @@ public class GameServer extends Thread implements GameServerListener{
 		data.setSubmarines(g.getSubmarineCount());
 		data.setFieldSize(g.getFieldSize());
 		String[] players = new String[clients.size()];
-		synchronized(clients){
-			for(int i = 0; i < clients.size(); i++){
-				players[i] = clients.get(i).getUsername();
+		for(int i = 0; i < clients.size(); i++){
+			if(openSlots[i] == true && clients.get(i) != null){
+				String s = clients.get(i).getUsername();
+				players[i] = s;
 			}
+			
 		}
 		data.setConnectedPlayers(players);
+		data.setOpenSlots(openSlots);
+		data.setAiSlots(aiSlots);
 		return data;
 	}
 
@@ -315,7 +329,6 @@ public class GameServer extends Thread implements GameServerListener{
 	@Override
 	public void setReady(String id, boolean ready) throws RemoteException {
 		GameServerThread client = findClient(id);
-		System.out.println(ready);
 		if(client != null){
 			client.setReady(ready);
 		}
@@ -410,6 +423,18 @@ public class GameServer extends Thread implements GameServerListener{
 		}else{
 			throw new IllegalArgumentException("PlayerCount must be <= MAX_PLAYER_COUNT and >= 0.");
 		}
+		
+	}
+	
+	public final void toggleSlot(int index, boolean open){
+		openSlots[index] = open;
+		if(!open){
+			
+		}
+	}
+	
+	public final void toggleAISlot(int index, boolean ai){
+		aiSlots[index] = ai;
 		
 	}
 	

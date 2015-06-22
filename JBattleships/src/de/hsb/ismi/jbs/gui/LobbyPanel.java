@@ -207,29 +207,22 @@ public class LobbyPanel extends JPanel {
 					serverPanel.getCoastalArtilleryCheckbox().setSelected(info.useCoastalArtillery());
 					serverPanel.calculateTotalShips();
 					
-					String[] names = new String[8];
 					String[] playernames = info.getConnectedPlayers();
-					// Transfer into a bigger array so unfilled values are null.
+					boolean[] slots = info.getOpenSlots();
+					
 					for(int i = 0; i < playernames.length; i++){
-						names[i] = playernames[i];
-					}
-					
-					//Player Panel
-					for(int j = index; j < playerPanels.length; j++){
-						String s = names[j];
-						// Null means, this slot is unoccupied by a player. So we set its name to nothing. The null is used to distinct.
-						
-						for(int k = index; k < playerPanels.length; k++){
-							if(s != null && !playerPanels[k].isAISelected() && playerPanels[k].isActiveSelected()){
-								playerPanels[k].setName(s);
-								playerPanels[k].getBtnKick().setEnabled(true);
-								break;
-							}else if(s == null && !playerPanels[k].isAISelected()){
-								playerPanels[k].setName("");
-								playerPanels[k].getBtnKick().setEnabled(false);
+						String player = playernames[i];
+						if(slots[i] == true){
+							if(player != null){
+								playerPanels[i].setName(player);
 							}
+							playerPanels[i].setActiveSelected(true);
+							playerPanels[i].getBtnKick().setEnabled(true);
+						}else{
+							playerPanels[i].setActiveSelected(false);
+							playerPanels[i].getBtnKick().setEnabled(false);
+							playerPanels[i].setAISelected(false);
 						}
-					
 					}
 				} catch (RemoteException e) {
 					e.printStackTrace();

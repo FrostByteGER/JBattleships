@@ -5,11 +5,15 @@ package de.hsb.ismi.jbs.start;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Graphics;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicButtonUI;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -26,6 +30,10 @@ import javax.swing.BoxLayout;
 
 import de.hsb.ismi.jbs.gui.AlphaContainer;
 
+import java.awt.SystemColor;
+
+import javax.swing.JButton;
+
 /**
  * @author Kevin Kuegler
  * @version 1.00
@@ -33,14 +41,8 @@ import de.hsb.ismi.jbs.gui.AlphaContainer;
 public class TestFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JPanel centerPanel;
-	private JRadioButton rdbtn1;
-	private JRadioButton rdbtn2;
-	private JRadioButton rdbtn3;
-	private JPanel leftPanel;
-	private JPanel rightPanel;
-	private JCheckBox chckbx1;
-	private JCheckBox chckbx2;
+	private JButton btn1;
+
 
 	/**
 	 * Launch the application.
@@ -70,60 +72,27 @@ public class TestFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.RED);
+		contentPane.setBackground(SystemColor.control);
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+	
 		
-		centerPanel = new JPanel();
-		centerPanel.setOpaque(false);
-		contentPane.add(centerPanel, BorderLayout.CENTER);
-		GridBagLayout gbl_centerPanel = new GridBagLayout();
-		gbl_centerPanel.columnWeights = new double[]{1.0, 0.0};
-		gbl_centerPanel.rowWeights = new double[]{1.0};
-		centerPanel.setLayout(gbl_centerPanel);
-		
-		leftPanel = new JPanel();
-		leftPanel.setOpaque(true);
-		leftPanel.setBackground(new Color(0.9f, 0.9f, 0.9f, 0.2f));
-		GridBagConstraints gbc_leftPanel = new GridBagConstraints();
-		gbc_leftPanel.weightx = 0.5;
-		gbc_leftPanel.fill = GridBagConstraints.BOTH;
-		gbc_leftPanel.gridx = 0;
-		gbc_leftPanel.gridy = 0;
-		centerPanel.add(new AlphaContainer(leftPanel), gbc_leftPanel);
-		leftPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		rdbtn1 = new JRadioButton("Button 1");
-		rdbtn1.setOpaque(false);
-		leftPanel.add(rdbtn1);
-		
-		rdbtn2 = new JRadioButton("Button 2");
-		rdbtn2.setOpaque(false);
-		leftPanel.add(rdbtn2);
-		
-		rdbtn3 = new JRadioButton("Button 3");
-		rdbtn3.setOpaque(false);
-		leftPanel.add(rdbtn3);
-		
-		rightPanel = new JPanel();
-		rightPanel.setBackground(new Color(0.9f, 0.9f, 0.9f, 0.5f));
-		rightPanel.setOpaque(true);
-		GridBagConstraints gbc_rightPanel = new GridBagConstraints();
-		gbc_rightPanel.weightx = 0.5;
-		gbc_rightPanel.fill = GridBagConstraints.BOTH;
-		gbc_rightPanel.gridx = 1;
-		gbc_rightPanel.gridy = 0;
-		centerPanel.add(new AlphaContainer(rightPanel), gbc_rightPanel);
-		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.X_AXIS));
-		
-		chckbx1 = new JCheckBox("Checkbox 1");
-		chckbx1.setOpaque(false);
-		rightPanel.add(chckbx1);
-		
-		chckbx2 = new JCheckBox("Checkbox 2");
-		chckbx2.setOpaque(false);
-		rightPanel.add(chckbx2);
+		btn1 = new JButton("Facebook");
+		btn1.setBackground(new Color(59, 89, 182));
+		btn1.setForeground(Color.WHITE);
+		btn1.setFocusPainted(false);
+		btn1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btn1.setUI(new BasicButtonUI(){
+			/* (non-Javadoc)
+			 * @see javax.swing.plaf.basic.BasicButtonUI#paint(java.awt.Graphics, javax.swing.JComponent)
+			 */
+			@Override
+			public void paint(Graphics g, JComponent c) {
+				super.paint(g, c);
+			}
+		});
+		contentPane.add(btn1, BorderLayout.CENTER);
 	}
 
 }

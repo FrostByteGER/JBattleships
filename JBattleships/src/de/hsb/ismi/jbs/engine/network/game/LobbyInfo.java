@@ -22,6 +22,8 @@ public class LobbyInfo implements Serializable{
 	private boolean useNavalMines = false;
 	
 	private String[] connectedPlayers = new String[0];
+	private boolean[] openSlots = {true, true, true, true, true, true, true, true};
+	private boolean[] aiSlots = new boolean[8];
 	
 	/**
 	 * 
@@ -68,6 +70,60 @@ public class LobbyInfo implements Serializable{
 		this.useCoastalArtillery = useCoastalArtillery;
 		this.useNavalMines = useNavalMines;
 		this.connectedPlayers = connectedPlayers;
+	}
+
+	/**
+	 * @param fieldSize
+	 * @param destroyers
+	 * @param frigates
+	 * @param corvettes
+	 * @param submarines
+	 * @param useCoastalArtillery
+	 * @param useNavalMines
+	 * @param connectedPlayers
+	 * @param openSlots
+	 */
+	public LobbyInfo(int fieldSize, int destroyers, int frigates,
+			int corvettes, int submarines, boolean useCoastalArtillery,
+			boolean useNavalMines, String[] connectedPlayers,
+			boolean[] openSlots) {
+		this.fieldSize = fieldSize;
+		this.destroyers = destroyers;
+		this.frigates = frigates;
+		this.corvettes = corvettes;
+		this.submarines = submarines;
+		this.useCoastalArtillery = useCoastalArtillery;
+		this.useNavalMines = useNavalMines;
+		this.connectedPlayers = connectedPlayers;
+		this.openSlots = openSlots;
+	}
+
+	/**
+	 * @param fieldSize
+	 * @param destroyers
+	 * @param frigates
+	 * @param corvettes
+	 * @param submarines
+	 * @param useCoastalArtillery
+	 * @param useNavalMines
+	 * @param connectedPlayers
+	 * @param openSlots
+	 * @param aiSlots
+	 */
+	public LobbyInfo(int fieldSize, int destroyers, int frigates,
+			int corvettes, int submarines, boolean useCoastalArtillery,
+			boolean useNavalMines, String[] connectedPlayers,
+			boolean[] openSlots, boolean[] aiSlots) {
+		this.fieldSize = fieldSize;
+		this.destroyers = destroyers;
+		this.frigates = frigates;
+		this.corvettes = corvettes;
+		this.submarines = submarines;
+		this.useCoastalArtillery = useCoastalArtillery;
+		this.useNavalMines = useNavalMines;
+		this.connectedPlayers = connectedPlayers;
+		this.openSlots = openSlots;
+		this.aiSlots = aiSlots;
 	}
 
 	/**
@@ -191,6 +247,34 @@ public class LobbyInfo implements Serializable{
 			   " | Corvettes: " + corvettes + " | Submarines: " + submarines + 
 			   " | Fieldsize: " + fieldSize + " | Naval Mines: " + useNavalMines + 
 			   " | Coastal Artillery: " + useCoastalArtillery + " | Players: " + connectedPlayers.length;
+	}
+
+	/**
+	 * @return the openSlots
+	 */
+	public final boolean[] getOpenSlots() {
+		return openSlots;
+	}
+
+	/**
+	 * @param openSlots the openSlots to set
+	 */
+	public final void setOpenSlots(boolean[] openSlots) {
+		this.openSlots = openSlots;
+	}
+
+	/**
+	 * @return the aiSlots
+	 */
+	public final boolean[] getAiSlots() {
+		return aiSlots;
+	}
+
+	/**
+	 * @param aiSlots the aiSlots to set
+	 */
+	public final void setAiSlots(boolean[] aiSlots) {
+		this.aiSlots = aiSlots;
 	}
 	
 	
