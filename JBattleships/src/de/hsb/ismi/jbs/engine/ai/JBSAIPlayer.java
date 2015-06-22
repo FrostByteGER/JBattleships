@@ -114,24 +114,28 @@ public class JBSAIPlayer extends JBSPlayer {
 									if(!game.getPlayer(lasthitfield).getPlayerField().getField(x, y-1).isHit()){
 										hitx = x;
 										hity = y-1;
+										hitdirection = Direction.NORTH;
 									}
 								}
 								if(game.getPlayer(lasthitfield).getPlayerField().getField(x+1, y) != null){
 									if(!game.getPlayer(lasthitfield).getPlayerField().getField(x+1, y).isHit()){
 										hitx = x+1;
 										hity = y;
+										hitdirection = Direction.EAST;
 									}
 								}
 								if(game.getPlayer(lasthitfield).getPlayerField().getField(x, y+1) != null){
 									if(!game.getPlayer(lasthitfield).getPlayerField().getField(x, y+1).isHit()){
 										hitx = x;
 										hity = y+1;
+										hitdirection = Direction.SOUTH;
 									}
 								}
 								if(game.getPlayer(lasthitfield).getPlayerField().getField(x-1, y) != null){
 									if(!game.getPlayer(lasthitfield).getPlayerField().getField(x-1, y).isHit()){
 										hitx = x-1;
 										hity = y;
+										hitdirection = Direction.WEST;
 									}
 								}					
 							}

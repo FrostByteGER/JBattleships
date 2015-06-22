@@ -64,7 +64,7 @@ public class OptionsPanel extends JPanel{
 	private JPanel mixedPanel;
 	private JPanel gamePanel;
 
-	private JButton resetButton;
+	private JBSButton resetButton;
 	private JButton saveButton;
 	private JButton backButton;
 	private JLabel lblRes;
@@ -381,7 +381,7 @@ public class OptionsPanel extends JPanel{
 		mixedPanel.add(new AlphaContainer(buttonPanel));
 		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		resetButton = new JButton("Reset to Default");
+		resetButton = new JBSButton("Reset to Default");
 		resetButton.setActionCommand("reset");
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -391,7 +391,7 @@ public class OptionsPanel extends JPanel{
 			}
 		});
 		resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonPanel.add(resetButton);
+		buttonPanel.add(new AlphaContainer(resetButton));
 		
 		saveButton = new JButton("Save Settings");
 		saveButton.setActionCommand("save");

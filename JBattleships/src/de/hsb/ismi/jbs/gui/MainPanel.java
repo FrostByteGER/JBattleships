@@ -3,6 +3,7 @@
  */
 package de.hsb.ismi.jbs.gui;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -10,6 +11,8 @@ import java.awt.Component;
 
 import javax.swing.JButton;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -20,8 +23,11 @@ import javax.swing.Box;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
+import javax.swing.plaf.basic.BasicButtonUI;
 
 import java.awt.FlowLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * @author Kevin Kuegler
@@ -31,12 +37,12 @@ public class MainPanel extends JPanel {
 	
 	private JBSGUI parent;
 	private JPanel buttonPanel;
-	private JButton btnLocal;
-	private JButton btnOnline;
-	private JButton btnProfiles;
-	private JButton btnOptions;
-	private JButton btnCredits;
-	private JButton btnQuit;
+	private JBSButton btnLocal;
+	private JBSButton btnOnline;
+	private JBSButton btnProfiles;
+	private JBSButton btnOptions;
+	private JBSButton btnCredits;
+	private JBSButton btnQuit;
 	private Component rigidArea;
 	private JPanel versionPanel;
 	private JLabel versionLbl;
@@ -61,7 +67,7 @@ public class MainPanel extends JPanel {
 		gbl_buttonPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		buttonPanel.setLayout(gbl_buttonPanel);
 		
-		btnLocal = new JButton("Local");
+		btnLocal = new JBSButton("Local");
 		btnLocal.setActionCommand("local");
 		btnLocal.addActionListener(e -> {
 			parent.swapContainer(new PreLocalGameChoicePanel(parent));
@@ -72,9 +78,10 @@ public class MainPanel extends JPanel {
 		gbc_btnLocal.insets = new Insets(0, 0, 5, 0);
 		gbc_btnLocal.gridx = 0;
 		gbc_btnLocal.gridy = 0;
-		buttonPanel.add(btnLocal, gbc_btnLocal);
 		
-		btnOnline = new JButton("Online");
+		buttonPanel.add(new AlphaContainer( btnLocal), gbc_btnLocal);
+
+		btnOnline = new JBSButton("Online");
 		btnOnline.addActionListener(e -> {
 			parent.swapContainer(new OnlinePanel(this.parent));
 		});
@@ -84,7 +91,7 @@ public class MainPanel extends JPanel {
 		gbc_btnOnline.insets = new Insets(0, 0, 5, 0);
 		gbc_btnOnline.gridx = 0;
 		gbc_btnOnline.gridy = 1;
-		buttonPanel.add(btnOnline, gbc_btnOnline);
+		buttonPanel.add(new AlphaContainer(btnOnline), gbc_btnOnline);
 		
 		rigidArea = Box.createRigidArea(new Dimension(20, 5));
 		GridBagConstraints gbc_rigidArea = new GridBagConstraints();
@@ -93,15 +100,15 @@ public class MainPanel extends JPanel {
 		gbc_rigidArea.gridy = 2;
 		buttonPanel.add(rigidArea, gbc_rigidArea);
 		
-		btnProfiles = new JButton("Profiles");
+		btnProfiles = new JBSButton("Profiles");
 		GridBagConstraints gbc_btnProfiles = new GridBagConstraints();
 		gbc_btnProfiles.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnProfiles.insets = new Insets(0, 0, 5, 0);
 		gbc_btnProfiles.gridx = 0;
 		gbc_btnProfiles.gridy = 3;
-		buttonPanel.add(btnProfiles, gbc_btnProfiles);
+		buttonPanel.add(new AlphaContainer(btnProfiles) , gbc_btnProfiles);
 		
-		btnOptions = new JButton("Options");
+		btnOptions = new JBSButton("Options");
 		btnOptions.setActionCommand("options");
 		btnOptions.addActionListener(e -> {
 			parent.swapContainer(parent.getOptionsPanel());
@@ -111,9 +118,9 @@ public class MainPanel extends JPanel {
 		gbc_btnOptions.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnOptions.gridx = 0;
 		gbc_btnOptions.gridy = 4;
-		buttonPanel.add(btnOptions, gbc_btnOptions);
+		buttonPanel.add(new AlphaContainer(btnOptions) , gbc_btnOptions);
 		
-		btnCredits = new JButton("Credits");
+		btnCredits = new JBSButton("Credits");
 		btnCredits.setActionCommand("credits");
 		btnCredits.addActionListener(e -> {
 			
@@ -123,9 +130,9 @@ public class MainPanel extends JPanel {
 		gbc_btnCredits.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCredits.gridx = 0;
 		gbc_btnCredits.gridy = 5;
-		buttonPanel.add(btnCredits, gbc_btnCredits);
+		buttonPanel.add(new AlphaContainer(btnCredits) , gbc_btnCredits);
 		
-		btnQuit = new JButton("Quit");
+		btnQuit = new JBSButton("Quit");
 		btnQuit.setActionCommand("quit");
 		btnQuit.addActionListener(e -> {
 			Frame[] frames = Frame.getFrames();  
@@ -138,7 +145,7 @@ public class MainPanel extends JPanel {
 		gbc_btnQuit.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnQuit.gridx = 0;
 		gbc_btnQuit.gridy = 6;
-		buttonPanel.add(btnQuit, gbc_btnQuit);
+		buttonPanel.add(new AlphaContainer(btnQuit) , gbc_btnQuit);
 		
 		versionPanel = new JPanel();
 		versionPanel.setOpaque(false);
@@ -149,5 +156,4 @@ public class MainPanel extends JPanel {
 		versionLbl = new JLabel("ALPHA 0.2");
 		versionPanel.add(versionLbl);
 	}
-
 }
