@@ -3,15 +3,12 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

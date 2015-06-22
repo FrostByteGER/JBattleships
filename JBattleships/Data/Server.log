@@ -1,592 +1,194 @@
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(1)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: void rebind(java.lang.String, java.rmi.Remote)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(2)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(3)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: void rebind(java.lang.String, java.rmi.Remote)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(4)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(5)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: void rebind(java.lang.String, java.rmi.Remote)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(1)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(2)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.core.manager.RoundManager[749af284:14e18b7e832:-7ffe, -7488823388212932598]: public abstract void de.hsb.ismi.jbs.engine.core.JBSRoundListener.printRMITest(int) throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(2)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.core.manager.RoundManager[-123cec0c:14e193407b5:-7ffe, 6110931683757519605]: public abstract void de.hsb.ismi.jbs.engine.core.JBSRoundListener.printRMITest(int) throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(3)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(5)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:43:04 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:05 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:06 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:07 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:08 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:09 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:10 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:11 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:11 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:38 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:39 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:40 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:41 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:42 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:43 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:44 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:45 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:45 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(7)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:43:11 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:46 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(8)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:43:11 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(8)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.core.manager.RoundManager[749af284:14e18b7e832:-7ffe, -7488823388212932598]: public abstract void de.hsb.ismi.jbs.engine.core.JBSRoundListener.printRMITest(int) throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:11 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:46 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(8)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.core.manager.RoundManager[-123cec0c:14e193407b5:-7ffe, 6110931683757519605]: public abstract void de.hsb.ismi.jbs.engine.core.JBSRoundListener.printRMITest(int) throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:46 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(9)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:43:11 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:46 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(10)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:43:11 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:46 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(11)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:43:11 AM sun.rmi.server.UnicastServerRef logCall
+Jun 22, 2015 4:58:46 AM sun.rmi.server.UnicastServerRef logCall
 FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:43:12 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:12 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:13 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:13 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:14 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:14 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:15 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:15 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:16 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:16 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:17 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:17 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:18 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:18 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:19 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:19 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:20 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:21 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:22 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:23 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:24 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:25 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:26 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:27 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:29 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:30 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:31 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:32 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:33 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:34 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:35 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:36 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:37 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:38 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:39 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:40 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:41 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:42 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:43 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:44 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:45 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:46 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:47 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:48 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:49 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:50 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:51 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:52 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:54 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:55 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:56 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:57 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:58 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:43:59 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:00 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:01 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:02 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:03 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:04 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:05 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:06 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:07 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:08 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:09 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:10 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:11 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:12 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:13 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:14 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:15 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:16 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:17 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:18 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:19 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:20 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:21 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:22 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:23 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:24 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:25 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:26 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:27 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(13)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(14)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(14)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.core.manager.RoundManager[749af284:14e18b7e832:-7ffe, -7488823388212932598]: public abstract void de.hsb.ismi.jbs.engine.core.JBSRoundListener.printRMITest(int) throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(15)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(16)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(17)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:29 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:29 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:30 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:30 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:31 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:31 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:32 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:32 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:33 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:33 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:34 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:34 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:35 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(18)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:35 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:36 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:37 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:38 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:39 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:40 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:41 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:42 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:43 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:44 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:45 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:46 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:47 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:48 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:49 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:50 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:51 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:52 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:54 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:55 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:56 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:57 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:58 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:44:59 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:00 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:01 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:02 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:03 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:04 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:05 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:06 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:07 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:08 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:09 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:10 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:11 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:12 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:13 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:14 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:15 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:16 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:17 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:18 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:19 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:20 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:21 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:22 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:23 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:24 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:25 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:26 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:27 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:29 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:30 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:31 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:32 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:33 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:34 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:35 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:36 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:37 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:38 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:39 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:40 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:41 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:42 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:43 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:44 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:45 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:46 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:47 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:48 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:49 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:50 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:51 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:52 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:54 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:55 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:56 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:57 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:58 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:45:59 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:00 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:01 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:02 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:03 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:04 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:05 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:06 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:07 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:08 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:09 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:10 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:11 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:12 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:13 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:14 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:15 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:16 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:17 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:18 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:19 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:20 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:21 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:22 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:23 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:24 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:25 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:26 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:27 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:28 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:29 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:30 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:31 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:32 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:33 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:34 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:35 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:36 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:37 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:38 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:39 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:40 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:41 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:42 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:43 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:44 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:45 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:46 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:47 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:48 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:49 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:50 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:51 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:52 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(19)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:46:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(20)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:46:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(20)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.core.manager.RoundManager[749af284:14e18b7e832:-7ffe, -7488823388212932598]: public abstract void de.hsb.ismi.jbs.engine.core.JBSRoundListener.printRMITest(int) throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(21)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:46:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(22)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:46:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(23)-127.0.0.1: [127.0.0.1: sun.rmi.registry.RegistryImpl[0:0:0, 0]: java.rmi.Remote lookup(java.lang.String)]
-Jun 22, 2015 2:46:53 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(24)-192.168.178.20: [192.168.178.20: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]
-Jun 22, 2015 2:46:54 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(24)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:54 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:55 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(24)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:55 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:56 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:57 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:58 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:46:59 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:00 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:01 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:02 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:03 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:04 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:05 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:06 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:07 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:08 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:09 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
-Jun 22, 2015 2:47:10 AM sun.rmi.server.UnicastServerRef logCall
-FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[749af284:14e18b7e832:-7ff7, 3424122127849669717]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:46 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:46 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:47 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:47 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:48 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:48 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:49 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(12)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:49 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:50 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:51 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:52 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:53 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:54 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:55 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:56 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:57 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:58 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:58:59 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:00 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:01 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:02 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:03 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:04 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:05 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:06 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:07 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:08 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:09 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:10 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:11 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:12 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:13 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:14 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:15 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:16 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:17 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:18 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:19 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:20 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:21 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:22 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:23 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:24 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:25 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:26 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:27 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:28 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:29 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:30 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:31 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:32 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:33 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:34 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:35 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:36 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:37 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:38 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:39 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:40 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:41 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:42 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:43 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:44 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:45 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:46 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:47 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:48 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:49 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:50 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:51 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:52 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]
+Jun 22, 2015 4:59:53 AM sun.rmi.server.UnicastServerRef logCall
+FEINER: RMI TCP Connection(6)-192.168.178.20: [192.168.178.20: de.hsb.ismi.jbs.engine.network.game.server.GameServer[-123cec0c:14e193407b5:-7ff7, -7820962027208602307]: public abstract de.hsb.ismi.jbs.engine.network.game.LobbyInfo de.hsb.ismi.jbs.engine.network.game.GameServerListener.getLobbyData() throws java.rmi.RemoteException]

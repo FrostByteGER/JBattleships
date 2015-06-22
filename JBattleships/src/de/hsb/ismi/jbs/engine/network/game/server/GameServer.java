@@ -62,6 +62,8 @@ public class GameServer extends Thread implements GameServerListener{
 	public static final int MAX_LOGIN_COUNT    = 3;
 	/** The maximum player/client count on this server. Connect more clients than this number, the server will reject the connection. */
 	public static final int MAX_PLAYER_COUNT   = 8;
+	/** */
+	private int currentPlayerCount             = 0;
 	/** Indicates wether the server closed its connections or not. */
 	private volatile boolean endServer         = false;	
 	/** Listeners that are registered on this server. */
@@ -189,8 +191,10 @@ public class GameServer extends Thread implements GameServerListener{
 	 */
 	public void kickPlayer(String id){
 		GameServerThread client = findClient(id);
-		client.setConnectionState(GameConnectionState.KICKED);
-		client.kickPlayer();
+		if(client != null){
+			client.setConnectionState(GameConnectionState.KICKED);
+			client.kickPlayer();
+		}
 	}
 
 	/**
@@ -204,7 +208,7 @@ public class GameServer extends Thread implements GameServerListener{
 		try {
 			cst.open();
 			cst.start();
-			if(clients.size() >= MAX_PLAYER_COUNT){
+			if(clients.size() >= currentPlayerCount){
 				cst.setConnectionState(GameConnectionState.FULL);
 				System.err.println("GameServer: Lobby full");
 			}else{
@@ -304,6 +308,18 @@ public class GameServer extends Thread implements GameServerListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.network.game.GameServerListener#setReady(boolean)
+	 */
+	@Override
+	public void setReady(String id, boolean ready) throws RemoteException {
+		GameServerThread client = findClient(id);
+		System.out.println(ready);
+		if(client != null){
+			client.setReady(ready);
+		}
+	}
 
 	/**
 	 * @return the gamePort
@@ -374,6 +390,27 @@ public class GameServer extends Thread implements GameServerListener{
 	
 	public synchronized void removeConnectionListener(ConnectionListener cl){
 		listeners.remove(cl);
+	}
+
+	/**
+	 * @return the currentPlayerCount
+	 */
+	public final int getCurrentPlayerCount() {
+		return currentPlayerCount;
+	}
+
+	/**
+	 * Sets the currentPlayerCount to the given value 
+	 * @param currentPlayerCount the currentPlayerCount to set
+	 * @throws IllegalArgumentException
+	 */
+	public final void setCurrentPlayerCount(int count) throws IllegalArgumentException{
+		if(count >= 0 && count <= MAX_PLAYER_COUNT){
+			this.currentPlayerCount = count;
+		}else{
+			throw new IllegalArgumentException("PlayerCount must be <= MAX_PLAYER_COUNT and >= 0.");
+		}
+		
 	}
 	
 }

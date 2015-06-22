@@ -18,7 +18,7 @@ import de.hsb.ismi.jbs.start.JBattleships;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class PreGamePlayerPanel extends JPanel {
+public class LobbyPlayerSlotPanel extends JPanel {
 
 	private JLabel lblName = new JLabel("Name:");
 	private JTextField nameField = new JTextField("", 10);
@@ -29,18 +29,19 @@ public class PreGamePlayerPanel extends JPanel {
 	private int position = 1;
 	
 	/**
-	 * Creates a new PreGamePlayerPanel with a preset nameField String.
-	 * @wbp.parser.constructor
+	 * Creates a new LobbyPlayerSlotPanel with a preset nameField String.
+	 * @param isHost
+	 * @param gameType
 	 */
-	public PreGamePlayerPanel(boolean isHost, JBSGameType gameType) {
+	public LobbyPlayerSlotPanel(boolean isHost, JBSGameType gameType) {
 		initGUI(isHost, gameType);
 	}
 	
 	/**
-	 * Creates a new PreGamePlayerPanel with a given nameField String.
+	 * Creates a new LobbyPlayerSlotPanel with a given nameField String.
 	 * @param fieldContent The content of the nameField.
 	 */
-	public PreGamePlayerPanel(boolean isHost, JBSGameType gameType, String fieldContent) {
+	public LobbyPlayerSlotPanel(boolean isHost, JBSGameType gameType, String fieldContent) {
 		nameField.setText(fieldContent);
 		initGUI(isHost, gameType);
 	}
@@ -64,15 +65,34 @@ public class PreGamePlayerPanel extends JPanel {
 			add(checkboxActive);
 			checkboxAI.addItemListener(i -> {
 				btnKick.setEnabled(!checkboxAI.isSelected());
+				JBattleships.game.getGameServer().kickPlayer(nameField.getText());
+				if(!checkboxAI.isSelected()){
+					btnKick.setEnabled(checkboxAI.isSelected());
+					setName("");
+					JBattleships.game.getGameServer().setCurrentPlayerCount(JBattleships.game.getGameServer().getCurrentPlayerCount() + 1);
+				}else{
+					JBattleships.game.getGameServer().setCurrentPlayerCount(JBattleships.game.getGameServer().getCurrentPlayerCount() - 1);
+					setName("CPU #" + position);
+				}
+				System.out.println(JBattleships.game.getGameServer().getCurrentPlayerCount());
 			});
 			
 			checkboxActive.addItemListener(i -> {
-				if(!checkboxAI.isSelected()){
-					btnKick.setEnabled(checkboxActive.isSelected());
-				}
 				checkboxAI.setEnabled(checkboxActive.isSelected());
-				JBattleships.game.getGameServer().removeClient(nameField.getText());
 				nameField.setText("");
+				if(checkboxActive.isSelected()){
+					if(!checkboxAI.isSelected()){
+						JBattleships.game.getGameServer().setCurrentPlayerCount(JBattleships.game.getGameServer().getCurrentPlayerCount() + 1);
+					}else{
+						setName("CPU #" + position);
+					}
+				}else{
+					if(!checkboxAI.isSelected()){
+						JBattleships.game.getGameServer().setCurrentPlayerCount(JBattleships.game.getGameServer().getCurrentPlayerCount() - 1);
+						JBattleships.game.getGameServer().kickPlayer(nameField.getText());
+					}
+				}
+				System.out.println(JBattleships.game.getGameServer().getCurrentPlayerCount());
 			});
 			
 			btnKick.addActionListener(e -> {

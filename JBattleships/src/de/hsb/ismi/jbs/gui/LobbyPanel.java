@@ -43,7 +43,7 @@ public class LobbyPanel extends JPanel {
 	private ServerPanel serverPanel = new ServerPanel(true);
 	private ChatPanel chatPanel = new ChatPanel();
 	private JBSButtonGroup btnGroup= new JBSButtonGroup();
-	private final PreGamePlayerPanel[] playerPanels = new PreGamePlayerPanel[8];
+	private final LobbyPlayerSlotPanel[] playerPanels = new LobbyPlayerSlotPanel[8];
 	
 	private GameClient client = null;
 
@@ -55,6 +55,8 @@ public class LobbyPanel extends JPanel {
 	private Timer updateTimer = new Timer(true);
 	
 	private boolean isHost = false;
+	
+	private boolean isReady = false;
 	
 	
 	/**
@@ -118,7 +120,7 @@ public class LobbyPanel extends JPanel {
 		rightPanel.add(new AlphaContainer(chatPanel), gbc_chatPanel);
 		
 		for(int i  = 0; i < 8; i++){
-			PreGamePlayerPanel p = new PreGamePlayerPanel(isHost , type);
+			LobbyPlayerSlotPanel p = new LobbyPlayerSlotPanel(isHost , type);
 			
 			if(i == 0){
 				p.setActiveSelected(true);
@@ -216,12 +218,15 @@ public class LobbyPanel extends JPanel {
 					for(int j = index; j < playerPanels.length; j++){
 						String s = names[j];
 						// Null means, this slot is unoccupied by a player. So we set its name to nothing. The null is used to distinct.
-						if(s == null){
+						if(s == null && !playerPanels[j].isAISelected()){
 							playerPanels[j].setName("");
 							playerPanels[j].getBtnKick().setEnabled(false);
 						}else{
-							playerPanels[j].setName(s);
-							playerPanels[j].getBtnKick().setEnabled(true);
+							if(playerPanels[j].isActiveSelected() && !playerPanels[j].isAISelected()){
+								playerPanels[j].setName(s);
+								playerPanels[j].getBtnKick().setEnabled(true);
+							}
+
 						}
 						
 					}
@@ -303,7 +308,18 @@ public class LobbyPanel extends JPanel {
 			btnReady.setEnabled(true);
 			btnReady.addActionListener(e -> {
 				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + LobbyPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
-
+				
+				try {
+					client.getGameServerListener().setReady(client.getUsername(), !isReady);
+					isReady = !isReady;
+					if(!isReady){
+						btnReady.setText("Ready");
+					}else{
+						btnReady.setText("Not Ready");
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			});
 			add(btnReady);
 		}

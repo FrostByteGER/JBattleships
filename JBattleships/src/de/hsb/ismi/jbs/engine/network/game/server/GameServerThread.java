@@ -28,6 +28,8 @@ public class GameServerThread extends Thread {
 	private boolean endServerThread = false;
 	private GameConnectionState state = GameConnectionState.LOGIN;
 	private int loginCount = 0;
+	
+	private boolean isReady = false;
 
 	/**
 	 * 
@@ -181,5 +183,19 @@ public class GameServerThread extends Thread {
 	
 	public synchronized void setUsername(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the isReady
+	 */
+	public final boolean isReady() {
+		return isReady;
+	}
+
+	/**
+	 * @param isReady the isReady to set
+	 */
+	public final void setReady(boolean isReady) {
+		this.isReady = isReady;
 	}
 }

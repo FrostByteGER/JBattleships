@@ -16,6 +16,8 @@ public interface GameServerListener extends Remote{
 	
 	public void getGameData() throws RemoteException;
 	
+	public void setReady(String id, boolean ready) throws RemoteException;
+	
 	
 	
 	

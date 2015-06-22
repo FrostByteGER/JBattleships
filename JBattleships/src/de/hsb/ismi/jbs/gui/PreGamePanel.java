@@ -59,7 +59,7 @@ public class PreGamePanel extends JPanel {
 	private JButton btnCancel;
 	private JButton btnContinue;
 
-	private PreGamePlayerPanel[] playerPanels;
+	private LobbyPlayerSlotPanel[] playerPanels;
 	private JLabel lblDestroyer;
 	private JSpinner destroyerSpinner;
 	private JLabel lblFrigate;
@@ -86,9 +86,9 @@ public class PreGamePanel extends JPanel {
 	public PreGamePanel(JBSGUI parent, JBSGameType type) {
 		setOpaque(false);
 		btnGroup = new JBSButtonGroup();
-		playerPanels = new PreGamePlayerPanel[8];
+		playerPanels = new LobbyPlayerSlotPanel[8];
 		for(int i = 0;i < playerPanels.length;i++){
-			PreGamePlayerPanel pp = new PreGamePlayerPanel(false, type);
+			LobbyPlayerSlotPanel pp = new LobbyPlayerSlotPanel(false, type);
 			pp.setName("Player" + " #" + (i + 1));
 			btnGroup.add(pp.getCheckboxActive());
 			playerPanels[i] = pp;
@@ -131,7 +131,7 @@ public class PreGamePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("continue")){
 					GameManager gm = JBattleships.game.generateGame();
-					for(PreGamePlayerPanel pregpp : playerPanels){
+					for(LobbyPlayerSlotPanel pregpp : playerPanels){
 						//TODO: add various checks!
 						boolean active = pregpp.isActiveSelected();
 						if(active){
@@ -253,7 +253,7 @@ public class PreGamePanel extends JPanel {
 		playerPanel.setBorder(new TitledBorder(null, "Players", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		mixedPanel.add(new AlphaContainer(playerPanel));
 		playerPanel.setLayout(new GridLayout(8, 1, 0, 0));
-		for(PreGamePlayerPanel pgpp : playerPanels){
+		for(LobbyPlayerSlotPanel pgpp : playerPanels){
 			pgpp.setOpaque(false);
 			playerPanel.add(pgpp);
 		}
