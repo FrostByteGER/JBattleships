@@ -26,7 +26,7 @@ public class PreGamePlayerPanel extends JPanel {
 	private JTextField nameField = new JTextField("Undefined", 10);
 	private JCheckBox checkboxAI = new JCheckBox("AI?");
 	private JCheckBox checkboxActive = new JCheckBox("Active?");
-	private JButton btnKick = new JButton("Kick Player");
+	private JBSButton btnKick = new JBSButton("Kick Player");
 	
 	/**
 	 * Creates a new PreGamePlayerPanel with a preset nameField String.
@@ -72,7 +72,7 @@ public class PreGamePlayerPanel extends JPanel {
 		checkboxAI.setOpaque(false);
 		checkboxActive.setOpaque(false);
 		if(isHost && gameType == JBSGameType.GAME_ONLINE){
-			add(btnKick);
+			add(new AlphaContainer(btnKick) );
 		}
 	}
 

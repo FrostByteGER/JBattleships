@@ -13,36 +13,10 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Timer;
 import java.util.TimerTask;
-
-
-
-
-
-
-
-
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-
-
-
-
-
-
-
-import de.hsb.ismi.jbs.engine.network.chat.client.ChatClient;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
 import de.hsb.ismi.jbs.start.JBattleships;
-
-
-
-
-
-
-
-
 import javax.swing.JLabel;
 
 /**
@@ -55,11 +29,11 @@ public class OnlineJoinPanel extends JPanel {
 	
 	private JPanel centerPanel;
 	
-	private JButton btnCancel;
+	private JBSButton btnCancel;
 	
 	private JTextField ipField;
 	private JLabel lblUsername;
-	private JButton btnJoin;
+	private JBSButton btnJoin;
 	private JTextField usernameField;
 	private JLabel lblServerIp;
 	
@@ -120,7 +94,7 @@ public class OnlineJoinPanel extends JPanel {
 		centerPanel.add(usernameField, gbc_usernameField);
 		usernameField.setColumns(10);
 
-		btnJoin = new JButton("Join");
+		btnJoin = new JBSButton("Join");
 		btnJoin.addActionListener(e -> {
 			
 			String ipString = ipField.getText();
@@ -190,9 +164,9 @@ public class OnlineJoinPanel extends JPanel {
 		gbc_btnJoin.insets = new Insets(0, 0, 5, 0);
 		gbc_btnJoin.gridx = 0;
 		gbc_btnJoin.gridy = 4;
-		centerPanel.add(btnJoin, gbc_btnJoin);
+		centerPanel.add(new AlphaContainer(btnJoin) , gbc_btnJoin);
 		
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JBSButton("Cancel");
 		btnCancel.addActionListener(e -> {
 			parent.restoreRootContainer(true);
 		});
@@ -200,7 +174,7 @@ public class OnlineJoinPanel extends JPanel {
 		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancel.gridx = 0;
 		gbc_btnCancel.gridy = 5;
-		centerPanel.add(btnCancel, gbc_btnCancel);
+		centerPanel.add(new AlphaContainer(btnCancel) , gbc_btnCancel);
 	}
 
 }

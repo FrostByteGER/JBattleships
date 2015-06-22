@@ -3,7 +3,6 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -13,7 +12,6 @@ import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
 import de.hsb.ismi.jbs.start.JBattleships;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -48,10 +46,10 @@ public class MainGamePanel extends JPanel {
 	private JLabel fieldNumber;
 	private JLabel activePlayerlbl;
 	private JTextArea chat;
-	private JButton btnExit;
-	private JButton btnShoot;
-	private JButton btnEndRound;
-	private JButton btnSaveGame;
+	private JBSButton btnExit;
+	private JBSButton btnShoot;
+	private JBSButton btnEndRound;
+	private JBSButton btnSaveGame;
 
 	
 	/**
@@ -103,12 +101,12 @@ public class MainGamePanel extends JPanel {
 
 		sidePanel.add(chatPanel, "cell 0 2,height :25%:,grow");
 		
-		btnExit = new JButton("Exit Game");
+		btnExit = new JBSButton("Exit Game");
 		btnExit.setActionCommand("exit");
 		btnExit.addActionListener(e -> {
 			parent.restoreRootContainer(true);
 		});
-		btnShoot = new JButton("Shoot");
+		btnShoot = new JBSButton("Shoot");
 		
 		btnShoot.setActionCommand("shoot");
 		btnShoot.addActionListener(e -> {
@@ -146,7 +144,7 @@ public class MainGamePanel extends JPanel {
 				}
 		});
 		
-		btnEndRound = new JButton("End Round");
+		btnEndRound = new JBSButton("End Round");
 		btnEndRound.setActionCommand("pass");
 		btnEndRound.addActionListener(e -> {
 			roundManager.fireEndRound(game.getActivePlayer());
@@ -175,20 +173,20 @@ public class MainGamePanel extends JPanel {
 		lowerSidePanel = new JPanel();
 		
 		lowerSidePanel.setLayout(new FlowLayout());
-		lowerSidePanel.add(btnExit);
-		lowerSidePanel.add(btnShoot);
-		lowerSidePanel.add(btnEndRound);
+		lowerSidePanel.add(new AlphaContainer(btnExit));
+		lowerSidePanel.add(new AlphaContainer(btnShoot));
+		lowerSidePanel.add(new AlphaContainer(btnEndRound));
 		
 		add(lowerSidePanel,BorderLayout.SOUTH);
 		
-		btnSaveGame = new JButton("Save Game");
+		btnSaveGame = new JBSButton("Save Game");
 		btnSaveGame.setActionCommand("save");
 		btnSaveGame.addActionListener(e -> {
 			//TODO: Add SaveDialog
 			JBattleships.game.getDataManager().getPersistenceManager().saveGame("game_001.xml");
 		});
 		
-		lowerSidePanel.add(btnSaveGame);
+		lowerSidePanel.add(new AlphaContainer(btnSaveGame));
 		
 		
 		gameFieldPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
@@ -205,7 +203,7 @@ public class MainGamePanel extends JPanel {
 		uperMainPanel = new JPanel();
 		uperMainPanel.setLayout(new FlowLayout());
 		
-		JButton pbut = new JButton();
+		JBSButton pbut = new JBSButton();
 		pbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Next"));
 		pbut.addActionListener(e -> {	
 			if(game.getPlayers().length-1>selectedGameField){
@@ -219,7 +217,7 @@ public class MainGamePanel extends JPanel {
 			gameFieldPanel.setGamefild(game.getPlayer(selectedGameField).getPlayerField());
 		});
 		
-		JButton mbut = new JButton();
+		JBSButton mbut = new JBSButton();
 		mbut.setText(JBattleships.game.getDataManager().getLocalizationManager().getLocalization("Previous"));
 		mbut.addActionListener(e -> {
 			if(selectedGameField>0){
@@ -237,9 +235,9 @@ public class MainGamePanel extends JPanel {
 				
 		fieldNumber.setText(game.getPlayer(selectedGameField).getName());
 		
-		uperMainPanel.add(mbut);
+		uperMainPanel.add(new AlphaContainer(mbut));
 		uperMainPanel.add(fieldNumber);
-		uperMainPanel.add(pbut);
+		uperMainPanel.add(new AlphaContainer(pbut));
 		
 		gameFieldPanel.add(uperMainPanel,BorderLayout.NORTH);
 		

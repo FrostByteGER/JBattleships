@@ -6,42 +6,29 @@ package de.hsb.ismi.jbs.gui;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
-
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.DisplayMode;
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
-import javax.swing.JButton;
-
 import java.awt.Component;
-
 import javax.swing.Box;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JComboBox;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.JRadioButton;
-
 import java.awt.Dimension;
 import java.net.Inet4Address;
 import java.util.HashMap;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JSlider;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
-
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
@@ -65,8 +52,8 @@ public class OptionsPanel extends JPanel{
 	private JPanel gamePanel;
 
 	private JBSButton resetButton;
-	private JButton saveButton;
-	private JButton backButton;
+	private JBSButton saveButton;
+	private JBSButton backButton;
 	private JLabel lblRes;
 	private JComboBox<Resolution> resBox;
 	private JLabel lblMode;
@@ -393,7 +380,7 @@ public class OptionsPanel extends JPanel{
 		resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonPanel.add(new AlphaContainer(resetButton));
 		
-		saveButton = new JButton("Save Settings");
+		saveButton = new JBSButton("Save Settings");
 		saveButton.setActionCommand("save");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -426,9 +413,9 @@ public class OptionsPanel extends JPanel{
 			}
 		});
 		saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonPanel.add(saveButton);
+		buttonPanel.add(new AlphaContainer(saveButton) );
 		
-		backButton = new JButton("Back");
+		backButton = new JBSButton("Back");
 		backButton.setActionCommand("back");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -439,7 +426,7 @@ public class OptionsPanel extends JPanel{
 			}
 		});
 		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonPanel.add(backButton);
+		buttonPanel.add(new AlphaContainer(backButton));
 		
 		switch(JBattleships.game.getScreenMode()){
 		case MODE_FULLSCREEN:

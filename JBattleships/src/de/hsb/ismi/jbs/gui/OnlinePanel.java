@@ -4,26 +4,12 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
-
-
-
 import java.awt.BorderLayout;
-
-
-
-import javax.swing.JButton;
-
-
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
-import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.network.game.client.GameClient;
 import de.hsb.ismi.jbs.engine.network.game.server.GameServer;
 import de.hsb.ismi.jbs.start.JBattleships;
-
-
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -31,8 +17,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
@@ -44,9 +28,9 @@ public class OnlinePanel extends JPanel {
 	private JBSGUI parent;
 	
 	private JPanel centerPanel;
-	private JButton btnJoin;
-	private JButton btnHost;
-	private JButton btnCancel;
+	private JBSButton btnJoin;
+	private JBSButton btnHost;
+	private JBSButton btnCancel;
 
 	/**
 	 * Create the panel.
@@ -70,7 +54,7 @@ public class OnlinePanel extends JPanel {
 		gbl_centerPanel.rowWeights = new double[]{0.0, 0.0, 0.0};
 		centerPanel.setLayout(gbl_centerPanel);
 		
-		btnJoin = new JButton("Join Game");
+		btnJoin = new JBSButton("Join Game");
 		btnJoin.addActionListener(e -> {
 			parent.swapContainer(new OnlineJoinPanel(parent));
 		});
@@ -79,9 +63,9 @@ public class OnlinePanel extends JPanel {
 		gbc_btnJoin.insets = new Insets(0, 0, 5, 0);
 		gbc_btnJoin.gridx = 0;
 		gbc_btnJoin.gridy = 0;
-		centerPanel.add(btnJoin, gbc_btnJoin);
+		centerPanel.add(new AlphaContainer(btnJoin) , gbc_btnJoin);
 		
-		btnHost = new JButton("Host Game");
+		btnHost = new JBSButton("Host Game");
 		btnHost.addActionListener(e -> {
 			JBSCoreGame game = JBattleships.game;
 			GameServer server = game.generateGameServer();
@@ -106,9 +90,9 @@ public class OnlinePanel extends JPanel {
 		gbc_btnHost.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnHost.gridx = 0;
 		gbc_btnHost.gridy = 1;
-		centerPanel.add(btnHost, gbc_btnHost);
+		centerPanel.add(new AlphaContainer(btnHost) , gbc_btnHost);
 		
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JBSButton("Cancel");
 		btnCancel.addActionListener(e -> {
 			parent.restoreRootContainer(true);
 		});
@@ -116,7 +100,7 @@ public class OnlinePanel extends JPanel {
 		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancel.gridx = 0;
 		gbc_btnCancel.gridy = 2;
-		centerPanel.add(btnCancel, gbc_btnCancel);
+		centerPanel.add(new AlphaContainer(btnCancel) , gbc_btnCancel);
 
 	}
 

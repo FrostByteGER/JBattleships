@@ -8,11 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
@@ -99,8 +96,8 @@ public class LobbyPanel extends JPanel {
 	
 	private class HostButtonPanel extends JPanel{
 		
-		private JButton btnCancel = new JButton();
-		private JButton btnStart = new JButton();
+		private JBSButton btnCancel = new JBSButton();
+		private JBSButton btnStart = new JBSButton();
 		
 		public HostButtonPanel(){
 			initPanel();
@@ -115,7 +112,7 @@ public class LobbyPanel extends JPanel {
 				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + LobbyPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 				LobbyPanel.this.parent.restorePrevContainer();
 			});
-			add(btnCancel);
+			add(new AlphaContainer(btnCancel) );
 			
 			btnStart.setText("Start Game");
 			btnStart.setEnabled(false);
@@ -123,14 +120,14 @@ public class LobbyPanel extends JPanel {
 				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + LobbyPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 
 			});
-			add(btnStart);
+			add(new AlphaContainer(btnStart) );
 		}
 	}
 	
 	private class ClientButtonPanel extends JPanel{
 		
-		private JButton btnCancel = new JButton();
-		private JButton btnReady = new JButton();
+		private JBSButton btnCancel = new JBSButton();
+		private JBSButton btnReady = new JBSButton();
 		
 		public ClientButtonPanel(){
 			initPanel();
@@ -145,7 +142,7 @@ public class LobbyPanel extends JPanel {
 				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + LobbyPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 				LobbyPanel.this.parent.restorePrevContainer();
 			});
-			add(btnCancel);
+			add(new AlphaContainer(btnCancel) );
 			
 			btnReady.setText("Start Game");
 			btnReady.setEnabled(false);
@@ -153,7 +150,7 @@ public class LobbyPanel extends JPanel {
 				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + LobbyPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
 
 			});
-			add(btnReady);
+			add(new AlphaContainer(btnReady) );
 		}
 	}
 

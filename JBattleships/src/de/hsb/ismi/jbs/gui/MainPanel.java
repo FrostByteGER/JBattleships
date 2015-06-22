@@ -3,31 +3,17 @@
  */
 package de.hsb.ismi.jbs.gui;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
-
-import javax.swing.JButton;
-
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.Box;
-
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
-import javax.swing.plaf.basic.BasicButtonUI;
-
 import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * @author Kevin Kuegler

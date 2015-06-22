@@ -9,9 +9,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -29,7 +27,7 @@ public class ChatPanel extends JPanel {
 	private JTextArea logArea = new JTextArea();
 
 	private boolean showChatPanel = true;
-	private final JButton btnEnter = new JButton("Enter");
+	private final JBSButton btnEnter = new JBSButton("Enter");
 	/**
 	 * Create the panel.
 	 */
@@ -91,7 +89,7 @@ public class ChatPanel extends JPanel {
 				}
 			}
 		});
-		chatPanel.add(btnEnter, gbc_btnEnter);
+		chatPanel.add(new AlphaContainer(btnEnter) , gbc_btnEnter);
 		
 		tabbedPane.addTab("Battle-Log", null, logPanel, null);
 		logPanel.setLayout(new BorderLayout(0, 0));
