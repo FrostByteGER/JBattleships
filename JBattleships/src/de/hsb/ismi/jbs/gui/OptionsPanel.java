@@ -13,8 +13,6 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.Box;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -337,8 +335,16 @@ public class OptionsPanel extends JPanel{
 		gamePanel.add(lblLang, gbc_lblLang);
 		
 		
-		langBox = new JComboBox<String>(JBattleships.game.getDataManager().getLocalizationManager().getLanguageTable());
-		langBox.setSelectedItem(JBattleships.game.getDataManager().getLocalizationManager().getActiveLanguage());
+		String[] langs = JBattleships.game.getDataManager().getLocalizationManager().getLanguageTable();
+		String active = "";
+		for(int i = 0; i < langs.length; i++){
+			if(langs[i].equals(JBattleships.game.getDataManager().getLocalizationManager().getActiveLanguage())){
+				active = JBattleships.game.getLocalization("GAME_LANGUAGE_" + langs[i].toUpperCase());
+			}
+			langs[i] = JBattleships.game.getLocalization("GAME_LANGUAGE_" + langs[i].toUpperCase());
+		}
+		langBox = new JComboBox<String>(langs);
+		langBox.setSelectedItem(active);
 		GridBagConstraints gbc_langBox = new GridBagConstraints();
 		gbc_langBox.insets = new Insets(0, 0, 5, 0);
 		gbc_langBox.fill = GridBagConstraints.HORIZONTAL;
