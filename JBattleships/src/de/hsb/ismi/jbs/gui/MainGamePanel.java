@@ -171,7 +171,7 @@ public class MainGamePanel extends JPanel {
 		
 		gameFieldPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
 		gameFieldPanel.setLayout(new BorderLayout(0, 0));
-		centerPanel.add(gameFieldPanel, "cell 0 0,width :65%:,grow");
+		centerPanel.add(new AlphaContainer(gameFieldPanel) , "cell 0 0,width :65%:,grow");
 		
 		lowerMainPanel = new JPanel();
 		lowerMainPanel.setLayout(new BorderLayout());
