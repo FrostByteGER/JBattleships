@@ -97,7 +97,7 @@ public class MainGamePanel extends JPanel {
 		activePlayerlbl = new JLabel("Active Player: " + game.getActivePlayer().getName());
 		activePlayerlbl.setFont(new Font("Tahoma", Font.BOLD, 20));
 		sidePanel.add(activePlayerlbl, "cell 0 0,height :10%:,grow");
-		sidePanel.add(gameSidePanel, "cell 0 1,height :65%:,grow");
+		sidePanel.add(new AlphaContainer(gameSidePanel) , "cell 0 1,height :65%:,grow");
 
 		sidePanel.add(chatPanel, "cell 0 2,height :25%:,grow");
 		
