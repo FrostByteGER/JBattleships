@@ -78,7 +78,7 @@ public class MainGamePanel extends JPanel {
 		activePlayerlbl = new JLabel(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER") + " " + game.getActivePlayer().getName());
 		activePlayerlbl.setFont(new Font("Tahoma", Font.BOLD, 20));
 		sidePanel.add(activePlayerlbl, "cell 0 0,height :10%:,grow");
-		sidePanel.add(gameSidePanel, "cell 0 1,height :65%:,grow");
+		sidePanel.add(new AlphaContainer(gameSidePanel) , "cell 0 1,height :65%:,grow");
 
 		sidePanel.add(battleLogPanel, "cell 0 2,height :25%:,grow");
 		
