@@ -130,7 +130,7 @@ public class PreGamePlacingPanel extends JPanel {
 		gbc_fieldPanel.gridy = 0;
 		centerPanel.setLayout(new MigLayout("", "[grow][561px]", "[412px,grow]"));
 		
-		centerPanel.add(fieldPanel, "cell 0 0,width :90%:,grow");
+		centerPanel.add(new AlphaContainer(fieldPanel) , "cell 0 0,width :90%:,grow");
 
 		
 		shipPanel = new JPanel();

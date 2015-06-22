@@ -63,7 +63,7 @@ public class GameFieldPanel extends JPanel {
 		//TODO SIZE
 		setSize(new Dimension(size,size));
 		setMinimumSize(new Dimension(size,size) );
-		setBackground(Color.CYAN);
+		setBackground(JBSGUI.BACKGROUND_COLOR);
 		
 		this.fildsize = fieldsize;
 		xofset = 0;
