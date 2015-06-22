@@ -118,6 +118,10 @@ public class OptionsManager {
 	public HashMap<String, String> getNetworkData(){
 		return data.get(CATEGORIES[2]);
 	}
+	
+	public HashMap<String, String> getGameData(){
+		return data.get(CATEGORIES[3]);
+	}
 
 	/**
 	 * @return the data
