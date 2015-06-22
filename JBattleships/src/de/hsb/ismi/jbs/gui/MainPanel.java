@@ -4,16 +4,22 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
-
 import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.Box;
+
 import java.awt.Dimension;
+
 import javax.swing.JLabel;
+
+import de.hsb.ismi.jbs.start.JBattleships;
+
 import java.awt.FlowLayout;
 
 /**
@@ -53,7 +59,7 @@ public class MainPanel extends JPanel {
 		gbl_buttonPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		buttonPanel.setLayout(gbl_buttonPanel);
 		
-		btnLocal = new JBSButton("Local");
+		btnLocal = new JBSButton(JBattleships.game.getLocalization("GAME_LOCAL"));
 		btnLocal.setActionCommand("local");
 		btnLocal.addActionListener(e -> {
 			parent.swapContainer(new PreLocalGameChoicePanel(parent));
@@ -74,7 +80,7 @@ public class MainPanel extends JPanel {
 		gbc_rigidArea.gridy = 2;
 		buttonPanel.add(rigidArea, gbc_rigidArea);
 		
-		btnProfiles = new JBSButton("Profiles");
+		btnProfiles = new JBSButton(JBattleships.game.getLocalization("GAME_PROFILES"));
 		GridBagConstraints gbc_btnProfiles = new GridBagConstraints();
 		gbc_btnProfiles.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnProfiles.insets = new Insets(0, 0, 5, 0);
@@ -82,7 +88,7 @@ public class MainPanel extends JPanel {
 		gbc_btnProfiles.gridy = 3;
 		buttonPanel.add(new AlphaContainer(btnProfiles) , gbc_btnProfiles);
 		
-		btnOptions = new JBSButton("Options");
+		btnOptions = new JBSButton(JBattleships.game.getLocalization("GAME_OPTIONS"));
 		btnOptions.setActionCommand("options");
 		btnOptions.addActionListener(e -> {
 			parent.swapContainer(parent.getOptionsPanel());
@@ -94,7 +100,7 @@ public class MainPanel extends JPanel {
 		gbc_btnOptions.gridy = 4;
 		buttonPanel.add(new AlphaContainer(btnOptions) , gbc_btnOptions);
 		
-		btnCredits = new JBSButton("Credits");
+		btnCredits = new JBSButton(JBattleships.game.getLocalization("GAME_CREDITS"));
 		btnCredits.setActionCommand("credits");
 		btnCredits.addActionListener(e -> {
 			
@@ -106,7 +112,7 @@ public class MainPanel extends JPanel {
 		gbc_btnCredits.gridy = 5;
 		buttonPanel.add(new AlphaContainer(btnCredits) , gbc_btnCredits);
 		
-		btnQuit = new JBSButton("Quit");
+		btnQuit = new JBSButton(JBattleships.game.getLocalization("GAME_EXIT"));
 		btnQuit.setActionCommand("quit");
 		btnQuit.addActionListener(e -> {
 			Frame[] frames = Frame.getFrames();  

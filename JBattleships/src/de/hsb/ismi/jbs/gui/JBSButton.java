@@ -46,7 +46,7 @@ public class JBSButton extends JButton {
 		setBackground(defaultColor);
 		setForeground(Color.WHITE);
 		setFocusPainted(false);
-		setFont(JBSGUI.SERVER_FONT);
+		setFont(JBSGUI.MAIN_FONT);
 		
 		addMouseListener(new MouseListener() {
 			

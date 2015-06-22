@@ -8,8 +8,13 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
+import de.hsb.ismi.jbs.engine.core.JBSCorvette;
+import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
+import de.hsb.ismi.jbs.engine.core.JBSFrigate;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
+import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 public class GameSidePanel extends JPanel {
 	
@@ -140,7 +145,17 @@ public class GameSidePanel extends JPanel {
 		g.fillRect(x, y, width, height);
 		
 		g.setColor(textColor);
-		g.drawString(ship.getName(), x+namewidthoffset, y+nameheightoffset);
+		String name = "";
+		if(ship instanceof JBSDestroyer){
+			name = JBattleships.game.getLocalization("GAME_DESTROYER");
+		}else if(ship instanceof JBSFrigate){
+			name = JBattleships.game.getLocalization("GAME_FRIGATE");
+		}else if(ship instanceof JBSCorvette){
+			name = JBattleships.game.getLocalization("GAME_CORVETTE");
+		}else if(ship instanceof JBSSubmarine){
+			name = JBattleships.game.getLocalization("GAME_SUBMARINE");
+		}
+		g.drawString(name, x+namewidthoffset, y+nameheightoffset);
 		
 		if(ship.isAlive()){
 			g.setColor(healthColor);
