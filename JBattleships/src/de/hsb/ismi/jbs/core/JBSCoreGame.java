@@ -53,19 +53,10 @@ public class JBSCoreGame {
 	private int volume = 100;
 	/** The game's current music-volume. */
 	private int music = 100;
-	/** The game's current IP-address. */
-	private String ip = "0.0.0.0";
 	/** The game's current language. */
 	private String language = "German";
 	/** The game's current gamePort. */
 	private int gamePort = 15750;
-	/** */
-	private int roundListenerPort = 15751;
-	/** */
-	private int gameListenerPort = 15752;
-	/** The ChatServers curent gamePort. */
-	private int chatPort = 15754;
-	
 	/** The mainGUI of the game. */
 	private JBSGUI mainGUI = null;
 	/** The gameManager of the game. */
@@ -189,20 +180,6 @@ public class JBSCoreGame {
 			} else {
 				return false;
 			}
-
-			HashMap<String, String> nt = om.getNetworkData();
-			if (nt.size() > 0) {
-				try {
-					ip = nt.get("ip");
-					gamePort = Integer.parseInt(nt.get("gamePort"));
-					roundListenerPort = Integer.parseInt(nt.get("gamePort2"));
-					gameListenerPort = Integer.parseInt(nt.get("gamePort3"));
-				} catch (NumberFormatException nfe) {
-					return false;
-				}
-			} else {
-				return false;
-			}
 			
 			HashMap<String, String> gt = om.getGameData();
 			if (gt.size() > 0) {
@@ -305,36 +282,56 @@ public class JBSCoreGame {
 	}
 
 	/**
-	 * @return the chatPort
-	 */
-	public final int getChatPort() {
-		return chatPort;
-	}
-
-	/**
 	 * @return the gamePort
 	 */
 	public final int getGamePort() {
 		return gamePort;
-	}
-
-	/**
-	 * @return the roundListenerPort
-	 */
-	public final int getRoundListenerPort() {
-		return roundListenerPort;
-	}
-
-	/**
-	 * @return the gameListenerPort
-	 */
-	public final int getGameListenerPort() {
-		return gameListenerPort;
 	}
 	
 	public final String getLocalization(String key){
 		return dataManager.getLocalizationManager().getLocalization(key);
 	}
 
+	/**
+	 * @return the volume
+	 */
+	public final int getSoundVolume() {
+		return volume;
+	}
+
+	/**
+	 * @param volume the volume to set
+	 */
+	public final void setSoundVolume(int volume) {
+		this.volume = volume;
+	}
+
+	/**
+	 * @return the music
+	 */
+	public final int getMusicVolume() {
+		return music;
+	}
+
+	/**
+	 * @param music the music to set
+	 */
+	public final void setMusicVolume(int music) {
+		this.music = music;
+	}
+
+	/**
+	 * @return the language
+	 */
+	public final String getLanguage() {
+		return language;
+	}
+
+	/**
+	 * @param language the language to set
+	 */
+	public final void setLanguage(String language) {
+		this.language = language;
+	}
 
 }

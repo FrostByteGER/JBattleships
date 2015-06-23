@@ -6,27 +6,39 @@ package de.hsb.ismi.jbs.gui;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.DisplayMode;
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.Component;
+
 import javax.swing.Box;
 import javax.swing.JComboBox;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JRadioButton;
+
 import java.awt.Dimension;
 import java.net.Inet4Address;
 import java.util.HashMap;
+import java.util.Locale.Category;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JSlider;
+
 import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
@@ -405,8 +417,16 @@ public class OptionsPanel extends JPanel{
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_BORDERLESS);
 					}
 					//TODO: Doesn't work fully yet!
-					boolean check = JBattleships.game.getDataManager().getOptionsManager().saveOptions(new HashMap<String, String[]>());
-					System.out.println("Saving was: " + check);
+					HashMap<String, String[]> data = new HashMap<String, String[]>();
+					String[] cats = OptionsManager.CATEGORIES;
+					data.put(cats[0], new String[]{"resX", Integer.toString(r.getWidth()), 
+												   "resY", Integer.toString(r.getHeight()),
+												   "mode", JBattleships.game.getScreenMode().toString()});
+					data.put(cats[1], new String[]{"volume",Integer.toString(JBattleships.game.getSoundVolume()),
+												   "music",Integer.toString(JBattleships.game.getMusicVolume())});
+					data.put(cats[2], new String[]{"language", JBattleships.game.getLanguage(),
+												   "debug-mode", Boolean.toString(JBSCoreGame.DEBUG_MODE)});
+					boolean check = JBattleships.game.getDataManager().getOptionsManager().saveOptions(data);
 		});
 		saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonPanel.add(new AlphaContainer(saveButton) );
