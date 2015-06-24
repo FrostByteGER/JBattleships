@@ -55,8 +55,6 @@ public class JBSCoreGame {
 	private int music = 100;
 	/** The game's current language. */
 	private String language = "German";
-	/** The game's current gamePort. */
-	private int gamePort = 15750;
 	/** The mainGUI of the game. */
 	private JBSGUI mainGUI = null;
 	/** The gameManager of the game. */
@@ -125,7 +123,7 @@ public class JBSCoreGame {
 	 */
 	public boolean initResources(){
 		ResourceManager rm = dataManager.getResourceManager();
-		if(rm.initResourceTable()){
+		if(rm.loadResourceTable()){
 			if(rm.loadResources()){
 				return true;
 			}else{
@@ -279,13 +277,6 @@ public class JBSCoreGame {
 	public final GameManager generateGame() {
 		this.gameManager = new GameManager();
 		return this.gameManager;
-	}
-
-	/**
-	 * @return the gamePort
-	 */
-	public final int getGamePort() {
-		return gamePort;
 	}
 	
 	public final String getLocalization(String key){

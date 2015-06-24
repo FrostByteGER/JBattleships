@@ -18,7 +18,7 @@ public class animationThread extends Thread {
 		runit = true;
 		r = new Random();
 		
-		JBattleships.game.getDataManager().getResourceManager().resizeAllAnimation(size, size);
+		JBattleships.game.getDataManager().getResourceManager().resizeAllAnimations(size, size);
 		
 	}
 	

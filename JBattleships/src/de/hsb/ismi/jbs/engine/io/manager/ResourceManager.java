@@ -25,19 +25,46 @@ import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
  */
 public class ResourceManager{
 
-	private HashMap<String, Clip> audioFiles = new HashMap<String, Clip>(0);
-	private HashMap<String, BufferedImage> textureFiles = new HashMap<String, BufferedImage>(0);
+	/** The resource-parser. */
+	private ResourceParser parser = new ResourceParser();
+	/** Content/Filenames of the resource-table   */
+	private String[] resourceTable = null;
+	
+	private HashMap<String, Clip> audioFiles                  = new HashMap<String, Clip>(0);
+	private HashMap<String, BufferedImage> textureFiles       = new HashMap<String, BufferedImage>(0);
 	private HashMap<String, AnimationSequence> animationFiles = new HashMap<String, AnimationSequence>(0);
 	
-	private final String AUDIO_PATH = "Data/Sfx";
-	private final String TEXTURE_PATH = "Data/Textures";
-	private final String ANIMATION_PATH = "Data/Textures/Animations";
+	/** Path of the audio-files. */
+	private static final String AUDIO_PATH          = "Sfx";
+	/** Path of the texture-files. */
+	private static final String TEXTURE_PATH        = "Textures";
+	/** Path of the animation-files. */
+	private static final String ANIMATION_PATH      = "Animations";
+	/** Path of the resource-table. */
+	private static final String RESOURCE_TABLE_PATH = "Resources.cfg";
+	/** The SHA256 value of the resource-table file. Prevents injection of unwanted files. */
+	private static final String RESOURCE_TABLE_SHA  = "PLACEHOLDER";
 	
-	private ResourceParser parser = new ResourceParser();
-	
-	private String[] resourceTable = null;
-	private static final String RESOURCE_TABLE_PATH = "Data/Resources.cfg";
-	private static final String RESOURCE_TABLE_SHA = "PLACEHOLDER";
+	/** Indicates no error. */
+	public static final int SUCCESS                         = 0;
+	/** Indicates that the resource-table was not found. */
+	public static final int ERROR_RESOURCE_TABLE_NOT_FOUND  = 1;
+	/** Indicates that the resource-table could not be loaded. */
+	public static final int ERROR_READING_RESOURCE_TABLE    = 2;
+	/** Indicates that the resource-table was modified by someone. */
+	public static final int ERROR_RESOURCE_TABLE_MODIFIED   = 3;
+	/** Indicates that the resource-table was not loaded. */
+	public static final int ERROR_RESOURCE_TABLE_NOT_LOADED = 4;
+	/** Indicates that the animationsequence could not be loaded. */
+	public static final int ERROR_READING_ANIMATION         = 5;
+	/** Indicates that the texture-file could not be loaded. */
+	public static final int ERROR_READING_TEXTURE           = 6;
+	/** Indicates that the audio-file could not be loaded. */
+	public static final int ERROR_READING_AUDIO             = 7;
+	/** Indicates that the loaded audio-file is not supported by the parser. */
+	public static final int ERROR_UNSUPPORTED_AUDIO_TYPE    = 8;
+	/** Indicates that the audio-line is not available. */
+	public static final int ERROR_AUDIO_LINE_UNAVAILABLE    = 9;
 	
 	/**
 	 * @param path
@@ -47,32 +74,26 @@ public class ResourceManager{
 	}
 	
 	/**
-	 * Initiates the ResourceTable
-	 * @return
+	 * Loads the resource-table.
+	 * @return 0 if no error encountered. Greater 0 if an error occured.
 	 */
-	public boolean initResourceTable(){
-		File f = new File(RESOURCE_TABLE_PATH);
-		if(f.exists()){
-			//TODO: Remove True
-			if(JBSCoreGame.shaGenerator.generateSHA256(f).equals(RESOURCE_TABLE_SHA) || true){
-				try {
-					ArrayList<String> table = parser.parseResourceTable(RESOURCE_TABLE_PATH);
-					resourceTable = new String[table.size()];
-					for(int i = 0;i < table.size();i++){
-						resourceTable[i] = table.get(i);
-					}
-					
-					return true;
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-					return false;
-				} catch (IOException e) {
-					e.printStackTrace();
-					return false;
+	public boolean loadResourceTable(){
+		File f = new File(JBSCoreGame.DATA_PATH + RESOURCE_TABLE_PATH);
+		//TODO: Remove Debug
+		if(JBSCoreGame.shaGenerator.generateSHA256(f).equals(RESOURCE_TABLE_SHA) || JBSCoreGame.DEBUG_MODE){
+			try {
+				ArrayList<String> table = parser.parseResourceTable(JBSCoreGame.DATA_PATH + RESOURCE_TABLE_PATH);
+				resourceTable = new String[table.size()];
+				for(int i = 0;i < table.size();i++){
+					resourceTable[i] = table.get(i);
 				}
 				
-
-			}else{
+				return true;
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				return false;
+			} catch (IOException e) {
+				e.printStackTrace();
 				return false;
 			}
 		}else{
@@ -84,13 +105,17 @@ public class ResourceManager{
 	}
 	
 	/**
-	 * Loads all Resources specified by the ResourceTable
+	 * Loads all Resources specified by the ResourceTable.
+	 * @return 0 if no error encountered. Greater 0 if an error occured.
 	 */
 	public boolean loadResources(){
+		if(resourceTable.length == 0){
+			return false;
+		}
 		boolean success = true;
 		for(String s : resourceTable){
 			File f = new File(s);
-			if(s.contains(ANIMATION_PATH)){
+			if(s.contains(JBSCoreGame.DATA_PATH + TEXTURE_PATH + "/" + ANIMATION_PATH)){
 				try {
 					AnimationSequence as = parser.parseAnimation(f);
 					animationFiles.put(f.getName(), as);
@@ -98,7 +123,7 @@ public class ResourceManager{
 					e.printStackTrace();
 					success = false;
 				}
-			}else if(s.contains(TEXTURE_PATH)){
+			}else if(s.contains(JBSCoreGame.DATA_PATH + TEXTURE_PATH)){
 								
 				try {
 					BufferedImage bi = parser.parseImage(f);
@@ -107,7 +132,7 @@ public class ResourceManager{
 					e.printStackTrace();
 					success = false;
 				}
-			}else if(s.contains(AUDIO_PATH)){
+			}else if(s.contains(JBSCoreGame.DATA_PATH + AUDIO_PATH)){
 				try {
 					Clip c = parser.parseAudioFile(f);
 					audioFiles.put(f.getName(), c);
@@ -129,9 +154,28 @@ public class ResourceManager{
 		return success;
 	}
 	
-	public void resizeAllAnimation(int width, int height){
+	/**
+	 * Resizes all animations to the specified width and height. Uses bicubic interpolation.
+	 * <br>Be careful, performance hungy depending on image-size and count!
+	 * @param width New width of the animations.
+	 * @param height New height of the animations.
+	 */
+	public void resizeAllAnimations(int width, int height){
 		for(AnimationSequence animation : animationFiles.values()){
 			animation.resizeAnimation(width, height, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		}
+	}
+	
+	/**
+	 * Resizes all animations to the specified width and height with a given interpolation-method.
+	 * <br>Be careful, performance hungy depending on image-size, count and interpolation-method!
+	 * @param width New width of the animations.
+	 * @param height New height of the animations.
+	 * @param method Interpolation method.
+	 */
+	public void resizeAllAnimations(int width, int height, RenderingHints method){
+		for(AnimationSequence animation : animationFiles.values()){
+			animation.resizeAnimation(width, height, method);
 		}
 	}
 	
@@ -143,6 +187,10 @@ public class ResourceManager{
 		return ANIMATION_PATH;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public final HashMap<String, AnimationSequence> getAnimationSequences(){
 		return animationFiles;
 	}
