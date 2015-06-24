@@ -79,7 +79,7 @@ public class ResourceManager{
 	 */
 	public boolean loadResourceTable(){
 		File f = new File(JBSCoreGame.DATA_PATH + RESOURCE_TABLE_PATH);
-		//TODO: Remove Debug
+		//TODO: Remove DebugLog
 		if(JBSCoreGame.shaGenerator.generateSHA256(f).equals(RESOURCE_TABLE_SHA) || JBSCoreGame.DEBUG_MODE){
 			try {
 				ArrayList<String> table = parser.parseResourceTable(JBSCoreGame.DATA_PATH + RESOURCE_TABLE_PATH);

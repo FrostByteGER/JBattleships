@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.utility.DebugLog;
 import de.hsb.ismi.jbs.engine.utility.Utility;
 
 /**
@@ -30,7 +31,7 @@ public abstract class DataWriter {
 				writer.write(s);
 			}
 		} catch (IOException e) {
-			JBSCoreGame.ioQueue.insertInput(Utility.stackTraceToString(e), JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logError(e);
 			return false;
 		}
 		return true;
@@ -48,7 +49,7 @@ public abstract class DataWriter {
 				writer.write(s + System.lineSeparator());
 			}
 		} catch (IOException e) {
-			JBSCoreGame.ioQueue.insertInput(Utility.stackTraceToString(e), JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logError(e);
 			return false;
 		}
 		return true;
