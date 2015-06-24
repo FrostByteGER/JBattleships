@@ -4,23 +4,28 @@
 package de.hsb.ismi.jbs.start;
 
 import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.utility.DebugLog;
+import de.hsb.ismi.jbs.gui.DebugFrame;
 
 /**
+ * Main entry point for the game.
  * @author Kevin Kuegler
  * @version 1.00
- * 
- * Main entry point for the program.
  */
 public class JBattleships {
 	
-	public static JBSCoreGame game = new JBSCoreGame(true);
+	public static JBSCoreGame game;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// Sets the Position so the MessageLogger is a bit better visible
-		JBSCoreGame.msgLogger.getFrame().setLocation(10, 10);
+		// Sets the Position so the Debuglogger is a bit better visible
+		DebugFrame d = new DebugFrame(true);
+		d.setLocation(10, 10);
+		DebugLog.setDebugFrame(d);
+		
+		game = new JBSCoreGame(true);
 		game.initGameGUI();
 	}
 }

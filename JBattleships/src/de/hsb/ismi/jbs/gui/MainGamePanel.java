@@ -6,17 +6,21 @@ package de.hsb.ismi.jbs.gui;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
+import de.hsb.ismi.jbs.engine.utility.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -98,7 +102,7 @@ public class MainGamePanel extends JPanel {
 						roundManager.fireRound(game.getPlayer(selectedGameField), game.getActivePlayer(), gameSidePanel.getSelectedship(), gameFieldPanel.getSelectx(), gameFieldPanel.getSelecty(), gameFieldPanel.getDirection());
 						roundManager.fireAnalyzeRound(game.getActivePlayer());
 						roundManager.fireEndRound(game.getActivePlayer());
-						JBSCoreGame.ioQueue.insertInput("Round ended for Player: " + game.getActivePlayer().getName(), JBSCoreGame.MSG_LOGGER_KEY);
+						DebugLog.logInfo("Round ended for Player: " + game.getActivePlayer().getName());
 						roundManager.reset();
 						game.nextPlayer();
 						gameSidePanel.setPlayer(game.getActivePlayer());
@@ -108,7 +112,7 @@ public class MainGamePanel extends JPanel {
 						if(game.getActivePlayer() instanceof JBSAIPlayer){
 							JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 							ai.processRound(game);
-							JBSCoreGame.ioQueue.insertInput("AI " + game.getActivePlayer().getName() + " ended its turn!", JBSCoreGame.MSG_LOGGER_KEY);
+							DebugLog.logInfo("AI " + game.getActivePlayer().getName() + " ended its turn!");
 							for(ActionListener a: btnEndRound.getActionListeners()) {
 							    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
 
@@ -129,7 +133,7 @@ public class MainGamePanel extends JPanel {
 		btnEndRound.setActionCommand("pass");
 		btnEndRound.addActionListener(e -> {
 			roundManager.fireEndRound(game.getActivePlayer());
-			JBSCoreGame.ioQueue.insertInput("Round ended for Player: " + game.getActivePlayer().getName(), JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logInfo("Round ended for Player: " + game.getActivePlayer().getName());
 			roundManager.reset();
 			game.nextPlayer();
 			gameSidePanel.setPlayer(game.getActivePlayer());
@@ -139,7 +143,7 @@ public class MainGamePanel extends JPanel {
 			if(game.getActivePlayer() instanceof JBSAIPlayer){
 				JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 				ai.processRound(game);
-				JBSCoreGame.ioQueue.insertInput("AI " + game.getActivePlayer().getName() + " ended its turn!", JBSCoreGame.MSG_LOGGER_KEY);
+				DebugLog.logInfo("AI " + game.getActivePlayer().getName() + " ended its turn!");
 				for(ActionListener a: btnEndRound.getActionListeners()) {
 				    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
 						/**
@@ -235,7 +239,7 @@ public class MainGamePanel extends JPanel {
 		if(game.getActivePlayer() instanceof JBSAIPlayer){
 			JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 			ai.processRound(game);
-			JBSCoreGame.ioQueue.insertInput("AI " + game.getActivePlayer().getName() + " ended its turn!", JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logInfo("AI " + game.getActivePlayer().getName() + " ended its turn!");
 			for(ActionListener a: btnEndRound.getActionListeners()) {
 			    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pass") {
 

@@ -5,6 +5,7 @@ package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSCorvette;
@@ -15,19 +16,27 @@ import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.utility.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.border.TitledBorder;
+
 import java.awt.Font;
+
 import javax.swing.JTextArea;
+
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.SystemColor;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.swing.JLabel;
 
 /**
@@ -90,7 +99,7 @@ public class PreGamePlacingPanel extends JPanel {
 		
 		btnCancel = new JBSButton(JBattleships.game.getLocalization("GAME_CANCEL"));
 		btnCancel.addActionListener(e -> {
-			JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePlacingPanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logInfo("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePlacingPanel.this.getClass());
 			parent.restoreRootContainer(true);
 		});
 		buttonPanel.add(new AlphaContainer(btnCancel) );
@@ -228,7 +237,7 @@ public class PreGamePlacingPanel extends JPanel {
 			@Override
 			public void clickFired(JPanel instigator) {
 				if(instigator instanceof GameFieldPanel && activeShip != null){
-					JBSCoreGame.ioQueue.insertInput("Fired Event " +  GameFieldActionListener.class.getSimpleName() + " from: " + instigator.getClass().getSimpleName(), JBSCoreGame.MSG_LOGGER_KEY);
+					DebugLog.logInfo("Fired Event " +  GameFieldActionListener.class.getSimpleName() + " from: " + instigator.getClass().getSimpleName());
 					GameFieldPanel gfp = (GameFieldPanel)instigator;
 					activeShip.setPositon(gfp.getSelectx(), gfp.getSelecty(), gfp.getDirection());
 					if(gfp.getGamefild().addShip(activeShip)){
@@ -246,12 +255,12 @@ public class PreGamePlacingPanel extends JPanel {
 							btnSubmarine.setText(JBattleships.game.getLocalization("GAME_SUBMARINES_LEFT") + " " + subsLeft);	
 						}
 						activePlayer.addShip(activeShip);
-						JBSCoreGame.ioQueue.insertInput("Successfully placed " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection(), JBSCoreGame.MSG_LOGGER_KEY);
-						
+						DebugLog.logInfo("Successfully placed " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection());
+
 						activeShip = null;
 						lblSelectedShip.setText(JBattleships.game.getLocalization("GAME_SELECTED_SHIP") + " " + JBattleships.game.getLocalization("GAME_SELECTED_NONE"));
 					}else{
-						JBSCoreGame.ioQueue.insertInput("Could not place " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection(), JBSCoreGame.MSG_LOGGER_KEY);
+						DebugLog.logInfo("Could not place " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection());
 					}
 				}
 			}
@@ -314,7 +323,7 @@ public class PreGamePlacingPanel extends JPanel {
 		}else if(activePlayerIndex == gm.getGame().getPlayers().length - 1){
 			gm.startGame();
 			parent.swapContainer(new MainGamePanel(parent));
-			JBSCoreGame.ioQueue.insertInput("Started Game!", JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logInfo("Started Game!");
 		}
 	}
 

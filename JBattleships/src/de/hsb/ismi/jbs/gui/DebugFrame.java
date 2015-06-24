@@ -4,6 +4,7 @@
 package de.hsb.ismi.jbs.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import de.hsb.ismi.jbs.core.JBSCoreGame;
+import de.hsb.ismi.jbs.engine.utility.DebugListener;
 import de.hsb.ismi.jbs.engine.utility.DebugLog;
 
 /**
@@ -40,28 +41,34 @@ public class DebugFrame extends JFrame implements DebugListener{
 	private JPanel buttonPanel     = new JPanel(new FlowLayout());
 	private JButton btnClear       = new JButton("Clear Log");
 	private JButton btnSave        = new JButton("Save Log");
-		
+	
+	private static final Color infoColor    = Color.BLACK;
+	private static final Color warningColor = Color.ORANGE;
+	private static final Color errorColor   = Color.RED;
 	
 	public DebugFrame(boolean visible){
 		super(DebugLog.NAME + " " + DebugLog.VERSION);
 		setContentPane(contentPane);
-		
-		
-		setResizable(JBSCoreGame.RESIZABLE);
+		setResizable(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 300, 300);
+		setBounds(0, 0, 500, 300);
 		setLocationRelativeTo(null);
 		initGUI();
 		setVisible(visible);
 	}
 	
 	private void initGUI(){
+		infoArea.setForeground(infoColor);
 		infoArea.setEditable(false);
 		infoArea.setLineWrap(true);
 		infoArea.setWrapStyleWord(true);
+		
+		warningArea.setForeground(warningColor);
 		warningArea.setEditable(false);
 		warningArea.setLineWrap(true);
 		warningArea.setWrapStyleWord(true);
+		
+		errorArea.setForeground(errorColor);
 		errorArea.setEditable(false);
 		errorArea.setLineWrap(true);
 		errorArea.setWrapStyleWord(true);
@@ -97,14 +104,14 @@ public class DebugFrame extends JFrame implements DebugListener{
 					try {
 						int index = tabbedPane.getSelectedIndex();
 						if(index == 0){
+							DebugLog.writeInfolog(savepath, true);
 							infoArea.setText("");
-							DebugLog.writeInfolog(savepath, true);
 						}else if(index == 1){
+							DebugLog.writeWarninglog(savepath, true);
 							warningArea.setText("");
-							DebugLog.writeInfolog(savepath, true);
 						}else if(index == 2){
+							DebugLog.writeErrorlog(savepath, true);
 							errorArea.setText("");
-							DebugLog.writeInfolog(savepath, true);
 						}
 						JOptionPane.showMessageDialog(DebugFrame.this,"Log Saved!");
 					} catch (IOException ioe) {

@@ -4,30 +4,42 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
+
 import javax.swing.SwingConstants;
+
 import java.awt.FlowLayout;
+
 import javax.swing.border.TitledBorder;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JCheckBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
+
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.utility.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -108,9 +120,8 @@ public class PreGamePanel extends JPanel {
 		
 		btnCancel = new JBSButton(JBattleships.game.getLocalization("GAME_CANCEL"));
 		btnCancel.addActionListener(e -> {
-				JBSCoreGame.ioQueue.insertInput("Called Command: \"" + e.getActionCommand() + "\" on " + PreGamePanel.this.getClass(), JBSCoreGame.MSG_LOGGER_KEY);
-				parent.restorePrevContainer();
-				//PreGamePanel.this.parent.swapContainer(PreGamePanel.this.parent.getMainPanel());
+			DebugLog.logInfo("Called Command: \"" + e.getActionCommand() + "\" on " +  PreGamePanel.this.getClass());
+			parent.restorePrevContainer();
 		});
 		buttonPanel.add(new AlphaContainer(btnCancel) );
 		
@@ -160,8 +171,8 @@ public class PreGamePanel extends JPanel {
 						cce.printStackTrace();
 					}
 					gm.createGame(gameType,players.toArray(new JBSPlayer[players.size()]), fieldSize, count);
-					JBSCoreGame.ioQueue.insertInput("Created Game!", JBSCoreGame.MSG_LOGGER_KEY);
-					JBSCoreGame.ioQueue.insertInput(gm.toString(), JBSCoreGame.MSG_LOGGER_KEY);
+					DebugLog.logInfo("Created Game!");
+					DebugLog.logInfo(gm.toString());
 					
 					parent.swapContainer(new PreGamePlacingPanel(parent));
 		});

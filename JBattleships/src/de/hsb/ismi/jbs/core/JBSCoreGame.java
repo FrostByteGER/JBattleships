@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 import javax.swing.UIManager;
 
-import de.frostbyteger.messagelogger.MessageLogger;
-import de.hsb.ismi.jbs.engine.core.IOListener;
 import de.hsb.ismi.jbs.engine.core.JBSIOQueue;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
@@ -18,6 +16,7 @@ import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
+import de.hsb.ismi.jbs.engine.utility.DebugLog;
 import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 
@@ -28,13 +27,12 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
  */
 public class JBSCoreGame {
 
-	/** The MessageLogger to log errors, exceptions and other stuff. */
-	public static MessageLogger msgLogger = new MessageLogger(JBSCoreGame.DEBUG_MODE);
 	/** The Checksumgenerator to generate checksums from various objects, Strings or such. */
 	public static SHA256Generator shaGenerator = new SHA256Generator();
 	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
 	public static ScreenDeviceManager screenDeviceManager = new ScreenDeviceManager();
 	/** The IO-Queue for any IO events. */
+	@Deprecated
 	public static JBSIOQueue<String> ioQueue = new JBSIOQueue<String>();
 	/** The Path of the Datafolder with all important content. */
 	public static final String DATA_PATH = "Data/";
@@ -66,23 +64,10 @@ public class JBSCoreGame {
 	 * 
 	 */
 	public JBSCoreGame(boolean initGame) {
-		ioQueue.addIOListener("Logger", new IOListener<String>() {
-			
-			@Override
-			public void outputReceived(String output, String notifierType) {	
-				if(DEBUG_MODE){
-					
-				}
-			}
-			
-			@Override
-			public void inputReceived(String input, String notifierType) {
-				if(DEBUG_MODE){
-					msgLogger.addMessage(input);
-				}
-				
-			}
-		});
+		DebugLog.setLogInfos(true);
+		DebugLog.setLogWarnings(true);
+		DebugLog.setLogErrors(true);
+		DebugLog.logWarning("asdf");
 		if(initGame){
 			initGame();
 		}

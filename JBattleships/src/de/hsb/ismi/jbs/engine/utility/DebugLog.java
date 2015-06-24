@@ -14,8 +14,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import de.hsb.ismi.jbs.gui.DebugFrame;
-import de.hsb.ismi.jbs.gui.DebugListener;
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 
 /**
  * Simple customizable debugging-class. Logs 3 different types of messages:<br>
@@ -61,7 +60,7 @@ public class DebugLog {
 	public static final String NAME    = "Debug-Logger";
 	
 	// DebugLog GUI
-	private static DebugListener debugFrame = new DebugFrame(true);
+	private static DebugListener debugFrame = null;
 	
 	
 	
@@ -192,7 +191,7 @@ public class DebugLog {
 			outputStream.flush();
 			addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
 			if(debugFrame != null){
-				debugFrame.addInfo(DEBUG_LINE + info);
+				debugFrame.addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
 			}
 		}
 	}
@@ -208,7 +207,7 @@ public class DebugLog {
 			outputStream.flush();
 			addWarning(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
 			if(debugFrame != null){
-				debugFrame.addWarning(DEBUG_LINE + warning);
+				debugFrame.addWarning(DEBUG_LINE  + LocalDateTime.now().format(formatter) + " " + warning);
 			}
 		}
 	}
@@ -268,7 +267,7 @@ public class DebugLog {
 	 */
 	public static void writeInfolog(String path, boolean flushBuffer) throws IOException{
 		if(path == null || path.isEmpty()){
-			path = LocalDateTime.now().format(formatter) + "_" + infoLogName + logExtension;
+			path = JBSCoreGame.DATA_PATH + LocalDateTime.now().format(formatter) + "_" + infoLogName + logExtension;
 		}
 		System.out.println(path);
 		File log = new File(path);
@@ -290,7 +289,7 @@ public class DebugLog {
 	 */
 	public static void writeWarninglog(String path, boolean flushBuffer) throws IOException{
 		if(path == null || path.isEmpty()){
-			path = LocalDateTime.now().format(formatter) + "_"  + warningLogName + logExtension;
+			path = JBSCoreGame.DATA_PATH + LocalDateTime.now().format(formatter) + "_"  + warningLogName + logExtension;
 		}
 		File log = new File(path);
 		PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(log)), flushBuffer);
@@ -311,7 +310,7 @@ public class DebugLog {
 	 */
 	public static void writeErrorlog(String path, boolean flushBuffer) throws IOException{
 		if(path == null || path.isEmpty()){
-			path = LocalDateTime.now().format(formatter) + "_"  + errorLogName + logExtension;
+			path = JBSCoreGame.DATA_PATH + LocalDateTime.now().format(formatter) + "_"  + errorLogName + logExtension;
 		}
 		File log = new File(path);
 		PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(log)), flushBuffer);
