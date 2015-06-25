@@ -29,7 +29,6 @@ public class AnimationThread extends Thread {
 	
 	@Override
 	public void run() {
-		super.run();
 		while(runit){
 			try {
 				sleep(sleeptime);

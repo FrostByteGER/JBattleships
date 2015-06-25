@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public interface GameListener extends Remote{
+public interface GameListener{
 
 	public void fireStartedGame();
 	

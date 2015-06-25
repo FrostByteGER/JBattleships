@@ -21,7 +21,7 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
  * @version 1.00
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class JBSGameField implements Serializable{
+public class JBSGameField{
 
 	@XmlElement(name = "GamefieldActor")
 	@XmlElementWrapper(name = "GamefieldActors")
@@ -31,9 +31,9 @@ public class JBSGameField implements Serializable{
 	
 	// OLD TODO
 	@XmlTransient
-	private transient JBSActor water = new JBSActor("water");
+	private JBSActor water = new JBSActor("water");
 	@XmlTransient
-	private transient JBSActor waterHitDummy = new JBSActor("waterhit");
+	private JBSActor waterHitDummy = new JBSActor("waterhit");
 	
 	/**
 	 * 
