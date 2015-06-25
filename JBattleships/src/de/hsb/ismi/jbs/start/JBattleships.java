@@ -5,7 +5,7 @@ package de.hsb.ismi.jbs.start;
 
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
-import de.hsb.ismi.jbs.gui.DebugFrame;
+import de.hsb.ismi.jbs.gui.utility.DebugFrame;
 
 /**
  * Main entry point for the game.

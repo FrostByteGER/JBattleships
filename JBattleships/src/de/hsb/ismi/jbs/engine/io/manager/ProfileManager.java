@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import de.hsb.ismi.jbs.engine.io.parser.OptionsParser;
 import de.hsb.ismi.jbs.engine.io.parser.ProfileParser;
-import de.hsb.ismi.jbs.engine.core.JBSProfile;
+import de.hsb.ismi.jbs.engine.players.JBSProfile;
 
 public class ProfileManager {
 	

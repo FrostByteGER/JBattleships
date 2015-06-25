@@ -4,27 +4,25 @@
 package de.hsb.ismi.jbs.engine.ai;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import de.hsb.ismi.jbs.engine.core.Direction;
-import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.JBSCorvette;
-import de.hsb.ismi.jbs.engine.core.JBSDestroyer;
-import de.hsb.ismi.jbs.engine.core.JBSFrigate;
-import de.hsb.ismi.jbs.engine.core.JBSGameField;
-import de.hsb.ismi.jbs.engine.core.JBSPlayer;
-import de.hsb.ismi.jbs.engine.core.JBSProfile;
-import de.hsb.ismi.jbs.engine.core.JBSShip;
-import de.hsb.ismi.jbs.engine.core.JBSShipActor;
-import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
-import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSCorvette;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSDestroyer;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSFrigate;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSSubmarine;
+import de.hsb.ismi.jbs.engine.game.Direction;
+import de.hsb.ismi.jbs.engine.game.Game;
+import de.hsb.ismi.jbs.engine.game.JBSGameField;
+import de.hsb.ismi.jbs.engine.game.managers.GameManager;
+import de.hsb.ismi.jbs.engine.players.JBSPlayer;
+import de.hsb.ismi.jbs.engine.players.JBSProfile;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 import de.hsb.ismi.jbs.start.JBattleships;
 

@@ -3,7 +3,7 @@
  */
 package de.hsb.ismi.jbs.engine.io.writer;
 
-import de.hsb.ismi.jbs.engine.core.JBSProfile;
+import de.hsb.ismi.jbs.engine.players.JBSProfile;
 
 /**
  * @author Kevin Kuegler

@@ -18,6 +18,8 @@ import java.awt.Dimension;
 
 import javax.swing.JLabel;
 
+import de.hsb.ismi.jbs.gui.game.PreLocalGameChoicePanel;
+import de.hsb.ismi.jbs.gui.utility.AlphaContainer;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.FlowLayout;
