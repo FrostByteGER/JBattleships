@@ -12,9 +12,9 @@ import java.rmi.RemoteException;
  */
 public interface GameListener extends Remote{
 
-	public void fireStartedGame() throws RemoteException;
+	public void fireStartedGame();
 	
 	//public void firePausedGame();
 	
-	public void fireEndedGame() throws RemoteException;
+	public void fireEndedGame();
 }

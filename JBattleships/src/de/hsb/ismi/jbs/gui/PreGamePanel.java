@@ -33,7 +33,7 @@ import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
-import de.hsb.ismi.jbs.engine.utility.DebugLog;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.Color;

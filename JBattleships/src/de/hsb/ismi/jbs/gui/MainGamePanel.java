@@ -5,14 +5,11 @@ package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
-import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.core.Game;
 import de.hsb.ismi.jbs.engine.core.GameListener;
 import de.hsb.ismi.jbs.engine.core.manager.RoundManager;
-import de.hsb.ismi.jbs.engine.utility.DebugLog;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.BorderLayout;
@@ -232,7 +229,7 @@ public class MainGamePanel extends JPanel {
 			
 			@Override
 			public void fireEndedGame() {
-				parent.swapContainer(parent.getMainPanel());
+				parent.swapContainer(new PostGamePanel(parent));
 			}
 		});
 		

@@ -18,8 +18,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import de.hsb.ismi.jbs.engine.utility.DebugListener;
-import de.hsb.ismi.jbs.engine.utility.DebugLog;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugListener;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 
 /**
  * @author Kevin Kuegler

@@ -3,7 +3,6 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,9 +10,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
-
-import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
@@ -22,7 +18,7 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({JBSDestroyer.class, JBSFrigate.class, JBSCorvette.class, JBSSubmarine.class})
-public class JBSShip implements Serializable{
+public class JBSShip{
 
 	@XmlElement(name = "CooldownLimit")
 	private int cooldownLimit;

@@ -16,7 +16,7 @@ import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 import de.hsb.ismi.jbs.engine.core.JBSShip;
 import de.hsb.ismi.jbs.engine.core.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.core.manager.GameManager;
-import de.hsb.ismi.jbs.engine.utility.DebugLog;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.BorderLayout;

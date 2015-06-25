@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
-import de.hsb.ismi.jbs.engine.utility.DebugLog;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**

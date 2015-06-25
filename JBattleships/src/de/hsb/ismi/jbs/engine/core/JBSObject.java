@@ -3,13 +3,11 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
-import java.io.Serializable;
-
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class JBSObject implements Serializable{
+public class JBSObject{
 	
 	@Deprecated
 	private boolean replicated = false;
@@ -21,6 +19,7 @@ public class JBSObject implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Deprecated
 	public JBSObject(boolean replicated){
 		this.replicated = replicated;
 	}
@@ -28,6 +27,7 @@ public class JBSObject implements Serializable{
 	/**
 	 * @return the replicated
 	 */
+	@Deprecated
 	public final boolean isReplicated() {
 		return replicated;
 	}
@@ -35,6 +35,7 @@ public class JBSObject implements Serializable{
 	/**
 	 * @param replicated the replicated to set
 	 */
+	@Deprecated
 	public final void setReplicated(boolean replicated) {
 		this.replicated = replicated;
 	}

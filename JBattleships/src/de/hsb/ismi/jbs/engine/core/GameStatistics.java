@@ -10,49 +10,56 @@ package de.hsb.ismi.jbs.engine.core;
  */
 public class GameStatistics {
 	
-	private int shotsFired = 0;
-	private int shotsMissed = 0;
-	private int shotsHit = 0;
-	
+	private int firedShots               = 0;
+	private int missedShots              = 0;
+	private int shotsHit                 = 0;
+	private int shipsLost                = 0;
+	private int shipsDestroyed           = 0;
+	private int navalMinesHit            = 0;
+	private boolean navalMinesUsed       = false;
 	private boolean coastalArtilleryUsed = false;
-	private boolean coastalArtilleryHit = false;
-	
-	private boolean navalMinesUsed = false;
-	private int navalMinesHit = 0;
-	
-	private int shipsDestroyed = 0;
-	private boolean flawlessWin = false;
+	private boolean coastalArtilleryHit  = false;
+	private boolean flawlessWin          = false;
+	private boolean win                	 = false;
 	
 	public GameStatistics() {
 		//TODO: Add into game.
 	}
 
 	/**
-	 * @return the shotsFired
+	 * @return the firedShots
 	 */
-	public final int getShotsFired() {
-		return shotsFired;
+	public final int getFiredShots() {
+		return firedShots;
 	}
 
 	/**
-	 * @param shotsFired the shotsFired to set
+	 * @param firedShots the firedShots to set
 	 */
-	public final void setShotsFired(int shotsFired) {
-		this.shotsFired = shotsFired;
+	public final void setFiredShots(int firedShots) {
+		this.firedShots = firedShots;
+	}
+	
+	public final void increaseFiredShots(int inc){
+		this.firedShots += inc;
 	}
 
 	/**
-	 * @return the shotsMissed
+	 * @return the missedShots
 	 */
 	public final int getShotsMissed() {
-		return shotsMissed;
+		return missedShots;
 	}
 
 	/**
-	 * @param shotsMissed the shotsMissed to set
+	 * @param missedShots the missedShots to set
 	 */
-	public final void setShotsMissed(int shotsMissed) {
-		this.shotsMissed = shotsMissed;
+	public final void setMissedShots(int missedShots) {
+		this.missedShots = missedShots;
+	}
+	
+	public final void increaseMissedShots(int inc){
+		this.missedShots += inc;
 	}
 
 	/**
@@ -67,6 +74,10 @@ public class GameStatistics {
 	 */
 	public final void setShotsHit(int shotsHit) {
 		this.shotsHit = shotsHit;
+	}
+	
+	public final void increaseShotsHit(int inc){
+		this.shotsHit += inc;
 	}
 
 	/**
@@ -125,6 +136,10 @@ public class GameStatistics {
 		this.navalMinesHit = navalMinesHit;
 	}
 
+	public final void increaseNavalMinesHit(int inc){
+		this.navalMinesHit += inc;
+	}
+	
 	/**
 	 * @return the shipsDestroyed
 	 */
@@ -137,6 +152,10 @@ public class GameStatistics {
 	 */
 	public final void setShipsDestroyed(int shipsDestroyed) {
 		this.shipsDestroyed = shipsDestroyed;
+	}
+	
+	public final void increaseDestroyedShips(int inc){
+		this.shipsDestroyed += inc;
 	}
 
 	/**
@@ -151,6 +170,38 @@ public class GameStatistics {
 	 */
 	public final void setFlawlessWin(boolean flawlessWin) {
 		this.flawlessWin = flawlessWin;
+	}
+
+	/**
+	 * @return the shipsLost
+	 */
+	public final int getShipsLost() {
+		return shipsLost;
+	}
+
+	/**
+	 * @param shipsLost the shipsLost to set
+	 */
+	public final void setShipsLost(int shipsLost) {
+		this.shipsLost = shipsLost;
+	}
+	
+	public final void increaseLostShips(int inc){
+		this.shipsLost += inc;
+	}
+
+	/**
+	 * @return the win
+	 */
+	public final boolean isWin() {
+		return win;
+	}
+
+	/**
+	 * @param win the win to set
+	 */
+	public final void setWin(boolean win) {
+		this.win = win;
 	}
 
 }

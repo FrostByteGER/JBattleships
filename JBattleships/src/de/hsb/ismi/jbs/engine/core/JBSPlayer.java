@@ -3,7 +3,6 @@
  */
 package de.hsb.ismi.jbs.engine.core;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.xml.bind.Unmarshaller;
@@ -12,8 +11,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
-
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 
 /**
@@ -22,7 +19,7 @@ import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({JBSAIPlayer.class})
-public class JBSPlayer implements Serializable{
+public class JBSPlayer{
 	
 	@XmlElement(name = "PlayerProfile")
 	private transient JBSProfile profile = new JBSProfile();
@@ -33,6 +30,8 @@ public class JBSPlayer implements Serializable{
 	private boolean isAlive = true;
 	@XmlElement(name = "PlayerField")
 	private JBSGameField playerField = null;
+	@XmlElement(name = "PlayerStatistics")
+	private GameStatistics statistics = new GameStatistics();
 
 	
 	public JBSPlayer(){
@@ -154,6 +153,20 @@ public class JBSPlayer implements Serializable{
 		for(JBSShip ship : ships){
 			playerField.setShip(ship);
 		}
+	}
+
+	/**
+	 * @return the statistics
+	 */
+	public final GameStatistics getStatistics() {
+		return statistics;
+	}
+
+	/**
+	 * @param statistics the statistics to set
+	 */
+	public final void setStatistics(GameStatistics statistics) {
+		this.statistics = statistics;
 	}
 	
 	

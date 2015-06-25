@@ -1,6 +1,5 @@
 package de.hsb.ismi.jbs.engine.core.manager;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import de.hsb.ismi.jbs.engine.core.Game;
@@ -9,7 +8,7 @@ import de.hsb.ismi.jbs.engine.core.JBSGameField;
 import de.hsb.ismi.jbs.engine.core.JBSGameType;
 import de.hsb.ismi.jbs.engine.core.JBSPlayer;
 
-public class GameManager implements GameListener{
+public class GameManager{
 	
 	private Game game = new Game();
 	private RoundManager roundManager = new RoundManager();
@@ -47,12 +46,7 @@ public class GameManager implements GameListener{
 		if(game != null){
 			roundManager = new RoundManager();
 			for(GameListener gl : listeners){
-				try {
-					gl.fireStartedGame();
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				gl.fireStartedGame();
 			}
 			return true;
 		}else{
@@ -68,12 +62,7 @@ public class GameManager implements GameListener{
 	public boolean endGame(boolean force){
 		if(game.isGameOver() || force){
 			for(GameListener gl : listeners){
-				try {
-					gl.fireEndedGame();
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				gl.fireEndedGame();
 			}
 			return true;
 		}else{
@@ -137,24 +126,6 @@ public class GameManager implements GameListener{
 	 */
 	public final void setGame(Game game) {
 		this.game = game;
-	}
-
-	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.core.GameListener#fireStartedGame()
-	 */
-	@Override
-	public void fireStartedGame() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see de.hsb.ismi.jbs.engine.core.GameListener#fireEndedGame()
-	 */
-	@Override
-	public void fireEndedGame() throws RemoteException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

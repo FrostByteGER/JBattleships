@@ -16,8 +16,8 @@ import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
-import de.hsb.ismi.jbs.engine.utility.DebugLog;
 import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 
 /**
@@ -67,7 +67,6 @@ public class JBSCoreGame {
 		DebugLog.setLogInfos(true);
 		DebugLog.setLogWarnings(true);
 		DebugLog.setLogErrors(true);
-		DebugLog.logWarning("asdf");
 		if(initGame){
 			initGame();
 		}
