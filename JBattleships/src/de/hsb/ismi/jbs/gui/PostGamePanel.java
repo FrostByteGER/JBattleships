@@ -14,7 +14,6 @@ import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.GridLayout;
 import javax.swing.JTabbedPane;
-import javax.swing.JButton;
 import java.awt.FlowLayout;
 
 /**
