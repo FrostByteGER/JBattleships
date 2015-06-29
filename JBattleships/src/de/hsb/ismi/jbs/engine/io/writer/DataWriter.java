@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.utility.Utility;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 
 /**
  * Writes given Data to a file.
@@ -30,7 +31,7 @@ public abstract class DataWriter {
 				writer.write(s);
 			}
 		} catch (IOException e) {
-			JBSCoreGame.ioQueue.insertInput(Utility.stackTraceToString(e), JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logError(e);
 			return false;
 		}
 		return true;
@@ -45,10 +46,10 @@ public abstract class DataWriter {
 	public boolean writeDataToFile(String path, ArrayList<String> data){
 		try(BufferedWriter writer = new BufferedWriter(new FileWriter(path))){
 			for(String s : data){
-				writer.write(s);
+				writer.write(s + System.lineSeparator());
 			}
 		} catch (IOException e) {
-			JBSCoreGame.ioQueue.insertInput(Utility.stackTraceToString(e), JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logError(e);
 			return false;
 		}
 		return true;

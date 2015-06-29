@@ -22,7 +22,7 @@ public class OptionsManager {
 	private OptionsParser parser;
 	private OptionsWriter writer;
 	private HashMap<String, HashMap<String, String>> data;
-	private static final String[] CATEGORIES = {"Graphics","Audio","Network","Game"};
+	public static final String[] CATEGORIES = {"Graphics","Audio","Game"};
 	private static final String SETTINGS_PATH = "Config/";
 	private static final String SETTINGS_NAME = "Settings.cfg";
 
@@ -47,7 +47,7 @@ public class OptionsManager {
 		try {
 			raw = parser.parseOptions(JBSCoreGame.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME);
 			for(String s : raw){
-				if(s.equals(CATEGORIES[0]) || s.equals(CATEGORIES[1]) || s.equals(CATEGORIES[2]) || s.equals(CATEGORIES[3])){
+				if(s.equals(CATEGORIES[0]) || s.equals(CATEGORIES[1]) || s.equals(CATEGORIES[2])){
 					if(!currentCategory.equals(s) && !currentCategory.isEmpty()){
 						HashMap<String, String> temp = new HashMap<String, String>(0);
 						for(int i = 0;i<currentData.size();i+=2){
@@ -92,7 +92,7 @@ public class OptionsManager {
 	 * @return
 	 */
 	public boolean saveOptions(HashMap<String,String[]> data){
-		return writer.writeOptions(JBSCoreGame.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME + "2", data, CATEGORIES);
+		return writer.writeOptions(JBSCoreGame.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME, data, CATEGORIES);
 	}
 	
 	/**
@@ -111,16 +111,8 @@ public class OptionsManager {
 		return data.get(CATEGORIES[1]);
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public HashMap<String, String> getNetworkData(){
-		return data.get(CATEGORIES[2]);
-	}
-	
 	public HashMap<String, String> getGameData(){
-		return data.get(CATEGORIES[3]);
+		return data.get(CATEGORIES[2]);
 	}
 
 	/**

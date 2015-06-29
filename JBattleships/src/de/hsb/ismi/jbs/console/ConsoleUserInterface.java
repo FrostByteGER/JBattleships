@@ -4,11 +4,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import de.hsb.ismi.jbs.engine.core.JBSPlayer;
-import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.*;
-import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
+import de.hsb.ismi.jbs.engine.game.Direction;
+import de.hsb.ismi.jbs.engine.game.Game;
+import de.hsb.ismi.jbs.engine.game.JBSGameType;
+import de.hsb.ismi.jbs.engine.game.managers.GameManager;
+import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 
+/**
+ * 
+ * @author Kevin Kuegler
+ * @version 1.00
+ * @deprecated Deprecated as of 25.06.2015 since game-logic has changed! 
+ */
+@Deprecated
 public class ConsoleUserInterface {
 
 	private BufferedReader read;

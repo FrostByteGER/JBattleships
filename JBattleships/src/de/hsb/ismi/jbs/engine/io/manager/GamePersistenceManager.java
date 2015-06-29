@@ -10,8 +10,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import de.hsb.ismi.jbs.engine.core.Game;
-import de.hsb.ismi.jbs.engine.core.manager.GameManager;
+import de.hsb.ismi.jbs.engine.game.Game;
+import de.hsb.ismi.jbs.engine.game.managers.GameManager;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**

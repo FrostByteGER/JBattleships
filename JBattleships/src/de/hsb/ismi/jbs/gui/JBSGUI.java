@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -101,7 +102,7 @@ public class JBSGUI{
 		contentPane.add(container,BorderLayout.CENTER);
 		panelStack.push(p);
 		container.updateUI();
-		JBSCoreGame.ioQueue.insertInput("Swapped JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+		DebugLog.logInfo("Swapped JPanel!");
 	}
 	
 	/**
@@ -114,7 +115,7 @@ public class JBSGUI{
 		contentPane.remove(p);
 		contentPane.add(container,BorderLayout.CENTER);
 		container.updateUI();
-		JBSCoreGame.ioQueue.insertInput("Swapped JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+		DebugLog.logInfo("Swapped JPanel!");
 	}
 	
 	/**
@@ -126,9 +127,9 @@ public class JBSGUI{
 			contentPane.remove(((BorderLayout)contentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
 			contentPane.add(p,BorderLayout.CENTER);
 			p.updateUI();
-			JBSCoreGame.ioQueue.insertInput("Restored previous JPanel!", JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logInfo("Restored previous JPanel!");
 		}else{
-			JBSCoreGame.ioQueue.insertInput("Stack is Empty!", JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logInfo("Stack is Empty!");
 		}
 	}
 	
@@ -145,10 +146,9 @@ public class JBSGUI{
 				panelStack.clear();
 			}
 			p.updateUI();
-			JBSCoreGame.ioQueue.insertInput("Restored Rootpanel!", JBSCoreGame.MSG_LOGGER_KEY);
+			DebugLog.logInfo("Restored Rootpanel!");
 		}else{
-			JBSCoreGame.ioQueue.insertInput("Stack is Empty!", JBSCoreGame.MSG_LOGGER_KEY);
-		}
+			DebugLog.logInfo("Stack is Empty!");		}
 	}
 	
 	/**
