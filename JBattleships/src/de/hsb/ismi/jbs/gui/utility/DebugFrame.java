@@ -8,12 +8,15 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -46,6 +49,8 @@ public class DebugFrame extends JFrame implements DebugListener{
 	private static final Color warningColor = Color.ORANGE;
 	private static final Color errorColor   = Color.RED;
 	
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("Y-M-d-H-m-s-S");
+	
 	public DebugFrame(boolean visible){
 		super(DebugLog.NAME + " " + DebugLog.VERSION);
 		setContentPane(contentPane);
@@ -73,9 +78,9 @@ public class DebugFrame extends JFrame implements DebugListener{
 		errorArea.setLineWrap(true);
 		errorArea.setWrapStyleWord(true);
 		
-		tabbedPane.add("Info-Log", infoArea);
-		tabbedPane.add("Warning-Log", warningArea);
-		tabbedPane.add("Error-Log", errorArea);
+		tabbedPane.add("Info-Log", new JScrollPane(infoArea));
+		tabbedPane.add("Warning-Log", new JScrollPane(warningArea));
+		tabbedPane.add("Error-Log", new JScrollPane(errorArea));
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		btnClear.addActionListener(e -> {
@@ -188,10 +193,10 @@ public class DebugFrame extends JFrame implements DebugListener{
 	@Override
 	public void addError(Exception error) {
 		if(errorArea.getLineCount() < DebugLog.getBufferlimit()){
-			errorArea.append(error.getMessage() + System.lineSeparator());
+			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " +  error.getMessage() + System.lineSeparator());
 		}else{
 			errorArea.setText("");
-			errorArea.append(error.getMessage() + System.lineSeparator());
+			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " + error.getMessage() + System.lineSeparator());
 		}
 	}
 }
