@@ -19,11 +19,13 @@ import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSSubmarine;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.Game;
+import de.hsb.ismi.jbs.engine.game.HitInfo;
 import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.game.managers.GameManager;
 import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 import de.hsb.ismi.jbs.engine.players.JBSProfile;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -93,7 +95,7 @@ public class JBSAIPlayer extends JBSPlayer {
 	
 	public JBSShip processRound(Game game){
 		
-		System.out.println(lasthit);
+		DebugLog.logInfo(lasthit);
 		
 		for(JBSShip ship : getShips()){
 			if(ship.canShoot()){
@@ -142,7 +144,8 @@ public class JBSAIPlayer extends JBSPlayer {
 					
 					hitdirection = Direction.getRandomDirection(r);
 					
-					hit = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(lasthitfield), this, ship, hitx, hity, hitdirection);
+					HitInfo h = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(lasthitfield), this, ship, hitx, hity, hitdirection);
+					hit = h.hasHit();
 					JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
 					JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
 					
@@ -174,9 +177,10 @@ public class JBSAIPlayer extends JBSPlayer {
 							}	
 							hitdirection = Direction.getRandomDirection(r);
 							
-							System.out.println(lasthit+" "+hitx+" "+hity+" "+hitfield);
+							DebugLog.logInfo(lasthit + " " + hitx + " " + hity + " "+ hitfield);
 							
-							hit = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							HitInfo h = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							hit = h.hasHit();
 							JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
 							JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
 							

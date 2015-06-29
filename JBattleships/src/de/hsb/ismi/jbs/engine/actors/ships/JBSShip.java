@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
 import de.hsb.ismi.jbs.engine.game.Direction;
+import de.hsb.ismi.jbs.engine.game.HitInfo;
 import de.hsb.ismi.jbs.engine.game.JBSDamageType;
 import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
@@ -176,19 +177,15 @@ public class JBSShip{
 	 * @return
 	 */
 	public boolean checkHealth() {
-		
 		if(!isAlive()){
 			return false;
 		}
-		
 		health = length;
-		
 		for(JBSActor actor : this.shipActors){
 			if(actor.isHit()){
 				this.health--;
 			}
 		}
-		
 		return isAlive();
 	}
 	
@@ -200,23 +197,53 @@ public class JBSShip{
 		return isAlive() && cooldown == 0;
 	}
 	
-	public boolean shoot(int x, int y, Direction direction, JBSGameField field){
-		
-		boolean end = false;	
+	/**
+	 * Shoots with the given position and rotation on the specified gamefield.
+	 * @param x
+	 * @param y
+	 * @param direction
+	 * @param field
+	 * @return
+	 */
+	public HitInfo shoot(int x, int y, Direction direction, JBSGameField field){
+		HitInfo info = new HitInfo();
+		int damage = 0;
 		for(int i = 0 ; i < shotpower ; i++){
 			if(direction == Direction.NORTH){				
-				if(field.shootField(x, y-i)){end = true;};
+				if(field.shootField(x, y-i)){
+					damage++;
+				};
 			}else if(direction == Direction.EAST){
-				if(field.shootField(x+i, y)){end = true;};
+				if(field.shootField(x+i, y)){
+					damage++;
+				};
 			}else if(direction == Direction.SOUTH){
-				if(field.shootField(x, y+i)){end = true;};
+				if(field.shootField(x, y+i)){
+					damage++;
+				};
 			}else if(direction == Direction.WEST){
-				if(field.shootField(x-i, y)){end = true;};
+				if(field.shootField(x-i, y)){
+					damage++;
+				};
 			}		
-		}	
-		return end;			
+		}
+		info.setHitLocation(new Vector2i(x, y));
+		info.setHitDirection(direction);
+		info.setDamageType(this.damageType);
+		info.setHitActor(field.getField(x, y));
+		System.out.println(damage);
+		System.out.println(damage != 0);
+		info.setDamage(damage);
+		info.setHasHit(damage != 0);
+		return info;			
 	}
 	
+	/**
+	 * Sets the ships position.
+	 * @param x
+	 * @param y
+	 * @param direction
+	 */
 	public void setPositon(int x, int y, Direction direction) {
 		this.position.setX(x);
 		this.position.setY(y);

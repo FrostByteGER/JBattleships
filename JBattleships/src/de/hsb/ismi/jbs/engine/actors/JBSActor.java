@@ -11,9 +11,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.game.Direction;
-import de.hsb.ismi.jbs.engine.game.JBSObject;
 import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
+import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 
 /**
  * @author Kevin Kuegler
@@ -21,23 +21,23 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({JBSShipActor.class})
-public class JBSActor extends JBSObject{
+public class JBSActor{
 	
-	//TODO: maybe remove transient!
+	//TODO: maybe remove Xmltransient!
 	@XmlTransient
-	private transient JBSPlayer player = null;
+	private JBSPlayer player   = null;
 	@XmlElement(name = "ActorLocation")
-	private Vector2i location = new Vector2i();
+	private Vector2i location            = new Vector2i();
 	@XmlElement(name = "ActorRotation")
-	private Direction rotation = null;
+	private Direction rotation           = null;
 	@XmlElement(name = "Hitted")
-	private boolean isHit = false;
+	private boolean isHit                = false;
 	@XmlElement(name = "Visibility")
-	private boolean visibility = true;
+	private boolean visibility           = true;
 	@XmlElement(name = "Name")
-	private String name;
+	private String name                  = "Undefined";
 	@XmlTransient
-	private JBSActorComponent components = new JBSActorComponent(new String[]{"watertest64.png"});
+	private JBSActorComponent component = new JBSActorComponent(new String[]{"watertest64.png"});
 	
 	/**
 	 * 
@@ -50,16 +50,7 @@ public class JBSActor extends JBSObject{
 	 * 
 	 */
 	public JBSActor(String name) {
-		//components =  new JBSActorComponent(new String[]{"watertest64.png","watertest64_1.png","watertest64_2.png"});
-
 		this.name = name; // TODO
-	}
-
-	/**
-	 * @param replicated
-	 */
-	public JBSActor(boolean replicated) {
-		super(replicated);
 	}
 
 	/**
@@ -75,9 +66,10 @@ public class JBSActor extends JBSObject{
 		this.location = location;
 		this.rotation = rotation;
 		this.visibility = visibility;
-		this.components = components;
+		this.component = components;
 	}
 	
+	@Deprecated
 	public boolean isControlledByPlayer(){
 		return false;
 	}
@@ -88,6 +80,11 @@ public class JBSActor extends JBSObject{
 
 	public void setHit(boolean isHit) {
 		this.isHit = isHit;
+		try{
+		component.setActiveAnimationIndex(isHit ? 1 : 0);
+		}catch(IllegalArgumentException iae){
+			DebugLog.logError(iae);
+		}
 	}
 
 	/**
@@ -147,17 +144,17 @@ public class JBSActor extends JBSObject{
 	}
 
 	/**
-	 * @return the components
+	 * @return the component
 	 */
 	public final JBSActorComponent getComponents() {
-		return components;
+		return component;
 	}
 
 	/**
-	 * @param components the components to set
+	 * @param component the component to set
 	 */
 	public final void setComponents(JBSActorComponent components) {
-		this.components = components;
+		this.component = components;
 	}
 
 	/**

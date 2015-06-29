@@ -30,7 +30,9 @@ public class JBSCorvette extends JBSShip {
 		super.setPositon(x, y, direction);
 		
 		for(int i = 0 ; i < getShipActors().size() ; i++){
-			getShipActors().get(i).setComponents(new JBSActorComponent(new String[]{"corvette_"+i+"_"+direction.getStringDirection()+".png"}));
+			String[] animations = new String[]{"corvette_"+i+"_"+direction.getStringDirection()+".png",
+											   "corvette_dmg_"+i+"_"+direction.getStringDirection()+".png"};
+			getShipActors().get(i).setComponents(new JBSActorComponent(animations));
 		}
 	}
 }

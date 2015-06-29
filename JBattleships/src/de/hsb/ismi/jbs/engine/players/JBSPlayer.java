@@ -29,7 +29,7 @@ public class JBSPlayer{
 	private transient JBSProfile profile = new JBSProfile();
 	@XmlElement(name = "Ship")
 	@XmlElementWrapper(name = "PlayerShips")
-	private ArrayList<JBSShip> ships = new ArrayList<JBSShip>(0);
+	private ArrayList<JBSShip> ships = new ArrayList<JBSShip>();
 	@XmlElement(name = "Alive")
 	private boolean isAlive = true;
 	@XmlElement(name = "PlayerField")
@@ -53,9 +53,6 @@ public class JBSPlayer{
 	 * 
 	 */
 	public JBSPlayer(String name) {
-		ships = new ArrayList<JBSShip>();
-		playerField = null;
-		isAlive = true;
 		profile = new JBSProfile(name);
 	}
 	
@@ -63,9 +60,15 @@ public class JBSPlayer{
 	 * 
 	 */
 	public JBSPlayer(String name, JBSGameField playerField) {
-		ships = new ArrayList<JBSShip>();
 		this.playerField = playerField;
-		isAlive = true;
+	}
+	
+	/**
+	 * 
+	 */
+	public JBSPlayer(String name, JBSGameField playerField, GameStatistics stats) {
+		this.playerField = playerField;
+		this.statistics = stats;
 	}
 	
 	public void setShips(ArrayList<JBSShip> ships){

@@ -31,7 +31,9 @@ public class JBSSubmarine extends JBSShip {
 		super.setPositon(x, y, direction);
 		
 		for(int i = 0 ; i < getShipActors().size() ; i++){
-			getShipActors().get(i).setComponents(new JBSActorComponent(new String[]{"submarine_"+i+"_"+direction.getStringDirection()+".png"}));
+			String[] animations = new String[]{"submarine_"+i+"_"+direction.getStringDirection()+".png",
+											   "submarine_dmg_"+i+"_"+direction.getStringDirection()+".png"};
+			getShipActors().get(i).setComponents(new JBSActorComponent(animations));
 		}
 	}
 	

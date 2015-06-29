@@ -33,7 +33,9 @@ public class JBSDestroyer extends JBSShip {
 		super.setPositon(x, y, direction);
 		
 		for(int i = 0 ; i < getShipActors().size() ; i++){
-			getShipActors().get(i).setComponents(new JBSActorComponent(new String[]{"destroyer_"+i+"_"+direction.getStringDirection()+".png"}));
+			String[] animations = new String[]{"destroyer_"+i+"_"+direction.getStringDirection()+".png",
+											   "destroyer_dmg_"+i+"_"+direction.getStringDirection()+".png"};
+			getShipActors().get(i).setComponents(new JBSActorComponent(animations));
 		}
 	}
 }

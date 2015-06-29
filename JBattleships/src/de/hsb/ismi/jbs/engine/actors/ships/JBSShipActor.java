@@ -26,7 +26,6 @@ public class JBSShipActor extends JBSActor {
 	 * 
 	 */
 	public JBSShipActor() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,15 +34,6 @@ public class JBSShipActor extends JBSActor {
 	public JBSShipActor(String name ,JBSShip parent) {
 		super(name);
 		this.parent = parent;
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param replicated
-	 */
-	public JBSShipActor(boolean replicated) {
-		super(replicated);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -56,7 +46,6 @@ public class JBSShipActor extends JBSActor {
 	 */
 	public JBSShipActor(JBSPlayer player, Vector2i location, Direction rotation, int health, boolean visibility, JBSActorComponent components) {
 		super(player, location, rotation, health, visibility, components);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

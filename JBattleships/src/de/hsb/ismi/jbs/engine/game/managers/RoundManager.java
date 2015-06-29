@@ -4,7 +4,10 @@
 package de.hsb.ismi.jbs.engine.game.managers;
 
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.game.Direction;
+import de.hsb.ismi.jbs.engine.game.GameStatistics;
+import de.hsb.ismi.jbs.engine.game.HitInfo;
 import de.hsb.ismi.jbs.engine.game.RoundListener;
 import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 import de.hsb.ismi.jbs.start.JBattleships;
@@ -20,38 +23,10 @@ public class RoundManager implements RoundListener{
 	private JBSPlayer target = null;
 	private JBSPlayer source = null;
 	private JBSShip ship = null;
-	private int x = -1;
-	private int y = -1;
-	private Direction direction = null;
+	
+	private HitInfo hitInfo = new HitInfo();
 
 	public RoundManager(){
-	}
-	
-	/**
-	 * 
-	 */
-	private boolean processRound(){
-		if(ship.isAlive() && ship.canShoot()){
-			boolean hit = ship.shoot(x, y, direction, target.getPlayerField());
-			
-			JBattleships.game.getGameManager().getGame().checkShipsHealth();
-			target.checkIsAlive();
-			return hit;
-		}else{
-			return false;
-		}
-	}
-	
-	/**
-	 * 
-	 */
-	private void analyzeRound(){
-		target.getPlayerField().isFieldWaterHit(x, y);
-		if(JBattleships.game.getGameManager().getGame().isGameOver()){
-			fireEndRound(source);
-			JBattleships.game.getGameManager().endGame(false);
-		}else{
-		}
 	}
 	
 	/**
@@ -66,23 +41,59 @@ public class RoundManager implements RoundListener{
 	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireRound(de.hsb.ismi.jbs.engine.core.JBSPlayer, de.hsb.ismi.jbs.engine.core.JBSPlayer, de.hsb.ismi.jbs.engine.core.JBSShip, int, int, de.hsb.ismi.jbs.engine.core.Direction)
 	 */
 	@Override
-	public boolean fireRound(JBSPlayer target, JBSPlayer source, JBSShip ship, int x, int y, Direction direction) {
+	public HitInfo fireRound(JBSPlayer target, JBSPlayer source, JBSShip ship, int x, int y, Direction direction) {
 		this.target = target;
 		this.source = source;
 		this.ship = ship;
-		this.x = x;
-		this.y = y;
-		this.direction = direction;
-		return processRound();
+		if(ship.isAlive() && ship.canShoot()){
+			hitInfo = ship.shoot(x, y, direction, target.getPlayerField());
+			JBattleships.game.getGameManager().getGame().checkShipsHealth();
+			target.checkIsAlive();
+		}
+		hitInfo.setSource(source);
+		hitInfo.setTarget(target);
+		hitInfo.setSourceShip(ship);
+		return hitInfo;
 	}
 	
 	/* (non-Javadoc)
 	 * @see de.hsb.ismi.jbs.engine.core.RoundListener#fireAnalyzeRound()
 	 */
 	@Override
-	public void fireAnalyzeRound(JBSPlayer source) {
+	public boolean fireAnalyzeRound(JBSPlayer source) {
 		this.source = source;
-		analyzeRound();
+		
+		GameStatistics sourceStats = source.getStatistics();
+		GameStatistics targetStats = target.getStatistics();
+		
+		sourceStats.increaseFiredShots(hitInfo.getDamageType().value);
+		if(hitInfo.hasHit()){
+			sourceStats.increaseShotsHit(hitInfo.getDamage());
+			if(hitInfo.getHitActor() instanceof JBSShipActor){
+				JBSShip ship = ((JBSShipActor)hitInfo.getHitActor()).getParent();
+				sourceStats.increaseDestroyedShips(ship.isAlive() ? 1 : 0);
+				targetStats.increaseLostShips(ship.isAlive() ? 0 : 1);
+			}
+		}else{
+			sourceStats.increaseMissedShots(hitInfo.getDamageType().value);
+		}
+		
+		
+		if(JBattleships.game.getGameManager().getGame().isGameOver()){
+			fireEndRound(source);
+			sourceStats.setWin(true);
+			boolean flawless = true;
+			for(JBSShip ship : source.getShips()){
+				if(!ship.isAlive()){
+					flawless = false;
+					break;
+				}
+			}
+			sourceStats.setFlawlessWin(flawless);
+			JBattleships.game.getGameManager().endGame(false);
+			return true;
+		}
+		return false;
 	}
 	
 
@@ -106,9 +117,6 @@ public class RoundManager implements RoundListener{
 		this.target = null;
 		this.source = null;
 		this.ship = null;
-		this.x = -1;
-		this.y = -1;
-		this.direction = null;
 		ended = false;
 	}
 

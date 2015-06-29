@@ -20,7 +20,7 @@ public class JBSFrigate extends JBSShip {
 	public JBSFrigate() {
 		super(2, 0, 2, JBSDamageType.DAMAGE_MEDIUM);
 		setName(JBattleships.game.getLocalization("Frigate"));
-		addShipPart(new JBSShipActor("JBSFrigate",this));
+		addShipPart(new JBSShipActor("JBSFrigate", this));
 		addShipPart(new JBSShipActor("JBSFrigate", this));
 		
 	}
@@ -30,7 +30,9 @@ public class JBSFrigate extends JBSShip {
 		super.setPositon(x, y, direction);
 		
 		for(int i = 0 ; i < getShipActors().size() ; i++){
-			getShipActors().get(i).setComponents(new JBSActorComponent(new String[]{"frigatte_"+i+"_"+direction.getStringDirection()+".png"}));
+			String[] animations = new String[]{"frigatte_"+i+"_"+direction.getStringDirection()+".png",
+					   						   "frigatte_dmg_"+i+"_"+direction.getStringDirection()+".png"};
+			getShipActors().get(i).setComponents(new JBSActorComponent(animations));
 		}
 	}
 	

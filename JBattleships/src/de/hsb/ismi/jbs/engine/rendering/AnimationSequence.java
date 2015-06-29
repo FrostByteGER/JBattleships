@@ -30,6 +30,10 @@ public class AnimationSequence{
 	public AnimationSequence() {
 	}
 	
+	/**
+	 * 
+	 * @param sprites
+	 */
 	public AnimationSequence(BufferedImage[] sprites){
 		this.sourceSprites = sprites;
 		resizedSprites = sprites;

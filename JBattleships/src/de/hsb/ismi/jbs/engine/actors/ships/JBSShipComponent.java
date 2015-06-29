@@ -14,8 +14,7 @@ public class JBSShipComponent extends JBSActorComponent {
 	/**
 	 * @param replicated
 	 */
-	public JBSShipComponent(boolean replicated) {
-		super(replicated);
-		// TODO Auto-generated constructor stub
+	public JBSShipComponent(String[] animationName) {
+		super(animationName);
 	}
 }

@@ -3,11 +3,8 @@
  */
 package de.hsb.ismi.jbs.engine.actors;
 
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import de.hsb.ismi.jbs.engine.game.JBSObject;
 import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -15,48 +12,37 @@ import de.hsb.ismi.jbs.start.JBattleships;
  * @author Kevin Kuegler
  * @version 1.00
  */
-public class JBSActorComponent extends JBSObject {
+public class JBSActorComponent {
 
-	private AnimationSequence[] animation;
+	/** Contains the animations for this actor. */
+	private AnimationSequence[] animations = null;
 		
-	private String imagePath;
-	private JBSActor parent;
-	private BufferedImage[][] images;
-	private BufferedImage[][] resizeimages;
+	private String imagePath = "";
+	private JBSActor parent = null;
 	
 	private int imagecount;
-	private int activanimation;
+	private int activeAnimationIndex = 0;
 	private int imageamount;
 	private int animationamount;
 	
-	private int size = 64;
 	
 	public JBSActorComponent(String[] animationname) {
 		
-		this.animation = new AnimationSequence[animationname.length];
+		this.animations = new AnimationSequence[animationname.length];
 		this.animationamount = animationname.length;
 		
 		for(int i = 0 ; i < animationname.length ; i++){
-			this.animation[i] = JBattleships.game.getDataManager().getResourceManager().getAnimationSequence(animationname[i]);
+			this.animations[i] = JBattleships.game.getDataManager().getResourceManager().getAnimationSequence(animationname[i]);
 		}
 		
-		if(this.animation.length > 0){
-			this.imageamount = this.animation[0].getSourceSprites().length;
+		if(this.animations.length > 0){
+			this.imageamount = this.animations[0].getSourceSprites().length;
 		}
 	}
 
 	/**
-	 * @param replicated
-	 */
-	public JBSActorComponent(boolean replicated) {
-		super(replicated);
-		
-	} 
-
-	/**
 	 * @param imagePath
 	 * @param parent
-	 * @param destroyed
 	 */
 	public JBSActorComponent(String imagePath, JBSActor parent) {
 		super();
@@ -64,35 +50,15 @@ public class JBSActorComponent extends JBSObject {
 		this.parent = parent;
 	}
 	
+	@Deprecated
 	public void startAnimation(int animationnuber){
-		activanimation = animationnuber%animationamount;
+		//activeAnimationIndex = animationnuber%animationamount;
 	}
 	
-	//TODO Remove
-	/*
-	public void resize(int size){
-		
-		Graphics2D g = null; 
-		
-		for(int i = 0 ; i < animationamount ; i++){
-			for(int j = 0 ; j < imageamount ; j++){
-				//resizeimages[i][j] = images[i][j];
-				
-				resizeimages[i][j] = new BufferedImage(size, size, BufferedImage.TRANSLUCENT);
-				
-				g = resizeimages[i][j].createGraphics();
-				
-				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-					    RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
-				g.drawImage(images[i][j], 0, 0, size, size, null);
-				g.dispose();
-			}
-		}
-	}
-	*/
 	public void nextImage(){
 		if(imagecount == imageamount-1){
-			activanimation = 0;
+			//TODO: Remove
+			//activeAnimationIndex = 0;
 			imagecount = 0;
 		}else{
 			imagecount++;
@@ -100,16 +66,9 @@ public class JBSActorComponent extends JBSObject {
 	}
 	
 	public BufferedImage getImage(){
-		return animation[activanimation].getSourceSprites()[imagecount];
+		return animations[activeAnimationIndex].getSourceSprites()[imagecount];
 	}
-	/*OLD TODO
-	public BufferedImage getImage(){
-		
-		return resizeimages[ activanimation][imagecount];
-		
-		//return imagesorce.getSubimage(imagecount*size,activanimation*size , size, size);
-	}
-	*/
+	
 	/**
 	 * @return the parent
 	 */
@@ -146,17 +105,22 @@ public class JBSActorComponent extends JBSObject {
 	}
 
 	/**
-	 * @return the activanimation
+	 * @return the activeAnimationIndex
 	 */
 	public int getActivanimation() {
-		return activanimation;
+		return activeAnimationIndex;
 	}
 
 	/**
-	 * @param activanimation the activanimation to set
+	 * @param activeAnimationIndex the activeAnimationIndex to set
 	 */
-	public void setActivanimation(int activanimation) {
-		this.activanimation = activanimation;
+	public void setActiveAnimationIndex(int index){
+		if(index >= 0 && index < animationamount){
+			this.activeAnimationIndex = index;
+		}else{
+			throw new IllegalArgumentException("Animationindex must be >= 0 and < animationcount");
+		}
+		
 	}
 
 	/**

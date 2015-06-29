@@ -18,7 +18,7 @@ import de.hsb.ismi.jbs.core.JBSCoreGame;
 
 /**
  * Simple customizable debugging-class. Logs 3 different types of messages:<br>
- * - Simple Infomessages<br>
+ * - Simple Info-messages<br>
  * - Warnings<br>
  * - Exceptions.
  * @author Kevin Kuegler
@@ -53,7 +53,10 @@ public class DebugLog {
 	// Logs
 	private static ArrayList<String> infoLog             = new ArrayList<>(bufferLimit);
 	private static ArrayList<String> warningLog          = new ArrayList<>(bufferLimit);
-	private static ArrayList<Exception> errorLog = new ArrayList<>(bufferLimit);
+	private static ArrayList<Exception> errorLog         = new ArrayList<>(bufferLimit);
+	
+	// Excluded exceptions
+	private static ArrayList<Exception> excludedExceptions = new ArrayList<>();
 	
 	// Debugger Info
 	public static final String VERSION = "1.00";
@@ -181,10 +184,107 @@ public class DebugLog {
 	}
 	
 	/**
+	 * @return the excludedExceptions
+	 */
+	public static final ArrayList<Exception> getExcludedExceptions() {
+		return excludedExceptions;
+	}
+
+	/**
+	 * @param excludedExceptions the excludedExceptions to set
+	 */
+	public static final void setExcludedExceptions(ArrayList<Exception> excludedExceptions) {
+		DebugLog.excludedExceptions = excludedExceptions;
+	}
+
+	/**
+	 * Adds the given exception to the excluded exceptions.
+	 * @param e The exception to add.
+	 */
+	public static void addExcludedException(Exception e){
+		if(!excludedExceptions.contains(e)){
+			excludedExceptions.add(e);
+		}
+	}
+	
+	/**
+	 * Removes the given exception from the excluded exceptions-list.
+	 * @param eThe exception to remove.
+	 */
+	public static void removeExcludedException(Exception e){
+		excludedExceptions.remove(e);
+	}
+	
+	
+	/**
 	 * Logs the given info to the outputstream and buffers it. Also prints it to the gui.
 	 * @param info The info to print and add.
 	 */
 	public static void logInfo(String info){
+		if(logInfos){
+			outputStream.println(DEBUG_LINE + INFO_LINE);
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			outputStream.flush();
+			addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			if(debugFrame != null){
+				debugFrame.addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			}
+		}
+	}
+	
+	/**
+	 * Logs the given info to the outputstream and buffers it. Also prints it to the gui.
+	 * @param info The info to print and add.
+	 */
+	public static void logInfo(boolean info){
+		if(logInfos){
+			outputStream.println(DEBUG_LINE + INFO_LINE);
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			outputStream.flush();
+			addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			if(debugFrame != null){
+				debugFrame.addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			}
+		}
+	}
+	
+	/**
+	 * Logs the given info to the outputstream and buffers it. Also prints it to the gui.
+	 * @param info The info to print and add.
+	 */
+	public static void logInfo(int info){
+		if(logInfos){
+			outputStream.println(DEBUG_LINE + INFO_LINE);
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			outputStream.flush();
+			addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			if(debugFrame != null){
+				debugFrame.addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			}
+		}
+	}
+	
+	/**
+	 * Logs the given info to the outputstream and buffers it. Also prints it to the gui.
+	 * @param info The info to print and add.
+	 */
+	public static void logInfo(float info){
+		if(logInfos){
+			outputStream.println(DEBUG_LINE + INFO_LINE);
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			outputStream.flush();
+			addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			if(debugFrame != null){
+				debugFrame.addInfo(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
+			}
+		}
+	}
+	
+	/**
+	 * Logs the given info to the outputstream and buffers it. Also prints it to the gui.
+	 * @param info The info to print and add.
+	 */
+	public static void logInfo(double info){
 		if(logInfos){
 			outputStream.println(DEBUG_LINE + INFO_LINE);
 			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + info);
@@ -213,11 +313,75 @@ public class DebugLog {
 	}
 	
 	/**
+	 * Logs the given warning to the outputstream and buffers it. Also prints it to the gui.
+	 * @param warning The warning to print and add.
+	 */
+	public static void logWarning(boolean warning){
+		if(logWarnings){
+			outputStream.println(DEBUG_LINE + WARNING_LINE);
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
+			outputStream.flush();
+			addWarning(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
+			if(debugFrame != null){
+				debugFrame.addWarning(DEBUG_LINE  + LocalDateTime.now().format(formatter) + " " + warning);
+			}
+		}
+	}
+	
+	/**
+	 * Logs the given warning to the outputstream and buffers it. Also prints it to the gui.
+	 * @param warning The warning to print and add.
+	 */
+	public static void logWarning(int warning){
+		if(logWarnings){
+			outputStream.println(DEBUG_LINE + WARNING_LINE);
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
+			outputStream.flush();
+			addWarning(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
+			if(debugFrame != null){
+				debugFrame.addWarning(DEBUG_LINE  + LocalDateTime.now().format(formatter) + " " + warning);
+			}
+		}
+	}
+	
+	/**
+	 * Logs the given warning to the outputstream and buffers it. Also prints it to the gui.
+	 * @param warning The warning to print and add.
+	 */
+	public static void logWarning(float warning){
+		if(logWarnings){
+			outputStream.println(DEBUG_LINE + WARNING_LINE);
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
+			outputStream.flush();
+			addWarning(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
+			if(debugFrame != null){
+				debugFrame.addWarning(DEBUG_LINE  + LocalDateTime.now().format(formatter) + " " + warning);
+			}
+		}
+	}
+	
+	/**
+	 * Logs the given warning to the outputstream and buffers it. Also prints it to the gui.
+	 * @param warning The warning to print and add.
+	 */
+	public static void logWarning(double warning){
+		if(logWarnings){
+			outputStream.println(DEBUG_LINE + WARNING_LINE);
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
+			outputStream.flush();
+			addWarning(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + warning);
+			if(debugFrame != null){
+				debugFrame.addWarning(DEBUG_LINE  + LocalDateTime.now().format(formatter) + " " + warning);
+			}
+		}
+	}
+	
+	/**
 	 * Logs the given error to the outputstream and buffers it. Also prints it to the gui.
 	 * @param e The exception to print and add.
 	 */
 	public static void logError(Exception e){
-		if(logErrors){
+		if(logErrors && !excludedExceptions.contains(e)){
 			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + ERROR_LINE);
 			outputStream.print(DEBUG_LINE);
 			e.printStackTrace(outputStream);
@@ -304,6 +468,7 @@ public class DebugLog {
 	
 	/**
 	 * Writes the buffered exceptions to the specified file.
+	 * TODO: Add timestamp!
 	 * @param path The filepath. If null or empty, a new name will be generated.
 	 * @param flushBuffer Flushes the exception-buffer after writing.
 	 * @throws IOException Indicates an IO error during writing the file.
