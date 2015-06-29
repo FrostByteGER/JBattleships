@@ -175,7 +175,7 @@ public class JBSAIPlayer extends JBSPlayer {
 							}	
 							hitdirection = Direction.getRandomDirection(r);
 														
-							hit = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							hit = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection).hasHit();
 							
 							DebugLog.logInfo(lasthit + " " + hitx + " " + hity + " "+ hitfield);
 							
