@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
@@ -25,8 +26,8 @@ import de.hsb.ismi.jbs.engine.game.JBSGameField;
 @XmlSeeAlso({JBSAIPlayer.class})
 public class JBSPlayer{
 	
-	@XmlElement(name = "PlayerProfile")
-	private transient JBSProfile profile = new JBSProfile();
+	@XmlTransient
+	private JBSProfile profile = new JBSProfile();
 	@XmlElement(name = "Ship")
 	@XmlElementWrapper(name = "PlayerShips")
 	private ArrayList<JBSShip> ships = new ArrayList<JBSShip>();

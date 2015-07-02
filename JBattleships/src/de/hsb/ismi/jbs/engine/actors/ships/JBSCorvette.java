@@ -3,6 +3,9 @@
  */
 package de.hsb.ismi.jbs.engine.actors.ships;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import de.hsb.ismi.jbs.engine.actors.JBSActorComponent;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.JBSDamageType;
@@ -12,6 +15,7 @@ import de.hsb.ismi.jbs.start.JBattleships;
  * @author Jan Schult
  *
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class JBSCorvette extends JBSShip {
 
 	/**
