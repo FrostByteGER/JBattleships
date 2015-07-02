@@ -77,7 +77,10 @@ public class JBSCoreGame {
 	 * @return
 	 */
 	public boolean initGame(){
-		if(initResources() && initSettings() && initLocalization() && initConfigs() && initProfiles()){
+		if(initResources() && initLocalization() && initConfigs()){
+			initSettings();
+			initProfiles();
+			initGameGUI();
 			return true;
 		}else{
 			return false;
@@ -183,7 +186,8 @@ public class JBSCoreGame {
 	 * @return
 	 */
 	public boolean initProfiles(){
-		return true;
+		String name = dataManager.getOptionsManager().getGameData().get("activeProfile");
+		return dataManager.getProfileManager().loadProfile(name, true);
 	}
 	
 	/**

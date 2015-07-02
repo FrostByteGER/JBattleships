@@ -26,7 +26,6 @@ public class JBattleships {
 		DebugLog.setDebugFrame(d);
 		
 		game = new JBSCoreGame(true);
-		game.initGameGUI();
 	}
 }
 

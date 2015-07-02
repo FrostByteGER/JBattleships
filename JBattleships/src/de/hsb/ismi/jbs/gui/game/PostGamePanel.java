@@ -60,6 +60,7 @@ public class PostGamePanel extends JPanel {
 		for(int i = 0; i < game.getPlayers().length; i++){
 			JBSPlayer p = game.getPlayers()[i];
 			GameStatistics gs = p.getStatistics();
+			p.getProfile().getStats().addGameStatistics(gs);
 			PlayerStatsPanel psp = new PlayerStatsPanel(parent);
 			psp.setFiredShots(gs.getFiredShots());
 			psp.setMissedShots(gs.getShotsMissed());
@@ -73,8 +74,8 @@ public class PostGamePanel extends JPanel {
 			psp.setFlawlessWin(gs.isFlawlessWin());
 			statsPanels[i] = psp;
 			playerStatsPane.addTab(p.getName(), psp);
-			// TODO: Add stats here to active player profile.
 		}
+		JBattleships.game.getDataManager().getProfileManager().saveActiveProfile();
 		
 		buttonPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) buttonPanel.getLayout();

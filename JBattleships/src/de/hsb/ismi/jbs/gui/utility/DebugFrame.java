@@ -21,6 +21,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import de.hsb.ismi.jbs.engine.utility.Utility;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugListener;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 
@@ -193,10 +194,10 @@ public class DebugFrame extends JFrame implements DebugListener{
 	@Override
 	public void addError(Exception error) {
 		if(errorArea.getLineCount() < DebugLog.getBufferlimit()){
-			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " +  error.getMessage() + System.lineSeparator());
+			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " +  Utility.stackTraceToString(error) + System.lineSeparator());
 		}else{
 			errorArea.setText("");
-			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " + error.getMessage() + System.lineSeparator());
+			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " + Utility.stackTraceToString(error) + System.lineSeparator());
 		}
 	}
 }

@@ -3,27 +3,47 @@
  */
 package de.hsb.ismi.jbs.engine.game;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * 
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GameStatistics {
 	
+	@XmlElement(name = "FiredShots")
 	private int firedShots               = 0;
+	@XmlElement(name = "MissedShots")
 	private int missedShots              = 0;
+	@XmlElement(name = "ShotsHit")
 	private int shotsHit                 = 0;
+	@XmlElement(name = "ShipsLost")
 	private int shipsLost                = 0;
+	@XmlElement(name = "ShipsDestroyed")
 	private int shipsDestroyed           = 0;
+	@XmlElement(name = "NavalMinesHit")
 	private int navalMinesHit            = 0;
+	@XmlElement(name = "NavalMinesUsed")
 	private boolean navalMinesUsed       = false;
+	@XmlElement(name = "CoastalArtilleryUsed")
 	private boolean coastalArtilleryUsed = false;
+	@XmlElement(name = "CoastalArtilleryHit")
 	private boolean coastalArtilleryHit  = false;
+	@XmlTransient
 	private boolean flawlessWin          = false;
+	@XmlTransient
 	private boolean win                	 = false;
 	
+	/**
+	 * 
+	 */
 	public GameStatistics() {
-		//TODO: Add into game.
+
 	}
 
 	/**

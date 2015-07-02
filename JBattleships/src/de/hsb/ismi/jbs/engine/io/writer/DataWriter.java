@@ -8,8 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import de.hsb.ismi.jbs.core.JBSCoreGame;
-import de.hsb.ismi.jbs.engine.utility.Utility;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 
 /**

@@ -8,21 +8,23 @@ import java.util.HashMap;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Kevin Kuegler
  * @version 1.00
  */
+@XmlRootElement(name = "Profile")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JBSProfile {
 	
 	@XmlTransient
-	private int id = -1;
+	private int id = 0;
 	@XmlElement(name = "PlayerName")
 	private String name = "default";
-	@XmlTransient
-	private HashMap<String, Float> stats = new HashMap<String, Float>(0);
+	@XmlElement(name = "PlayerStatistics")
+	private ProfileStatistics stats = new ProfileStatistics();
 	@XmlTransient
 	private HashMap<String, Achievement> achievements = new HashMap<String, Achievement>(0);
 
@@ -59,5 +61,19 @@ public class JBSProfile {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the stats
+	 */
+	public final ProfileStatistics getStats() {
+		return stats;
+	}
+
+	/**
+	 * @param stats the stats to set
+	 */
+	public final void setStats(ProfileStatistics stats) {
+		this.stats = stats;
 	}
 }
