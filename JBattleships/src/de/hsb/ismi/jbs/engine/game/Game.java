@@ -45,7 +45,7 @@ public class Game {
 	public Game(JBSGameType gameType, JBSPlayer[] players, int[] shipCount) {
 		this.gameType = gameType;
 		this.players = players;
-		this.activePlayer = 0;//TODO may change
+		this.activePlayer = 0;
 		this.shipCount = shipCount;
 	}
 
