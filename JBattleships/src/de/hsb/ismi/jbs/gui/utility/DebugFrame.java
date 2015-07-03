@@ -88,10 +88,13 @@ public class DebugFrame extends JFrame implements DebugListener{
 			int index = tabbedPane.getSelectedIndex();
 			if(index == 0){
 				infoArea.setText("");
+				DebugLog.flushInfoLog();
 			}else if(index == 1){
 				warningArea.setText("");
+				DebugLog.flushWarningLog();
 			}else if(index == 2){
 				errorArea.setText("");
+				DebugLog.flushErrorLog();
 			}
 		});
 		

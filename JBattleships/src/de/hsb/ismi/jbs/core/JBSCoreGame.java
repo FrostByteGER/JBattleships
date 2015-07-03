@@ -4,8 +4,10 @@
 package de.hsb.ismi.jbs.core;
 
 import java.awt.EventQueue;
+import java.io.IOException;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import de.hsb.ismi.jbs.engine.game.managers.GameManager;
@@ -36,13 +38,16 @@ public class JBSCoreGame {
 	public static JBSIOQueue<String> ioQueue = new JBSIOQueue<String>();
 	/** The Path of the Datafolder with all important content. */
 	public static final String DATA_PATH = "Data/";
-	/** TODO: JAVADOC */
-	public static final String MSG_LOGGER_KEY = "Logger";
 	/** Enables debug functionality and the MessageLogger. */
 	public static boolean DEBUG_MODE = true;
 	/** Allows to resize the game window. */
 	public static final boolean RESIZABLE = false;
-	
+	/** Minimum Java version to run the game. */
+	public static final double MIN_JAVA_VERSION = 1.8;
+	/** Supported operating systems of the game. */
+	public static final String[] SUPPORTED_OS = {"Windows 7", "Windows 8", "Windows 10"};
+	/** */
+	public static final String LOG_PATH = DATA_PATH + "Logs/";
 	/** Contains the game's current resolution. */
 	private Resolution currentResolution = new Resolution(800, 600);
 	/** The game's current screenMode. */
@@ -67,6 +72,21 @@ public class JBSCoreGame {
 		DebugLog.setLogInfos(true);
 		DebugLog.setLogWarnings(true);
 		DebugLog.setLogErrors(true);
+		
+		//Pre Game Checks
+		try {
+			checkOS();
+		} catch (UnsupportedOSException e) {
+			DebugLog.logError(e);
+			exitGame();
+		}
+		try {
+			checkJavaVersion();
+		} catch (IncorrectJavaVersionException e) {
+			DebugLog.logError(e);
+			exitGame();
+		}
+
 		if(initGame){
 			initGame();
 		}
@@ -77,7 +97,12 @@ public class JBSCoreGame {
 	 * @return
 	 */
 	public boolean initGame(){
-		if(initResources() && initLocalization() && initConfigs()){
+		boolean resources = initResources();
+		boolean localization = initLocalization();
+		boolean configs = initConfigs();
+		
+		
+		if(resources && localization && configs){
 			initSettings();
 			initProfiles();
 			initGameGUI();
@@ -94,6 +119,7 @@ public class JBSCoreGame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					//TODO: Change to something else, to support multiple platforms.
 					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //ALWAYS SET BEFORE CREATING THE FRAME!
 					mainGUI = new JBSGUI();
 					mainGUI.initGUI(currentResolution, screenMode);
@@ -206,12 +232,50 @@ public class JBSCoreGame {
 		dataManager.getLocalizationManager().loadLanguageTable();
 		return dataManager.getLocalizationManager().loadLanguage(language);
 	}
+	
+	/**
+	 * Checks the current Java version and exits the game if the version is below the minimum major java version.
+	 * @see #MIN_JAVA_VERSION
+	 */
+	public void checkJavaVersion() throws IncorrectJavaVersionException{
+		Double version = Double.parseDouble(System.getProperty("java.specification.version"));
+		
+		if(version < MIN_JAVA_VERSION) {
+			JOptionPane.showMessageDialog(null, "Incorrect Java Version:" + " " + version + "\n" + "Version " + " " + MIN_JAVA_VERSION + " " + "or higher is required!", "Incorrect Java Version", JOptionPane.ERROR_MESSAGE);
+			throw new IncorrectJavaVersionException("Java Version " + version + "is not supported. " + MIN_JAVA_VERSION + " or higher is required.");
+		}
+	}
+	
+	public void checkOS() throws UnsupportedOSException{
+		String os = System.getProperty("os.name");
+		for(String s : SUPPORTED_OS){
+			if(s.equalsIgnoreCase(os)){
+				return;
+			}
+		}
+		JOptionPane.showMessageDialog(null, "Unsupported Operating System:" + " " + os, "Unsupported Operating System", JOptionPane.ERROR_MESSAGE);
+		throw new UnsupportedOSException(os + " is not supported.");
+	}
 
 	/**
 	 * @return the mainGUI
 	 */
 	public final JBSGUI getMainGUI() {
 		return mainGUI;
+	}
+	
+	/**
+	 * Writes the logs and exits the game.
+	 */
+	public static void exitGame(){
+		try {
+			DebugLog.writeInfolog(null, true);
+			DebugLog.writeWarninglog(null, true);
+			DebugLog.writeErrorlog(null, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
 	}
 	
 	/**

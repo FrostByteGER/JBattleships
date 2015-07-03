@@ -424,6 +424,27 @@ public class DebugLog {
 	}
 	
 	/**
+	 * Clears the infoLog.
+	 */
+	public static void flushInfoLog(){
+		infoLog.clear();
+	}
+	
+	/**
+	 * Clears the warningLog.
+	 */
+	public static void flushWarningLog(){
+		warningLog.clear();
+	}
+	
+	/**
+	 * Clears the errorLog.
+	 */
+	public static void flushErrorLog(){
+		errorLog.clear();
+	}
+	
+	/**
 	 * Writes the buffered infos to the specified file.
 	 * @param path The filepath. If null or empty, a new name will be generated.
 	 * @param flushBuffer Flushes the exception-buffer after writing.
@@ -431,9 +452,11 @@ public class DebugLog {
 	 */
 	public static void writeInfolog(String path, boolean flushBuffer) throws IOException{
 		if(path == null || path.isEmpty()){
-			path = JBSCoreGame.DATA_PATH + LocalDateTime.now().format(formatter) + "_" + infoLogName + logExtension;
+			path = JBSCoreGame.LOG_PATH + LocalDateTime.now().format(formatter) + "_" + infoLogName + logExtension;
 		}
-		System.out.println(path);
+		if(infoLog.size() == 0){
+			return;
+		}
 		File log = new File(path);
 		PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(log)), flushBuffer);
 		for(String s : infoLog){
@@ -453,7 +476,10 @@ public class DebugLog {
 	 */
 	public static void writeWarninglog(String path, boolean flushBuffer) throws IOException{
 		if(path == null || path.isEmpty()){
-			path = JBSCoreGame.DATA_PATH + LocalDateTime.now().format(formatter) + "_"  + warningLogName + logExtension;
+			path = JBSCoreGame.LOG_PATH + LocalDateTime.now().format(formatter) + "_"  + warningLogName + logExtension;
+		}
+		if(warningLog.size() == 0){
+			return;
 		}
 		File log = new File(path);
 		PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(log)), flushBuffer);
@@ -475,12 +501,15 @@ public class DebugLog {
 	 */
 	public static void writeErrorlog(String path, boolean flushBuffer) throws IOException{
 		if(path == null || path.isEmpty()){
-			path = JBSCoreGame.DATA_PATH + LocalDateTime.now().format(formatter) + "_"  + errorLogName + logExtension;
+			path = JBSCoreGame.LOG_PATH + LocalDateTime.now().format(formatter) + "_"  + errorLogName + logExtension;
+		}
+		if(errorLog.size() == 0){
+			return;
 		}
 		File log = new File(path);
 		PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(log)), flushBuffer);
 		for(Exception e : errorLog){
-			e.printStackTrace(outputStream);
+			e.printStackTrace(writer);
 		}
 		if(flushBuffer){
 			errorLog.clear();
