@@ -22,7 +22,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 import javax.swing.JComboBox;
-
+import javax.swing.JComponent;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -35,9 +35,9 @@ import javax.swing.JRadioButton;
 import java.awt.Dimension;
 import java.net.Inet4Address;
 import java.util.HashMap;
-import java.util.Locale.Category;
-
-
+import java.util.Hashtable;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ButtonGroup;
 import javax.swing.JSlider;
 
@@ -84,7 +84,7 @@ public class OptionsPanel extends JPanel{
 	private JRadioButton rdbtnLess;
 	private final ButtonGroup buttonGroup;
 	private JLabel lblVolume;
-	private JSlider sliderVolume;
+	private JSlider sliderSound;
 	private JSlider sliderMusic;
 	private JLabel lblMusic;
 	private JLabel lblIP;
@@ -93,7 +93,6 @@ public class OptionsPanel extends JPanel{
 	private JTextField portField;
 	private JLabel lblLang;
 	private JComboBox<String> langBox;
-	private JLabel lblDebugmode;
 	private JCheckBox chckbxDebug;
 	
 	/**
@@ -105,16 +104,15 @@ public class OptionsPanel extends JPanel{
 		setOpaque(false);
 		add(parent.generateHeader(), BorderLayout.NORTH);
 		centerPanel = new JPanel();
-		centerPanel.setOpaque(false);
-		add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
+		add(new AlphaContainer(centerPanel), BorderLayout.CENTER);
 		centerPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		
 		buttonGroup = new ButtonGroup();
 		gfxPanel = new JPanel();
-		gfxPanel.setOpaque(true);
-		gfxPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		centerPanel.add(new AlphaContainer(gfxPanel));
-		gfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), JBattleships.game.getLocalization("GAME_TITLE_GRAPHICS_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		gfxPanel.setOpaque(false);
+		centerPanel.add(gfxPanel);
+		gfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), JBattleships.game.getLocalization("GAME_TITLE_GRAPHICS_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.MAIN_FONT, new Color(0, 0, 0)));
 		GridBagLayout gbl_gfxPanel = new GridBagLayout();
 		gbl_gfxPanel.columnWidths = new int[]{0, 0};
 		gbl_gfxPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -129,6 +127,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(Box.createRigidArea(new Dimension(20, 20)), gbc_rigidArea);
 		
 		lblRes = new JLabel(JBattleships.game.getLocalization("GAME_RESOLUTION"));
+		lblRes.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblRes = new GridBagConstraints();
 		gbc_lblRes.insets = new Insets(0, 0, 5, 0);
 		gbc_lblRes.fill = GridBagConstraints.HORIZONTAL;
@@ -151,6 +150,7 @@ public class OptionsPanel extends JPanel{
 		
 		resBox = new JComboBox<Resolution>(res);
 		resBox.setSelectedIndex(index);
+		resBox.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_resBox = new GridBagConstraints();
 		gbc_resBox.insets = new Insets(0, 0, 5, 0);
 		gbc_resBox.fill = GridBagConstraints.HORIZONTAL;
@@ -165,6 +165,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(Box.createRigidArea(new Dimension(20, 20)), gbc_rigidArea_1);
 		
 		lblMode = new JLabel(JBattleships.game.getLocalization("GAME_GRAPHICS_MODE"));
+		lblMode.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblMode = new GridBagConstraints();
 		gbc_lblMode.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblMode.insets = new Insets(0, 0, 5, 0);
@@ -173,6 +174,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(lblMode, gbc_lblMode);
 		
 		rdbtnFull = new JRadioButton(JBattleships.game.getLocalization("GAME_FULLSCREEN"));
+		rdbtnFull.setFont(JBSGUI.MAIN_FONT);
 		rdbtnFull.setOpaque(false);
 		buttonGroup.add(rdbtnFull);
 		GridBagConstraints gbc_rdbtnFull = new GridBagConstraints();
@@ -183,6 +185,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnFull, gbc_rdbtnFull);
 		
 		rdbtnWin = new JRadioButton(JBattleships.game.getLocalization("GAME_WINDOWED"));
+		rdbtnWin.setFont(JBSGUI.MAIN_FONT);
 		rdbtnWin.setOpaque(false);
 		buttonGroup.add(rdbtnWin);
 		GridBagConstraints gbc_rdbtnWin = new GridBagConstraints();
@@ -193,6 +196,7 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnWin, gbc_rdbtnWin);
 		
 		rdbtnLess = new JRadioButton(JBattleships.game.getLocalization("GAME_BORDERLESS"));
+		rdbtnLess.setFont(JBSGUI.MAIN_FONT);
 		rdbtnLess.setOpaque(false);
 		buttonGroup.add(rdbtnLess);
 		GridBagConstraints gbc_rdbtnLess = new GridBagConstraints();
@@ -202,10 +206,9 @@ public class OptionsPanel extends JPanel{
 		gfxPanel.add(rdbtnLess, gbc_rdbtnLess);
 		
 		sfxPanel = new JPanel();
-		sfxPanel.setOpaque(true);
-		sfxPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		sfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), JBattleships.game.getLocalization("GAME_TITLE_AUDIO_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		centerPanel.add(new AlphaContainer(sfxPanel));
+		sfxPanel.setOpaque(false);
+		sfxPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), JBattleships.game.getLocalization("GAME_TITLE_AUDIO_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.MAIN_FONT, new Color(0, 0, 0)));
+		centerPanel.add(sfxPanel);
 		GridBagLayout gbl_sfxPanel = new GridBagLayout();
 		gbl_sfxPanel.columnWidths = new int[] {0};
 		gbl_sfxPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
@@ -221,6 +224,7 @@ public class OptionsPanel extends JPanel{
 		sfxPanel.add(Box.createRigidArea(new Dimension(20, 20)), gbc_rigidArea_2);
 		
 		lblVolume = new JLabel(JBattleships.game.getLocalization("GAME_VOLUME"));
+		lblVolume.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblVolume = new GridBagConstraints();
 		gbc_lblVolume.insets = new Insets(0, 0, 5, 0);
 		gbc_lblVolume.fill = GridBagConstraints.HORIZONTAL;
@@ -228,17 +232,29 @@ public class OptionsPanel extends JPanel{
 		gbc_lblVolume.gridy = 1;
 		sfxPanel.add(lblVolume, gbc_lblVolume);
 		
-		sliderVolume = new JSlider();
-		sliderVolume.setPaintTicks(true);
-		sliderVolume.setLabelTable(sliderVolume.createStandardLabels(50));
-		sliderVolume.setPaintLabels(true);
-		sliderVolume.setOpaque(false);
+		sliderSound = new JSlider();
+		sliderSound.setValue(JBattleships.game.getSoundVolume());
+		sliderSound.setFont(JBSGUI.MAIN_FONT);
+		sliderSound.setPaintTicks(true);
+		@SuppressWarnings("unchecked")
+		Hashtable<Integer, JComponent> volumeTable = sliderSound.createStandardLabels(50);
+		JLabel lblSoundValue = new JLabel(Integer.toString(JBattleships.game.getSoundVolume()));
+		lblSoundValue.setFont(JBSGUI.MAIN_FONT);
+		volumeTable.replace(50, lblSoundValue);
+		sliderSound.setLabelTable(volumeTable);
+		sliderSound.addChangeListener(e -> {
+			lblSoundValue.setText(Integer.toString(sliderSound.getValue()));
+			JBattleships.game.setSoundVolume(sliderSound.getValue());
+			lblSoundValue.updateUI();
+		});
+		sliderSound.setPaintLabels(true);
+		sliderSound.setOpaque(false);
 		GridBagConstraints gbc_sliderVolume = new GridBagConstraints();
 		gbc_sliderVolume.insets = new Insets(0, 0, 5, 0);
 		gbc_sliderVolume.fill = GridBagConstraints.HORIZONTAL;
 		gbc_sliderVolume.gridx = 0;
 		gbc_sliderVolume.gridy = 2;
-		sfxPanel.add(sliderVolume, gbc_sliderVolume);
+		sfxPanel.add(sliderSound, gbc_sliderVolume);
 		
 		GridBagConstraints gbc_rigidArea_3 = new GridBagConstraints();
 		gbc_rigidArea_3.insets = new Insets(0, 0, 5, 0);
@@ -248,6 +264,7 @@ public class OptionsPanel extends JPanel{
 		sfxPanel.add(Box.createRigidArea(new Dimension(20, 20)), gbc_rigidArea_3);
 		
 		lblMusic = new JLabel(JBattleships.game.getLocalization("GAME_MUSIC"));
+		lblMusic.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblMusic = new GridBagConstraints();
 		gbc_lblMusic.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblMusic.insets = new Insets(0, 0, 5, 0);
@@ -256,9 +273,21 @@ public class OptionsPanel extends JPanel{
 		sfxPanel.add(lblMusic, gbc_lblMusic);
 		
 		sliderMusic = new JSlider();
+		sliderMusic.setFont(JBSGUI.MAIN_FONT);
+		sliderMusic.setValue(JBattleships.game.getMusicVolume());
+		@SuppressWarnings("unchecked")
+		Hashtable<Integer, JComponent> musicTable = sliderMusic.createStandardLabels(50);
+		JLabel lblMusicValue = new JLabel(Integer.toString(JBattleships.game.getMusicVolume()));
+		lblMusicValue.setFont(JBSGUI.MAIN_FONT);
+		musicTable.replace(50, lblMusicValue);
+		sliderMusic.setLabelTable(musicTable);
+		sliderMusic.addChangeListener(e -> {
+			lblMusicValue.setText(Integer.toString(sliderMusic.getValue()));
+			JBattleships.game.setMusicVolume(sliderMusic.getValue());
+			lblMusicValue.updateUI();
+		});
 		sliderMusic.setPaintTicks(true);
 		sliderMusic.setPaintLabels(true);
-		sliderMusic.setLabelTable(sliderMusic.createStandardLabels(50));
 		sliderMusic.setOpaque(false);
 		GridBagConstraints gbc_sliderMusic = new GridBagConstraints();
 		gbc_sliderMusic.fill = GridBagConstraints.BOTH;
@@ -267,16 +296,14 @@ public class OptionsPanel extends JPanel{
 		sfxPanel.add(sliderMusic, gbc_sliderMusic);
 		
 		otherPanel = new JPanel();
-		otherPanel.setOpaque(true);
-		otherPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		otherPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), JBattleships.game.getLocalization("GAME_TITLE_NETWORK_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		centerPanel.add(new AlphaContainer(otherPanel));
+		otherPanel.setOpaque(false);
+		otherPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), JBattleships.game.getLocalization("GAME_TITLE_NETWORK_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.MAIN_FONT, new Color(0, 0, 0)));
+		centerPanel.add(otherPanel);
 		otherPanel.setLayout(new BorderLayout(0, 0));
 		
 		networkPanel = new JPanel();
-		networkPanel.setOpaque(true);
-		networkPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		otherPanel.add(new AlphaContainer(networkPanel), BorderLayout.CENTER);
+		networkPanel.setOpaque(false);
+		otherPanel.add(networkPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_networkPanel = new GridBagLayout();
 		gbl_networkPanel.columnWidths = new int[] {0};
 		gbl_networkPanel.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
@@ -292,6 +319,7 @@ public class OptionsPanel extends JPanel{
 		networkPanel.add(Box.createRigidArea(new Dimension(20, 20)), gbc_rigidArea_4);
 		
 		lblIP = new JLabel(JBattleships.game.getLocalization("GAME_IP"));
+		lblIP.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblIP = new GridBagConstraints();
 		gbc_lblIP.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblIP.insets = new Insets(0, 0, 5, 0);
@@ -300,6 +328,7 @@ public class OptionsPanel extends JPanel{
 		networkPanel.add(lblIP, gbc_lblIP);
 		
 		ipBox = new JComboBox<Inet4Address>(new Inet4Address[]{(Inet4Address) Inet4Address.getLoopbackAddress()});
+		ipBox.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_ipBox = new GridBagConstraints();
 		gbc_ipBox.insets = new Insets(0, 0, 5, 0);
 		gbc_ipBox.fill = GridBagConstraints.HORIZONTAL;
@@ -315,6 +344,7 @@ public class OptionsPanel extends JPanel{
 		networkPanel.add(Box.createRigidArea(new Dimension(20, 20)), gbc_rigidArea_5);
 		
 		lblPort = new JLabel(JBattleships.game.getLocalization("GAME_PORT"));
+		lblPort.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblPort = new GridBagConstraints();
 		gbc_lblPort.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblPort.insets = new Insets(0, 0, 5, 0);
@@ -323,6 +353,7 @@ public class OptionsPanel extends JPanel{
 		networkPanel.add(lblPort, gbc_lblPort);
 		
 		portField = new JTextField();
+		portField.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_portField = new GridBagConstraints();
 		gbc_portField.insets = new Insets(0, 0, 5, 0);
 		gbc_portField.fill = GridBagConstraints.HORIZONTAL;
@@ -332,16 +363,14 @@ public class OptionsPanel extends JPanel{
 		portField.setColumns(10);
 		
 		mixedPanel = new JPanel();
-		mixedPanel.setOpaque(true);
-		mixedPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		centerPanel.add(new AlphaContainer(mixedPanel));
+		mixedPanel.setOpaque(false);
+		centerPanel.add(mixedPanel);
 		mixedPanel.setLayout(new BoxLayout(mixedPanel, BoxLayout.Y_AXIS));
 		
 		gamePanel = new JPanel();
-		gamePanel.setOpaque(true);
-		gamePanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		gamePanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_GAME_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		mixedPanel.add(new AlphaContainer(gamePanel));
+		gamePanel.setOpaque(false);
+		gamePanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_GAME_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.MAIN_FONT, null));
+		mixedPanel.add(gamePanel);
 		GridBagLayout gbl_gamePanel = new GridBagLayout();
 		gbl_gamePanel.columnWidths = new int[]{0};
 		gbl_gamePanel.rowHeights = new int[] {0, 0, 0, 0, 0};
@@ -350,6 +379,7 @@ public class OptionsPanel extends JPanel{
 		gamePanel.setLayout(gbl_gamePanel);
 		
 		lblLang = new JLabel(JBattleships.game.getLocalization("GAME_LANGUAGE"));
+		lblLang.setFont(JBSGUI.MAIN_FONT);
 		lblLang.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblLang = new GridBagConstraints();
 		gbc_lblLang.anchor = GridBagConstraints.WEST;
@@ -360,14 +390,16 @@ public class OptionsPanel extends JPanel{
 		
 		
 		String[] langs = JBattleships.game.getDataManager().getLocalizationManager().getLanguageTable();
+		String[] localizedLangs = new String[langs.length];
 		String active = "";
 		for(int i = 0; i < langs.length; i++){
 			if(langs[i].equals(JBattleships.game.getDataManager().getLocalizationManager().getActiveLanguage())){
 				active = JBattleships.game.getLocalization("GAME_LANGUAGE_" + langs[i].toUpperCase());
 			}
-			langs[i] = JBattleships.game.getLocalization("GAME_LANGUAGE_" + langs[i].toUpperCase());
+			localizedLangs[i] = JBattleships.game.getLocalization("GAME_LANGUAGE_" + langs[i].toUpperCase());
 		}
-		langBox = new JComboBox<String>(langs);
+		langBox = new JComboBox<String>(localizedLangs);
+		langBox.setFont(JBSGUI.MAIN_FONT);
 		langBox.setSelectedItem(active);
 		GridBagConstraints gbc_langBox = new GridBagConstraints();
 		gbc_langBox.insets = new Insets(0, 0, 5, 0);
@@ -376,26 +408,18 @@ public class OptionsPanel extends JPanel{
 		gbc_langBox.gridy = 1;
 		gamePanel.add(langBox, gbc_langBox);
 		
-		lblDebugmode = new JLabel(JBattleships.game.getLocalization("GAME_OTHER_SETTINGS"));
-		GridBagConstraints gbc_lblDebugmode = new GridBagConstraints();
-		gbc_lblDebugmode.insets = new Insets(0, 0, 5, 0);
-		gbc_lblDebugmode.anchor = GridBagConstraints.WEST;
-		gbc_lblDebugmode.gridx = 0;
-		gbc_lblDebugmode.gridy = 2;
-		gamePanel.add(lblDebugmode, gbc_lblDebugmode);
-		
 		chckbxDebug = new JCheckBox(JBattleships.game.getLocalization("GAME_DEBUG_MODE"));
+		chckbxDebug.setFont(JBSGUI.MAIN_FONT);
 		chckbxDebug.setOpaque(false);
 		GridBagConstraints gbc_chckbxDebug = new GridBagConstraints();
 		gbc_chckbxDebug.anchor = GridBagConstraints.WEST;
 		gbc_chckbxDebug.gridx = 0;
-		gbc_chckbxDebug.gridy = 3;
+		gbc_chckbxDebug.gridy = 2;
 		gamePanel.add(chckbxDebug, gbc_chckbxDebug);
 		
 		buttonPanel = new JPanel();
-		buttonPanel.setOpaque(true);
-		buttonPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		mixedPanel.add(new AlphaContainer(buttonPanel));
+		buttonPanel.setOpaque(false);
+		mixedPanel.add(buttonPanel);
 		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		resetButton = new JBSButton(JBattleships.game.getLocalization("GAME_RESET"));
@@ -428,7 +452,8 @@ public class OptionsPanel extends JPanel{
 					}else if(rdbtnLess.isSelected()){
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_BORDERLESS);
 					}
-					//TODO: Doesn't work fully yet!
+					String[] languages = JBattleships.game.getDataManager().getLocalizationManager().getLanguageTable();
+					JBattleships.game.changeLanguage(languages[langBox.getSelectedIndex()]);
 					HashMap<String, String[]> data = new HashMap<String, String[]>();
 					String[] cats = OptionsManager.CATEGORIES;
 					data.put(cats[0], new String[]{"resX", Integer.toString(r.getWidth()), 
@@ -437,8 +462,24 @@ public class OptionsPanel extends JPanel{
 					data.put(cats[1], new String[]{"volume",Integer.toString(JBattleships.game.getSoundVolume()),
 												   "music",Integer.toString(JBattleships.game.getMusicVolume())});
 					data.put(cats[2], new String[]{"language", JBattleships.game.getLanguage(),
+												   "activeProfile",JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName(),
 												   "debug-mode", Boolean.toString(JBSCoreGame.DEBUG_MODE)});
+					parent.getMainFrame().dispose();
+					JBattleships.game.initGameGUI();
 					boolean check = JBattleships.game.getDataManager().getOptionsManager().saveOptions(data);
+					if(check){
+						DebugLog.logInfo("Saving options was successful.");
+					}else{
+						DebugLog.logWarning("Error saving options.");
+					}
+					// Sets a timer to show the OptionsPanel after the GUI has been recreated. Otherwise, the swapContainer command will be ignored due to threading issues.
+					Timer t = new Timer();
+					t.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							JBattleships.game.getMainGUI().swapContainer(JBattleships.game.getMainGUI().getOptionsPanel());
+						}
+					}, 150);
 		});
 		saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonPanel.add(new AlphaContainer(saveButton) );

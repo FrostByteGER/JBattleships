@@ -290,6 +290,10 @@ public class PreGamePlacingPanel extends JPanel {
 			 * So this Timer gives the player a visual feedback that the AI is working now.
 			 * The timer is set to 3 seconds.
 			 */
+			int time = 3000;
+			if(JBSCoreGame.DEBUG_MODE){
+				time = 10;
+			}
 			Timer t = new Timer();
 			t.schedule(new TimerTask() {
 				@Override
@@ -297,7 +301,7 @@ public class PreGamePlacingPanel extends JPanel {
 					//Manually call updatePlayerData to bypass the display of the GUI.
 					nextPlayer();
 				}
-			}, 10);
+			}, time);
 		}else{
 			// Updates the panel with the new player-data since this is a human player!
 			updatePanel();

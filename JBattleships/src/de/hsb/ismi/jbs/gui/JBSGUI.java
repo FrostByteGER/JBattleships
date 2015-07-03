@@ -38,6 +38,7 @@ public class JBSGUI{
 	
 	private MainPanel mainPanel = new MainPanel(this);
 	private OptionsPanel optionsPanel = new OptionsPanel(this);
+	private ProfilePanel profilePanel = new ProfilePanel(this);
 	
 	private BufferedImage backgroundImage = null;
 	
@@ -81,7 +82,6 @@ public class JBSGUI{
 		};
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		//TODO: Remove add call
 		contentPane.add(mainPanel,BorderLayout.CENTER);
 		
 		mainFrame.setContentPane(contentPane);
@@ -235,4 +235,10 @@ public class JBSGUI{
 		this.mainFrame = mainFrame;
 	}
 
+	/**
+	 * @return the profilePanel
+	 */
+	public final ProfilePanel getProfilePanel() {
+		return profilePanel;
+	}
 }

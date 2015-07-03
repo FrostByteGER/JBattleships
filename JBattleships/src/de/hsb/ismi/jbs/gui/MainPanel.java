@@ -85,6 +85,9 @@ public class MainPanel extends JPanel {
 		buttonPanel.add(rigidArea, gbc_rigidArea);
 		
 		btnProfiles = new JBSButton(JBattleships.game.getLocalization("GAME_PROFILES"));
+		btnProfiles.addActionListener(e -> {
+			parent.swapContainer(parent.getProfilePanel());
+		});
 		GridBagConstraints gbc_btnProfiles = new GridBagConstraints();
 		gbc_btnProfiles.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnProfiles.insets = new Insets(0, 0, 5, 0);

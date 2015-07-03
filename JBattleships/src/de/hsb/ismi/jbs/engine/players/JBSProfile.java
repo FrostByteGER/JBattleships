@@ -76,4 +76,12 @@ public class JBSProfile {
 	public final void setStats(ProfileStatistics stats) {
 		this.stats = stats;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return this.name;
+	}
 }

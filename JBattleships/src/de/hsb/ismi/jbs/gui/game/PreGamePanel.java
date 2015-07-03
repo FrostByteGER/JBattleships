@@ -93,9 +93,13 @@ public class PreGamePanel extends JPanel {
 		setOpaque(false);
 		btnGroup = new JBSButtonGroup();
 		playerPanels = new PlayerSlotPanel[8];
-		for(int i = 0;i < playerPanels.length;i++){
+		for(int i = 0; i < playerPanels.length; i++){
 			PlayerSlotPanel pp = new PlayerSlotPanel(false, type);
-			pp.setName(JBattleships.game.getLocalization("GAME_PLAYER") + " #" + (i + 1));
+			if(i == 0){
+				pp.setName(JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName());
+			}else{
+				pp.setName(JBattleships.game.getLocalization("GAME_PLAYER") + " #" + (i + 1));
+			}
 			btnGroup.add(pp.getCheckboxActive());
 			playerPanels[i] = pp;
 		}
@@ -132,7 +136,8 @@ public class PreGamePanel extends JPanel {
 		btnContinue = new JBSButton(JBattleships.game.getLocalization("GAME_CONTINUE"));
 		btnContinue.addActionListener(e -> {
 					GameManager gm = JBattleships.game.generateGame();
-					for(PlayerSlotPanel pregpp : playerPanels){
+					for(int i = 0; i <playerPanels.length; i++){
+						PlayerSlotPanel pregpp = playerPanels[i];
 						//TODO: add various checks!
 						boolean active = pregpp.isActiveSelected();
 						if(active){
@@ -141,7 +146,11 @@ public class PreGamePanel extends JPanel {
 							if(ai){
 								players.add(new JBSAIPlayer(name));
 							}else{
-								players.add(new JBSPlayer(name));
+								if(i == 0){
+									players.add(new JBSPlayer(JBattleships.game.getDataManager().getProfileManager().getActiveProfile()));
+								}else{
+									players.add(new JBSPlayer(name));
+								}
 							}
 						}
 					}

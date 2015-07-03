@@ -95,6 +95,10 @@ public class OptionsManager {
 		return writer.writeOptions(JBSCoreGame.DATA_PATH + SETTINGS_PATH + SETTINGS_NAME, data, CATEGORIES);
 	}
 	
+	public void generateDefaultOptions(){
+		//TODO:
+	}
+	
 	/**
 	 * 
 	 * @return

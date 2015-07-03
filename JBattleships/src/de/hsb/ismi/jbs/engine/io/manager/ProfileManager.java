@@ -25,7 +25,7 @@ public class ProfileManager {
 	 * 
 	 */
 	public ProfileManager(){
-		loadDefaultProfile();
+
 	}
 	
 
@@ -36,6 +36,7 @@ public class ProfileManager {
 	 */
 	public boolean loadProfile(String name, boolean asActive){
 		try {
+			DebugLog.logInfo(name);
 			JAXBContext jaxb = JAXBContext.newInstance(JBSProfile.class);
 			Unmarshaller um = jaxb.createUnmarshaller();
 			Object o = um.unmarshal(new File(PROFILE_PATH + name + PROFILE_EXTENSION));

@@ -98,13 +98,20 @@ public class JBSCoreGame {
 	 */
 	public boolean initGame(){
 		boolean resources = initResources();
+		boolean settings = initSettings();
+		if(!settings){
+			dataManager.getOptionsManager().generateDefaultOptions();
+		}
 		boolean localization = initLocalization();
 		boolean configs = initConfigs();
 		
 		
 		if(resources && localization && configs){
-			initSettings();
-			initProfiles();
+
+			boolean profiles = initProfiles();
+			if(!profiles){
+				dataManager.getProfileManager().loadDefaultProfile();
+			}
 			initGameGUI();
 			return true;
 		}else{
@@ -283,6 +290,7 @@ public class JBSCoreGame {
 	 * @param r The new Resolution
 	 */
 	public final void changeResolution(Resolution r){
+		currentResolution = r;
 		mainGUI.changeFrameSize(r);
 	}
 	
@@ -373,7 +381,8 @@ public class JBSCoreGame {
 	/**
 	 * @param language the language to set
 	 */
-	public final void setLanguage(String language) {
+	public final void changeLanguage(String language) {
+		dataManager.getLocalizationManager().loadLanguage(language);
 		this.language = language;
 	}
 
