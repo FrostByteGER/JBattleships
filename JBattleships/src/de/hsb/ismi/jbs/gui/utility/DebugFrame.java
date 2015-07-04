@@ -203,4 +203,17 @@ public class DebugFrame extends JFrame implements DebugListener{
 			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " + Utility.stackTraceToString(error) + System.lineSeparator());
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.engine.utility.debug.DebugListener#addError(java.lang.String)
+	 */
+	@Override
+	public void addError(String error) {
+		if(errorArea.getLineCount() < DebugLog.getBufferlimit()){
+			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " +  error + System.lineSeparator());
+		}else{
+			errorArea.setText("");
+			errorArea.append("DEBUGLOG: " + LocalDateTime.now().format(formatter) + " " + error + System.lineSeparator());
+		}
+	}
 }

@@ -1,6 +1,0 @@
-eins
-1
-zwei
-2
-dreiKommaFuenf
-3.5

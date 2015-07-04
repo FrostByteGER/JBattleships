@@ -23,6 +23,7 @@ import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
+import de.hsb.ismi.jbs.gui.utility.JBSBlurredPanel;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -89,7 +90,6 @@ public class JBSGUI{
 		changeScreenMode(mode);
 		mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
 		mainFrame.setVisible(true); // Call always at the end!
-		
 	}
 	
 	/**

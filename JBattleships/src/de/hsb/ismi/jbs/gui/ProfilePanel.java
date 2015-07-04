@@ -9,21 +9,24 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.border.TitledBorder;
 
+import de.hsb.ismi.jbs.engine.io.manager.ProfileManager;
 import de.hsb.ismi.jbs.engine.players.JBSProfile;
 import de.hsb.ismi.jbs.gui.utility.AlphaContainer;
 import de.hsb.ismi.jbs.start.JBattleships;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import java.awt.Color;
-import java.awt.Font;
 
 /**
  * @author Kevin Kuegler
@@ -62,7 +65,8 @@ public class ProfilePanel extends JPanel {
 	private JBSButton btnDeleteProfile;
 	private JBSButton btnNewProfile;
 	private JBSButton btnSelectProfile;
-	private JList<JBSProfile> list;
+	private JList<JBSProfile> profileList;
+	private DefaultListModel<JBSProfile> profileListModel;
 
 	/**
 	 * Create the panel.
@@ -307,21 +311,22 @@ public class ProfilePanel extends JPanel {
 			
 		});
 		
-		list = new JList<JBSProfile>();
-		list.setFont(JBSGUI.MAIN_FONT);
-		list.setOpaque(false);
-		list.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), JBattleships.game.getLocalization("GAME_TITLE_AVAILABLE_PROFILES"), TitledBorder.CENTER, TitledBorder.TOP, JBSGUI.MAIN_FONT, new Color(0, 0, 0)));
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		profileListModel = new DefaultListModel<>();
+		profileList = new JList<JBSProfile>(profileListModel);
+		profileList.setFont(JBSGUI.MAIN_FONT);
+		profileList.setOpaque(false);
+		profileList.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), JBattleships.game.getLocalization("GAME_TITLE_AVAILABLE_PROFILES"), TitledBorder.CENTER, TitledBorder.TOP, JBSGUI.MAIN_FONT, new Color(0, 0, 0)));
+		profileList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.gridheight = 5;
 		gbc_list.fill = GridBagConstraints.BOTH;
 		gbc_list.gridx = 0;
 		gbc_list.gridy = 0;
-		JScrollPane scrollPane = new JScrollPane(list);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		scrollPane.setOpaque(false);
-		scrollPane.getViewport().setOpaque(false);
-		buttonPanel.add(scrollPane, gbc_list);
+		JScrollPane listScrollPane = new JScrollPane(profileList);
+		listScrollPane.setBorder(BorderFactory.createEmptyBorder());
+		listScrollPane.setOpaque(false);
+		listScrollPane.getViewport().setOpaque(false);
+		buttonPanel.add(listScrollPane, gbc_list);
 		GridBagConstraints gbc_btnSelectProfile = new GridBagConstraints();
 		gbc_btnSelectProfile.fill = GridBagConstraints.BOTH;
 		gbc_btnSelectProfile.gridx = 0;
@@ -330,6 +335,7 @@ public class ProfilePanel extends JPanel {
 		
 		btnNewProfile = new JBSButton(JBattleships.game.getLocalization("GAME_PROFILES_NEW"));
 		btnNewProfile.addActionListener(e -> {
+			//parent.getMainFrame().setGlassPane(glassPane);
 		});
 		GridBagConstraints gbc_btnNewProfile = new GridBagConstraints();
 		gbc_btnNewProfile.fill = GridBagConstraints.BOTH;
@@ -339,6 +345,10 @@ public class ProfilePanel extends JPanel {
 		
 		btnDeleteProfile = new JBSButton(JBattleships.game.getLocalization("GAME_PROFILES_DELETE"));
 		btnDeleteProfile.addActionListener(e -> {
+			if(profileListModel.size() > 1){
+				JBattleships.game.getDataManager().getProfileManager().deleteProfile(profileList.getSelectedValue().getName());
+				profileListModel.removeElement(profileList.getSelectedValue());
+			}
 		});
 		GridBagConstraints gbc_btnDeleteProfile = new GridBagConstraints();
 		gbc_btnDeleteProfile.fill = GridBagConstraints.BOTH;
@@ -355,6 +365,21 @@ public class ProfilePanel extends JPanel {
 		gbc_btnBack.gridx = 0;
 		gbc_btnBack.gridy = 8;
 		buttonPanel.add(new AlphaContainer(btnBack), gbc_btnBack);
+		
+		
+		loadProfiles();
 	}
+	
+	/**
+	 * Loads all profiles into the profile-list.
+	 */
+	private void loadProfiles(){
+		ArrayList<JBSProfile> profiles = JBattleships.game.getDataManager().getProfileManager().getProfiles();
+		for(JBSProfile p : profiles){
+			profileListModel.addElement(p);
+		}
+	}
+	
+	
 
 }

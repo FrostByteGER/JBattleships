@@ -14,6 +14,7 @@ import de.hsb.ismi.jbs.engine.game.managers.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.io.manager.ResourceManager;
+import de.hsb.ismi.jbs.engine.players.JBSProfile;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
@@ -127,7 +128,7 @@ public class JBSCoreGame {
 			public void run() {
 				try {
 					//TODO: Change to something else, to support multiple platforms.
-					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //ALWAYS SET BEFORE CREATING THE FRAME!
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 					mainGUI = new JBSGUI();
 					mainGUI.initGUI(currentResolution, screenMode);
 				} catch (Exception e) {
@@ -220,7 +221,17 @@ public class JBSCoreGame {
 	 */
 	public boolean initProfiles(){
 		String name = dataManager.getOptionsManager().getGameData().get("activeProfile");
-		return dataManager.getProfileManager().loadProfile(name, true);
+		JBSProfile[] profiles = dataManager.getProfileManager().loadProfiles();
+		boolean success = false;
+		for(int i = 0; i < profiles.length; i++){
+			JBSProfile p = profiles[i];
+			if(p.getName().equalsIgnoreCase(name)){
+				dataManager.getProfileManager().setActiveProfile(i);
+				success = true;
+				break;
+			}
+		}
+		return success;
 	}
 	
 	/**

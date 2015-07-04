@@ -15,4 +15,6 @@ public interface DebugListener {
 	public void addWarning(String warning);
 	
 	public void addError(Exception error);
+	
+	public void addError(String error);
 }

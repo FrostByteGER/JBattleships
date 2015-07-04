@@ -394,6 +394,22 @@ public class DebugLog {
 	}
 	
 	/**
+	 * Logs the given error to the outputstream. String errors will <b>NOT</b> be buffered! Also prints it to the gui.
+	 * @param e The error to print and add.
+	 */
+	public static void logError(String e){
+		if(logErrors){
+			outputStream.println(DEBUG_LINE + LocalDateTime.now().format(formatter) + " " + ERROR_LINE);
+			outputStream.print(DEBUG_LINE);
+			outputStream.print(e);
+			outputStream.flush();
+			if(debugFrame != null){
+				debugFrame.addError(e);
+			}
+		}
+	}
+	
+	/**
 	 * Adds an info the the buffer.
 	 * @param info The info to add.
 	 */
