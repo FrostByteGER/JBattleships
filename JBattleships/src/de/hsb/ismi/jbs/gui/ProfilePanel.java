@@ -5,13 +5,21 @@ package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
-import de.hsb.ismi.jbs.engine.io.manager.ProfileManager;
 import de.hsb.ismi.jbs.engine.players.JBSProfile;
+import de.hsb.ismi.jbs.engine.players.ProfileStatistics;
 import de.hsb.ismi.jbs.gui.utility.AlphaContainer;
+import de.hsb.ismi.jbs.gui.utility.JBSBlurredPanel;
 import de.hsb.ismi.jbs.start.JBattleships;
 import java.awt.GridBagLayout;
 
@@ -22,9 +30,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
-
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.Color;
 
@@ -54,7 +62,7 @@ public class ProfilePanel extends JPanel {
 	private JLabel lblMatchesWon;
 	private JLabel lblMatchesLost;
 	private JLabel lblFlawlessWins;
-	private JLabel lblNFiredShots;
+	private JLabel lblFiredShots;
 	private JLabel lblMissedShots;
 	private JLabel lblShotsHit;
 	private JLabel lblShipsLost;
@@ -179,14 +187,14 @@ public class ProfilePanel extends JPanel {
 		gbc_lblFiredShotsDesc.gridy = 6;
 		dataPanel.add(lblFiredShotsDesc, gbc_lblFiredShotsDesc);
 		
-		lblNFiredShots = new JLabel("0");
-		lblNFiredShots.setFont(JBSGUI.MAIN_FONT);
+		lblFiredShots = new JLabel("0");
+		lblFiredShots.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblNFiredShots = new GridBagConstraints();
 		gbc_lblNFiredShots.fill = GridBagConstraints.BOTH;
 		gbc_lblNFiredShots.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNFiredShots.gridx = 2;
 		gbc_lblNFiredShots.gridy = 6;
-		dataPanel.add(lblNFiredShots, gbc_lblNFiredShots);
+		dataPanel.add(lblFiredShots, gbc_lblNFiredShots);
 		
 		lblMissedShotsDesc = new JLabel(JBattleships.game.getLocalization("GAME_PROFILE_STATS_MISSED_SHOTS"));
 		lblMissedShotsDesc.setFont(JBSGUI.MAIN_FONT);
@@ -308,7 +316,9 @@ public class ProfilePanel extends JPanel {
 		
 		btnSelectProfile = new JBSButton(JBattleships.game.getLocalization("GAME_PROFILES_SELECT"));
 		btnSelectProfile.addActionListener(e -> {
-			
+			JBattleships.game.getDataManager().getProfileManager().setActiveProfile(profileList.getSelectedIndex());
+			JBattleships.game.saveOptions();
+			updateProfileLabels();
 		});
 		
 		profileListModel = new DefaultListModel<>();
@@ -335,7 +345,125 @@ public class ProfilePanel extends JPanel {
 		
 		btnNewProfile = new JBSButton(JBattleships.game.getLocalization("GAME_PROFILES_NEW"));
 		btnNewProfile.addActionListener(e -> {
-			//parent.getMainFrame().setGlassPane(glassPane);
+			GridBagLayout gbl_New = new GridBagLayout();
+			JBSButton btnCreate = new JBSButton(JBattleships.game.getLocalization("GAME_PROFILE_NEW_CREATE"));
+			JBSBlurredPanel newPanel = new JBSBlurredPanel(30, 30, gbl_New);
+			GridBagLayout gridBagLayout = new GridBagLayout();
+			gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
+			gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+			gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+			gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+			newPanel.setLayout(gridBagLayout);
+			
+			JLabel lblNewName = new JLabel(JBattleships.game.getLocalization("GAME_PROFILE_NEW_STANDARD"));
+			lblNewName.setFont(JBSGUI.MAIN_FONT);
+			lblNewName.setHorizontalAlignment(SwingConstants.CENTER);
+			GridBagConstraints gbc_lblNameNew = new GridBagConstraints();
+			gbc_lblNameNew.fill = GridBagConstraints.BOTH;
+			gbc_lblNameNew.gridwidth = 2;
+			gbc_lblNameNew.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNameNew.gridx = 1;
+			gbc_lblNameNew.gridy = 1;
+			newPanel.add(lblNewName, gbc_lblNameNew);
+			
+			JTextField nameField = new JTextField();
+			((AbstractDocument)nameField.getDocument()).setDocumentFilter(new DocumentFilter(){
+			    @Override
+			    public void replace(FilterBypass fb, int i, int i1, String string, AttributeSet as) throws BadLocationException {
+			        for (int n = string.length(); n > 0; n--) {
+			            char c = string.charAt(n - 1);
+			            if(Character.isAlphabetic(c)){
+			                super.replace(fb, i, i1, String.valueOf(c), as);
+			            }else{
+			            	if(nameField.getBackground() != Color.PINK){
+				                nameField.setBackground(Color.PINK);
+			                	lblNewName.setText(JBattleships.game.getLocalization("GAME_PROFILE_NEW_WARNING_ILLEGAL"));
+			            	}
+			            }
+			        }
+			    }
+			});
+			nameField.getDocument().addDocumentListener(new DocumentListener() {
+				@Override
+				public void removeUpdate(DocumentEvent e) {
+					if(JBattleships.game.getDataManager().getProfileManager().getProfileByName(nameField.getText()) != null){
+			    		nameField.setBackground(Color.PINK);
+			    		lblNewName.setText(JBattleships.game.getLocalization("GAME_PROFILE_NEW_WARNING_DUPLICATE"));
+			    		btnCreate.setEnabled(false);
+			    	}else{
+		                if(nameField.getBackground() == Color.PINK){
+		                	nameField.setBackground(Color.WHITE);
+		                	lblNewName.setText(JBattleships.game.getLocalization("GAME_PROFILE_NEW_STANDARD"));
+		                	btnCreate.setEnabled(true);
+		                }
+			    	}
+				}
+				@Override
+				public void insertUpdate(DocumentEvent e) {
+					if(JBattleships.game.getDataManager().getProfileManager().getProfileByName(nameField.getText()) != null){
+			    		nameField.setBackground(Color.PINK);
+			    		lblNewName.setText(JBattleships.game.getLocalization("GAME_PROFILE_NEW_WARNING_DUPLICATE"));
+			    		btnCreate.setEnabled(false);
+			    	}else{
+		                if(nameField.getBackground() == Color.PINK){
+		                	nameField.setBackground(Color.WHITE);
+		                	lblNewName.setText(JBattleships.game.getLocalization("GAME_PROFILE_NEW_STANDARD"));
+		                	btnCreate.setEnabled(true);
+		                }
+			    	}
+				}
+				@Override
+				public void changedUpdate(DocumentEvent e) {
+					if(JBattleships.game.getDataManager().getProfileManager().getProfileByName(nameField.getText()) != null){
+			    		nameField.setBackground(Color.PINK);
+			    		lblNewName.setText(JBattleships.game.getLocalization("GAME_PROFILE_NEW_WARNING_DUPLICATE"));
+			    		btnCreate.setEnabled(false);
+			    	}else{
+		                if(nameField.getBackground() == Color.PINK){
+		                	nameField.setBackground(Color.WHITE);
+		                	lblNewName.setText(JBattleships.game.getLocalization("GAME_PROFILE_NEW_STANDARD"));
+		                	btnCreate.setEnabled(true);
+		                }
+			    	}
+				}
+			});
+			nameField.setFont(JBSGUI.MAIN_FONT);
+			GridBagConstraints gbc_nameField = new GridBagConstraints();
+			gbc_nameField.gridwidth = 2;
+			gbc_nameField.insets = new Insets(0, 0, 5, 5);
+			gbc_nameField.fill = GridBagConstraints.BOTH;
+			gbc_nameField.gridx = 1;
+			gbc_nameField.gridy = 2;
+			newPanel.add(nameField, gbc_nameField);
+			nameField.setColumns(10);
+			
+			btnCreate.addActionListener(ae -> {
+				JBSProfile profile = new JBSProfile(nameField.getText());
+				JBattleships.game.getDataManager().getProfileManager().addProfile(profile);
+				JBattleships.game.getDataManager().getProfileManager().saveProfile(nameField.getText());
+				profileListModel.removeAllElements();
+				loadProfiles();
+				newPanel.setVisible(false);
+			});
+			GridBagConstraints gbc_btnCreate = new GridBagConstraints();
+			gbc_btnCreate.fill = GridBagConstraints.BOTH;
+			gbc_btnCreate.insets = new Insets(0, 0, 5, 5);
+			gbc_btnCreate.gridx = 1;
+			gbc_btnCreate.gridy = 3;
+			newPanel.add(new AlphaContainer(btnCreate), gbc_btnCreate);
+			
+			JBSButton btnCancel = new JBSButton(JBattleships.game.getLocalization("GAME_CANCEL"));
+			btnCancel.addActionListener(ae -> {
+				newPanel.setVisible(false);
+			});
+			GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+			gbc_btnCancel.fill = GridBagConstraints.BOTH;
+			gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
+			gbc_btnCancel.gridx = 2;
+			gbc_btnCancel.gridy = 3;
+			newPanel.add(new AlphaContainer(btnCancel), gbc_btnCancel);
+			parent.getMainFrame().setGlassPane(newPanel);
+			newPanel.setVisible(true);
 		});
 		GridBagConstraints gbc_btnNewProfile = new GridBagConstraints();
 		gbc_btnNewProfile.fill = GridBagConstraints.BOTH;
@@ -348,6 +476,10 @@ public class ProfilePanel extends JPanel {
 			if(profileListModel.size() > 1){
 				JBattleships.game.getDataManager().getProfileManager().deleteProfile(profileList.getSelectedValue().getName());
 				profileListModel.removeElement(profileList.getSelectedValue());
+				JBattleships.game.getDataManager().getProfileManager().setActiveProfile(0);
+				profileList.setSelectedIndex(0);
+				JBattleships.game.saveOptions();
+				updateProfileLabels();
 			}
 		});
 		GridBagConstraints gbc_btnDeleteProfile = new GridBagConstraints();
@@ -368,6 +500,7 @@ public class ProfilePanel extends JPanel {
 		
 		
 		loadProfiles();
+		updateProfileLabels();
 	}
 	
 	/**
@@ -378,6 +511,27 @@ public class ProfilePanel extends JPanel {
 		for(JBSProfile p : profiles){
 			profileListModel.addElement(p);
 		}
+		profileList.setSelectedIndex(JBattleships.game.getDataManager().getProfileManager().getActiveProfileIndex());
+	}
+	
+	/**
+	 * Updates the labels with the profile-data.
+	 */
+	private void updateProfileLabels(){
+		JBSProfile p = JBattleships.game.getDataManager().getProfileManager().getActiveProfile();
+		ProfileStatistics stats = p.getStats();
+		lblName.setText(p.getName());
+		lblMatchesWon.setText(Integer.toString(stats.getGamesWon()));
+		lblMatchesLost.setText(Integer.toString(stats.getGamesLost()));
+		lblFlawlessWins.setText(Integer.toString(stats.getFlawlessWins()));
+		lblFiredShots.setText(Integer.toString(stats.getFiredShots()));
+		lblMissedShots.setText(Integer.toString(stats.getMissedShots()));
+		lblShotsHit.setText(Integer.toString(stats.getShotsHit()));
+		lblShipsLost.setText(Integer.toString(stats.getShipsLost()));
+		lblShipsDestroyed.setText(Integer.toString(stats.getShipsDestroyed()));
+		lblNavalMinesHit.setText(Integer.toString(stats.getNavalMinesHits()));
+		lblCoastalArtilleryHits.setText(Integer.toString(stats.getCoastalArtilleryHits()));
+		updateUI();
 	}
 	
 	

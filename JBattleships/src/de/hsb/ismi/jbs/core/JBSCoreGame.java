@@ -22,6 +22,7 @@ import de.hsb.ismi.jbs.engine.utility.JBSIOQueue;
 import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.gui.JBSGUI;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * This is the core class with important constants and utility variables.
@@ -111,6 +112,7 @@ public class JBSCoreGame {
 
 			boolean profiles = initProfiles();
 			if(!profiles){
+				DebugLog.logWarning("Profile " + dataManager.getOptionsManager().getGameData().get("activeProfile") + " not found! Loading default profile...");
 				dataManager.getProfileManager().loadDefaultProfile();
 			}
 			initGameGUI();
@@ -226,6 +228,7 @@ public class JBSCoreGame {
 		for(int i = 0; i < profiles.length; i++){
 			JBSProfile p = profiles[i];
 			if(p.getName().equalsIgnoreCase(name)){
+				DebugLog.logInfo("Profile " + name + " was found!");
 				dataManager.getProfileManager().setActiveProfile(i);
 				success = true;
 				break;
@@ -395,6 +398,30 @@ public class JBSCoreGame {
 	public final void changeLanguage(String language) {
 		dataManager.getLocalizationManager().loadLanguage(language);
 		this.language = language;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public final boolean saveOptions(){
+		HashMap<String, String[]> data = new HashMap<String, String[]>();
+		String[] cats = OptionsManager.CATEGORIES;
+		data.put(cats[0], new String[]{"resX", Integer.toString(JBattleships.game.getCurrentResolution().getWidth()), 
+									   "resY", Integer.toString(JBattleships.game.getCurrentResolution().getHeight()),
+									   "mode", JBattleships.game.getScreenMode().toString()});
+		data.put(cats[1], new String[]{"volume",Integer.toString(JBattleships.game.getSoundVolume()),
+									   "music",Integer.toString(JBattleships.game.getMusicVolume())});
+		data.put(cats[2], new String[]{"language", JBattleships.game.getLanguage(),
+									   "activeProfile",JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName(),
+									   "debug-mode", Boolean.toString(JBSCoreGame.DEBUG_MODE)});
+		boolean check = JBattleships.game.getDataManager().getOptionsManager().saveOptions(data);
+		if(check){
+			DebugLog.logInfo("Saving options was successful.");
+		}else{
+			DebugLog.logWarning("Error saving options.cfg!");
+		}
+		return check;
 	}
 
 }

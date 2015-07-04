@@ -34,7 +34,6 @@ import javax.swing.JRadioButton;
 
 import java.awt.Dimension;
 import java.net.Inet4Address;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,7 +42,6 @@ import javax.swing.JSlider;
 
 
 import de.hsb.ismi.jbs.core.JBSCoreGame;
-import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
@@ -454,19 +452,9 @@ public class OptionsPanel extends JPanel{
 					}
 					String[] languages = JBattleships.game.getDataManager().getLocalizationManager().getLanguageTable();
 					JBattleships.game.changeLanguage(languages[langBox.getSelectedIndex()]);
-					HashMap<String, String[]> data = new HashMap<String, String[]>();
-					String[] cats = OptionsManager.CATEGORIES;
-					data.put(cats[0], new String[]{"resX", Integer.toString(r.getWidth()), 
-												   "resY", Integer.toString(r.getHeight()),
-												   "mode", JBattleships.game.getScreenMode().toString()});
-					data.put(cats[1], new String[]{"volume",Integer.toString(JBattleships.game.getSoundVolume()),
-												   "music",Integer.toString(JBattleships.game.getMusicVolume())});
-					data.put(cats[2], new String[]{"language", JBattleships.game.getLanguage(),
-												   "activeProfile",JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName(),
-												   "debug-mode", Boolean.toString(JBSCoreGame.DEBUG_MODE)});
+					boolean check = JBattleships.game.saveOptions();
 					parent.getMainFrame().dispose();
 					JBattleships.game.initGameGUI();
-					boolean check = JBattleships.game.getDataManager().getOptionsManager().saveOptions(data);
 					if(check){
 						DebugLog.logInfo("Saving options was successful.");
 					}else{

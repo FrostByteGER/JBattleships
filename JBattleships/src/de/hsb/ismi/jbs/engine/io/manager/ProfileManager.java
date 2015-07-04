@@ -195,7 +195,8 @@ public class ProfileManager {
 	}
 	
 	/**
-	 * 
+	 * Checks the current profiles for the given name. Returns the profile if one with the specified name was found, otherwise null.
+	 * <b> Ignores case!</b>
 	 * @param name
 	 * @return
 	 */
@@ -214,6 +215,14 @@ public class ProfileManager {
 	 */
 	public JBSProfile getActiveProfile(){
 		return profiles.get(activeProfile);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getActiveProfileIndex(){
+		return activeProfile;
 	}
 	
 	/**
