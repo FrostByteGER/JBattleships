@@ -52,12 +52,8 @@ public class JBSGUI{
 	 */
 	public JBSGUI() {
 		mainFrame.setTitle(JBattleships.game.getLocalization("GAME_TITLE"));
-		try {
-			backgroundImage = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
-			headerImage = JBattleships.game.getDataManager().getResourceManager().getTexture("header.png");
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
+		backgroundImage = JBattleships.game.getDataManager().getResourceManager().getTexture("jbs_background.jpg");
+		headerImage = JBattleships.game.getDataManager().getResourceManager().getTexture("header.png");
 		
 		mainPanel = new MainPanel(this);
 		optionsPanel = new OptionsPanel(this);

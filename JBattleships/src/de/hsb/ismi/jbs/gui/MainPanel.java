@@ -108,7 +108,7 @@ public class MainPanel extends JPanel {
 		btnCredits = new JBSButton(JBattleships.game.getLocalization("GAME_CREDITS"));
 		btnCredits.setActionCommand("credits");
 		btnCredits.addActionListener(e -> {
-			
+			parent.swapContainer(new CreditsPanel(parent));
 		});
 		GridBagConstraints gbc_btnCredits = new GridBagConstraints();
 		gbc_btnCredits.insets = new Insets(0, 0, 5, 0);
