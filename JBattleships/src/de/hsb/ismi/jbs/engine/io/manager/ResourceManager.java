@@ -147,7 +147,6 @@ public class ResourceManager{
 					success = false;
 				}
 			}else{
-				System.out.println("Ignored File: " + s);
 			}
 		}
 		

@@ -4,7 +4,6 @@
 package de.hsb.ismi.jbs.engine.actors;
 
 import java.awt.image.BufferedImage;
-
 import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 import de.hsb.ismi.jbs.start.JBattleships;
 

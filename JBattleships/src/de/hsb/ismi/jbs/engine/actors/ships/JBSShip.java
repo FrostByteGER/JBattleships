@@ -240,8 +240,6 @@ public class JBSShip{
 		info.setHitDirection(direction);
 		info.setDamageType(this.damageType);
 		info.setHitActor(field.getField(x, y));
-		System.out.println(damage);
-		System.out.println(damage != 0);
 		info.setDamage(damage);
 		info.setHasHit(damage != 0);
 		return info;			

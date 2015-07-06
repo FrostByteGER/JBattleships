@@ -81,7 +81,6 @@ public class OptionsManager {
 			jpe.printStackTrace();
 			return false;
 		}
-		//System.out.println("Parsing successfull!");
 		this.data = data;
 		return true;
 	}

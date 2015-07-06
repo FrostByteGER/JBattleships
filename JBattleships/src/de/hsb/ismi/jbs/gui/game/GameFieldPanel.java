@@ -68,6 +68,12 @@ public class GameFieldPanel extends JPanel {
 	// wir für den Wasserhintergrund verwendet
 	private JBSActor water = new JBSActor();
 	
+	/**
+	 * 
+	 * @param fild spielfeld
+	 * @param fieldsize	größe des Spielfeldes z.B. 16*16
+	 * @param size größe des gesammten Spielfeldes in Pix
+	 */
 	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
 		
 		water.setComponents(new JBSActorComponent(new String[]{"watertest64.png"}));
@@ -84,7 +90,6 @@ public class GameFieldPanel extends JPanel {
 		
 		direction = Direction.NORTH;
 		
-		//TODO SIZE
 		setSize(new Dimension(size,size));
 		setMinimumSize(new Dimension(size,size) );
 		setOpaque(false);
@@ -92,12 +97,14 @@ public class GameFieldPanel extends JPanel {
 		this.fieldsize = fieldsize;
 		xoffset = 0;
 		yoffset = 0;
-					
+		
+		// übergibt die größe für ein Feld von dem Spielfeld um die Bilder anzupassen
 		animationthread = new AnimationThread(fieldsize/gamefield.getSize());
 		animationthread.addActorCommponent(water.getComponents());
 		
 		animationthread.start();
 		
+		// ermöglich das Selectiren einzelner Felder
 		addMouseListener(new MouseListener() {
 			
 			@Override
@@ -139,6 +146,7 @@ public class GameFieldPanel extends JPanel {
 			}
 		});
 		
+		// ermöglicht das hovern auf einzelnen Feldern
 		addMouseMotionListener(new MouseMotionListener() {
 			
 			@Override
@@ -181,7 +189,11 @@ public class GameFieldPanel extends JPanel {
 		this.repaint();
 		this.gamefield = fild;
 	}
-
+	
+	/**
+	 *  zeichnet das Spielfeld
+	 * @param g
+	 */
 	private void drawGrid(Graphics g){
 		
 		gridsize = fieldsize/gamefield.getSize();

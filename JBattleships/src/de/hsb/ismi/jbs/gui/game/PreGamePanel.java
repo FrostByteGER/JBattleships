@@ -318,7 +318,7 @@ public class PreGamePanel extends JPanel {
 		gbc_frigateSpinner.gridy = 1;
 		shipPanel.add(frigateSpinner, gbc_frigateSpinner);
 		
-		lblCorvette = new JLabel(JBattleships.game.getLocalization("GAME_CORVETTES"));
+		lblCorvette = new JLabel(JBattleships.game.getLocalization("GAME_SUBMARINES"));
 		lblCorvette.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblCorvette = new GridBagConstraints();
 		gbc_lblCorvette.weighty = 1.0;
@@ -341,7 +341,7 @@ public class PreGamePanel extends JPanel {
 		gbc_spinner_2.gridy = 2;
 		shipPanel.add(corvetteSpinner, gbc_spinner_2);
 		
-		lblSubmarines = new JLabel(JBattleships.game.getLocalization("GAME_SUBMARINES"));
+		lblSubmarines = new JLabel(JBattleships.game.getLocalization("GAME_CORVETTES"));
 		lblSubmarines.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblSubmarines = new GridBagConstraints();
 		gbc_lblSubmarines.weighty = 1.0;
