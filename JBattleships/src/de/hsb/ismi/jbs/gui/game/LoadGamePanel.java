@@ -10,7 +10,6 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -32,6 +31,10 @@ import de.hsb.ismi.jbs.start.JBattleships;
 public class LoadGamePanel extends JPanel{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4467704170669512400L;
 	private JBSGUI parent;
 	private JPanel centerPanel = new JPanel();
 	private JList<String> loadList = new JList<String>();
@@ -89,7 +92,6 @@ public class LoadGamePanel extends JPanel{
 		loadList.setOpaque(false);
 		scrollPane.setViewportView(loadList);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		//scrollPane.setOpaque(false);
 		scrollPane.getViewport().setOpaque(false);
 		scrollPane.setBackground(JBSGUI.BACKGROUND_COLOR);
 		
@@ -138,12 +140,13 @@ public class LoadGamePanel extends JPanel{
 		btnBack.setFont(JBSGUI.MAIN_FONT);
 		centerPanel.add(new AlphaContainer(btnBack), gbc_btnBack);
 		
-		JBattleships.game.getDataManager().getPersistenceManager().loadGames();
+		
 		
 		loadSaveGames();
 	}
 	
 	private void loadSaveGames(){
+		JBattleships.game.getDataManager().getPersistenceManager().loadGames();
 		for(String s : JBattleships.game.getDataManager().getPersistenceManager().getSaveGames().keySet()){
 			loadListModel.addElement(s);
 		}

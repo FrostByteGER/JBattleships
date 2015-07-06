@@ -3,7 +3,6 @@ package de.hsb.ismi.jbs.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -17,17 +16,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
-import de.hsb.ismi.jbs.gui.utility.JBSBlurredPanel;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
- * The core GUI-class, everything starts here.
+ * The core GUI-class, everything GUI related starts here.
  * @author Kevin Kuegler
  * @version 1.00
  */

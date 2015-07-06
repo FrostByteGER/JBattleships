@@ -22,7 +22,6 @@ import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.gui.game.PreLocalGameChoicePanel;
 import de.hsb.ismi.jbs.gui.utility.AlphaContainer;
-import de.hsb.ismi.jbs.gui.utility.JBSBlurredPanel;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 import java.awt.FlowLayout;
@@ -33,7 +32,10 @@ import java.awt.FlowLayout;
  */
 public class MainPanel extends JPanel {
 	
-	private JBSGUI parent;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 634434316561399871L;
 	private JPanel buttonPanel;
 	private JBSButton btnLocal;
 	private JBSButton btnProfiles;
@@ -48,7 +50,6 @@ public class MainPanel extends JPanel {
 	 * 
 	 */
 	public MainPanel(JBSGUI parent) {
-		this.parent = parent;
 		this.setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		add(parent.generateHeader(), BorderLayout.NORTH);

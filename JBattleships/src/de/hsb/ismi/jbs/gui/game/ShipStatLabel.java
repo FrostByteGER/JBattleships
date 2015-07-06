@@ -6,10 +6,7 @@ package de.hsb.ismi.jbs.gui.game;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.Icon;
 import javax.swing.JLabel;
-import javax.swing.Box.Filler;
-
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
 
 /**
@@ -18,6 +15,10 @@ import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
  */
 public class ShipStatLabel extends JLabel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2910933467836906584L;
 	private JBSShip ship = null;
 	private Color health = new Color(1f-getHealthP(), getHealthP(), 0f);
 	private Color cooldown = new Color(1f-getCooldownP(),1f-getCooldownP(),1f);

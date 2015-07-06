@@ -139,7 +139,7 @@ public class PreGamePlacingPanel extends JPanel {
 		shipPanel.setOpaque(true);
 		shipPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		centerPanel.add(new AlphaContainer(shipPanel), "cell 1 0,grow");
-		shipPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_SHIP_LIST"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		shipPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_SHIP_LIST"), TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.MAIN_FONT, null));
 		GridBagLayout gbl_shipPanel = new GridBagLayout();
 		gbl_shipPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_shipPanel.columnWeights = new double[]{1.0};

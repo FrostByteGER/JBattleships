@@ -15,12 +15,14 @@ import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.rendering.AnimationThread;
-import de.hsb.ismi.jbs.gui.JBSGUI;
 
 public class GameFieldPanel extends JPanel {
 	
-	@SuppressWarnings("unused")
-	private JBSGUI parent;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1845450912510850006L;
+
 	private JBSGameField gamefield;
 	
 	private int gridsize;
@@ -65,7 +67,6 @@ public class GameFieldPanel extends JPanel {
 		
 		direction = Direction.NORTH;
 		
-		//TODO SIZE
 		setSize(new Dimension(size,size));
 		setMinimumSize(new Dimension(size,size) );
 		setOpaque(false);

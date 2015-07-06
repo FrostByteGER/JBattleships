@@ -29,13 +29,14 @@ import net.miginfocom.swing.MigLayout;
  */
 public class MainGamePanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5233315862494496314L;
 	private Game game;
 	private RoundManager roundManager;
 	
 	private int selectedGameField;
-	
-	@SuppressWarnings("unused")
-	private JBSGUI parent;
 	
 	private GameFieldPanel gameFieldPanel;
 	private GameSidePanel gameSidePanel;
@@ -59,7 +60,6 @@ public class MainGamePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public MainGamePanel(JBSGUI parent) {
-		this.parent = parent;
 		this.game = JBattleships.game.getGameManager().getGame();
 		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
@@ -83,7 +83,7 @@ public class MainGamePanel extends JPanel {
 		sidePanel.setLayout(new MigLayout("", "[grow]", "[grow][grow]"));
 		
 		activePlayerlbl = new JLabel(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER") + " " + game.getActivePlayer().getName());
-		activePlayerlbl.setFont(new Font("Tahoma", Font.BOLD, 20));
+		activePlayerlbl.setFont(JBSGUI.MAIN_FONT);
 		sidePanel.add(activePlayerlbl, "cell 0 0,height :10%:,grow");
 		sidePanel.add(new AlphaContainer(gameSidePanel) , "cell 0 1,height :65%:,grow");
 
@@ -230,7 +230,7 @@ public class MainGamePanel extends JPanel {
 		});
 		
 		fieldNumber = new JLabel();
-				
+		fieldNumber.setFont(JBSGUI.MAIN_FONT);		
 		fieldNumber.setText(game.getPlayer(selectedGameField).getName());
 		
 		playerSelectionPanel.add(new AlphaContainer(mbut));
@@ -241,7 +241,7 @@ public class MainGamePanel extends JPanel {
 		
 		gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 		
-		parent.getMainFrame().setGlassPane(new SaveGamePanel(parent));
+		parent.getMainFrame().setGlassPane(new SaveGamePanel());
 		
 		JBattleships.game.getGameManager().addGameListener(new GameListener() {
 			

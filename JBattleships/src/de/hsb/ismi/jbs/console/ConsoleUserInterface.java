@@ -37,7 +37,6 @@ public class ConsoleUserInterface {
 	private void startGame() {
 
 		GameManager pm = new GameManager();
-		JBSPlayer winner;
 
 		intinput = 0;
 
@@ -97,7 +96,6 @@ public class ConsoleUserInterface {
 
 		for (int i = 0; i < playeramount; i++) {
 			if (game.getPlayers()[i].isAlive()) {
-				winner = game.getPlayers()[i];
 				System.out.println("Player " + i + " won!!!");
 			}
 		}
@@ -359,6 +357,8 @@ public class ConsoleUserInterface {
 		intinput = end;
 	}
 
+	@SuppressWarnings("unused")
+	@Deprecated
 	private void readInt(String s) {
 		int end = 0;
 

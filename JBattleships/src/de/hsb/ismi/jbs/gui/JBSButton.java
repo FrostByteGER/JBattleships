@@ -3,18 +3,23 @@ package de.hsb.ismi.jbs.gui;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+/**
+ * Custom button class that modifies the UI of it.
+ * @author Kevin Kuegler
+ * @version 1.00
+ */
 public class JBSButton extends JButton {
 	
-	private boolean isSelected = false;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3411017032450323548L;
 	private Color selectedColor = new Color(0.5411f, 0.5411f, 0.5411f*1.5f, 0.8f);
-	//private Color defaultColor = new Color(0.5411f, 0.5411f, 0.5411f, 0.6f);
 	private Color defaultColor = new Color(0.5411f, 0.5411f, 0.5411f*1.5f, 0.6f);
 
 	public JBSButton() {
@@ -41,6 +46,9 @@ public class JBSButton extends JButton {
 		JBSInit();
 	}
 	
+	/**
+	 * Changes the UI of the button.
+	 */
 	private void JBSInit() {
 		setUI(new BasicButtonUI());
 		setBackground(defaultColor);

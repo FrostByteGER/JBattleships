@@ -18,6 +18,10 @@ import de.hsb.ismi.jbs.start.JBattleships;
 
 public class GameSidePanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2337460068782273905L;
 	private JBSPlayer player;
 	private Color buttonColor;
 	private Color textColor;
@@ -34,7 +38,6 @@ public class GameSidePanel extends JPanel {
 	private int namewidthoffset;
 	private boolean isSelected;
 	private int selectedship;
-	private int hovership;
 	private int hovery = 0;
 	
 	private GameSidePanel panel;
@@ -73,9 +76,7 @@ public class GameSidePanel extends JPanel {
 			}
 			
 			@Override
-			public void mouseDragged(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+			public void mouseDragged(MouseEvent e) {				
 			}
 		});
 		
@@ -83,14 +84,10 @@ public class GameSidePanel extends JPanel {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
@@ -125,7 +122,7 @@ public class GameSidePanel extends JPanel {
 		width = getSize().width;
 		
 		buttonheight = height/player.getShips().size();
-		buttonwidth = width/2; // TODO offset
+		buttonwidth = width/2;
 		
 		for(int i = 0 ; i < player.getShips().size() ; i++){		
 			printButton(g, 0, i*buttonheight, player.getShips().get(i));	

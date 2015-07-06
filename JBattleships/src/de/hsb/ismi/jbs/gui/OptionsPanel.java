@@ -60,8 +60,10 @@ import javax.swing.JCheckBox;
  */
 public class OptionsPanel extends JPanel{
 	
-	private JBSGUI parent;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5051718464952511210L;
 	private JPanel centerPanel;
 	private JPanel gfxPanel;
 	private JPanel sfxPanel;
@@ -97,7 +99,6 @@ public class OptionsPanel extends JPanel{
 	 * 
 	 */
 	public OptionsPanel(JBSGUI parent) {
-		this.parent = parent;
 		setLayout(new BorderLayout(0, 0));
 		setOpaque(false);
 		add(parent.generateHeader(), BorderLayout.NORTH);

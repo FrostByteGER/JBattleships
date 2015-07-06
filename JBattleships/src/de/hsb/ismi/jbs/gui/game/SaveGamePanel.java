@@ -31,12 +31,17 @@ import javax.swing.JTextField;
 import java.awt.Color;
 
 /**
+ * 
  * @author Kevin Kuegler
  * @version 1.00
  */
 public class SaveGamePanel extends JBSBlurredPanel{
 	
-	private JBSGUI parent;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5522098731874486074L;
+
 	
 	private JList<String> saveList;
 	private DefaultListModel<String> saveListModel;
@@ -45,16 +50,15 @@ public class SaveGamePanel extends JBSBlurredPanel{
 	private JBSButton btnSaveGame;
 	private JBSButton btnDeleteGame;
 	private JBSButton btnBack;
-	private JTextField nameField;
+	private JTextField saveNameField;
 	private JLabel lblName;
 	
 
 	/**
 	 * 
 	 */
-	public SaveGamePanel(JBSGUI parent) {
+	public SaveGamePanel() {
 		super(30, 30);
-		this.parent = parent;
 		initPanel();
 	}
 	
@@ -70,7 +74,7 @@ public class SaveGamePanel extends JBSBlurredPanel{
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		lblSaveGame = new JLabel("Save Game:");
+		lblSaveGame = new JLabel(JBattleships.game.getLocalization("GAME_TITLE_SAVE"));
 		lblSaveGame.setFont(JBSGUI.MAIN_FONT);
 		lblSaveGame.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblSaveGame = new GridBagConstraints();
@@ -97,13 +101,14 @@ public class SaveGamePanel extends JBSBlurredPanel{
 		saveScrollPane.setBackground(JBSGUI.BACKGROUND_COLOR);
 		add(saveScrollPane, gbc_saveList);
 		
-		btnSaveGame = new JBSButton("Save Game");
+		btnSaveGame = new JBSButton(JBattleships.game.getLocalization("GAME_SAVE"));
 		btnSaveGame.addActionListener(e -> {
-			JBattleships.game.getDataManager().getPersistenceManager().saveGame(nameField.getText() + GamePersistenceManager.GAME_SAVE_EXTENSION);
+			JBattleships.game.getDataManager().getPersistenceManager().saveGame(saveNameField.getText() + GamePersistenceManager.GAME_SAVE_EXTENSION);
+			setVisible(false);
 		});
 		btnSaveGame.setEnabled(false);
 		
-		lblName = new JLabel("Enter a name:");
+		lblName = new JLabel(JBattleships.game.getLocalization("GAME_TITLE_SAVE_NAME"));
 		lblName.setFont(JBSGUI.MAIN_FONT);
 		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
@@ -114,70 +119,74 @@ public class SaveGamePanel extends JBSBlurredPanel{
 		gbc_lblName.gridy = 3;
 		add(lblName, gbc_lblName);
 		
-		nameField = new JTextField();
-		nameField.setFont(JBSGUI.MAIN_FONT);
-		((AbstractDocument)nameField.getDocument()).setDocumentFilter(new DocumentFilter(){
+		saveNameField = new JTextField();
+		saveNameField.setFont(JBSGUI.MAIN_FONT);
+		((AbstractDocument)saveNameField.getDocument()).setDocumentFilter(new DocumentFilter(){
 		    @Override
 		    public void replace(FilterBypass fb, int i, int i1, String string, AttributeSet as) throws BadLocationException {
-		        for (int n = string.length(); n > 0; n--) {
-		            char c = string.charAt(n - 1);
-		            if(Character.isAlphabetic(c) || (c >= '0' && c <= '9')){
-		                super.replace(fb, i, i1, String.valueOf(c), as);
-		                if(!btnSaveGame.isEnabled()){
-		                	btnSaveGame.setEnabled(true);
-		                }
-		            }else{
-		            	if(nameField.getBackground() != Color.PINK){
-			                nameField.setBackground(Color.PINK);
-		                	lblSaveGame.setText(JBattleships.game.getLocalization("GAME_SAVE_WARNING_ILLEGAL"));
-		            	}
-		            }
-		        }
+		    	if(string != null){
+			        for (int n = string.length(); n > 0; n--) {
+			            char c = string.charAt(n - 1);
+			            if(Character.isAlphabetic(c) || (c >= '0' && c <= '9')){
+			                super.replace(fb, i, i1, String.valueOf(c), as);
+			                if(!btnSaveGame.isEnabled()){
+			                	btnSaveGame.setEnabled(true);
+			                }
+			            }else{
+			            	if(saveNameField.getBackground() != Color.PINK){
+				                saveNameField.setBackground(Color.PINK);
+			                	lblSaveGame.setText(JBattleships.game.getLocalization("GAME_TITLE_SAVE_WARNING_ILLEGAL"));
+			            	}
+			            }
+			        }
+		    	}else{
+		    		super.replace(fb, i, i1, "", as);
+		    	}
 		    }
 		});
-		nameField.getDocument().addDocumentListener(new DocumentListener() {
+		saveNameField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				if(saveListModel.contains(nameField.getText())){
-		    		lblSaveGame.setText(JBattleships.game.getLocalization("GAME_SAVE_WARNING_DUPLICATE"));
+				if(saveListModel.contains(saveNameField.getText())){
+		    		lblSaveGame.setText(JBattleships.game.getLocalization("GAME_TITLE_SAVE_WARNING_DUPLICATE"));
 		    		lblSaveGame.setForeground(Color.ORANGE);
-		    		nameField.setBackground(Color.ORANGE);
+		    		saveNameField.setBackground(Color.ORANGE);
 		    	}else{
-	                if(nameField.getBackground() == Color.ORANGE){
-	                	nameField.setBackground(Color.WHITE);
+	                if(saveNameField.getBackground() == Color.ORANGE){
+	                	saveNameField.setBackground(Color.WHITE);
 	                	lblSaveGame.setForeground(Color.BLACK);
-	                	lblSaveGame.setText(JBattleships.game.getLocalization("GAME_SAVE_STANDARD"));
+	                	lblSaveGame.setText(JBattleships.game.getLocalization("GAME_TITLE_SAVE_STANDARD"));
 	                }
 		    	}
-				if(nameField.getText().isEmpty()){
+				if(saveNameField.getText().isEmpty()){
 					btnSaveGame.setEnabled(false);
 				}
 			}
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				if(saveListModel.contains(nameField.getText())){
-		    		lblSaveGame.setText(JBattleships.game.getLocalization("GAME_SAVE_WARNING_DUPLICATE"));
+				if(saveListModel.contains(saveNameField.getText())){
+		    		lblSaveGame.setText(JBattleships.game.getLocalization("GAME_TITLE_SAVE_WARNING_DUPLICATE"));
 		    		lblSaveGame.setForeground(Color.ORANGE);
-		    		nameField.setBackground(Color.ORANGE);
+		    		saveNameField.setBackground(Color.ORANGE);
 		    	}else{
-	                if(nameField.getBackground() == Color.ORANGE){
-	                	nameField.setBackground(Color.WHITE);
+	                if(saveNameField.getBackground() == Color.ORANGE){
+	                	saveNameField.setBackground(Color.WHITE);
 	                	lblSaveGame.setForeground(Color.BLACK);
-	                	lblSaveGame.setText(JBattleships.game.getLocalization("GAME_SAVE_STANDARD"));
+	                	lblSaveGame.setText(JBattleships.game.getLocalization("GAME_TITLE_SAVE_STANDARD"));
 	                }
 		    	}
 			}
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				if(saveListModel.contains(nameField.getText())){
-		    		lblSaveGame.setText(JBattleships.game.getLocalization("GAME_SAVE_WARNING_DUPLICATE"));
+				if(saveListModel.contains(saveNameField.getText())){
+		    		lblSaveGame.setText(JBattleships.game.getLocalization("GAME_TITLE_SAVE_WARNING_DUPLICATE"));
 		    		lblSaveGame.setForeground(Color.ORANGE);
-		    		nameField.setBackground(Color.ORANGE);
+		    		saveNameField.setBackground(Color.ORANGE);
 		    	}else{
-	                if(nameField.getBackground() == Color.ORANGE){
-	                	nameField.setBackground(Color.WHITE);
+	                if(saveNameField.getBackground() == Color.ORANGE){
+	                	saveNameField.setBackground(Color.WHITE);
 	                	lblSaveGame.setForeground(Color.BLACK);
-	                	lblSaveGame.setText(JBattleships.game.getLocalization("GAME_SAVE_STANDARD"));
+	                	lblSaveGame.setText(JBattleships.game.getLocalization("GAME_TITLE_SAVE"));
 	                }
 		    	}
 			}
@@ -188,8 +197,8 @@ public class SaveGamePanel extends JBSBlurredPanel{
 		gbc_nameField.fill = GridBagConstraints.BOTH;
 		gbc_nameField.gridx = 2;
 		gbc_nameField.gridy = 3;
-		add(nameField, gbc_nameField);
-		nameField.setColumns(10);
+		add(saveNameField, gbc_nameField);
+		saveNameField.setColumns(10);
 		GridBagConstraints gbc_btnSaveGame = new GridBagConstraints();
 		gbc_btnSaveGame.fill = GridBagConstraints.BOTH;
 		gbc_btnSaveGame.insets = new Insets(0, 0, 5, 5);
@@ -227,16 +236,29 @@ public class SaveGamePanel extends JBSBlurredPanel{
 		gbc_btnBack.gridx = 3;
 		gbc_btnBack.gridy = 4;
 		add(btnBack, gbc_btnBack);
-		
-		loadSaveGames();
 	}
 	
 	private void loadSaveGames(){
+		JBattleships.game.getDataManager().getPersistenceManager().loadGames();
 		for(String s : JBattleships.game.getDataManager().getPersistenceManager().getSaveGames().keySet()){
 			saveListModel.addElement(s);
 		}
 		if(saveListModel.size() == 0){
 			btnDeleteGame.setEnabled(false);
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.hsb.ismi.jbs.gui.utility.JBSBlurredPanel#setVisible(boolean)
+	 */
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		if(visible){
+			loadSaveGames();
+		}else{
+			saveListModel.removeAllElements();
+			saveNameField.setText(null);
 		}
 	}
 	

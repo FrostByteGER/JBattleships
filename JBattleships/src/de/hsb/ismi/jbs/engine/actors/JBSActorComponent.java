@@ -23,14 +23,11 @@ public class JBSActorComponent {
 	private int activeAnimationIndex = 0;
 	private int imageamount;
 	private int animationamount;
-	
-	private String[] names;
-	
+		
 	/*
 	 * bekommt ein String Array mit den Namen der Animationen die verwendet werden sollen
 	 */
 	public JBSActorComponent(String[] animationname) {
-		this.names = animationname;
 		this.animations = new AnimationSequence[animationname.length];
 		this.animationamount = animationname.length;
 		
