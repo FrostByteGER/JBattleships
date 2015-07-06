@@ -220,6 +220,7 @@ public class GameFieldPanel extends JPanel {
 					//g.setColor(Color.BLUE);
 					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}else{
+					System.out.println(JBSCoreGame.DEBUG_MODE);
 					if(showships || JBSCoreGame.DEBUG_MODE){
 						
 						g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
