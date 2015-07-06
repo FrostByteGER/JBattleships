@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
+import de.hsb.ismi.jbs.engine.actors.JBSActorComponent;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.JBSGameField;
@@ -73,7 +74,9 @@ public class GameFieldPanel extends JPanel {
 	private JBSActor water = new JBSActor();
 	
 	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
-				
+		
+		water.setComponents(new JBSActorComponent(new String[]{"watertest64.png"}));
+		
 		this.gamefild = fild;
 		listeners = new ArrayList<>(0);
 		gridColor = new Color(0,0,0,0);;
@@ -95,7 +98,7 @@ public class GameFieldPanel extends JPanel {
 		xofset = 0;
 		yofset = 0;
 					
-		animationthread = new AnimationThread(this,fieldsize/gamefild.getSize());
+		animationthread = new AnimationThread(fieldsize/gamefild.getSize());
 		animationthread.addActorCommponent(water.getComponents());
 		
 		animationthread.start();

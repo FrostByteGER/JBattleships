@@ -172,6 +172,7 @@ public class JBSAIPlayer extends JBSPlayer {
 							JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
 							JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
 							
+							System.out.println(hit+"testtagzdkjdkjlsahkjda");
 							
 							lasthitfield  = hitfield;
 							lasthit = hit;		

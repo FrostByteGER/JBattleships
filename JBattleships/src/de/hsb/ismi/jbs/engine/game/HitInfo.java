@@ -26,8 +26,6 @@ public class HitInfo {
 	private Direction hitDirection = null;
 	private JBSDamageType damageType = null;
 
-	
-	
 	/**
 	 * 
 	 */
