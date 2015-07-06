@@ -17,7 +17,6 @@ public class JBSActorComponent {
 	/** Contains the animations for this actor. */
 	private AnimationSequence[] animations = null;
 		
-	private String imagePath = "";
 	private JBSActor parent = null;
 	
 	private int imagecount;
@@ -25,7 +24,9 @@ public class JBSActorComponent {
 	private int imageamount;
 	private int animationamount;
 	
-	
+	/*
+	 * bekommt ein String Array mit den Namen der Animationen die verwendet werden sollen
+	 */
 	public JBSActorComponent(String[] animationname) {
 		
 		this.animations = new AnimationSequence[animationname.length];
@@ -46,7 +47,6 @@ public class JBSActorComponent {
 	 */
 	public JBSActorComponent(String imagePath, JBSActor parent) {
 		super();
-		this.imagePath = imagePath;
 		this.parent = parent;
 	}
 	
@@ -81,13 +81,6 @@ public class JBSActorComponent {
 	 */
 	public final void setParent(JBSActor parent) {
 		this.parent = parent;
-	}
-
-	/**
-	 * @return the imagePath
-	 */
-	public final String getImagePath() {
-		return imagePath;
 	}
 
 	/**
@@ -149,12 +142,5 @@ public class JBSActorComponent {
 	 */
 	public void setAnimationamount(int animationamount) {
 		this.animationamount = animationamount;
-	}
-
-	/**
-	 * @param imagePath the imagePath to set
-	 */
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
 	}
 }
