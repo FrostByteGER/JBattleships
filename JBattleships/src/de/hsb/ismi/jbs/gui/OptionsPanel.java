@@ -60,6 +60,11 @@ import javax.swing.JCheckBox;
  */
 public class OptionsPanel extends JPanel{
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5051718464952511210L;
 	private JPanel centerPanel;
 	private JPanel gfxPanel;
 	private JPanel sfxPanel;

@@ -21,6 +21,7 @@ public class RoundManager implements RoundListener{
 	private boolean ended = false;
 	
 	private JBSPlayer target = null;
+	@SuppressWarnings("unused")
 	private JBSPlayer source = null;
 	private JBSShip ship = null;
 	

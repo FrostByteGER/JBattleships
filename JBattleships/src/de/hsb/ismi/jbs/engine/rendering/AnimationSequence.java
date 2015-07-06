@@ -13,10 +13,6 @@ import de.hsb.ismi.jbs.engine.utility.Utility;
  */
 public class AnimationSequence{
 	
-	@Deprecated
-	public static final int BORDER_HORIZONTAL_THICK = 1;
-	@Deprecated
-	public static final int BORDER_VERTICAL_THICK = 1;
 	public static final int SPRITE_WIDTH = 64;
 	public static final int SPRITE_HEIGHT = 64;
 	public static final int BACKGROUND_COLOR = 0xFF000000;

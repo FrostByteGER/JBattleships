@@ -16,7 +16,6 @@ import de.hsb.ismi.jbs.engine.players.JBSProfile;
 import de.hsb.ismi.jbs.engine.rendering.Resolution;
 import de.hsb.ismi.jbs.engine.rendering.ScreenDeviceManager;
 import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
-import de.hsb.ismi.jbs.engine.utility.JBSIOQueue;
 import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.gui.JBSGUI;
@@ -33,9 +32,6 @@ public class JBSCoreGame {
 	public static SHA256Generator shaGenerator = new SHA256Generator();
 	/** The ScreenDeviceManager that manages the screen devices a.k.a. monitors and its supported resolutions. */
 	public static ScreenDeviceManager screenDeviceManager = new ScreenDeviceManager();
-	/** The IO-Queue for any IO events. */
-	@Deprecated
-	public static JBSIOQueue<String> ioQueue = new JBSIOQueue<String>();
 	/** The Path of the Datafolder with all important content. */
 	public static final String DATA_PATH = "Data/";
 	/** Enables debug functionality and the MessageLogger. */

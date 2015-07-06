@@ -23,7 +23,6 @@ import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 @XmlSeeAlso({JBSShipActor.class})
 public class JBSActor{
 	
-	//TODO: maybe remove Xmltransient!
 	@XmlTransient
 	private JBSPlayer player   = null;
 	@XmlElement(name = "ActorLocation")
@@ -80,10 +79,13 @@ public class JBSActor{
 
 	public void setHit(boolean isHit) {
 		this.isHit = isHit;
-		try{
-			component.setActiveAnimationIndex(isHit ? 1 : 0);
-		}catch(IllegalArgumentException iae){
-			DebugLog.logError(iae);
+		//TODO: Hardcoded, remove!
+		if(!name.equals("water")){
+			try{
+				component.setActiveAnimationIndex(isHit ? 1 : 0);
+			}catch(IllegalArgumentException iae){
+				DebugLog.logError(iae);
+			}
 		}
 	}
 

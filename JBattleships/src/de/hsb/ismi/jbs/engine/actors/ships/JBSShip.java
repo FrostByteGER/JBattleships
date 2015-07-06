@@ -4,14 +4,18 @@
 package de.hsb.ismi.jbs.engine.actors.ships;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
+import de.hsb.ismi.jbs.engine.actors.JBSActorComponent;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.HitInfo;
 import de.hsb.ismi.jbs.engine.game.JBSDamageType;
@@ -26,6 +30,8 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 @XmlSeeAlso({JBSDestroyer.class, JBSFrigate.class, JBSCorvette.class, JBSSubmarine.class})
 public class JBSShip{
 
+	@XmlID
+	private String id = UUID.randomUUID().toString();
 	@XmlElement(name = "CooldownLimit")
 	private int cooldownLimit;
 	@XmlElement(name = "Cooldown")
@@ -337,6 +343,26 @@ public class JBSShip{
 	 */
 	public final void setShipActors(ArrayList<JBSShipActor> shipActors) {
 		this.shipActors = shipActors;
+	}
+	
+	/**
+	 * Loads the ships textures/animations.
+	 */
+	private final void loadTextures(){
+		for(int i = 0 ; i < getShipActors().size() ; i++){
+			String[] animations = new String[]{name.toLowerCase() + "_"+i+"_"+direction.getStringDirection()+".png",
+											   name.toLowerCase() + "_dmg_"+i+"_"+direction.getStringDirection()+".png"};
+			getShipActors().get(i).setComponents(new JBSActorComponent(animations));
+		}
+	}
+	
+	/**
+	 * Don't manually call! This method gets called by the JAXB {@link javax.xml.bind.Unmarshaller Unmarshaller}.
+	 * @param u
+	 * @param parent
+	 */
+	public void afterUnmarshal(Unmarshaller u, Object parent){
+		loadTextures();
 	}
 	
 	

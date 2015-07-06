@@ -9,15 +9,18 @@ import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
- * Einfacher JButton mit voreinstellungen
- * 
- * @author Jan Schult
- *
+ * Custom button class that modifies the UI of it.
+ * @author Kevin Kuegler
+ * @version 1.00
  */
 public class JBSButton extends JButton {
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3411017032450323548L;
 	private Color selectedColor = new Color(0.5411f, 0.5411f, 0.5411f*1.5f, 0.8f);
-	//private Color defaultColor = new Color(0.5411f, 0.5411f, 0.5411f, 0.6f);
 	private Color defaultColor = new Color(0.5411f, 0.5411f, 0.5411f*1.5f, 0.6f);
 
 	public JBSButton() {

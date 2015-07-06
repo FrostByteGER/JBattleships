@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.border.TitledBorder;
+
+
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
@@ -17,6 +19,8 @@ import java.awt.Insets;
 import javax.swing.JCheckBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
+
+
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.game.JBSGameType;
 import de.hsb.ismi.jbs.engine.game.managers.GameManager;
@@ -38,6 +42,11 @@ import net.miginfocom.swing.MigLayout;
  */
 public class PreGamePanel extends JPanel {
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8550769174904673444L;
 	private JPanel header;
 	private JPanel centerPanel;
 	private JPanel buttonPanel;
@@ -79,7 +88,7 @@ public class PreGamePanel extends JPanel {
 		btnGroup = new JBSButtonGroup();
 		playerPanels = new PlayerSlotPanel[8];
 		for(int i = 0; i < playerPanels.length; i++){
-			PlayerSlotPanel pp = new PlayerSlotPanel(false, type);
+			PlayerSlotPanel pp = new PlayerSlotPanel(type);
 			if(i == 0){
 				pp.setName(JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName());
 			}else{
@@ -123,7 +132,6 @@ public class PreGamePanel extends JPanel {
 						GameManager gm = JBattleships.game.generateGame();
 						for(int i = 0; i <playerPanels.length; i++){
 							PlayerSlotPanel pregpp = playerPanels[i];
-							//TODO: add various checks!
 							boolean active = pregpp.isActiveSelected();
 							if(active){
 								boolean ai = pregpp.isAISelected();
@@ -140,7 +148,7 @@ public class PreGamePanel extends JPanel {
 							}
 						}
 						int[] count = new int[4];
-						//destroyerSpinner.commitEdit(); TODO: Discard?
+						
 						try{
 							count[0] = ((Integer)destroyerSpinner.getValue());
 						}catch(ClassCastException cce){
@@ -187,9 +195,9 @@ public class PreGamePanel extends JPanel {
 		mixedPanel = new JPanel();
 		mixedPanel.setOpaque(false);
 		mixedPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		mixedPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_TITLE_OTHER_SETTINGS"), TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 18), null));
+		mixedPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_TITLE_OTHER_SETTINGS"), TitledBorder.CENTER, TitledBorder.TOP, JBSGUI.MAIN_FONT, null));
 		settingsPanel.add(mixedPanel);
-		mixedPanel.setLayout(new MigLayout("", "[grow,fill]", "[20%:n][60%:n,grow,fill]"));
+		mixedPanel.setLayout(new MigLayout("", "[grow,fill]", "[10%:n][60%:n,grow,fill]"));
 		
 		otherPanel = new JPanel();
 		otherPanel.setOpaque(false);
@@ -197,23 +205,25 @@ public class PreGamePanel extends JPanel {
 		mixedPanel.add(otherPanel, "cell 0 0,grow");
 		GridBagLayout gbl_otherPanel = new GridBagLayout();
 		gbl_otherPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_otherPanel.rowHeights = new int[]{0, 0, 0};
+		gbl_otherPanel.rowHeights = new int[]{0};
 		gbl_otherPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_otherPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_otherPanel.rowWeights = new double[]{0.0};
 		otherPanel.setLayout(gbl_otherPanel);
 		
 		lblFieldSize = new JLabel(JBattleships.game.getLocalization("GAME_FIELD_SIZE"));
+		lblFieldSize.setFont(JBSGUI.MAIN_FONT);
 		lblFieldSize.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblFieldSize = new GridBagConstraints();
 		gbc_lblFieldSize.fill = GridBagConstraints.BOTH;
 		gbc_lblFieldSize.weighty = 1.0;
 		gbc_lblFieldSize.weightx = 1.0;
-		gbc_lblFieldSize.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFieldSize.insets = new Insets(0, 0, 0, 0);
 		gbc_lblFieldSize.gridx = 0;
 		gbc_lblFieldSize.gridy = 0;
 		otherPanel.add(lblFieldSize, gbc_lblFieldSize);
 		
 		fieldSizeSpinner = new JSpinner();
+		fieldSizeSpinner.setFont(JBSGUI.MAIN_FONT);
 		fieldSizeSpinner.setModel(new SpinnerNumberModel(new Integer(16), new Integer(10), new Integer(20), new Integer(1)));
 		GridBagConstraints gbc_fieldSizeSpinner = new GridBagConstraints();
 		gbc_fieldSizeSpinner.insets = new Insets(0, 0, 5, 0);
@@ -226,25 +236,25 @@ public class PreGamePanel extends JPanel {
 		
 		chckbxUseNavalMines = new JCheckBox(JBattleships.game.getLocalization("GAME_USE_NAVAL_MINES"));
 		chckbxUseNavalMines.setOpaque(false);
+		chckbxUseNavalMines.setVisible(false);
 		GridBagConstraints gbc_chckbxUseNavalMines = new GridBagConstraints();
 		gbc_chckbxUseNavalMines.insets = new Insets(0, 0, 0, 5);
 		gbc_chckbxUseNavalMines.gridx = 0;
 		gbc_chckbxUseNavalMines.gridy = 1;
-		otherPanel.add(chckbxUseNavalMines, gbc_chckbxUseNavalMines);
 		
 		chckbxUseCannon = new JCheckBox(JBattleships.game.getLocalization("GAME_USE_COASTAL_ARTILLERY"));
 		chckbxUseCannon.setOpaque(false);
+		chckbxUseCannon.setVisible(false);
 		GridBagConstraints gbc_chckbxUseCannon = new GridBagConstraints();
 		gbc_chckbxUseCannon.weighty = 1.0;
 		gbc_chckbxUseCannon.weightx = 1.0;
 		gbc_chckbxUseCannon.gridx = 1;
 		gbc_chckbxUseCannon.gridy = 1;
-		otherPanel.add(chckbxUseCannon, gbc_chckbxUseCannon);
 		
 		playerPanel = new JPanel();
 		playerPanel.setOpaque(false);
 		playerPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		playerPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_TITLE_PLAYER_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		playerPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_TITLE_PLAYER_SETTINGS"), TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.MAIN_FONT, null));
 		mixedPanel.add(playerPanel, "cell 0 1,grow");
 		playerPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		for(PlayerSlotPanel pgpp : playerPanels){
@@ -255,7 +265,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel = new JPanel();
 		shipPanel.setOpaque(false);
 		shipPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
-		shipPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_TITLE_SHIP_SETTINGS"), TitledBorder.CENTER, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 18), null));
+		shipPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_TITLE_SHIP_SETTINGS"), TitledBorder.CENTER, TitledBorder.TOP, JBSGUI.MAIN_FONT, null));
 		settingsPanel.add(shipPanel);
 		GridBagLayout gbl_shipPanel = new GridBagLayout();
 		gbl_shipPanel.columnWeights = new double[]{0.0, 0.0};
@@ -263,7 +273,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.setLayout(gbl_shipPanel);
 		
 		lblDestroyer = new JLabel(JBattleships.game.getLocalization("GAME_DESTROYERS"));
-		lblDestroyer.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblDestroyer.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblDestroyer = new GridBagConstraints();
 		gbc_lblDestroyer.weighty = 1.0;
 		gbc_lblDestroyer.weightx = 1.0;
@@ -274,6 +284,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(lblDestroyer, gbc_lblDestroyer);
 		
 		destroyerSpinner = new JSpinner();
+		destroyerSpinner.setFont(JBSGUI.MAIN_FONT);
 		destroyerSpinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(0), new Integer(3), new Integer(1)));
 		GridBagConstraints gbc_destroyerSpinner = new GridBagConstraints();
 		gbc_destroyerSpinner.weighty = 1.0;
@@ -285,7 +296,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(destroyerSpinner, gbc_destroyerSpinner);
 		
 		lblFrigate = new JLabel(JBattleships.game.getLocalization("GAME_FRIGATES"));
-		lblFrigate.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblFrigate.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblFrigate = new GridBagConstraints();
 		gbc_lblFrigate.weighty = 1.0;
 		gbc_lblFrigate.weightx = 1.0;
@@ -296,6 +307,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(lblFrigate, gbc_lblFrigate);
 		
 		frigateSpinner = new JSpinner();
+		frigateSpinner.setFont(JBSGUI.MAIN_FONT);
 		frigateSpinner.setModel(new SpinnerNumberModel(new Integer(2), new Integer(0), new Integer(3), new Integer(1)));
 		GridBagConstraints gbc_frigateSpinner = new GridBagConstraints();
 		gbc_frigateSpinner.weighty = 1.0;
@@ -307,7 +319,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(frigateSpinner, gbc_frigateSpinner);
 		
 		lblCorvette = new JLabel(JBattleships.game.getLocalization("GAME_CORVETTES"));
-		lblCorvette.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblCorvette.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblCorvette = new GridBagConstraints();
 		gbc_lblCorvette.weighty = 1.0;
 		gbc_lblCorvette.weightx = 1.0;
@@ -318,6 +330,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(lblCorvette, gbc_lblCorvette);
 		
 		corvetteSpinner = new JSpinner();
+		corvetteSpinner.setFont(JBSGUI.MAIN_FONT);
 		corvetteSpinner.setModel(new SpinnerNumberModel(new Integer(2), new Integer(0), new Integer(3), new Integer(1)));
 		GridBagConstraints gbc_spinner_2 = new GridBagConstraints();
 		gbc_spinner_2.weighty = 1.0;
@@ -329,7 +342,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(corvetteSpinner, gbc_spinner_2);
 		
 		lblSubmarines = new JLabel(JBattleships.game.getLocalization("GAME_SUBMARINES"));
-		lblSubmarines.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblSubmarines.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblSubmarines = new GridBagConstraints();
 		gbc_lblSubmarines.weighty = 1.0;
 		gbc_lblSubmarines.weightx = 1.0;
@@ -340,6 +353,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(lblSubmarines, gbc_lblSubmarines);
 		
 		subSpinner = new JSpinner();
+		subSpinner.setFont(JBSGUI.MAIN_FONT);
 		subSpinner.setModel(new SpinnerNumberModel(new Integer(3), new Integer(0), new Integer(3), new Integer(1)));
 		GridBagConstraints gbc_subSpinner = new GridBagConstraints();
 		gbc_subSpinner.fill = GridBagConstraints.HORIZONTAL;

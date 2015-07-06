@@ -22,7 +22,7 @@ import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
- * The core GUI-class, everything starts here.
+ * The core GUI-class, everything GUI related starts here.
  * @author Kevin Kuegler
  * @version 1.00
  */

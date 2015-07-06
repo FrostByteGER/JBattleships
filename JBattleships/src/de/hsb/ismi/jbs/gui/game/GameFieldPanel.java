@@ -26,8 +26,15 @@ import de.hsb.ismi.jbs.gui.JBSGUI;
  */
 public class GameFieldPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1845450912510850006L;
+	
 	// aktuelles Spielfeld
 	private JBSGameField gamefild;
+
+	private JBSGameField gamefield;
 	
 	// größe von einem Teil des Feldes
 	private int gridsize;

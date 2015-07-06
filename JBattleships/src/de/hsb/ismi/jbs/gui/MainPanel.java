@@ -27,6 +27,11 @@ import java.awt.FlowLayout;
  */
 public class MainPanel extends JPanel {
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 634434316561399871L;
 	private JPanel buttonPanel;
 	private JBSButton btnLocal;
 	private JBSButton btnProfiles;

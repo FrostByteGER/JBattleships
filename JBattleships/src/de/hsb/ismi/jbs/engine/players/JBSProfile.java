@@ -3,8 +3,6 @@
  */
 package de.hsb.ismi.jbs.engine.players;
 
-import java.util.HashMap;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,8 +23,6 @@ public class JBSProfile {
 	private String name = "default";
 	@XmlElement(name = "PlayerStatistics")
 	private ProfileStatistics stats = new ProfileStatistics();
-	@XmlTransient
-	private HashMap<String, Achievement> achievements = new HashMap<String, Achievement>(0);
 
 	/**
 	 * 

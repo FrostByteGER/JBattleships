@@ -21,6 +21,11 @@ import de.hsb.ismi.jbs.start.JBattleships;
  */
 public class PlayerStatsPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8253668012970744197L;
+	@SuppressWarnings("unused")
 	private JLabel lblFiredShotsDesc;
 	private JLabel lblMissedShotsDesc;
 	private JLabel lblShotsHitDesc;

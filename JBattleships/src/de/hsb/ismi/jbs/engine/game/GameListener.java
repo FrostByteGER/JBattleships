@@ -10,8 +10,6 @@ package de.hsb.ismi.jbs.engine.game;
 public interface GameListener{
 
 	public void fireStartedGame();
-	
-	//public void firePausedGame();
-	
+		
 	public void fireEndedGame();
 }

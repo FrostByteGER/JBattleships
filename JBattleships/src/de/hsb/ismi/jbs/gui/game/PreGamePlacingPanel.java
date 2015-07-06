@@ -48,6 +48,11 @@ import javax.swing.JLabel;
  */
 public class PreGamePlacingPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5578342633172322046L;
+
 	private JBSGUI parent;
 	
 	private JPanel centerPanel;
@@ -127,14 +132,14 @@ public class PreGamePlacingPanel extends JPanel {
 		gbc_fieldPanel.gridy = 0;
 		centerPanel.setLayout(new MigLayout("", "[grow][561px]", "[412px,grow]"));
 		
-		centerPanel.add(new AlphaContainer(fieldPanel) , "cell 0 0,width :90%:,grow");
+		centerPanel.add(fieldPanel , "cell 0 0,width :90%:,grow");
 
 		
 		shipPanel = new JPanel();
 		shipPanel.setOpaque(true);
 		shipPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		centerPanel.add(new AlphaContainer(shipPanel), "cell 1 0,grow");
-		shipPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_SHIP_LIST"), TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		shipPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_SHIP_LIST"), TitledBorder.LEADING, TitledBorder.TOP, JBSGUI.MAIN_FONT, null));
 		GridBagLayout gbl_shipPanel = new GridBagLayout();
 		gbl_shipPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_shipPanel.columnWeights = new double[]{1.0};
@@ -351,7 +356,6 @@ public class PreGamePlacingPanel extends JPanel {
 	 * Gets next player and initiates the panel with its data. Also checks if its the last player and starts the game.
 	 */
 	private void nextPlayer(){
-		//TODO: Add security question if destroyersLeft etc... is > 0
 		if(activePlayerIndex < gm.getGame().getPlayers().length - 1){
 			activePlayerIndex++;
 			initPlayerData();

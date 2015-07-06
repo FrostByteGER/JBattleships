@@ -42,6 +42,11 @@ import java.awt.Color;
  */
 public class ProfilePanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5052382466731100808L;
+
 	private JBSGUI parent;
 	
 	private JPanel centerPanel;
