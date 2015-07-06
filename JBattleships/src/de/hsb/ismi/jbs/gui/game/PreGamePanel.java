@@ -98,6 +98,7 @@ public class PreGamePanel extends JPanel {
 			playerPanels[i] = pp;
 		}
 		playerPanels[0].setActiveSelected(true);
+		playerPanels[0].getNameField().setEditable(false);
 		playerPanels[1].setActiveSelected(true);
 		
 		gameType = type;
@@ -197,7 +198,7 @@ public class PreGamePanel extends JPanel {
 		mixedPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		mixedPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_TITLE_OTHER_SETTINGS"), TitledBorder.CENTER, TitledBorder.TOP, JBSGUI.MAIN_FONT, null));
 		settingsPanel.add(mixedPanel);
-		mixedPanel.setLayout(new MigLayout("", "[grow,fill]", "[10%:n][60%:n,grow,fill]"));
+		mixedPanel.setLayout(new MigLayout("", "[grow,fill]", "[5%:n][60%:n,grow,fill]"));
 		
 		otherPanel = new JPanel();
 		otherPanel.setOpaque(false);
@@ -226,7 +227,6 @@ public class PreGamePanel extends JPanel {
 		fieldSizeSpinner.setFont(JBSGUI.MAIN_FONT);
 		fieldSizeSpinner.setModel(new SpinnerNumberModel(new Integer(16), new Integer(10), new Integer(20), new Integer(1)));
 		GridBagConstraints gbc_fieldSizeSpinner = new GridBagConstraints();
-		gbc_fieldSizeSpinner.insets = new Insets(0, 0, 5, 0);
 		gbc_fieldSizeSpinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fieldSizeSpinner.weighty = 1.0;
 		gbc_fieldSizeSpinner.weightx = 1.0;
