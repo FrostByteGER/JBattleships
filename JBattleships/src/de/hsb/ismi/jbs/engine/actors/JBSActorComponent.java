@@ -24,11 +24,13 @@ public class JBSActorComponent {
 	private int imageamount;
 	private int animationamount;
 	
+	private String[] names;
+	
 	/*
 	 * bekommt ein String Array mit den Namen der Animationen die verwendet werden sollen
 	 */
 	public JBSActorComponent(String[] animationname) {
-		
+		this.names = animationname;
 		this.animations = new AnimationSequence[animationname.length];
 		this.animationamount = animationname.length;
 		
@@ -50,15 +52,8 @@ public class JBSActorComponent {
 		this.parent = parent;
 	}
 	
-	@Deprecated
-	public void startAnimation(int animationnuber){
-		//activeAnimationIndex = animationnuber%animationamount;
-	}
-	
 	public void nextImage(){
 		if(imagecount == imageamount-1){
-			//TODO: Remove
-			//activeAnimationIndex = 0;
 			imagecount = 0;
 		}else{
 			imagecount++;

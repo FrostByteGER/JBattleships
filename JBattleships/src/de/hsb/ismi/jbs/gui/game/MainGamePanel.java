@@ -42,9 +42,8 @@ public class MainGamePanel extends JPanel {
 	
 	private JPanel sidePanel;
 	private JPanel centerPanel;
-	private JPanel lowerSidePanel;
-	private JPanel lowerMainPanel;
-	private JPanel uperMainPanel;
+	private JPanel buttonPanel;
+	private JPanel playerSelectionPanel;
 	private BattleLogPanel battleLogPanel;
 	
 	private JLabel fieldNumber;
@@ -62,13 +61,16 @@ public class MainGamePanel extends JPanel {
 	public MainGamePanel(JBSGUI parent) {
 		this.parent = parent;
 		this.game = JBattleships.game.getGameManager().getGame();
+		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		
 		centerPanel = new JPanel();
+		centerPanel.setOpaque(false);
 		add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new MigLayout("", "[grow][grow]", "[grow]"));
 		
 		sidePanel = new JPanel();
+		sidePanel.setOpaque(false);
 		
 		battleLogPanel = new BattleLogPanel();
 		
@@ -160,24 +162,24 @@ public class MainGamePanel extends JPanel {
 			}
 		});
 		
-		lowerSidePanel = new JPanel();
+		buttonPanel = new JPanel();
 		
-		lowerSidePanel.setLayout(new FlowLayout());
-		lowerSidePanel.add(new AlphaContainer(btnExit));
-		lowerSidePanel.add(new AlphaContainer(btnShoot));
-		lowerSidePanel.add(new AlphaContainer(btnEndRound));
+		buttonPanel.setLayout(new FlowLayout());
+		buttonPanel.setOpaque(false);
+		buttonPanel.add(new AlphaContainer(btnExit));
+		buttonPanel.add(new AlphaContainer(btnShoot));
+		buttonPanel.add(new AlphaContainer(btnEndRound));
 		
-		add(lowerSidePanel,BorderLayout.SOUTH);
+		add(buttonPanel,BorderLayout.SOUTH);
 		
 		btnSaveGame = new JBSButton(JBattleships.game.getLocalization("GAME_SAVE"));
 		btnSaveGame.addActionListener(e -> {
-			//TODO: Add SaveDialog
-			JBattleships.game.getDataManager().getPersistenceManager().saveGame("game_001.xml");
+			parent.getMainFrame().getGlassPane().setVisible(true);
 		});
 		
-		lowerSidePanel.add(new AlphaContainer(btnSaveGame));
+		buttonPanel.add(new AlphaContainer(btnSaveGame));
 		
-		btnShowShips =  new JBSButton(JBattleships.game.getLocalization("SHOW_SHIPS"));
+		btnShowShips =  new JBSButton(JBattleships.game.getLocalization("GAME_SHOW_SHIPS"));
 		
 		btnShowShips.addActionListener(e -> {
 			gameFieldPanel.setShowships(true);
@@ -187,17 +189,15 @@ public class MainGamePanel extends JPanel {
 			fieldNumber.setText(game.getActivePlayer().getName());
 		});
 		
-		lowerSidePanel.add(btnShowShips);
+		buttonPanel.add(btnShowShips);
 		
 		gameFieldPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
 		gameFieldPanel.setLayout(new BorderLayout(0, 0));
-		centerPanel.add(new AlphaContainer(gameFieldPanel) , "cell 0 0,width :65%:,grow");
+		centerPanel.add(gameFieldPanel , "cell 0 0,width :65%:,grow");
 		
-		lowerMainPanel = new JPanel();
-		lowerMainPanel.setLayout(new BorderLayout());
-		
-		uperMainPanel = new JPanel();
-		uperMainPanel.setLayout(new FlowLayout());
+		playerSelectionPanel = new JPanel();
+		playerSelectionPanel.setOpaque(false);
+		playerSelectionPanel.setLayout(new FlowLayout());
 		
 		JBSButton pbut = new JBSButton();
 		pbut.setText(JBattleships.game.getLocalization("GAME_NEXT"));
@@ -233,13 +233,15 @@ public class MainGamePanel extends JPanel {
 				
 		fieldNumber.setText(game.getPlayer(selectedGameField).getName());
 		
-		uperMainPanel.add(new AlphaContainer(mbut));
-		uperMainPanel.add(fieldNumber);
-		uperMainPanel.add(new AlphaContainer(pbut));
+		playerSelectionPanel.add(new AlphaContainer(mbut));
+		playerSelectionPanel.add(fieldNumber);
+		playerSelectionPanel.add(new AlphaContainer(pbut));
 		
-		gameFieldPanel.add(uperMainPanel,BorderLayout.NORTH);
+		add(playerSelectionPanel,BorderLayout.NORTH);
 		
 		gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
+		
+		parent.getMainFrame().setGlassPane(new SaveGamePanel(parent));
 		
 		JBattleships.game.getGameManager().addGameListener(new GameListener() {
 			

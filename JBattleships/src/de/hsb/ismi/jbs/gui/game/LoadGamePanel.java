@@ -36,8 +36,8 @@ public class LoadGamePanel extends JPanel{
 	private JPanel centerPanel = new JPanel();
 	private JList<String> loadList = new JList<String>();
 	private DefaultListModel<String> loadListModel = new DefaultListModel<>();
-	private JBSButton btnLoad = new JBSButton("Load");
-	private JBSButton btnDelete = new JBSButton("Delete");
+	private JBSButton btnLoad = new JBSButton("Load Save");
+	private JBSButton btnDelete = new JBSButton("Delete Save");
 	private JBSButton btnBack = new JBSButton("Back");
 	private JLabel lblLoad = new JLabel("Choose a savegame:");
 	private JScrollPane scrollPane = new JScrollPane();

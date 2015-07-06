@@ -3,9 +3,9 @@
  */
 package de.hsb.ismi.jbs.engine.actors.ships;
 
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
@@ -56,8 +56,9 @@ public class JBSShipActor extends JBSActor {
 		return parent;
 	}
 	
-	public void afterUnmarshal(Unmarshaller u, Object parent) {
-		this.parent = (JBSShip)parent;
+	@XmlIDREF
+	public final void setParent(JBSShip parent){
+		this.parent = parent;
 	}
 	
 }

@@ -3,14 +3,10 @@
  */
 package de.hsb.ismi.jbs.engine.game;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlTransient;
-
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
@@ -29,18 +25,11 @@ public class JBSGameField{
 	@XmlElement(name = "GamefieldSize")
 	private int size = 0;
 	
-	// OLD TODO
-	@XmlTransient
-	private JBSActor water = new JBSActor("water");
-	@XmlTransient
-	private JBSActor waterHitDummy = new JBSActor("waterhit");
-	
 	/**
 	 * 
 	 */
 	public JBSGameField() {
-		water.setHit(false);
-		waterHitDummy.setHit(true);
+
 	}
 	
 	/**
@@ -48,9 +37,6 @@ public class JBSGameField{
 	 */
 	public JBSGameField(int size) {
 		this.size = size;
-		
-		water.setHit(false);
-		waterHitDummy.setHit(true);
 		
 		actorFields = new JBSActor[size][size];
 		
@@ -212,9 +198,9 @@ public class JBSGameField{
 			}
 			for(int j = 0 ; j < actorFields[i].length ; j++){
 				
-				if(actorFields[i][j] == water){
+				if(actorFields[i][j].getName().equals("water")){
 					System.out.print("--");
-				}else if(actorFields[i][j] == waterHitDummy){
+				}else if(actorFields[i][j].getName().equals("waterhit")){
 					System.out.print("~~");
 				}else if(visible){
 					System.out.print("BB");

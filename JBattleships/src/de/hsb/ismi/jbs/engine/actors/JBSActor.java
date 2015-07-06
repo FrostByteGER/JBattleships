@@ -23,7 +23,6 @@ import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 @XmlSeeAlso({JBSShipActor.class})
 public class JBSActor{
 	
-	//TODO: maybe remove Xmltransient!
 	@XmlTransient
 	private JBSPlayer player   = null;
 	@XmlElement(name = "ActorLocation")
@@ -35,7 +34,7 @@ public class JBSActor{
 	@XmlElement(name = "Visibility")
 	private boolean visibility           = true;
 	@XmlElement(name = "Name")
-	private String name                  = "Undefined";
+	private String name                  = "water";
 	@XmlTransient
 	private JBSActorComponent component = new JBSActorComponent(new String[]{"watertest64.png"});
 	
@@ -43,14 +42,13 @@ public class JBSActor{
 	 * 
 	 */
 	public JBSActor() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
 	 * 
 	 */
 	public JBSActor(String name) {
-		this.name = name; // TODO
+		this.name = name;
 	}
 
 	/**
@@ -69,21 +67,19 @@ public class JBSActor{
 		this.component = components;
 	}
 	
-	@Deprecated
-	public boolean isControlledByPlayer(){
-		return false;
-	}
-	
 	public boolean isHit() {
 		return isHit;
 	}
 
 	public void setHit(boolean isHit) {
 		this.isHit = isHit;
-		try{
-		component.setActiveAnimationIndex(isHit ? 1 : 0);
-		}catch(IllegalArgumentException iae){
-			DebugLog.logError(iae);
+		//TODO: Hardcoded, remove!
+		if(!name.equals("water")){
+			try{
+				component.setActiveAnimationIndex(isHit ? 1 : 0);
+			}catch(IllegalArgumentException iae){
+				DebugLog.logError(iae);
+			}
 		}
 	}
 

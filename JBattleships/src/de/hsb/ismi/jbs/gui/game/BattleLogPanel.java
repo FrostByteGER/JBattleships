@@ -10,15 +10,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JTextArea;
 
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-
-import javax.swing.JTextField;
-
 import de.hsb.ismi.jbs.start.JBattleships;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Kevin-Laptop Kuegler

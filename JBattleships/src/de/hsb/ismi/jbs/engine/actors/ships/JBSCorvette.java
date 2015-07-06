@@ -32,7 +32,6 @@ public class JBSCorvette extends JBSShip {
 	@Override
 	public void setPositon(int x, int y, Direction direction) {
 		super.setPositon(x, y, direction);
-		
 		for(int i = 0 ; i < getShipActors().size() ; i++){
 			String[] animations = new String[]{"corvette_"+i+"_"+direction.getStringDirection()+".png",
 											   "corvette_dmg_"+i+"_"+direction.getStringDirection()+".png"};
