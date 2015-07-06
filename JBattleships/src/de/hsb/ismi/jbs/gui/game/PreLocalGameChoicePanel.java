@@ -8,9 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JPanel;
-
 import de.hsb.ismi.jbs.engine.game.JBSGameType;
-import de.hsb.ismi.jbs.engine.io.manager.GamePersistenceManager;
 import de.hsb.ismi.jbs.gui.JBSButton;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 import de.hsb.ismi.jbs.gui.utility.AlphaContainer;

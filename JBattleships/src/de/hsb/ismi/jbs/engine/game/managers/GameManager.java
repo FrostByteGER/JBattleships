@@ -21,7 +21,7 @@ public class GameManager{
 	public GameManager() {
 		
 	}
-
+	
 	/**
 	 * Creates the GameObject with its data. 
 	 * @param gameType

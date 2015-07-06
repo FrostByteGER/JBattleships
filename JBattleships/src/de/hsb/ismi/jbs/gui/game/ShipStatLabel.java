@@ -5,11 +5,7 @@ package de.hsb.ismi.jbs.gui.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
-import javax.swing.Icon;
 import javax.swing.JLabel;
-import javax.swing.Box.Filler;
-
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
 
 /**

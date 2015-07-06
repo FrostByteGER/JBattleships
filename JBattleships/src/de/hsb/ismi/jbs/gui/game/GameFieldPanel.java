@@ -10,7 +10,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
@@ -18,7 +17,6 @@ import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.rendering.AnimationThread;
 import de.hsb.ismi.jbs.gui.JBSGUI;
-import de.hsb.ismi.jbs.start.JBattleships;
 
 public class GameFieldPanel extends JPanel {
 	

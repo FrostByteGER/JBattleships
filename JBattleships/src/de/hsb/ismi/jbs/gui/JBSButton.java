@@ -3,16 +3,19 @@ package de.hsb.ismi.jbs.gui;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+/**
+ * Einfacher JButton mit voreinstellungen
+ * 
+ * @author Jan Schult
+ *
+ */
 public class JBSButton extends JButton {
 	
-	private boolean isSelected = false;
 	private Color selectedColor = new Color(0.5411f, 0.5411f, 0.5411f*1.5f, 0.8f);
 	//private Color defaultColor = new Color(0.5411f, 0.5411f, 0.5411f, 0.6f);
 	private Color defaultColor = new Color(0.5411f, 0.5411f, 0.5411f*1.5f, 0.6f);

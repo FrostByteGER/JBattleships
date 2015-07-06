@@ -49,7 +49,7 @@ public class JBSShip{
 	private Direction direction = null;
 	
 	/**
-	 * 
+	 * beinhalted die Teile des Schiffes
 	 */
 	public JBSShip() {
 	}

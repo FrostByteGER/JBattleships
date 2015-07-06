@@ -34,7 +34,6 @@ public class GameSidePanel extends JPanel {
 	private int namewidthoffset;
 	private boolean isSelected;
 	private int selectedship;
-	private int hovership;
 	private int hovery = 0;
 	
 	private GameSidePanel panel;

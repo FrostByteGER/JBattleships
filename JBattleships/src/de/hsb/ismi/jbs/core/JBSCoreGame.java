@@ -6,10 +6,8 @@ package de.hsb.ismi.jbs.core;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.HashMap;
-
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-
 import de.hsb.ismi.jbs.engine.game.managers.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;

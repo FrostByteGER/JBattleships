@@ -3,10 +3,8 @@
  */
 package de.hsb.ismi.jbs.engine.rendering;
 
-import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-
 import de.hsb.ismi.jbs.engine.utility.Utility;
 
 /**

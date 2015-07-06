@@ -4,33 +4,19 @@
 package de.hsb.ismi.jbs.gui.game;
 
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
-
 import javax.swing.SwingConstants;
-
 import java.awt.FlowLayout;
-
 import javax.swing.border.TitledBorder;
-
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.JCheckBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
-
-import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.game.JBSGameType;
 import de.hsb.ismi.jbs.engine.game.managers.GameManager;
@@ -41,11 +27,9 @@ import de.hsb.ismi.jbs.gui.JBSButtonGroup;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 import de.hsb.ismi.jbs.gui.utility.AlphaContainer;
 import de.hsb.ismi.jbs.start.JBattleships;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
