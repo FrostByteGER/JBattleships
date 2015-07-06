@@ -108,6 +108,7 @@ public class PreGamePlacingPanel extends JPanel {
 		buttonPanel.add(new AlphaContainer(btnCancel) );
 		
 		btnContinue = new JBSButton(JBattleships.game.getLocalization("GAME_CONTINUE"));
+		btnContinue.setEnabled(false);
 		btnContinue.addActionListener(e -> {
 			nextPlayer();
 		});
@@ -237,9 +238,8 @@ public class PreGamePlacingPanel extends JPanel {
 		fieldPanel = new GameFieldPanel(activePlayer.getPlayerField(), 400, gm.getFieldSize());
 		fieldPanel.setShowships(true);
 		fieldPanel.setShowSelection(false);
-		fieldPanel.addGameFieldActionListener(new GameFieldActionListener() {
-			@Override
-			public void clickFired(JPanel instigator) {
+		fieldPanel.addGameFieldActionListener(instigator -> {
+			
 				if(instigator instanceof GameFieldPanel && activeShip != null){
 					DebugLog.logInfo("Fired Event " +  GameFieldActionListener.class.getSimpleName() + " from: " + instigator.getClass().getSimpleName());
 					GameFieldPanel gfp = (GameFieldPanel)instigator;
@@ -250,12 +250,16 @@ public class PreGamePlacingPanel extends JPanel {
 							btnDestroyer.setText(JBattleships.game.getLocalization("GAME_DESTROYERS_LEFT") + " " + destroyersLeft);	
 							if(destroyersLeft == 0){
 								activeShip = null;
+							}else{
+								activeShip = new JBSDestroyer();
 							}
 						}else if(activeShip instanceof JBSFrigate){
 							frigatesLeft--;
 							btnFrigate.setText(JBattleships.game.getLocalization("GAME_FRIGATES_LEFT") + " " + frigatesLeft);
 							if(frigatesLeft == 0){
 								activeShip = null;
+							}else{
+								activeShip = new JBSFrigate();
 							}
 						}else if(activeShip instanceof JBSCorvette){
 							corvettesLeft--;
@@ -263,6 +267,8 @@ public class PreGamePlacingPanel extends JPanel {
 							activePlayer.addShip(activeShip);
 							if(corvettesLeft == 0){
 								activeShip = null;
+							}else{
+								activeShip = new JBSCorvette();
 							}
 						}else if(activeShip instanceof JBSSubmarine){
 							subsLeft--;
@@ -270,6 +276,8 @@ public class PreGamePlacingPanel extends JPanel {
 							activePlayer.addShip(activeShip);
 							if(subsLeft == 0){
 								activeShip = null;
+							}else{
+								activeShip = new JBSSubmarine();
 							}
 						}
 						
@@ -281,8 +289,10 @@ public class PreGamePlacingPanel extends JPanel {
 					}else{
 						DebugLog.logInfo("Could not place " + activeShip.getClass().getSimpleName() + " at X:" + gfp.getSelectx() + " Y: " + gfp.getSelecty() + " Direction: " + gfp.getDirection());
 					}
+					if(destroyersLeft + frigatesLeft + corvettesLeft + subsLeft == 0){
+						btnContinue.setEnabled(true);
+					}
 				}
-			}
 		});
 		
 		if(activePlayer instanceof JBSAIPlayer){
