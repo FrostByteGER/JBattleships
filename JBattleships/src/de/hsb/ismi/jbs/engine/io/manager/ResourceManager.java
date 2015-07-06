@@ -20,6 +20,7 @@ import de.hsb.ismi.jbs.engine.io.parser.ResourceParser;
 import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 
 /**
+ * The Resource Manager class. Holds all important assets.
  * @author Kevin Kuegler
  * @version 1.00
  */
@@ -29,7 +30,7 @@ public class ResourceManager{
 	private ResourceParser parser = new ResourceParser();
 	/** Content/Filenames of the resource-table   */
 	private String[] resourceTable = null;
-	
+		
 	private HashMap<String, Clip> audioFiles                  = new HashMap<String, Clip>(0);
 	private HashMap<String, BufferedImage> textureFiles       = new HashMap<String, BufferedImage>(0);
 	private HashMap<String, AnimationSequence> animationFiles = new HashMap<String, AnimationSequence>(0);
@@ -43,7 +44,7 @@ public class ResourceManager{
 	/** Path of the resource-table. */
 	private static final String RESOURCE_TABLE_PATH = "Resources.cfg";
 	/** The SHA256 value of the resource-table file. Prevents injection of unwanted files. */
-	private static final String RESOURCE_TABLE_SHA  = "PLACEHOLDER";
+	private static final String RESOURCE_TABLE_SHA  = "fb4b46371611c5570472647e5a36cc2f99b98abd5d6c2904f16753b7ac38d9c3";
 	
 	/** Indicates no error. */
 	public static final int SUCCESS                         = 0;
@@ -77,9 +78,8 @@ public class ResourceManager{
 	 * Loads the resource-table.
 	 * @return 0 if no error encountered. Greater 0 if an error occured.
 	 */
-	public boolean loadResourceTable(){
+	public int loadResourceTable(){
 		File f = new File(JBSCoreGame.DATA_PATH + RESOURCE_TABLE_PATH);
-		//TODO: Remove DebugLog
 		if(JBSCoreGame.shaGenerator.generateSHA256(f).equals(RESOURCE_TABLE_SHA) || JBSCoreGame.DEBUG_MODE){
 			try {
 				ArrayList<String> table = parser.parseResourceTable(JBSCoreGame.DATA_PATH + RESOURCE_TABLE_PATH);
@@ -87,17 +87,17 @@ public class ResourceManager{
 				for(int i = 0;i < table.size();i++){
 					resourceTable[i] = table.get(i);
 				}
-				
-				return true;
+				System.out.println("SUCCESS");
+				return SUCCESS;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				return false;
+				return ERROR_RESOURCE_TABLE_NOT_FOUND;
 			} catch (IOException e) {
 				e.printStackTrace();
-				return false;
+				return ERROR_READING_RESOURCE_TABLE;
 			}
 		}else{
-			return false;
+			return ERROR_RESOURCE_TABLE_MODIFIED;
 		}
 		
 

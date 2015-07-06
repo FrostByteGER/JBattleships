@@ -3,7 +3,6 @@ package de.hsb.ismi.jbs.engine.rendering;
 import java.util.ArrayList;
 
 import de.hsb.ismi.jbs.engine.actors.JBSActorComponent;
-import de.hsb.ismi.jbs.gui.game.GameFieldPanel;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 public class AnimationThread extends Thread {

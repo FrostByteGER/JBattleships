@@ -14,6 +14,8 @@ import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
+ * The GameField is the logical representation of the classic board.
+ * Ships are stored here.
  * @author Kevin Kuegler
  * @version 1.00
  */

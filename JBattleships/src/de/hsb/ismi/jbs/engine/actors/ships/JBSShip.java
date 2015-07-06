@@ -23,6 +23,9 @@ import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
+ * This class represents the whole ship.
+ * The ship has several actors, a cooldown, health, shiplength,
+ * damage and such.
  * @author Kevin Kuegler
  * @version 1.00
  */

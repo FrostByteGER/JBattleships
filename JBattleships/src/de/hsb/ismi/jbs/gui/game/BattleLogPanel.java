@@ -17,6 +17,10 @@ import de.hsb.ismi.jbs.start.JBattleships;
  */
 public class BattleLogPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -341669199867717996L;
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	private JPanel logPanel = new JPanel();
 	private JTextArea logArea = new JTextArea();

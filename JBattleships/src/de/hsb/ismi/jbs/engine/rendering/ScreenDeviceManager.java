@@ -19,7 +19,7 @@ public class ScreenDeviceManager {
 	/** Minimum bit-depth. Everything below it will be discarded. */
 	private final int supportedBitDepth = 32;
 	/** Minimum Game-Resolution. Everything below it will be discarded. */
-	private final Resolution minResolution = new Resolution(1024, 600);
+	private final Resolution minResolution = new Resolution(1024, 720);
 	
 	/**
 	 * 

@@ -18,6 +18,7 @@ import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 
 
 /**
+ * Resource Parser class that parses images and such.
  * @author Kevin Kuegler
  * @version 1.00
  */

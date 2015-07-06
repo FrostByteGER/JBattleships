@@ -16,6 +16,8 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 
 /**
+ * The Actor contains everything to render the ship(Or another actor.), its location<br>
+ * ,direction, health and such. One shipactor equals one ship-part.
  * @author Kevin Kuegler
  * @version 1.00
  */
@@ -36,20 +38,21 @@ public class JBSActor{
 	@XmlElement(name = "Name")
 	private String name                  = "Undefined";
 	@XmlTransient
-	private JBSActorComponent component;// = new JBSActorComponent(new String[]{"watertest64.png"});
+	private JBSActorComponent component;
 	
 	/**
 	 * 
 	 */
 	public JBSActor() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	/**
 	 * 
+	 * @param name
 	 */
 	public JBSActor(String name) {
-		this.name = name; // TODO
+		this.name = name;
 	}
 
 	/**
@@ -68,15 +71,18 @@ public class JBSActor{
 		this.component = components;
 	}
 	
-	@Deprecated
-	public boolean isControlledByPlayer(){
-		return false;
-	}
-	
+	/**
+	 * Checks if the actor was hit.
+	 * @return
+	 */
 	public boolean isHit() {
 		return isHit;
 	}
 
+	/**
+	 * 
+	 * @param isHit
+	 */
 	public void setHit(boolean isHit) {
 		this.isHit = isHit;
 		//TODO: Hardcoded, remove!

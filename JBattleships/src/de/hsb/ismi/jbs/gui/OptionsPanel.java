@@ -124,7 +124,7 @@ public class OptionsPanel extends JPanel{
 		gbc_rigidArea.insets = new Insets(0, 0, 5, 0);
 		gbc_rigidArea.gridx = 0;
 		gbc_rigidArea.gridy = 0;
-		gfxPanel.add(Box.createRigidArea(new Dimension(20, 20)), gbc_rigidArea);
+		gfxPanel.add(Box.createRigidArea(new Dimension(2, 2)), gbc_rigidArea);
 		
 		lblRes = new JLabel(JBattleships.game.getLocalization("GAME_RESOLUTION"));
 		lblRes.setFont(JBSGUI.MAIN_FONT);
@@ -441,7 +441,7 @@ public class OptionsPanel extends JPanel{
 					}
 					
 					JBattleships.game.changeResolution(r);
-					
+					JBSCoreGame.DEBUG_MODE = chckbxDebug.isSelected();
 					if(rdbtnFull.isSelected()){
 						JBattleships.game.changeScreenMode(ScreenMode.MODE_FULLSCREEN);
 						r = Resolution.convertDisplayModeToResolution(JBSCoreGame.screenDeviceManager.getCurrentDisplayMode());

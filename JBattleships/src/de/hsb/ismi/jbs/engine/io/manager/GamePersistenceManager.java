@@ -16,8 +16,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import de.hsb.ismi.jbs.engine.game.Game;
-import de.hsb.ismi.jbs.engine.game.managers.GameManager;
-import de.hsb.ismi.jbs.engine.utility.Utility;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -35,11 +33,15 @@ public class GamePersistenceManager {
 	 * 
 	 */
 	public GamePersistenceManager() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @param path
+	 * @return
+	 */
 	public boolean saveGame(String path){
 		try {
 			JAXBContext jaxb = JAXBContext.newInstance(Game.class);
@@ -52,26 +54,10 @@ public class GamePersistenceManager {
 		return true;
 	}
 	
-	@Deprecated
-	public boolean loadGame(String path){
-		try {
-			JAXBContext jaxb = JAXBContext.newInstance(Game.class);
-			Unmarshaller um = jaxb.createUnmarshaller();
-			Object o = um.unmarshal(new File(path));
-			if(o instanceof Game){
-				Game game = (Game) o;
-				GameManager gm = JBattleships.game.generateGame();
-				gm.setGame(game);
-			}else{
-				return false;
-			}
-		} catch (JAXBException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public HashMap<String, Game> loadGames(){
 		try {
 			List<File> files = Files.walk(Paths.get(GAME_SAVE_PATH)).filter((p) -> !p.toFile().isDirectory() && p.toFile().getAbsolutePath().endsWith(GAME_SAVE_EXTENSION)).map(Path::toFile).collect(Collectors.toList());

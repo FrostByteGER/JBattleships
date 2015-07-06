@@ -139,7 +139,7 @@ public class MainPanel extends JPanel {
 		fl_versionPanel.setAlignment(FlowLayout.RIGHT);
 		add(versionPanel, BorderLayout.SOUTH);
 		
-		versionLbl = new JLabel("ALPHA 0.2");
+		versionLbl = new JLabel("Release 1.0");
 		versionPanel.add(versionLbl);
 	}
 }

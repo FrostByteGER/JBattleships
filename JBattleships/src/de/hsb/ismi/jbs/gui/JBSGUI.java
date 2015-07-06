@@ -10,8 +10,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,14 +35,17 @@ public class JBSGUI{
 	private JPanel contentPane = new JPanel();
 	private Stack<JPanel> panelStack  = new Stack<JPanel>();
 	
-	private MainPanel mainPanel = new MainPanel(this);
-	private OptionsPanel optionsPanel = new OptionsPanel(this);
-	private ProfilePanel profilePanel = new ProfilePanel(this);
+	private MainPanel mainPanel;
+	private OptionsPanel optionsPanel;
+	private ProfilePanel profilePanel;
 	
 	private BufferedImage backgroundImage = null;
+	private BufferedImage headerImage = null;
 	
 	public static final Color BACKGROUND_COLOR = new Color(0.5411f, 0.5411f, 0.5411f, 0.4f);
 	public static final Font MAIN_FONT = new Font("Tahoma", Font.PLAIN, 22);
+	
+	public static Clip backgroundMusic = null;
 
 	/**
 	 * 
@@ -48,9 +54,14 @@ public class JBSGUI{
 		mainFrame.setTitle(JBattleships.game.getLocalization("GAME_TITLE"));
 		try {
 			backgroundImage = ImageIO.read(new File("Data/Textures/jbs_background.jpg"));
+			headerImage = JBattleships.game.getDataManager().getResourceManager().getTexture("header.png");
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
+		
+		mainPanel = new MainPanel(this);
+		optionsPanel = new OptionsPanel(this);
+		profilePanel = new ProfilePanel(this);
 	}
 	
 	/**
@@ -60,6 +71,8 @@ public class JBSGUI{
 		mainFrame.setResizable(JBSCoreGame.RESIZABLE);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(0, 0, res.getWidth(), res.getHeight());
+		
+		backgroundMusic = JBattleships.game.getDataManager().getResourceManager().getAudioFile("music_mainmenu.wav");
 		
 		contentPane = new JPanel(){
 			/**
@@ -85,6 +98,11 @@ public class JBSGUI{
 		changeScreenMode(mode);
 		mainFrame.setLocationRelativeTo(null); // Sets GUI to center of the screen
 		mainFrame.setVisible(true); // Call always at the end!
+		if(backgroundMusic != null){
+			backgroundMusic.setFramePosition(0);
+			((FloatControl)backgroundMusic.getControl(FloatControl.Type.MASTER_GAIN)).setValue((((float)JBattleships.game.getMusicVolume())/100.0f)*(80f)-80.0f);
+			backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+		}
 	}
 	
 	/**
@@ -153,12 +171,12 @@ public class JBSGUI{
 	public JPanel generateHeader(){
 		JPanel headerPanel = new JPanel();
 		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-		headerPanel.add(Box.createVerticalStrut(20));
-		JLabel headerLbl = new JLabel(JBattleships.game.getLocalization("GAME_HEADER"));
+		headerPanel.add(Box.createVerticalStrut(5));
+		JLabel headerLbl = new JLabel(new ImageIcon(headerImage));
 		headerLbl.setFont(new Font("Tahoma", Font.BOLD, 40));
 		headerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 		headerPanel.add(headerLbl);
-		headerPanel.add(Box.createVerticalStrut(20));
+		headerPanel.add(Box.createVerticalStrut(5));
 		headerPanel.setOpaque(false);
 		return headerPanel;
 	}

@@ -9,6 +9,8 @@ import de.hsb.ismi.jbs.engine.rendering.AnimationSequence;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
+ * An actor component is essentially the render-component.
+ * It holds animations.
  * @author Kevin Kuegler
  * @version 1.00
  */

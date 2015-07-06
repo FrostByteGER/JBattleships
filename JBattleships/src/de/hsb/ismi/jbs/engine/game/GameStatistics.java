@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * 
+ * The GameStatistics object contains the statistics of the last match.
  * @author Kevin Kuegler
  * @version 1.00
  */

@@ -13,6 +13,9 @@ import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
 import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 
 /**
+ * The Game class is the brain of this game.
+ * Every data about the match is stored here. The players,
+ * the ships and the gameType.
  * @author Kevin Kuegler
  * @version 1.00
  */

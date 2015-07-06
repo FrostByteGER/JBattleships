@@ -15,6 +15,7 @@ import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
+ * ShipActor is essentially the ship-part.
  * @author Kevin-Laptop Kuegler
  * @version 1.00
  */

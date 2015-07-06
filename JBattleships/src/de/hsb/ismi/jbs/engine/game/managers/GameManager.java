@@ -8,6 +8,12 @@ import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.game.JBSGameType;
 import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 
+/**
+ * The GameManager is the core of the whole game.
+ * It creates the game, starts and ends it.
+ * @author Kevin Kuegler
+ * @version 1.00
+ */
 public class GameManager{
 	
 	private Game game = new Game();
