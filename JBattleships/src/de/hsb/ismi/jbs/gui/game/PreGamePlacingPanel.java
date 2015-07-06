@@ -247,7 +247,8 @@ public class PreGamePlacingPanel extends JPanel {
 					if(gfp.getGamefild().addShip(activeShip)){
 						if(activeShip instanceof JBSDestroyer){
 							destroyersLeft--;
-							btnDestroyer.setText(JBattleships.game.getLocalization("GAME_DESTROYERS_LEFT") + " " + destroyersLeft);	
+							btnDestroyer.setText(JBattleships.game.getLocalization("GAME_DESTROYERS_LEFT") + " " + destroyersLeft);
+							activePlayer.addShip(activeShip);
 							if(destroyersLeft == 0){
 								activeShip = null;
 							}else{
@@ -256,6 +257,7 @@ public class PreGamePlacingPanel extends JPanel {
 						}else if(activeShip instanceof JBSFrigate){
 							frigatesLeft--;
 							btnFrigate.setText(JBattleships.game.getLocalization("GAME_FRIGATES_LEFT") + " " + frigatesLeft);
+							activePlayer.addShip(activeShip);
 							if(frigatesLeft == 0){
 								activeShip = null;
 							}else{
