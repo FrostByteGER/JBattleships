@@ -27,7 +27,6 @@ import java.awt.FlowLayout;
  */
 public class MainPanel extends JPanel {
 	
-	private JBSGUI parent;
 	private JPanel buttonPanel;
 	private JBSButton btnLocal;
 	private JBSButton btnProfiles;
@@ -42,7 +41,6 @@ public class MainPanel extends JPanel {
 	 * 
 	 */
 	public MainPanel(JBSGUI parent) {
-		this.parent = parent;
 		this.setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		add(parent.generateHeader(), BorderLayout.NORTH);

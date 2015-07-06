@@ -37,7 +37,7 @@ public class JBSActor{
 	@XmlElement(name = "Name")
 	private String name                  = "Undefined";
 	@XmlTransient
-	private JBSActorComponent component = new JBSActorComponent(new String[]{"watertest64.png"});
+	private JBSActorComponent component;// = new JBSActorComponent(new String[]{"watertest64.png"});
 	
 	/**
 	 * 
@@ -81,7 +81,7 @@ public class JBSActor{
 	public void setHit(boolean isHit) {
 		this.isHit = isHit;
 		try{
-		component.setActiveAnimationIndex(isHit ? 1 : 0);
+			component.setActiveAnimationIndex(isHit ? 1 : 0);
 		}catch(IllegalArgumentException iae){
 			DebugLog.logError(iae);
 		}

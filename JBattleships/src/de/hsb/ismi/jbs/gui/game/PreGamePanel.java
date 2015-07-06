@@ -38,8 +38,6 @@ import net.miginfocom.swing.MigLayout;
  */
 public class PreGamePanel extends JPanel {
 
-	private JBSGUI parent;
-	
 	private JPanel header;
 	private JPanel centerPanel;
 	private JPanel buttonPanel;
@@ -93,7 +91,6 @@ public class PreGamePanel extends JPanel {
 		playerPanels[0].setActiveSelected(true);
 		playerPanels[1].setActiveSelected(true);
 		
-		this.parent = parent;
 		gameType = type;
 		header = parent.generateHeader();
 		setLayout(new BorderLayout(0, 0));

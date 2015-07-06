@@ -21,7 +21,6 @@ import de.hsb.ismi.jbs.start.JBattleships;
  */
 public class PlayerStatsPanel extends JPanel {
 	
-	private JBSGUI parent;
 	private JLabel lblFiredShotsDesc;
 	private JLabel lblMissedShotsDesc;
 	private JLabel lblShotsHitDesc;
@@ -48,7 +47,6 @@ public class PlayerStatsPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PlayerStatsPanel(JBSGUI parent) {
-		this.parent = parent;
 		initPanel();
 	}
 	private void initPanel() {

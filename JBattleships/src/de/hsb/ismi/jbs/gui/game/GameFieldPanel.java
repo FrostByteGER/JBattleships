@@ -18,18 +18,30 @@ import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.rendering.AnimationThread;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 
+/**
+ * @author Jan Schult
+ *
+ * 
+ *
+ */
 public class GameFieldPanel extends JPanel {
 	
-	private JBSGUI parent;
+	// aktuelles Spielfeld
 	private JBSGameField gamefild;
 	
+	// größe von einem Teil des Feldes
 	private int gridsize;
+	// gesamt größe des Feldes in pix
 	private int fildsize;
 	
+	// ofset damit das Feld in der Mitte ist
 	private int xofset;
 	private int yofset;
 	
+	// Farbe des Grids (ist gerade Unsichtbar)
 	private Color gridColor;
+	
+	// Vareablen für die Selectionsfunction
 	private Color selectColor;
 	private Color hoverColor;
 	private boolean isSelected;
@@ -38,27 +50,23 @@ public class GameFieldPanel extends JPanel {
 	private int hovery;
 	private int selectx;
 	private int selecty;
-	
 	private Direction direction; 
 	
-	private ArrayList<GameFieldActionListener> listeners;
-	
-	private AnimationThread animationthread;
-	
-	private AffineTransform at = new AffineTransform();
-	
-	private Graphics2D g2;
-	
+	// macht alle Shiffe sichtbar / unsichtbar
 	private boolean showships = false;
 	
+	// kümmert sich um die Animation
+	private AnimationThread animationthread;
+	
+	private ArrayList<GameFieldActionListener> listeners;
+
 	private JBSShipActor tempship;
 	
+	// wir für den Wasserhintergrund verwendet
 	private JBSActor water = new JBSActor();
 	
 	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
-		
-		at.rotate(Math.PI);
-		
+				
 		this.gamefild = fild;
 		listeners = new ArrayList<>(0);
 		gridColor = new Color(0,0,0,0);;
@@ -84,9 +92,6 @@ public class GameFieldPanel extends JPanel {
 		animationthread.addActorCommponent(water.getComponents());
 		
 		animationthread.start();
-		
-		//TODO test
-		//TEST
 		
 		addMouseListener(new MouseListener() {
 			
@@ -147,8 +152,7 @@ public class GameFieldPanel extends JPanel {
 							((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize >= 0){
 						hovery = ((e.getY()-yofset)-((e.getY()-yofset)%gridsize))/gridsize;
 					}
-				}
-				
+				}	
 			}
 			
 			@Override
@@ -158,8 +162,6 @@ public class GameFieldPanel extends JPanel {
 		
 	}
 	
-	
-
 	/**
 	 * @return the fild
 	 */
@@ -274,8 +276,6 @@ public class GameFieldPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//g.setColor(Color.LIGHT_GRAY);
-		//g.fillRect(xofset, yofset, fildSize, fildSize);
 		drawGrid(g);
 	}
 
