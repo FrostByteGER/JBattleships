@@ -14,6 +14,8 @@ import java.awt.FlowLayout;
 import javax.swing.border.TitledBorder;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -90,7 +92,8 @@ public class PreGamePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PreGamePanel(JBSGUI parent, JBSGameType type) {
-		setOpaque(false);
+		setOpaque(false);	
+		
 		btnGroup = new JBSButtonGroup();
 		playerPanels = new PlayerSlotPanel[8];
 		for(int i = 0; i < playerPanels.length; i++){
@@ -135,59 +138,62 @@ public class PreGamePanel extends JPanel {
 		
 		btnContinue = new JBSButton(JBattleships.game.getLocalization("GAME_CONTINUE"));
 		btnContinue.addActionListener(e -> {
-					GameManager gm = JBattleships.game.generateGame();
-					for(int i = 0; i <playerPanels.length; i++){
-						PlayerSlotPanel pregpp = playerPanels[i];
-						//TODO: add various checks!
-						boolean active = pregpp.isActiveSelected();
-						if(active){
-							boolean ai = pregpp.isAISelected();
-							String name = pregpp.getName();
-							if(ai){
-								players.add(new JBSAIPlayer(name));
-							}else{
-								if(i == 0){
-									players.add(new JBSPlayer(JBattleships.game.getDataManager().getProfileManager().getActiveProfile()));
+					if(((Integer)fieldSizeSpinner.getValue())*((Integer)fieldSizeSpinner.getValue())-30 >= ((Integer)destroyerSpinner.getValue())*15+((Integer)subSpinner.getValue())*9+((Integer)frigateSpinner.getValue())*9+((Integer)corvetteSpinner.getValue())*6){
+						GameManager gm = JBattleships.game.generateGame();
+						for(int i = 0; i <playerPanels.length; i++){
+							PlayerSlotPanel pregpp = playerPanels[i];
+							//TODO: add various checks!
+							boolean active = pregpp.isActiveSelected();
+							if(active){
+								boolean ai = pregpp.isAISelected();
+								String name = pregpp.getName();
+								if(ai){
+									players.add(new JBSAIPlayer(name));
 								}else{
-									players.add(new JBSPlayer(name));
+									if(i == 0){
+										players.add(new JBSPlayer(JBattleships.game.getDataManager().getProfileManager().getActiveProfile()));
+									}else{
+										players.add(new JBSPlayer(name));
+									}
 								}
 							}
 						}
+						int[] count = new int[4];
+						//destroyerSpinner.commitEdit(); TODO: Discard?
+						try{
+							count[0] = ((Integer)destroyerSpinner.getValue());
+						}catch(ClassCastException cce){
+							cce.printStackTrace();
+						}
+						try{
+							count[1] = ((Integer)frigateSpinner.getValue());
+						}catch(ClassCastException cce){
+							cce.printStackTrace();
+						}
+						try{
+							count[2] = ((Integer)corvetteSpinner.getValue());
+						}catch(ClassCastException cce){
+							cce.printStackTrace();
+						}
+						try{
+							count[3] = ((Integer)subSpinner.getValue());
+						}catch(ClassCastException cce){
+							cce.printStackTrace();
+						}
+						
+						int fieldSize = 16;
+						try{
+							fieldSize = ((Integer)fieldSizeSpinner.getValue());
+						}catch(ClassCastException cce){
+							cce.printStackTrace();
+						}
+						gm.createGame(gameType,players.toArray(new JBSPlayer[players.size()]), fieldSize, count);
+						DebugLog.logInfo("Created Game!");
+						DebugLog.logInfo(gm.toString());
+						
+						parent.swapContainer(new PreGamePlacingPanel(parent));
 					}
-					int[] count = new int[4];
-					//destroyerSpinner.commitEdit(); TODO: Discard?
-					try{
-						count[0] = ((Integer)destroyerSpinner.getValue());
-					}catch(ClassCastException cce){
-						cce.printStackTrace();
-					}
-					try{
-						count[1] = ((Integer)frigateSpinner.getValue());
-					}catch(ClassCastException cce){
-						cce.printStackTrace();
-					}
-					try{
-						count[2] = ((Integer)corvetteSpinner.getValue());
-					}catch(ClassCastException cce){
-						cce.printStackTrace();
-					}
-					try{
-						count[3] = ((Integer)subSpinner.getValue());
-					}catch(ClassCastException cce){
-						cce.printStackTrace();
-					}
-					
-					int fieldSize = 16;
-					try{
-						fieldSize = ((Integer)fieldSizeSpinner.getValue());
-					}catch(ClassCastException cce){
-						cce.printStackTrace();
-					}
-					gm.createGame(gameType,players.toArray(new JBSPlayer[players.size()]), fieldSize, count);
-					DebugLog.logInfo("Created Game!");
-					DebugLog.logInfo(gm.toString());
-					
-					parent.swapContainer(new PreGamePlacingPanel(parent));
+
 		});
 		buttonPanel.add(new AlphaContainer(btnContinue) );
 		
@@ -287,7 +293,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(lblDestroyer, gbc_lblDestroyer);
 		
 		destroyerSpinner = new JSpinner();
-		destroyerSpinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(0), null, new Integer(1)));
+		destroyerSpinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(0), new Integer(3), new Integer(1)));
 		GridBagConstraints gbc_destroyerSpinner = new GridBagConstraints();
 		gbc_destroyerSpinner.weighty = 1.0;
 		gbc_destroyerSpinner.weightx = 1.0;
@@ -309,7 +315,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(lblFrigate, gbc_lblFrigate);
 		
 		frigateSpinner = new JSpinner();
-		frigateSpinner.setModel(new SpinnerNumberModel(new Integer(2), new Integer(0), null, new Integer(1)));
+		frigateSpinner.setModel(new SpinnerNumberModel(new Integer(2), new Integer(0), new Integer(3), new Integer(1)));
 		GridBagConstraints gbc_frigateSpinner = new GridBagConstraints();
 		gbc_frigateSpinner.weighty = 1.0;
 		gbc_frigateSpinner.weightx = 1.0;
@@ -331,7 +337,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(lblCorvette, gbc_lblCorvette);
 		
 		corvetteSpinner = new JSpinner();
-		corvetteSpinner.setModel(new SpinnerNumberModel(new Integer(3), new Integer(0), null, new Integer(1)));
+		corvetteSpinner.setModel(new SpinnerNumberModel(new Integer(2), new Integer(0), new Integer(3), new Integer(1)));
 		GridBagConstraints gbc_spinner_2 = new GridBagConstraints();
 		gbc_spinner_2.weighty = 1.0;
 		gbc_spinner_2.weightx = 1.0;
@@ -353,7 +359,7 @@ public class PreGamePanel extends JPanel {
 		shipPanel.add(lblSubmarines, gbc_lblSubmarines);
 		
 		subSpinner = new JSpinner();
-		subSpinner.setModel(new SpinnerNumberModel(new Integer(4), new Integer(0), null, new Integer(1)));
+		subSpinner.setModel(new SpinnerNumberModel(new Integer(3), new Integer(0), new Integer(3), new Integer(1)));
 		GridBagConstraints gbc_subSpinner = new GridBagConstraints();
 		gbc_subSpinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_subSpinner.weighty = 1.0;
@@ -361,7 +367,6 @@ public class PreGamePanel extends JPanel {
 		gbc_subSpinner.gridx = 1;
 		gbc_subSpinner.gridy = 3;
 		shipPanel.add(subSpinner, gbc_subSpinner);
-		
 	}
 
 }
