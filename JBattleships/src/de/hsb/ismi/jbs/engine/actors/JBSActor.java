@@ -73,7 +73,7 @@ public class JBSActor{
 	public boolean isControlledByPlayer(){
 		return false;
 	}
-
+	
 	public boolean isHit() {
 		return isHit;
 	}
