@@ -44,7 +44,7 @@ public class ResourceManager{
 	/** Path of the resource-table. */
 	private static final String RESOURCE_TABLE_PATH = "Resources.cfg";
 	/** The SHA256 value of the resource-table file. Prevents injection of unwanted files. */
-	private static final String RESOURCE_TABLE_SHA  = "fb4b46371611c5570472647e5a36cc2f99b98abd5d6c2904f16753b7ac38d9c3";
+	private static final String RESOURCE_TABLE_SHA  = "66dcf3416687094333ab49cf987d33db36e8a0164d480fa1514b504de59afd50";
 	
 	/** Indicates no error. */
 	public static final int SUCCESS                         = 0;

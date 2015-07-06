@@ -118,8 +118,9 @@ public class GamePersistenceManager {
 	public final boolean deleteSaveGame(String name){
 		DebugLog.logInfo("Trying to delete Save: " + name + "...");
 		Game g = saveGames.get(name);
+		
 		if(g != null){
-			saveGames.remove(g);
+			saveGames.remove(name);
 			boolean b = new File(GAME_SAVE_PATH + name + GAME_SAVE_EXTENSION).delete();
 			if(b){
 				DebugLog.logInfo("Successfully deleted save: " + name);
