@@ -17,8 +17,6 @@ import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Kevin Kuegler
@@ -26,6 +24,10 @@ import java.awt.event.ActionEvent;
  */
 public class CreditsPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5213769032359538358L;
 	private JBSGUI parent;
 	private JPanel centerPanel;
 	private JLabel header;
