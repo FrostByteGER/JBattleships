@@ -11,6 +11,8 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
+import de.hsb.ismi.jbs.engine.actors.JBSActor;
+import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.rendering.AnimationThread;
@@ -47,6 +49,12 @@ public class GameFieldPanel extends JPanel {
 	
 	private Graphics2D g2;
 	
+	private boolean showships = false;
+	
+	private JBSShipActor tempship;
+	
+	private JBSActor water = new JBSActor();
+	
 	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
 		
 		at.rotate(Math.PI);
@@ -73,6 +81,7 @@ public class GameFieldPanel extends JPanel {
 		yofset = 0;
 					
 		animationthread = new AnimationThread(this,fieldsize/gamefild.getSize());
+		animationthread.addActorCommponent(water.getComponents());
 		
 		animationthread.start();
 		
@@ -174,21 +183,36 @@ public class GameFieldPanel extends JPanel {
 		
 		for(int i = 0 ; i < gamefild.getSize() ; i++){
 			for(int j = 0 ; j < gamefild.getSize() ; j++ ){
+				
+				g.drawImage(water.getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
+				
 				if(gamefild.isFieldWater(i, j)){
 					//g.setColor(Color.BLUE);				
 					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 					
-					g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
+					//g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
 					
 				}else if(gamefild.isFieldWaterHit(i, j)){
-					g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
+					//g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
 					//g.setColor(Color.BLUE);
 					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}else{
-					g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
-					
-					//g.setColor(Color.GRAY);
-					//g.fillRect(gridsize*i+xofset, gridsize*j+yofset, gridsize, gridsize);
+					if(showships){
+						
+						g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
+						
+					}else if(gamefild.getField(i, j).isHit()){
+						tempship = (JBSShipActor)gamefild.getField(i, j);
+						
+						if(tempship.getParent().isAlive()){
+							g.setColor(Color.GRAY);
+							g.fillRect(gridsize*i+xofset, gridsize*j+yofset, gridsize, gridsize);
+						}else{
+							g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
+						}
+						
+
+					}
 				}
 				if(gamefild.getField(i, j).isHit()){
 					
@@ -199,7 +223,7 @@ public class GameFieldPanel extends JPanel {
 				}	
 			}
 		}
-		
+				
 		if(isSelected){
 			g.setColor(hoverColor);		
 			g.fillRect(hoverx*gridsize+xofset, hovery*gridsize+yofset, gridsize, gridsize);
@@ -357,4 +381,20 @@ public class GameFieldPanel extends JPanel {
 			gfal.clickFired(this);
 		}
 	}
+
+	/**
+	 * @return the showships
+	 */
+	public boolean isShowships() {
+		return showships;
+	}
+
+	/**
+	 * @param showships the showships to set
+	 */
+	public void setShowships(boolean showships) {
+		this.showships = showships;
+	}
+	
+	
 }

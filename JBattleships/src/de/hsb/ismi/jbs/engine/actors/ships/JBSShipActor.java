@@ -23,9 +23,6 @@ public class JBSShipActor extends JBSActor {
 
 	@XmlTransient
 	private JBSShip parent;
-	
-	
-	
 	/**
 	 * 
 	 */

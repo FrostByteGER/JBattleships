@@ -53,6 +53,7 @@ public class MainGamePanel extends JPanel {
 	private JBSButton btnShoot;
 	private JBSButton btnEndRound;
 	private JBSButton btnSaveGame;
+	private JBSButton btnShowShips;
 
 	
 	/**
@@ -109,6 +110,8 @@ public class MainGamePanel extends JPanel {
 						gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 						gameSidePanel.repaint();
 						activePlayerlbl.setText(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER") + " " + game.getActivePlayer().getName());
+						selectedGameField = game.getActivePlayerInt();
+						fieldNumber.setText(game.getActivePlayer().getName());
 						if(game.getActivePlayer() instanceof JBSAIPlayer){
 							JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 							ai.processRound(game);
@@ -140,6 +143,8 @@ public class MainGamePanel extends JPanel {
 			gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
 			gameSidePanel.repaint();
 			activePlayerlbl.setText(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER") + " " + game.getActivePlayer().getName());
+			selectedGameField = game.getActivePlayerInt();
+			fieldNumber.setText(game.getActivePlayer().getName());
 			if(game.getActivePlayer() instanceof JBSAIPlayer){
 				JBSAIPlayer ai = (JBSAIPlayer) game.getActivePlayer();
 				ai.processRound(game);
@@ -172,6 +177,17 @@ public class MainGamePanel extends JPanel {
 		
 		lowerSidePanel.add(new AlphaContainer(btnSaveGame));
 		
+		btnShowShips =  new JBSButton(JBattleships.game.getLocalization("SHOW_SHIPS"));
+		
+		btnShowShips.addActionListener(e -> {
+			gameFieldPanel.setShowships(true);
+			selectedGameField = game.getActivePlayerInt();
+			gameFieldPanel.setGamefild(game.getActivePlayer().getPlayerField());
+			activePlayerlbl.setText(JBattleships.game.getLocalization("GAME_ACTIVE_PLAYER") + " " + game.getActivePlayer().getName());
+			fieldNumber.setText(game.getActivePlayer().getName());
+		});
+		
+		lowerSidePanel.add(btnShowShips);
 		
 		gameFieldPanel = new GameFieldPanel(game.getPlayers()[game.getActivePlayerInt()].getPlayerField(),500,50);
 		gameFieldPanel.setLayout(new BorderLayout(0, 0));
@@ -185,7 +201,8 @@ public class MainGamePanel extends JPanel {
 		
 		JBSButton pbut = new JBSButton();
 		pbut.setText(JBattleships.game.getLocalization("GAME_NEXT"));
-		pbut.addActionListener(e -> {	
+		pbut.addActionListener(e -> {
+			gameFieldPanel.setShowships(false);
 			if(game.getPlayers().length-1>selectedGameField){
 				selectedGameField++;
 
@@ -200,6 +217,7 @@ public class MainGamePanel extends JPanel {
 		JBSButton mbut = new JBSButton();
 		mbut.setText(JBattleships.game.getLocalization("GAME_PREVIOUS"));
 		mbut.addActionListener(e -> {
+			gameFieldPanel.setShowships(false);
 			if(selectedGameField>0){
 				selectedGameField--;
 
