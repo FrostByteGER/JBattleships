@@ -13,6 +13,7 @@ import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
+ * 
  * @author Kevin Kuegler
  * @version 1.00
  */
