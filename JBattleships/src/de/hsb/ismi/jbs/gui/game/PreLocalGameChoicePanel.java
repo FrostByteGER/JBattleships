@@ -69,11 +69,7 @@ public class PreLocalGameChoicePanel extends JPanel {
 		
 		btnLoadGame = new JBSButton(JBattleships.game.getLocalization("GAME_LOAD"));
 		btnLoadGame.addActionListener(e -> {
-			JBattleships.game.getDataManager().getPersistenceManager().loadGame(GamePersistenceManager.GAME_SAVE_PATH + "game_001.xml");
-			//Dont create this after starting the game, causes the fireStartedGame Event NOT to be called!
-			MainGamePanel gfc = new MainGamePanel(this.parent);
-			JBattleships.game.getGameManager().startGame();
-			parent.swapContainer(gfc);
+			parent.swapContainer(new LoadGamePanel(parent));
 		});
 		GridBagConstraints gbc_btnLoadGame = new GridBagConstraints();
 		gbc_btnLoadGame.insets = new Insets(0, 0, 5, 0);
