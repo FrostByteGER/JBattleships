@@ -167,8 +167,8 @@ public class JBSAIPlayer extends JBSPlayer {
 							
 							DebugLog.logInfo(lasthit + " " + hitx + " " + hity + " "+ hitfield);
 							
-							HitInfo h = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
-							hit = h.hasHit();
+							//HitInfo h = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							//hit = h.hasHit();
 							JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
 							JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
 							
