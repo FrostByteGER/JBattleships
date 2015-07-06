@@ -206,7 +206,7 @@ public class SaveGamePanel extends JBSBlurredPanel{
 		gbc_btnSaveGame.gridy = 4;
 		add(btnSaveGame, gbc_btnSaveGame);
 		
-		btnDeleteGame = new JBSButton("Delete Game");
+		btnDeleteGame = new JBSButton(JBattleships.game.getLocalization("GAME_DELETE_SAVE"));
 		btnDeleteGame.addActionListener(e -> {
 			String name = saveList.getSelectedValue();
 			if(name != null){
@@ -226,7 +226,7 @@ public class SaveGamePanel extends JBSBlurredPanel{
 		add(btnDeleteGame, gbc_btnDeleteGame);
 
 		
-		btnBack = new JBSButton("Back");
+		btnBack = new JBSButton(JBattleships.game.getLocalization("GAME_BACK"));
 		btnBack.addActionListener(e -> {
 			setVisible(false);
 		});

@@ -37,10 +37,10 @@ public class LoadGamePanel extends JPanel{
 	private JPanel centerPanel = new JPanel();
 	private JList<String> loadList = new JList<String>();
 	private DefaultListModel<String> loadListModel = new DefaultListModel<>();
-	private JBSButton btnLoad = new JBSButton("Load Save");
-	private JBSButton btnDelete = new JBSButton("Delete Save");
-	private JBSButton btnBack = new JBSButton("Back");
-	private JLabel lblLoad = new JLabel("Choose a savegame:");
+	private JBSButton btnLoad;
+	private JBSButton btnDelete;
+	private JBSButton btnBack;
+	private JLabel lblLoad;
 	private JScrollPane scrollPane = new JScrollPane();
 
 	/**
@@ -58,6 +58,11 @@ public class LoadGamePanel extends JPanel{
 		this.add(parent.generateHeader(), BorderLayout.NORTH);
 		this.add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setOpaque(false);
+		
+		btnLoad = new JBSButton(JBattleships.game.getLocalization("GAME_LOAD_SAVE"));
+		btnDelete = new JBSButton(JBattleships.game.getLocalization("GAME_DELETE_SAVE"));
+		btnBack = new JBSButton(JBattleships.game.getLocalization("GAME_BACK"));
+		lblLoad = new JLabel(JBattleships.game.getLocalization("GAME_TITLE_LOAD_SAVE"));
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowHeights = new int[]{0, 150, 0};
