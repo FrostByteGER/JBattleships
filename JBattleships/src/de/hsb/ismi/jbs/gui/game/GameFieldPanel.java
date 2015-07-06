@@ -11,12 +11,14 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
+import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.rendering.AnimationThread;
 import de.hsb.ismi.jbs.gui.JBSGUI;
+import de.hsb.ismi.jbs.start.JBattleships;
 
 public class GameFieldPanel extends JPanel {
 	
@@ -197,7 +199,7 @@ public class GameFieldPanel extends JPanel {
 					//g.setColor(Color.BLUE);
 					//g.fillRect(gridsize*i+xofset+1, gridsize*j+yofset+1, gridsize-1, gridsize-1);
 				}else{
-					if(showships){
+					if(showships || JBSCoreGame.DEBUG_MODE){
 						
 						g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
 						
@@ -210,8 +212,6 @@ public class GameFieldPanel extends JPanel {
 						}else{
 							g.drawImage(gamefild.getField(i, j).getComponents().getImage(), gridsize*i+xofset, gridsize*j+yofset, null);
 						}
-						
-
 					}
 				}
 				if(gamefild.getField(i, j).isHit()){
