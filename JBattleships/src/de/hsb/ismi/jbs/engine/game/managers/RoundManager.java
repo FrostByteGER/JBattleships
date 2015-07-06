@@ -14,6 +14,8 @@ import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
  * 
+ * The RoundManager processes an entire round.
+ * From the initial processing to the analyzing to the ending.
  * @author Kevin Kuegler
  * @version 1.00
  */

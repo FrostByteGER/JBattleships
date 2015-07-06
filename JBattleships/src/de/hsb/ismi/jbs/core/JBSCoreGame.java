@@ -6,10 +6,8 @@ package de.hsb.ismi.jbs.core;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.HashMap;
-
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-
 import de.hsb.ismi.jbs.engine.game.managers.GameManager;
 import de.hsb.ismi.jbs.engine.io.manager.DataManager;
 import de.hsb.ismi.jbs.engine.io.manager.OptionsManager;
@@ -21,6 +19,7 @@ import de.hsb.ismi.jbs.engine.rendering.ScreenMode;
 import de.hsb.ismi.jbs.engine.utility.SHA256Generator;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.gui.JBSGUI;
+import de.hsb.ismi.jbs.gui.utility.DebugFrame;
 import de.hsb.ismi.jbs.start.JBattleships;
 
 /**
@@ -37,7 +36,7 @@ public class JBSCoreGame {
 	/** The Path of the Datafolder with all important content. */
 	public static final String DATA_PATH = "Data/";
 	/** Enables debug functionality and the MessageLogger. */
-	public static boolean DEBUG_MODE = true;
+	public static boolean DEBUG_MODE = false;
 	/** Allows to resize the game window. */
 	public static final boolean RESIZABLE = false;
 	/** Minimum Java version to run the game. */
@@ -52,7 +51,7 @@ public class JBSCoreGame {
 	private ScreenMode screenMode = ScreenMode.MODE_FULLSCREEN;
 	/** The game's current master-volume. */
 	private int volume = 100;
-	/** The game's current music-volume. */
+	/** The game's current backgroundMusic-volume. */
 	private int music = 100;
 	/** The game's current language. */
 	private String language = "German";
@@ -95,16 +94,23 @@ public class JBSCoreGame {
 	 * @return
 	 */
 	public boolean initGame(){
-		boolean resources = initResources();
+		initResources();
 		boolean settings = initSettings();
 		if(!settings){
 			dataManager.getOptionsManager().generateDefaultOptions();
 		}
+		if(DEBUG_MODE){
+			DebugFrame d = new DebugFrame(true);
+			d.setLocation(10, 10);
+			DebugLog.setDebugFrame(d);
+		}
+		
+		
 		boolean localization = initLocalization();
 		boolean configs = initConfigs();
 		
 		
-		if(resources && localization && configs){
+		if(localization && configs){
 
 			boolean profiles = initProfiles();
 			if(!profiles){
@@ -140,17 +146,27 @@ public class JBSCoreGame {
 	 * Initializes the game-resources.
 	 * @return
 	 */
-	public boolean initResources(){
+	public void initResources(){
 		ResourceManager rm = dataManager.getResourceManager();
-		if(rm.loadResourceTable()){
-			if(rm.loadResources()){
-				return true;
-			}else{
-				return false;
+		int code = rm.loadResourceTable();
+		switch(code){
+		case ResourceManager.SUCCESS:
+			if(!rm.loadResources()){
+				JOptionPane.showMessageDialog(null, "Fatal Error loading resources. Exiting game","FATAL ERROR!", JOptionPane.ERROR_MESSAGE);
+				exitGame();
 			}
-		}else{
-			return false;
+			break;
+		case ResourceManager.ERROR_RESOURCE_TABLE_NOT_FOUND:
+			JOptionPane.showMessageDialog(null, "Fatal Error: Resource Table not found. Exiting game","FATAL ERROR!", JOptionPane.ERROR_MESSAGE);
+			exitGame();
+		case ResourceManager.ERROR_READING_RESOURCE_TABLE:
+			JOptionPane.showMessageDialog(null, "Fatal Error reading Resource Table. Exiting game","FATAL ERROR!", JOptionPane.ERROR_MESSAGE);
+			exitGame();
+		case ResourceManager.ERROR_RESOURCE_TABLE_MODIFIED:
+			JOptionPane.showMessageDialog(null, "Fatal Error: Resource Table modified. Exiting game","FATAL ERROR!", JOptionPane.ERROR_MESSAGE);
+			exitGame();
 		}
+
 	}
 	
 	/**
@@ -190,7 +206,7 @@ public class JBSCoreGame {
 			if (sfx.size() > 0) {
 				try {
 					volume = Integer.parseInt(sfx.get("volume"));
-					music = Integer.parseInt(sfx.get("music"));
+					music = Integer.parseInt(sfx.get("backgroundMusic"));
 				} catch (NumberFormatException nfe) {
 					return false;
 				}
@@ -368,14 +384,14 @@ public class JBSCoreGame {
 	}
 
 	/**
-	 * @return the music
+	 * @return the backgroundMusic
 	 */
 	public final int getMusicVolume() {
 		return music;
 	}
 
 	/**
-	 * @param music the music to set
+	 * @param backgroundMusic the backgroundMusic to set
 	 */
 	public final void setMusicVolume(int music) {
 		this.music = music;
@@ -407,7 +423,7 @@ public class JBSCoreGame {
 									   "resY", Integer.toString(JBattleships.game.getCurrentResolution().getHeight()),
 									   "mode", JBattleships.game.getScreenMode().toString()});
 		data.put(cats[1], new String[]{"volume",Integer.toString(JBattleships.game.getSoundVolume()),
-									   "music",Integer.toString(JBattleships.game.getMusicVolume())});
+									   "backgroundMusic",Integer.toString(JBattleships.game.getMusicVolume())});
 		data.put(cats[2], new String[]{"language", JBattleships.game.getLanguage(),
 									   "activeProfile",JBattleships.game.getDataManager().getProfileManager().getActiveProfile().getName(),
 									   "debug-mode", Boolean.toString(JBSCoreGame.DEBUG_MODE)});

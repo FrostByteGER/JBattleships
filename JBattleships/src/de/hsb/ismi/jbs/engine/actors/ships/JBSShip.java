@@ -23,6 +23,9 @@ import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
+ * This class represents the whole ship.
+ * The ship has several actors, a cooldown, health, shiplength,
+ * damage and such.
  * @author Kevin Kuegler
  * @version 1.00
  */
@@ -55,7 +58,7 @@ public class JBSShip{
 	private Direction direction = null;
 	
 	/**
-	 * 
+	 * beinhalted die Teile des Schiffes
 	 */
 	public JBSShip() {
 	}
@@ -237,8 +240,6 @@ public class JBSShip{
 		info.setHitDirection(direction);
 		info.setDamageType(this.damageType);
 		info.setHitActor(field.getField(x, y));
-		System.out.println(damage);
-		System.out.println(damage != 0);
 		info.setDamage(damage);
 		info.setHasHit(damage != 0);
 		return info;			

@@ -3,7 +3,6 @@ package de.hsb.ismi.jbs.console;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.Game;

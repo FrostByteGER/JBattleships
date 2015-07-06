@@ -6,7 +6,9 @@ package de.hsb.ismi.jbs.engine.game;
 /**
  * @author Kevin Kuegler
  * @version 1.00
+ * @deprecated Useless as of 06.07.2015.
  */
+@Deprecated
 public class JBSObject{
 	
 	@Deprecated

@@ -306,6 +306,7 @@ public class PreGamePlacingPanel extends JPanel {
 			JBSAIPlayer ai = (JBSAIPlayer)activePlayer;
 			removeAll();
 			setLayout(new BorderLayout(0, 0));
+			setOpaque(false);
 			JLabel aiNotify = new JLabel(JBattleships.game.getLocalization("GAME_AI_HINT"), SwingConstants.CENTER);
 			aiNotify.setFont(new Font("Tahoma", Font.BOLD, 16));
 			updateUI();

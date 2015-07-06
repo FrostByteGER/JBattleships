@@ -25,8 +25,6 @@ public class PlayerStatsPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -8253668012970744197L;
-	@SuppressWarnings("unused")
-	private JBSGUI parent;
 	private JLabel lblFiredShotsDesc;
 	private JLabel lblMissedShotsDesc;
 	private JLabel lblShotsHitDesc;
@@ -53,7 +51,6 @@ public class PlayerStatsPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PlayerStatsPanel(JBSGUI parent) {
-		this.parent = parent;
 		initPanel();
 	}
 	private void initPanel() {

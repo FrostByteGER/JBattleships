@@ -7,6 +7,7 @@ import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
 import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 
 /**
+ * The RoundListener interface is essential for firing the round-events.
  * @author Kevin Kuegler
  * @version 1.00
  */

@@ -37,6 +37,8 @@ public class JBSPlayer{
 	private JBSGameField playerField = null;
 	@XmlElement(name = "PlayerStatistics")
 	private GameStatistics statistics = new GameStatistics();
+	@XmlElement(name = "Name")
+	private String name = "default";
 
 	
 	public JBSPlayer(){
@@ -48,6 +50,7 @@ public class JBSPlayer{
 	 */
 	public JBSPlayer(JBSProfile profile) {
 		this.profile = profile;
+		this.name = profile.getName();
 	}
 	
 	/**
@@ -55,6 +58,7 @@ public class JBSPlayer{
 	 */
 	public JBSPlayer(String name) {
 		profile = new JBSProfile(name);
+		this.name = name;
 	}
 	
 	/**
@@ -62,6 +66,7 @@ public class JBSPlayer{
 	 */
 	public JBSPlayer(String name, JBSGameField playerField) {
 		this.playerField = playerField;
+		this.name = name;
 	}
 	
 	/**
@@ -118,6 +123,15 @@ public class JBSPlayer{
 	}
 	
 	/**
+	 * 
+	 * @param name
+	 */
+	public final void setName(String name){
+		this.name = name;
+		this.profile.setName(name);
+	}
+	
+	/**
 	 * @return the name
 	 */
 	public final String getName() {
@@ -158,6 +172,7 @@ public class JBSPlayer{
 	 * @param parent
 	 */
 	public void afterUnmarshal(Unmarshaller u, Object parent){
+		this.profile.setName(this.name);
 		for(JBSShip ship : ships){
 			playerField.setShip(ship);
 		}

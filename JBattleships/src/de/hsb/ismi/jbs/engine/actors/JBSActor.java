@@ -16,6 +16,8 @@ import de.hsb.ismi.jbs.engine.utility.Vector2i;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 
 /**
+ * The Actor contains everything to render the ship(Or another actor.), its location<br>
+ * ,direction, health and such. One shipactor equals one ship-part.
  * @author Kevin Kuegler
  * @version 1.00
  */
@@ -34,18 +36,20 @@ public class JBSActor{
 	@XmlElement(name = "Visibility")
 	private boolean visibility           = true;
 	@XmlElement(name = "Name")
-	private String name                  = "water";
+	private String name                  = "Undefined";
 	@XmlTransient
-	private JBSActorComponent component = new JBSActorComponent(new String[]{"watertest64.png"});
+	private JBSActorComponent component;
 	
 	/**
 	 * 
 	 */
 	public JBSActor() {
+
 	}
 	
 	/**
 	 * 
+	 * @param name
 	 */
 	public JBSActor(String name) {
 		this.name = name;
@@ -67,14 +71,23 @@ public class JBSActor{
 		this.component = components;
 	}
 	
+	/**
+	 * Checks if the actor was hit.
+	 * @return
+	 */
 	public boolean isHit() {
 		return isHit;
 	}
 
+	/**
+	 * 
+	 * @param isHit
+	 */
 	public void setHit(boolean isHit) {
 		this.isHit = isHit;
 		//TODO: Hardcoded, remove!
-		if(!name.equals("water")){
+		if(!name.contains("water")){
+			System.out.println(name);
 			try{
 				component.setActiveAnimationIndex(isHit ? 1 : 0);
 			}catch(IllegalArgumentException iae){

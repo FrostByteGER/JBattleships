@@ -82,5 +82,11 @@ public class SHA256Generator {
 	    }
 	    return sb.toString();
 	}
+	
+	public static void main(String[] args) {
+		SHA256Generator gen = new SHA256Generator();
+		String s = gen.generateSHA256("Data/Resources.cfg");
+		System.out.println(s);
+	}
 
 }

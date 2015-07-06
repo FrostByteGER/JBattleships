@@ -8,30 +8,43 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
+import de.hsb.ismi.jbs.engine.actors.JBSActorComponent;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.game.Direction;
 import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.rendering.AnimationThread;
 
+/**
+ * @author Jan Schult
+ *
+ * 
+ *
+ */
 public class GameFieldPanel extends JPanel {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1845450912510850006L;
-
+	
+	// aktuelles Spielfeld
 	private JBSGameField gamefield;
 	
+	// größe von einem Teil des Feldes
 	private int gridsize;
+	// gesamt größe des Feldes in pix
 	private int fieldsize;
 	
+	// ofset damit das Feld in der Mitte ist
 	private int xoffset;
 	private int yoffset;
 	
+	// Farbe des Grids (ist gerade Unsichtbar)
 	private Color gridColor;
+	
+	// Vareablen für die Selectionsfunction
 	private Color selectColor;
 	private Color hoverColor;
 	private boolean isSelected;
@@ -40,24 +53,34 @@ public class GameFieldPanel extends JPanel {
 	private int hovery;
 	private int selectx;
 	private int selecty;
-	
 	private Direction direction; 
 	
-	private ArrayList<GameFieldActionListener> listeners;
-	
-	private AnimationThread animationthread;
-	
+	// macht alle Shiffe sichtbar / unsichtbar
 	private boolean showships = false;
 	
+	// kümmert sich um die Animation
+	private AnimationThread animationthread;
+	
+	private ArrayList<GameFieldActionListener> listeners;
+
 	private JBSShipActor tempship;
 	
+	// wir für den Wasserhintergrund verwendet
 	private JBSActor water = new JBSActor();
-		
+	
+	/**
+	 * 
+	 * @param fild spielfeld
+	 * @param fieldsize	größe des Spielfeldes z.B. 16*16
+	 * @param size größe des gesammten Spielfeldes in Pix
+	 */
 	public GameFieldPanel(JBSGameField fild ,int fieldsize ,int size) {
-				
+		
+		water.setComponents(new JBSActorComponent(new String[]{"watertest64.png"}));
+		
 		this.gamefield = fild;
 		listeners = new ArrayList<>(0);
-		gridColor = new Color(0,0,0,0);
+		gridColor = new Color(0,0,0,0);;
 		selectColor = new Color(100,100,100,100);
 		hoverColor = new Color(100,100,100,50);
 		isSelected = false;
@@ -71,16 +94,17 @@ public class GameFieldPanel extends JPanel {
 		setMinimumSize(new Dimension(size,size) );
 		setOpaque(false);
 		
-		
 		this.fieldsize = fieldsize;
 		xoffset = 0;
 		yoffset = 0;
-					
-		animationthread = new AnimationThread(this,fieldsize/gamefield.getSize());
+		
+		// übergibt die größe für ein Feld von dem Spielfeld um die Bilder anzupassen
+		animationthread = new AnimationThread(fieldsize/gamefield.getSize());
 		animationthread.addActorCommponent(water.getComponents());
 		
 		animationthread.start();
 		
+		// ermöglich das Selectiren einzelner Felder
 		addMouseListener(new MouseListener() {
 			
 			@Override
@@ -122,6 +146,7 @@ public class GameFieldPanel extends JPanel {
 			}
 		});
 		
+		// ermöglicht das hovern auf einzelnen Feldern
 		addMouseMotionListener(new MouseMotionListener() {
 			
 			@Override
@@ -140,18 +165,16 @@ public class GameFieldPanel extends JPanel {
 							((e.getY()-yoffset)-((e.getY()-yoffset)%gridsize))/gridsize >= 0){
 						hovery = ((e.getY()-yoffset)-((e.getY()-yoffset)%gridsize))/gridsize;
 					}
-				}
-				
+				}	
 			}
 			
 			@Override
 			public void mouseDragged(MouseEvent e) {
 			}
 		});
+		
 	}
 	
-	
-
 	/**
 	 * @return the fild
 	 */
@@ -166,7 +189,11 @@ public class GameFieldPanel extends JPanel {
 		this.repaint();
 		this.gamefield = fild;
 	}
-
+	
+	/**
+	 *  zeichnet das Spielfeld
+	 * @param g
+	 */
 	private void drawGrid(Graphics g){
 		
 		gridsize = fieldsize/gamefield.getSize();
@@ -267,7 +294,6 @@ public class GameFieldPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		drawGrid(g);
-
 	}
 
 	/**

@@ -3,14 +3,11 @@
  */
 package de.hsb.ismi.jbs.engine.ai;
 
-import java.util.ArrayList;
 import java.util.Random;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import de.hsb.ismi.jbs.engine.actors.ships.JBSCorvette;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSDestroyer;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSFrigate;
@@ -24,7 +21,6 @@ import de.hsb.ismi.jbs.engine.game.JBSGameField;
 import de.hsb.ismi.jbs.engine.game.managers.GameManager;
 import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 import de.hsb.ismi.jbs.engine.players.JBSProfile;
-import de.hsb.ismi.jbs.engine.utility.Vector2i;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -49,14 +45,6 @@ public class JBSAIPlayer extends JBSPlayer {
 	@XmlElement(name = "HitFieldIndex")
 	private int hitfield = 0;
 	
-	@XmlElement(name = "HitFields")
-	private ArrayList<Vector2i> hitfields;
-	@XmlElement(name = "HitShip")
-	private JBSShip hitship;
-	@XmlElement(name = "LastHits")
-	private ArrayList<Vector2i> lasthits;
-	
-	//TODO: What?
 	@XmlElement(name = "hasHit")
 	private boolean hit = false;
 	@XmlElement(name = "LastHitDirection")
@@ -77,7 +65,6 @@ public class JBSAIPlayer extends JBSPlayer {
 	 */
 	public JBSAIPlayer() {
 		super(new JBSProfile());
-		init();
 	}
 
 	/**
@@ -85,14 +72,15 @@ public class JBSAIPlayer extends JBSPlayer {
 	 */
 	public JBSAIPlayer(String name) {
 		super(name);
-		init();
 	}
 	
-	private void init(){
-		hitfields = new ArrayList<Vector2i>();
-		lasthits = new ArrayList<Vector2i>();
-	}
-	
+	/**
+	 *  versucht mit einem Schiff wenn möglich zu schießen
+	 *  sucht dabei nach getroffenden Schiffen die noch nicht versenkt sind
+	 * 
+	 * @param game
+	 * @return used Ship
+	 */
 	public JBSShip processRound(Game game){
 
 		for(JBSShip ship : getShips()){
@@ -179,12 +167,11 @@ public class JBSAIPlayer extends JBSPlayer {
 							
 							DebugLog.logInfo(lasthit + " " + hitx + " " + hity + " "+ hitfield);
 							
-							HitInfo h = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
-							hit = h.hasHit();
+							//HitInfo h = JBattleships.game.getGameManager().getRoundManager().fireRound(game.getPlayer(hitfield), this, ship, hitx, hity, hitdirection);
+							//hit = h.hasHit();
 							JBattleships.game.getGameManager().getRoundManager().fireAnalyzeRound(this);
 							JBattleships.game.getGameManager().getRoundManager().fireEndRound(this);
-							
-							
+														
 							lasthitfield  = hitfield;
 							lasthit = hit;		
 							

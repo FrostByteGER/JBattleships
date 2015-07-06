@@ -14,10 +14,8 @@ import de.hsb.ismi.jbs.gui.JBSButton;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 import de.hsb.ismi.jbs.gui.utility.AlphaContainer;
 import de.hsb.ismi.jbs.start.JBattleships;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

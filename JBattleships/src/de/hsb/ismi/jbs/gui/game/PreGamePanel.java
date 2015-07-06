@@ -4,27 +4,22 @@
 package de.hsb.ismi.jbs.gui.game;
 
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
-
 import javax.swing.SwingConstants;
-
 import java.awt.FlowLayout;
-
 import javax.swing.border.TitledBorder;
+
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.JCheckBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
+
 
 import de.hsb.ismi.jbs.engine.ai.JBSAIPlayer;
 import de.hsb.ismi.jbs.engine.game.JBSGameType;
@@ -36,11 +31,9 @@ import de.hsb.ismi.jbs.gui.JBSButtonGroup;
 import de.hsb.ismi.jbs.gui.JBSGUI;
 import de.hsb.ismi.jbs.gui.utility.AlphaContainer;
 import de.hsb.ismi.jbs.start.JBattleships;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -48,6 +41,7 @@ import net.miginfocom.swing.MigLayout;
  * @version 1.00
  */
 public class PreGamePanel extends JPanel {
+
 	
 	/**
 	 * 
@@ -104,6 +98,7 @@ public class PreGamePanel extends JPanel {
 			playerPanels[i] = pp;
 		}
 		playerPanels[0].setActiveSelected(true);
+		playerPanels[0].getNameField().setEditable(false);
 		playerPanels[1].setActiveSelected(true);
 		
 		gameType = type;
@@ -203,7 +198,7 @@ public class PreGamePanel extends JPanel {
 		mixedPanel.setBackground(JBSGUI.BACKGROUND_COLOR);
 		mixedPanel.setBorder(new TitledBorder(null, JBattleships.game.getLocalization("GAME_TITLE_OTHER_SETTINGS"), TitledBorder.CENTER, TitledBorder.TOP, JBSGUI.MAIN_FONT, null));
 		settingsPanel.add(mixedPanel);
-		mixedPanel.setLayout(new MigLayout("", "[grow,fill]", "[10%:n][60%:n,grow,fill]"));
+		mixedPanel.setLayout(new MigLayout("", "[grow,fill]", "[5%:n][60%:n,grow,fill]"));
 		
 		otherPanel = new JPanel();
 		otherPanel.setOpaque(false);
@@ -232,7 +227,6 @@ public class PreGamePanel extends JPanel {
 		fieldSizeSpinner.setFont(JBSGUI.MAIN_FONT);
 		fieldSizeSpinner.setModel(new SpinnerNumberModel(new Integer(16), new Integer(10), new Integer(20), new Integer(1)));
 		GridBagConstraints gbc_fieldSizeSpinner = new GridBagConstraints();
-		gbc_fieldSizeSpinner.insets = new Insets(0, 0, 5, 0);
 		gbc_fieldSizeSpinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fieldSizeSpinner.weighty = 1.0;
 		gbc_fieldSizeSpinner.weightx = 1.0;
@@ -324,7 +318,7 @@ public class PreGamePanel extends JPanel {
 		gbc_frigateSpinner.gridy = 1;
 		shipPanel.add(frigateSpinner, gbc_frigateSpinner);
 		
-		lblCorvette = new JLabel(JBattleships.game.getLocalization("GAME_CORVETTES"));
+		lblCorvette = new JLabel(JBattleships.game.getLocalization("GAME_SUBMARINES"));
 		lblCorvette.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblCorvette = new GridBagConstraints();
 		gbc_lblCorvette.weighty = 1.0;
@@ -347,7 +341,7 @@ public class PreGamePanel extends JPanel {
 		gbc_spinner_2.gridy = 2;
 		shipPanel.add(corvetteSpinner, gbc_spinner_2);
 		
-		lblSubmarines = new JLabel(JBattleships.game.getLocalization("GAME_SUBMARINES"));
+		lblSubmarines = new JLabel(JBattleships.game.getLocalization("GAME_CORVETTES"));
 		lblSubmarines.setFont(JBSGUI.MAIN_FONT);
 		GridBagConstraints gbc_lblSubmarines = new GridBagConstraints();
 		gbc_lblSubmarines.weighty = 1.0;

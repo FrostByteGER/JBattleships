@@ -34,8 +34,8 @@ public class JBSFrigate extends JBSShip {
 		super.setPositon(x, y, direction);
 		
 		for(int i = 0 ; i < getShipActors().size() ; i++){
-			String[] animations = new String[]{"frigatte_"+i+"_"+direction.getStringDirection()+".png",
-					   						   "frigatte_dmg_"+i+"_"+direction.getStringDirection()+".png"};
+			String[] animations = new String[]{"frigate_"+i+"_"+direction.getStringDirection()+".png",
+					   						   "frigate_dmg_"+i+"_"+direction.getStringDirection()+".png"};
 			getShipActors().get(i).setComponents(new JBSActorComponent(animations));
 		}
 	}

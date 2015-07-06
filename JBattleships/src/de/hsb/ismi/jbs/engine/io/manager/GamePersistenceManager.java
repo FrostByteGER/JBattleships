@@ -11,14 +11,11 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
 import de.hsb.ismi.jbs.engine.game.Game;
-import de.hsb.ismi.jbs.engine.utility.Utility;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.start.JBattleships;
 
@@ -51,13 +48,12 @@ public class GamePersistenceManager {
 			Marshaller m = jaxb.createMarshaller();
 			m.marshal(JBattleships.game.getGameManager().getGame(), new File(GAME_SAVE_PATH + path));
 		} catch (JAXBException jaxbe) {
-			DebugLog.logError("Error saving game: " + path + ": " + Utility.stackTraceToString(jaxbe));
+			jaxbe.printStackTrace();
 			return false;
 		}
-		DebugLog.logInfo("Successfully saved game: " + path);
 		return true;
 	}
-
+	
 	/**
 	 * 
 	 * @return
@@ -121,9 +117,10 @@ public class GamePersistenceManager {
 	
 	public final boolean deleteSaveGame(String name){
 		DebugLog.logInfo("Trying to delete Save: " + name + "...");
-
-		Game g = saveGames.remove(name);
+		Game g = saveGames.get(name);
+		
 		if(g != null){
+			saveGames.remove(name);
 			boolean b = new File(GAME_SAVE_PATH + name + GAME_SAVE_EXTENSION).delete();
 			if(b){
 				DebugLog.logInfo("Successfully deleted save: " + name);

@@ -7,12 +7,15 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 import de.hsb.ismi.jbs.engine.actors.JBSActor;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShip;
 import de.hsb.ismi.jbs.engine.actors.ships.JBSShipActor;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
+ * The GameField is the logical representation of the classic board.
+ * Ships are stored here.
  * @author Kevin Kuegler
  * @version 1.00
  */
@@ -25,11 +28,18 @@ public class JBSGameField{
 	@XmlElement(name = "GamefieldSize")
 	private int size = 0;
 	
+	// OLD TODO
+	@XmlTransient
+	private JBSActor water = new JBSActor("water");
+	@XmlTransient
+	private JBSActor waterHitDummy = new JBSActor("waterhit");
+	
 	/**
 	 * 
 	 */
 	public JBSGameField() {
-
+		water.setHit(false);
+		waterHitDummy.setHit(true);
 	}
 	
 	/**
@@ -37,6 +47,9 @@ public class JBSGameField{
 	 */
 	public JBSGameField(int size) {
 		this.size = size;
+		
+		water.setHit(false);
+		waterHitDummy.setHit(true);
 		
 		actorFields = new JBSActor[size][size];
 		
@@ -198,9 +211,9 @@ public class JBSGameField{
 			}
 			for(int j = 0 ; j < actorFields[i].length ; j++){
 				
-				if(actorFields[i][j].getName().equals("water")){
+				if(actorFields[i][j] == water){
 					System.out.print("--");
-				}else if(actorFields[i][j].getName().equals("waterhit")){
+				}else if(actorFields[i][j] == waterHitDummy){
 					System.out.print("~~");
 				}else if(visible){
 					System.out.print("BB");

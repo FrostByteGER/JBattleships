@@ -4,20 +4,15 @@
 package de.hsb.ismi.jbs.gui;
 
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.Box;
-
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
-
 import de.hsb.ismi.jbs.core.JBSCoreGame;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 import de.hsb.ismi.jbs.gui.game.PreLocalGameChoicePanel;
@@ -32,6 +27,7 @@ import java.awt.FlowLayout;
  */
 public class MainPanel extends JPanel {
 	
+
 	/**
 	 * 
 	 */
@@ -112,7 +108,7 @@ public class MainPanel extends JPanel {
 		btnCredits = new JBSButton(JBattleships.game.getLocalization("GAME_CREDITS"));
 		btnCredits.setActionCommand("credits");
 		btnCredits.addActionListener(e -> {
-			
+			parent.swapContainer(new CreditsPanel(parent));
 		});
 		GridBagConstraints gbc_btnCredits = new GridBagConstraints();
 		gbc_btnCredits.insets = new Insets(0, 0, 5, 0);
@@ -143,7 +139,7 @@ public class MainPanel extends JPanel {
 		fl_versionPanel.setAlignment(FlowLayout.RIGHT);
 		add(versionPanel, BorderLayout.SOUTH);
 		
-		versionLbl = new JLabel("ALPHA 0.2");
+		versionLbl = new JLabel("Release 1.0");
 		versionPanel.add(versionLbl);
 	}
 }

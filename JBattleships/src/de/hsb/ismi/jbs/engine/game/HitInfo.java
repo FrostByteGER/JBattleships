@@ -9,6 +9,8 @@ import de.hsb.ismi.jbs.engine.players.JBSPlayer;
 import de.hsb.ismi.jbs.engine.utility.Vector2i;
 
 /**
+ * HitInfo contains important information about an hit-event that was<br>
+ * fired by a player.
  * @author Kevin Kuegler
  * @version 1.00
  */
@@ -26,8 +28,6 @@ public class HitInfo {
 	private Direction hitDirection = null;
 	private JBSDamageType damageType = null;
 
-	
-	
 	/**
 	 * 
 	 */

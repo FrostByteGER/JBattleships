@@ -19,7 +19,7 @@ import de.hsb.ismi.jbs.start.JBattleships;
 public class JBSSubmarine extends JBSShip {
 
 	/**
-	 * 
+	 *
 	 */
 	public JBSSubmarine() {
 		super(1, 0, 3, JBSDamageType.DAMAGE_SMALL);
