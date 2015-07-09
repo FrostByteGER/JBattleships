@@ -87,7 +87,6 @@ public class ResourceManager{
 				for(int i = 0;i < table.size();i++){
 					resourceTable[i] = table.get(i);
 				}
-				System.out.println("SUCCESS");
 				return SUCCESS;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();

@@ -87,7 +87,6 @@ public class JBSActor{
 		this.isHit = isHit;
 		//TODO: Hardcoded, remove!
 		if(!name.contains("water")){
-			System.out.println(name);
 			try{
 				component.setActiveAnimationIndex(isHit ? 1 : 0);
 			}catch(IllegalArgumentException iae){

@@ -137,15 +137,5 @@ public class ScreenDeviceManager {
 		}
 		return index;
 	}
-	
-	/*
-	public static void main(String[] args) {
-		ScreenDeviceManager rm = new ScreenDeviceManager();
-		DisplayMode[] modes = rm.getSupportedDisplayModes(new int[]{60});
-		for(DisplayMode m : modes){
-			System.out.println(DisplayModeToString(m, true));
-		}
-	}
-	*/
 
 }

@@ -16,7 +16,6 @@ import de.hsb.ismi.jbs.start.JBattleships;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 /**
  * @author Kevin Kuegler
@@ -35,7 +34,7 @@ public class CreditsPanel extends JPanel {
 	private JLabel lblCredits2;
 	private JLabel lblCredits3;
 	private JLabel lblGameMadeBy;
-	private JButton btnBack;
+	private JBSButton btnBack;
 
 	/**
 	 * Create the panel.
@@ -56,7 +55,7 @@ public class CreditsPanel extends JPanel {
 		add(centerPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_centerPanel = new GridBagLayout();
 		gbl_centerPanel.columnWidths = new int[]{0, 46, 0, 0};
-		gbl_centerPanel.rowHeights = new int[]{0, 29, 14, 0, 0, 0, 0, 0};
+		gbl_centerPanel.rowHeights = new int[]{100, 29, 14, 0, 0, 0, 0, 0};
 		gbl_centerPanel.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_centerPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		centerPanel.setLayout(gbl_centerPanel);
@@ -104,7 +103,7 @@ public class CreditsPanel extends JPanel {
 		gbc_lblCredits3.gridy = 4;
 		centerPanel.add(lblCredits3, gbc_lblCredits3);
 		
-		btnBack = new JButton(JBattleships.game.getLocalization("GAME_BACK"));
+		btnBack = new JBSButton(JBattleships.game.getLocalization("GAME_BACK"));
 		btnBack.addActionListener(e -> {
 			parent.restoreRootContainer(true);
 		});

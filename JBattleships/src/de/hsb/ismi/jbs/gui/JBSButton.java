@@ -72,7 +72,6 @@ public class JBSButton extends JButton {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.out.println("RORRRRRR");
 				if(clickClip != null){
 					clickClip.setFramePosition(0);
 					((FloatControl)clickClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue((((float)JBattleships.game.getSoundVolume())/100.0f)*(80f)-80.0f);
