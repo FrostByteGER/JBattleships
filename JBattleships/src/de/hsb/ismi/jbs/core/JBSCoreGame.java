@@ -42,7 +42,7 @@ public class JBSCoreGame {
 	/** Minimum Java version to run the game. */
 	public static final double MIN_JAVA_VERSION = 1.8;
 	/** Supported operating systems of the game. */
-	public static final String[] SUPPORTED_OS = {"Windows 7", "Windows 8", "Windows 10"};
+	public static final String[] SUPPORTED_OS = {"Windows 7", "Windows 8", "Windows 8.1", "Windows 10"};
 	/** */
 	public static final String LOG_PATH = DATA_PATH + "Logs/";
 	/** Contains the game's current resolution. */
@@ -67,21 +67,25 @@ public class JBSCoreGame {
 	 */
 	public JBSCoreGame(boolean initGame) {
 		DebugLog.setLogInfos(true);
-		DebugLog.setLogWarnings(true);
-		DebugLog.setLogErrors(true);
+		DebugLog.setLogWarnings(DEBUG_MODE);
+		DebugLog.setLogErrors(DEBUG_MODE);
 		
 		//Pre Game Checks
 		try {
 			checkOS();
 		} catch (UnsupportedOSException e) {
 			DebugLog.logError(e);
-			exitGame();
+			if(!DEBUG_MODE){
+				exitGame();
+			}
 		}
 		try {
 			checkJavaVersion();
 		} catch (IncorrectJavaVersionException e) {
 			DebugLog.logError(e);
-			exitGame();
+			if(!DEBUG_MODE){
+				exitGame();
+			}
 		}
 
 		if(initGame){
