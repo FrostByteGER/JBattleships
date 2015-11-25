@@ -104,7 +104,8 @@ public class ProfileManager {
 			return profiles.toArray(new JBSProfile[profiles.size()]);
 		} catch (IOException e) {
 			DebugLog.logError(e);
-			return null;
+			//Returns default profile
+			return new JBSProfile[] {loadDefaultProfile()};
 		}
 	}
 	
