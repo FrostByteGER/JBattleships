@@ -1,0 +1,36 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+dependencies {
+    compile "com.code-disaster.steamworks4j:steamworks4j:1.5.0"
+    compile "com.miglayout:miglayout-swing:5.0"
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    compile group: 'javax.activation', name: 'javax.activation-api', version: '1.2.0'
+    testCompile 'junit:junit:4.12'
+}
+
+task buildFull(type: Jar){
+    manifest {
+        attributes 'Main-Class': 'de.hsb.ismi.jbs.start.JBattleships'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task CopyData(type: Copy) {
+    from('Data')
+    into('build/libs/Data')
+}
+
+task CopySteamData(type: Copy) {
+    from('steam_appid.txt')
+    into('build/libs')
+}
+
+buildFull.finalizedBy(buildFull, CopyData, CopySteamData)
