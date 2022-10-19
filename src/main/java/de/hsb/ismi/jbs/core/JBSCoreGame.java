@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.hsb.ismi.jbs.core;
 
@@ -13,13 +13,7 @@ import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import com.codedisaster.steamworks.SteamAPI;
-import com.codedisaster.steamworks.SteamException;
-import com.codedisaster.steamworks.SteamFriends;
-import com.codedisaster.steamworks.SteamFriendsCallback;
-import com.codedisaster.steamworks.SteamID;
-import com.codedisaster.steamworks.SteamUser;
-import com.codedisaster.steamworks.SteamUserCallback;
+import com.codedisaster.steamworks.*;
 import com.codedisaster.steamworks.SteamAuth.AuthSessionResponse;
 import com.codedisaster.steamworks.SteamFriends.PersonaChange;
 
@@ -67,7 +61,7 @@ public class JBSCoreGame {
 	/** Minimum Java version to run the game. */
 	public static final double MIN_JAVA_VERSION = 1.8;
 	/** Supported operating systems of the game. */
-	public static final String[] SUPPORTED_OS = {"Windows 7", "Windows 8", "Windows 8.1", "Windows 10"};
+	public static final String[] SUPPORTED_OS = {"Windows 7", "Windows 8", "Windows 8.1", "Windows 10", "Windows 11"};
 	/** */
 	public static final String LOG_PATH = DATA_PATH + "Logs/";
 	/** Contains the game's current resolution. */
@@ -88,20 +82,20 @@ public class JBSCoreGame {
 	private DataManager dataManager = new DataManager();
 	/** DebugFrame reference, internal use only!*/
 	private DebugFrame debugFrame = null;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public JBSCoreGame(boolean initGame) {
-		
+
 		debugFrame = new DebugFrame(false);
 		debugFrame.setLocation(10, 10);
 		DebugLog.setDebugFrame(debugFrame);
-		
+
 		DebugLog.setLogInfos(true);
 		DebugLog.setLogWarnings(true);
 		DebugLog.setLogErrors(true);
-		
+
 		//Pre Game Checks
 		try {
 			checkOS();
@@ -121,6 +115,7 @@ public class JBSCoreGame {
 		}
 		if(USE_STEAM){
 			try {
+				SteamAPI.loadLibraries();
 				STEAM_RUNNING = SteamAPI.init();
 				if(!STEAM_RUNNING){
 					DebugLog.logError("ERROR: SteamAPI could not be initialized, is the Steam Client running?");
@@ -134,19 +129,19 @@ public class JBSCoreGame {
 				exitGame();
 			}
 		}
-		
+
 		if(initGame){
 			initGame();
 		}
 	}
-	
+
 	/**
 	 * Initializes the game.
 	 * @return
 	 */
 	public boolean initGame(){
 		initSteamSubsystem();
-		
+
 		initResources();
 		boolean settings = initSettings();
 		if(!settings){
@@ -162,11 +157,11 @@ public class JBSCoreGame {
 			DebugLog.setDebugFrame(null);
 			debugFrame = null;
 		}
-		
+
 		boolean localization = initLocalization();
 		boolean configs = initConfigs();
-		
-		
+
+
 		if(localization && configs){
 
 			boolean profiles = initProfiles();
@@ -174,15 +169,15 @@ public class JBSCoreGame {
 				DebugLog.logWarning("Profile " + dataManager.getOptionsManager().getGameData().get("activeProfile") + " not found! Loading default profile...");
 				dataManager.getProfileManager().loadDefaultProfile();
 			}
-			
-			
+
+
 			initGameGUI();
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Initializes the game-GUI.
 	 */
@@ -200,10 +195,10 @@ public class JBSCoreGame {
 			}
 		});
 	}
-	
+
 	public void initSteamSubsystem(){
 		new Timer().schedule(new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				if(SteamAPI.isSteamRunning()){
@@ -211,36 +206,56 @@ public class JBSCoreGame {
 				}
 			}
 		}, 0L, 66L);
-		
+
 		String steamUsername = new SteamFriends(new SteamFriendsCallback() {
-			
+
+			@Override
+			public void onSetPersonaNameResponse(boolean success, boolean localSuccess, SteamResult result) {
+
+			}
+
 			@Override
 			public void onPersonaStateChange(SteamID steamID, PersonaChange change) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onGameOverlayActivated(boolean active) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onGameLobbyJoinRequested(SteamID steamIDLobby, SteamID steamIDFriend) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onAvatarImageLoaded(SteamID steamID, int image, int width, int height) {
 				// TODO Auto-generated method stub
-				
+
+			}
+
+			@Override
+			public void onFriendRichPresenceUpdate(SteamID steamIDFriend, int appID) {
+
+			}
+
+			@Override
+			public void onGameRichPresenceJoinRequested(SteamID steamIDFriend, String connect) {
+
+			}
+
+			@Override
+			public void onGameServerChangeRequested(String server, String password) {
+
 			}
 		}).getPersonaName();
 		DebugLog.logInfo(steamUsername);
 	}
-	
+
 	/**
 	 * Initializes the game-resources.
 	 * @return
@@ -267,7 +282,7 @@ public class JBSCoreGame {
 		}
 
 	}
-	
+
 	/**
 	 * Initializes the game-settings.
 	 * @return
@@ -312,7 +327,7 @@ public class JBSCoreGame {
 			} else {
 				return false;
 			}
-			
+
 			HashMap<String, String> gt = om.getGameData();
 			if (gt.size() > 0) {
 				try {
@@ -327,7 +342,7 @@ public class JBSCoreGame {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Initializes the game-profiles.
 	 * @return
@@ -347,7 +362,7 @@ public class JBSCoreGame {
 		}
 		return success;
 	}
-	
+
 	/**
 	 * Initializes the game-configs.
 	 * @return
@@ -355,7 +370,7 @@ public class JBSCoreGame {
 	public boolean initConfigs(){
 		return dataManager.getConfigManager().loadConfig();
 	}
-	
+
 	/**
 	 * Initializes the game-localizations.
 	 * @return
@@ -364,20 +379,20 @@ public class JBSCoreGame {
 		dataManager.getLocalizationManager().loadLanguageTable();
 		return dataManager.getLocalizationManager().loadLanguage(language);
 	}
-	
+
 	/**
 	 * Checks the current Java version and exits the game if the version is below the minimum major java version.
 	 * @see #MIN_JAVA_VERSION
 	 */
 	public void checkJavaVersion() throws IncorrectJavaVersionException{
 		Double version = Double.parseDouble(System.getProperty("java.specification.version"));
-		
+
 		if(version < MIN_JAVA_VERSION) {
 			JOptionPane.showMessageDialog(null, "Incorrect Java Version:" + " " + version + "\n" + "Version " + " " + MIN_JAVA_VERSION + " " + "or higher is required!", "Incorrect Java Version", JOptionPane.ERROR_MESSAGE);
 			throw new IncorrectJavaVersionException("Java Version " + version + "is not supported. " + MIN_JAVA_VERSION + " or higher is required.");
 		}
 	}
-	
+
 	public void checkOS() throws UnsupportedOSException{
 		String os = System.getProperty("os.name");
 		for(String s : SUPPORTED_OS){
@@ -395,7 +410,7 @@ public class JBSCoreGame {
 	public final JBSGUI getMainGUI() {
 		return mainGUI;
 	}
-	
+
 	/**
 	 * Writes the logs and exits the game.
 	 */
@@ -419,7 +434,7 @@ public class JBSCoreGame {
 		}
 		System.exit(0);
 	}
-	
+
 	/**
 	 * Changes the game resolution
 	 * @param r The new Resolution
@@ -428,7 +443,7 @@ public class JBSCoreGame {
 		currentResolution = r;
 		mainGUI.changeFrameSize(r);
 	}
-	
+
 	/**
 	 * Changes the screenMode of the game.
 	 * @param sm The new ScreenMode
@@ -473,7 +488,7 @@ public class JBSCoreGame {
 		this.gameManager = new GameManager();
 		return this.gameManager;
 	}
-	
+
 	public final String getLocalization(String key){
 		return dataManager.getLocalizationManager().getLocalization(key);
 	}
@@ -520,15 +535,15 @@ public class JBSCoreGame {
 		dataManager.getLocalizationManager().loadLanguage(language);
 		this.language = language;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public final boolean saveOptions(){
 		HashMap<String, String[]> data = new HashMap<String, String[]>();
 		String[] cats = OptionsManager.CATEGORIES;
-		data.put(cats[0], new String[]{"resX", Integer.toString(JBattleships.game.getCurrentResolution().getWidth()), 
+		data.put(cats[0], new String[]{"resX", Integer.toString(JBattleships.game.getCurrentResolution().getWidth()),
 									   "resY", Integer.toString(JBattleships.game.getCurrentResolution().getHeight()),
 									   "mode", JBattleships.game.getScreenMode().toString()});
 		data.put(cats[1], new String[]{"volume",Integer.toString(JBattleships.game.getSoundVolume()),

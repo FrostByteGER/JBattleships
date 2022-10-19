@@ -1,36 +1,74 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+    id 'application'
+}
 
 repositories {
     mavenCentral()
-    jcenter()
 }
-
 
 dependencies {
-    compile "com.code-disaster.steamworks4j:steamworks4j:1.5.0"
-    compile "com.miglayout:miglayout-swing:5.0"
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-    compile group: 'javax.activation', name: 'javax.activation-api', version: '1.2.0'
-    testCompile 'junit:junit:4.12'
+    implementation "com.code-disaster.steamworks4j:steamworks4j:1.9.0"
+    implementation "com.miglayout:miglayout-swing:11.0"
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    implementation group: 'javax.activation', name: 'javax.activation-api', version: '1.2.0'
+    runtimeOnly files('Data')
 }
 
-task buildFull(type: Jar){
-    manifest {
-        attributes 'Main-Class': 'de.hsb.ismi.jbs.start.JBattleships'
-    }
-    baseName = project.name
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+application {
+    mainClass = 'de.hsb.ismi.jbs.start.JBattleships.main'
 }
 
-task CopyData(type: Copy) {
+// Simply remove distZip and distTar as we have our own zip/tar task!
+project.gradle.startParameter.excludedTaskNames.addAll('distZip', 'distTar')
+
+task copyData(type: Copy) {
     from('Data')
-    into('build/libs/Data')
+    into(project.buildDir.toString() + '/libs/Data')
 }
 
-task CopySteamData(type: Copy) {
+task copySteamData(type: Copy) {
     from('steam_appid.txt')
-    into('build/libs')
+    into(project.buildDir.toString() + '/libs')
 }
 
-buildFull.finalizedBy(buildFull, CopyData, CopySteamData)
+task buildData {
+    dependsOn copyData
+    dependsOn copySteamData
+}
+
+task buildAll {
+    dependsOn build
+    dependsOn buildData
+    tasks.findByName('buildData').mustRunAfter 'build'
+}
+
+task rebuildAll {
+    dependsOn clean
+    dependsOn buildAll
+    tasks.findByName('buildAll').mustRunAfter 'clean'
+}
+
+task cleanAssets(type: Delete) {
+    delete 'build/libs/Data'
+    delete 'build/libs/steam_appid.txt'
+    delete 'build/libs/JBattleships.jar'
+}
+
+task cleanDist(type: Delete) {
+    delete 'build/distributions/'
+}
+
+task zip(type: Zip) {
+    dependsOn buildAll
+    from('build/libs')
+    into('distribution')
+    archiveFileName = 'JBattleships-v' + projectVersion + '.zip'
+}
+
+task tar(type: Tar) {
+    dependsOn buildAll
+    from('build/libs')
+    into('/')
+    archiveFileName = 'JBattleships-v' + projectVersion + '.tar'
+}
