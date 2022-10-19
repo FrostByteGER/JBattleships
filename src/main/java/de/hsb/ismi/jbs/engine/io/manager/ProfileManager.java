@@ -19,25 +19,25 @@ import de.hsb.ismi.jbs.engine.players.JBSProfile;
 import de.hsb.ismi.jbs.engine.utility.debug.DebugLog;
 
 public class ProfileManager {
-	
+
 	private ArrayList<JBSProfile> profiles = new ArrayList<>();
-	
+
 	public static final String PROFILE_PATH      = "Data/Profiles/";
 	public static final String PROFILE_EXTENSION = ".xml";
-	
+
 	private int activeProfile = 0;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public ProfileManager(){
 
 	}
-	
+
 
 	/**
 	 * Loads the profile with the specified name. Returns false if the profile was not found or an error occured.
-	 * @param name 
+	 * @param name
 	 * @return
 	 */
 	public JBSProfile loadProfile(String name, boolean asActive){
@@ -67,14 +67,18 @@ public class ProfileManager {
 		}
 		return p;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public JBSProfile[] loadProfiles(){
+		var profilePath = Paths.get(PROFILE_PATH);
+		if(!Files.exists(profilePath)){
+			return new JBSProfile[] {loadDefaultProfile()};
+		}
 		try {
-			List<File> files = Files.walk(Paths.get(PROFILE_PATH)).filter((p) -> !p.toFile().isDirectory() && p.toFile().getAbsolutePath().endsWith(PROFILE_EXTENSION)).map(Path::toFile).collect(Collectors.toList());
+			List<File> files = Files.walk(profilePath).filter((p) -> !p.toFile().isDirectory() && p.toFile().getAbsolutePath().endsWith(PROFILE_EXTENSION)).map(Path::toFile).toList();
 			ArrayList<JBSProfile> profiles = new ArrayList<>(files.size());
 			for(File f : files){
 				JBSProfile p = null;
@@ -108,7 +112,7 @@ public class ProfileManager {
 			return new JBSProfile[] {loadDefaultProfile()};
 		}
 	}
-	
+
 	/**
 	 * Saves the profile with the given name. Returns false if the profile was not found or an error occured.
 	 * @param name
@@ -129,7 +133,7 @@ public class ProfileManager {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Saves the active profile. Returns false if the profile was not found or an error occured.
 	 * @return
@@ -137,7 +141,7 @@ public class ProfileManager {
 	public boolean saveActiveProfile(){
 		return saveProfile(profiles.get(activeProfile).getName());
 	}
-	
+
 	/**
 	 * Loads the default profile. If a profile with the name "default" already exists, it takes it as the default profile.
 	 * @return The created or loaded default-profile.
@@ -152,9 +156,9 @@ public class ProfileManager {
 			profiles.add(p);
 			return p;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Returns the index of the given profile. -1 if none was found.
 	 * @param p The profile you want the index of.
@@ -163,7 +167,7 @@ public class ProfileManager {
 	public int getProfileIndex(JBSProfile p){
 		return profiles.indexOf(p);
 	}
-	
+
 	/**
 	 * Returns the profile from the given index. Can be <b>null!</b>
 	 * @param index The index of the profile.
@@ -172,9 +176,9 @@ public class ProfileManager {
 	public JBSProfile getProfileByIndex(int index){
 		return profiles.get(index);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -194,7 +198,7 @@ public class ProfileManager {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Checks the current profiles for the given name. Returns the profile if one with the specified name was found, otherwise null.
 	 * <b> Ignores case!</b>
@@ -211,23 +215,23 @@ public class ProfileManager {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public JBSProfile getActiveProfile(){
 		return profiles.get(activeProfile);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public int getActiveProfileIndex(){
 		return activeProfile;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param index
 	 */
 	public void setActiveProfile(int index){
@@ -245,7 +249,7 @@ public class ProfileManager {
 	public final ArrayList<JBSProfile> getProfiles() {
 		return profiles;
 	}
-	
+
 	/**
 	 * Adds the given profile to the profile-array.
 	 * @param p The profile to add.
